@@ -1,0 +1,7 @@
+#Paths
+path.host=http://localhost:8080
+path.context=/
+
+#Folders
+folder.examples=chrisblog_examples
+folder.sources=chrisblog_sources

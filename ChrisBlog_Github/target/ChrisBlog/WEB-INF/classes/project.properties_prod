@@ -1,0 +1,7 @@
+#Paths
+path.host=http://chris-blog.org
+path.context=/
+
+#Folders
+folder.examples=chrisblog_examples
+folder.sources=chrisblog_sources
