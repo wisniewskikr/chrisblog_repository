@@ -25,4 +25,4 @@ Use:
 - test mode: mvn clean install -Ptest
 - production mode: mvn clean install -Pprod
 
-5. Deploy ChrisBlog project
+7. Deploy ChrisBlog project
