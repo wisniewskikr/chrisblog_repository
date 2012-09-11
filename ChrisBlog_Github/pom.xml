@@ -19,20 +19,7 @@
 	<build>		
 	
 		<finalName>${artifactId}</finalName>
-		
-		<resources>
-			<resource>
-				<directory>src/main/resources/</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
-		<testResources>
-			<testResource>
-				<directory>src/test/resources/</directory>
-				<filtering>true</filtering>
-			</testResource>
-		</testResources>
-		
+				
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -250,23 +237,76 @@
 	
 	<profiles>
 		
-		<!-- Development -->
+		<!-- Local: local developer environment -->
 		<profile>
-			<id>dev</id>
+			<id>loc</id>
 			<activation>
 	            <activeByDefault>true</activeByDefault>
 	        </activation>			
-			<properties>
-				<env>dev</env>				
-			</properties>				
+			<build>
+      			<resources>		
+					<resource>
+						<directory>src/main/resources/</directory>
+					</resource>
+					<resource>
+						<directory>src/main/resources-loc/</directory>
+					</resource>
+				</resources>
+				<testResources>
+					<testResource>
+						<directory>src/test/resources/</directory>
+					</testResource>
+					<testResource>
+						<directory>src/test/resources-loc/</directory>
+					</testResource>
+				</testResources>
+			</build>					
 		</profile>
 				
-		<!-- Production -->
+		<!-- Remote: jenkins and/or integration tests environment -->
+		<profile>
+			<id>rem</id>			
+			<build>
+      			<resources>		
+					<resource>
+						<directory>src/main/resources/</directory>
+					</resource>
+					<resource>
+						<directory>src/main/resources-rem/</directory>
+					</resource>
+				</resources>
+				<testResources>
+					<testResource>
+						<directory>src/test/resources/</directory>
+					</testResource>
+					<testResource>
+						<directory>src/test/resources-rem/</directory>
+					</testResource>
+				</testResources>
+			</build>			
+		</profile>
+		
+		<!-- Production: production environment -->
 		<profile>
 			<id>prod</id>			
-			<properties>
-				<env>prod</env>				
-			</properties>			
+			<build>
+      			<resources>		
+					<resource>
+						<directory>src/main/resources</directory>
+					</resource>
+					<resource>
+						<directory>src/main/resources-prod</directory>
+					</resource>
+				</resources>
+				<testResources>
+					<testResource>
+						<directory>src/test/resources</directory>
+					</testResource>
+					<testResource>
+						<directory>src/test/resources-prod</directory>
+					</testResource>
+				</testResources>
+			</build>			
 		</profile>
 		
 	</profiles>
