@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Location: <tomcat_home>/catalina/localhost -->
+<Context docBase="C:/ChrisBlog.war">
+</Context>
