@@ -7,18 +7,35 @@
 	<version>1.0</version>
 	<packaging>war</packaging>
 	<modelVersion>4.0.0</modelVersion>
-	<name>${artifactId}</name>
+	<name>${project.artifactId}</name>
 	
 	
 	<properties>
 		<!-- Spring properties -->
-		<spring.version>3.0.4.RELEASE</spring.version>
+		<spring.version>3.0.4.RELEASE</spring.version>		
 	</properties>
 
 
 	<build>		
 	
-		<finalName>${artifactId}</finalName>
+		<finalName>${project.artifactId}</finalName>
+				
+    	<resources>		
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>${detail.main.resources.path}</directory>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+			<testResource>
+				<directory>${detail.test.resources.path}</directory>
+			</testResource>
+		</testResources>
 				
 		<plugins>
 			<plugin>
@@ -243,72 +260,144 @@
 			<activation>
 	            <activeByDefault>true</activeByDefault>
 	        </activation>			
-			<build>
-      			<resources>		
-					<resource>
-						<directory>src/main/resources/</directory>
-					</resource>
-					<resource>
-						<directory>profiles/main/loc/</directory>
-					</resource>
-				</resources>
-				<testResources>
-					<testResource>
-						<directory>src/test/resources/</directory>
-					</testResource>
-					<testResource>
-						<directory>profiles/test/loc/</directory>
-					</testResource>
-				</testResources>
-			</build>					
+			<properties>
+				<detail.main.resources.path>profiles/main/loc/</detail.main.resources.path>
+				<detail.test.resouces.path>profiles/test/loc/</detail.test.resouces.path>
+				<server.url>http://localhost:8080/manager/html</server.url>
+				<server.username>admin</server.username>
+				<server.password>admin</server.password>
+				<server.path>/${project.artifactId}</server.path>
+			</properties>				
 		</profile>
 				
 		<!-- Remote: jenkins and/or integration tests environment -->
 		<profile>
 			<id>rem</id>			
-			<build>
-      			<resources>		
-					<resource>
-						<directory>src/main/resources/</directory>
-					</resource>
-					<resource>
-						<directory>profiles/main/rem/</directory>
-					</resource>
-				</resources>
-				<testResources>
-					<testResource>
-						<directory>src/test/resources/</directory>
-					</testResource>
-					<testResource>
-						<directory>profiles/test/rem/</directory>
-					</testResource>
-				</testResources>
-			</build>			
+			<properties>
+				<detail.main.resources.path>profiles/main/rem/</detail.main.resources.path>
+				<detail.test.resouces.path>profiles/test/rem/</detail.test.resouces.path>
+			</properties>		
 		</profile>
 		
 		<!-- Production: production environment -->
 		<profile>
 			<id>prod</id>			
+			<properties>
+				<detail.main.resources.path>profiles/main/prod/</detail.main.resources.path>
+				<detail.test.resouces.path>profiles/test/prod/</detail.test.resouces.path>
+			</properties>			
+		</profile>
+		
+		<!-- Deploy: deploying application on the server 
+			 Directly connected with profiles loc/rem/prod -->
+		<profile>
+			<id>deploy</id>			
 			<build>
-      			<resources>		
-					<resource>
-						<directory>src/main/resources</directory>
-					</resource>
-					<resource>
-						<directory>profiles/main/prod</directory>
-					</resource>
-				</resources>
-				<testResources>
-					<testResource>
-						<directory>src/test/resources</directory>
-					</testResource>
-					<testResource>
-						<directory>profiles/test/prod</directory>
-					</testResource>
-				</testResources>
+				<plugins>
+					<!-- Skip unit tests -->
+					<plugin>
+			            <groupId>org.apache.maven.plugins</groupId>
+			            <artifactId>maven-surefire-plugin</artifactId>
+			            <configuration>			            	
+			                <skip>true</skip>
+			            </configuration>
+			        </plugin>
+			        <!-- Deploy application -->
+					<plugin>
+				        <groupId>org.apache.tomcat.maven</groupId>
+		          		<artifactId>tomcat7-maven-plugin</artifactId>
+				        <executions>
+				        	<execution>
+				        		<phase>pre-integration-test</phase>
+				        		<goals>
+				        			<goal>deploy</goal>
+				        		</goals>
+				        	</execution>
+				        </executions>
+				        <configuration>
+				        	<url>${server.url}</url>
+				        	<username>${server.username}</username>
+		          			<password>${server.password}</password>
+		          			<path>${server.path}</path>
+                            <update>true</update>
+				        </configuration>
+				      </plugin>
+			        
+				</plugins>
 			</build>			
 		</profile>
 		
+		<!-- Unit: profile which runs unit tests -->
+		<profile>
+			<id>unit</id>
+			<activation>
+	            <activeByDefault>true</activeByDefault>
+	        </activation>			
+			<build>
+				<plugins>
+					<plugin>
+			            <groupId>org.apache.maven.plugins</groupId>
+			            <artifactId>maven-surefire-plugin</artifactId>
+			            <configuration>			            	
+			                <skip>true</skip>			                
+			            </configuration>
+			            <executions>
+					       <execution>
+					          <id>unit-tests</id>
+					          <phase>test</phase>
+					          <goals>
+					             <goal>test</goal>
+					          </goals>
+					          <configuration>			            	
+			                	<skip>false</skip>
+			                	<includes>
+            						<include>**/*Test.java</include>
+            					</includes>
+			                	<excludes>
+                					<exclude>**/*Intg.java</exclude>
+            					</excludes>			                
+			            	  </configuration>
+					        </execution>					        
+					     </executions>			              
+			        </plugin>			        
+				</plugins>
+			</build>			
+		</profile>
+		
+		<!-- Integration: profile which runs integration tests -->
+		<profile>
+			<id>intg</id>			
+			<build>
+				<plugins>
+					<plugin>
+			            <groupId>org.apache.maven.plugins</groupId>
+			            <artifactId>maven-surefire-plugin</artifactId>
+			            <configuration>			            	
+			                <skip>true</skip>			                
+			            </configuration>
+			            <executions>
+					        <execution>
+					          <id>integration-tests</id>
+					          <phase>integration-test</phase>
+					          <goals>
+					             <goal>test</goal>
+					          </goals>
+					          <configuration>			            	
+			                	<skip>false</skip>			                	
+            					<includes>
+            						<include>**/*Intg.java</include>
+            					</includes>
+            					<excludes>
+                					<exclude>**/*Test.java</exclude>
+            					</excludes>			                
+			            	  </configuration>
+					        </execution>
+					     </executions>			              
+			        </plugin>			        
+				</plugins>
+			</build>			
+		</profile>				
+				
 	</profiles>
 	
 	
