@@ -97,6 +97,11 @@
 			<artifactId>mockito-all</artifactId>
 			<version>1.8.5</version>
 		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>2.24.1</version>
+		</dependency>
 		
 		<!-- Logging dependencies -->
 		<dependency>
@@ -226,6 +231,10 @@
 				<exclusion>
 					<groupId>commons-digester</groupId>
 					<artifactId>commons-digester</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-lang</groupId>
+					<artifactId>commons-lang</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
