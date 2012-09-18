@@ -26,11 +26,3 @@ Use:
 - production mode: mvn clean install -Pprod
 
 7. Deploy ChrisBlog project
-
-aaa
-
-
-bbb
-
-
-ccc
