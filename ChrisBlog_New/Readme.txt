@@ -1,28 +1,38 @@
 STEPS CHRIS`S BLOG DEPLOYMENT
 
-1. In Application Server create folder with sources
+1. Handle folder with demo`s sources
+- create folder with demo`s sources in location <tomcat_home>/webapps (default: chrisblog_sources)
+- copy all demo`s sources to folder with demo`s sources
+- update paths to folders with demo`s sources in property files in location <project_home>/profiles
 
-2. In Application Server create folder with examples
 
-3. In Application Server deploy demo projects
+2. Handle folder with demo`s examples
+- create folder with demo`s examles in location <tomcat_home>/webapps (default: chrisblog_examples)
+- copy all demo`s examples to folder with demo`s examples
+- update paths to folders with demo`s examples in property files in location <project_home>/profiles
 
-4. Create project profiles
-Create profiles in pom.xml
-In Eclipse update Java-Build Path:
-- every java (main and test): included-all, excluded-none
-- every resources (main and test): included-all, excluded-**
-- checked checkbox: "Allow output folders for source folders"
 
-5. Create project properties
-Create properties for every profile. For instance:
-- project.properties_dev
-- project.properties_test
-- project.properties_prod
+3. Deploy example applications
 
-6. Build ChrisBlog project
-Use:
-- development mode: mvn clean install or mvn clean install -Pdev
-- test mode: mvn clean install -Ptest
-- production mode: mvn clean install -Pprod
 
-7. Deploy ChrisBlog project
+4. Update profiles
+- update profiles in properties files in location <project_home>/profiles
+- update profiles in pom.xml
+
+
+5. Build project
+Build project using maven profiles:
+
+- with server location:
+* loc: local/development machine
+* rem: remote/jenkins machine
+* prod: production machine
+
+- with tasks:
+* deploy: deploying project on server (local, remote or production) 
+* unit: run unit tests
+* intg: run integration tests
+
+For instance command for deploying application on local machine and running
+unit and integration tests:
+mvn clean install -Ploc,deploy,unit,intg
