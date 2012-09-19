@@ -23,17 +23,13 @@
     	<resources>		
 			<resource>
 				<directory>src/main/resources</directory>
-			</resource>
-			<resource>
-				<directory>${detail.main.resources.path}</directory>
+				<filtering>true</filtering>
 			</resource>
 		</resources>
 		<testResources>
 			<testResource>
 				<directory>src/test/resources</directory>
-			</testResource>
-			<testResource>
-				<directory>${detail.test.resources.path}</directory>
+				<filtering>true</filtering>
 			</testResource>
 		</testResources>
 				
@@ -269,9 +265,16 @@
 			<activation>
 	            <activeByDefault>true</activeByDefault>
 	        </activation>			
-			<properties>
-				<detail.main.resources.path>profiles/main/loc/</detail.main.resources.path>
-				<detail.test.resouces.path>profiles/test/loc/</detail.test.resouces.path>
+			<properties>			
+				<!-- Paths of host and context -->
+				<path.host>http://localhost:8080</path.host>
+				<path.context>/ChrisBlog/</path.context>
+				
+				<!-- Locations of sources and examples folders -->
+				<folder.examples>chrisblog_examples</folder.examples>
+				<folder.sources>chrisblog_sources</folder.sources>
+				
+				<!-- Server data -->
 				<server.url>http://localhost:8080/manager/html</server.url>
 				<server.username>admin</server.username>
 				<server.password>admin</server.password>
@@ -282,18 +285,34 @@
 		<!-- Remote: jenkins and/or integration tests environment -->
 		<profile>
 			<id>rem</id>			
-			<properties>
-				<detail.main.resources.path>profiles/main/rem/</detail.main.resources.path>
-				<detail.test.resouces.path>profiles/test/rem/</detail.test.resouces.path>
+			<properties>			
+				<!-- Paths of host and context -->
+				<path.host>http://chris-blog.org</path.host>
+				<path.context>/ChrisBlog/</path.context>
+				
+				<!-- Locations of sources and examples folders -->
+				<folder.examples>chrisblog_examples</folder.examples>
+				<folder.sources>chrisblog_sources</folder.sources>
+				
+				<!-- Server data -->
+				<server.url>http://chris-blog.org/manager/html</server.url>
+				<server.username>chrisb</server.username>
+				<server.password>4BikDMn3</server.password>
+				<server.path>/${project.artifactId}</server.path>
 			</properties>		
 		</profile>
 		
 		<!-- Production: production environment -->
 		<profile>
-			<id>prod</id>			
+			<id>prod</id>
 			<properties>
-				<detail.main.resources.path>profiles/main/prod/</detail.main.resources.path>
-				<detail.test.resouces.path>profiles/test/prod/</detail.test.resouces.path>
+				<!-- Paths of host and context -->
+				<path.host>http://chris-blog.org</path.host>
+				<path.context>/</path.context>
+				
+				<!-- Locations of sources and examples folders -->
+				<folder.examples>chrisblog_examples</folder.examples>
+				<folder.sources>chrisblog_sources</folder.sources>
 			</properties>			
 		</profile>
 		
@@ -315,6 +334,7 @@
 					<plugin>
 				        <groupId>org.apache.tomcat.maven</groupId>
 		          		<artifactId>tomcat7-maven-plugin</artifactId>
+		          		<version>2.0</version>
 				        <executions>
 				        	<execution>
 				        		<phase>pre-integration-test</phase>
@@ -382,7 +402,7 @@
 			            <groupId>org.apache.maven.plugins</groupId>
 			            <artifactId>maven-surefire-plugin</artifactId>
 			            <configuration>			            	
-			                <skip>true</skip>			                
+			                <skip>true</skip>			                 			                
 			            </configuration>
 			            <executions>
 					        <execution>
@@ -392,7 +412,11 @@
 					             <goal>test</goal>
 					          </goals>
 					          <configuration>			            	
-			                	<skip>false</skip>			                	
+			                	<skip>false</skip>
+			                	<systemPropertyVariables>
+						            <path.host>${path.host}</path.host>
+						            <path.context>${path.context}</path.context>
+						          </systemPropertyVariables>			                	
             					<includes>
             						<include>**/*Intg.java</include>
             					</includes>
