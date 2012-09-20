@@ -45,3 +45,5 @@ Build project using maven profiles:
 For instance: command for deploying application on local machine and running
 unit and integration tests:
 mvn clean install -Ploc,deploy,unit,intg
+
+Test commit
