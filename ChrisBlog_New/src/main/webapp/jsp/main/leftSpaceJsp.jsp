@@ -6,13 +6,11 @@
 		
 
 		<c:if test="${command.displaySelectedCategory}">
-			<%@ include file="leftSpace/menuJsp.jsp" %>
 			<%@ include file="leftSpace/contentCategoryJsp.jsp" %>
 			<%@ include file="leftSpace/paginationCategoryJsp.jsp" %>
 		</c:if>
 		
 		<c:if test="${command.displaySelectedArticle}">
-			<%@ include file="leftSpace/menuJsp.jsp" %>
 			<%@ include file="leftSpace/contentArticleJsp.jsp" %>
 			<%@ include file="leftSpace/paginationArticleJsp.jsp" %>
 		</c:if>

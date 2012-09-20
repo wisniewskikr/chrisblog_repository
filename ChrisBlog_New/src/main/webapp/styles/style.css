@@ -41,6 +41,7 @@ h1, h2, h3 {
 h1 {
 	font-size: 40px;
 	padding-bottom: 10px;
+	padding-top: 20px;
 }
 
 h2 {
