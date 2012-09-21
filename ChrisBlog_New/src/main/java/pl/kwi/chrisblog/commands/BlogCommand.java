@@ -2,8 +2,10 @@ package pl.kwi.chrisblog.commands;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
 
 import org.mcavallo.opencloud.Cloud;
+import org.springframework.web.servlet.LocaleResolver;
 
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ExplanationEntity;
@@ -41,6 +43,8 @@ public class BlogCommand implements Serializable{
 	
 	private String pathHost;
 	private String pathContext;
+	
+	private Locale locale;
 		
 	
 	public List<ArticleEntity> getArticleList() {
@@ -147,6 +151,13 @@ public class BlogCommand implements Serializable{
 	}
 	public void setPathContext(String pathContext) {
 		this.pathContext = pathContext;
+	}
+	
+	public Locale getLocale() {
+		return locale;
+	}
+	public void setLocale(Locale locale) {
+		this.locale = locale;
 	}	
 	
 	
