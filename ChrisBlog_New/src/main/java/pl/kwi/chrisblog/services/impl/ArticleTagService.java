@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 import pl.kwi.chrisblog.comparators.ArticleTagIdComparator;
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
-import pl.kwi.chrisblog.entities.CategoryEntity;
 import pl.kwi.chrisblog.exceptions.ArticleTagException;
-import pl.kwi.chrisblog.exceptions.CategoryException;
 import pl.kwi.chrisblog.services.intf.IArticleTagService;
 
 /**

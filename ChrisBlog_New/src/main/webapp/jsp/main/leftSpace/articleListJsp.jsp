@@ -22,7 +22,7 @@
 			<c:otherwise>
 				<c:forEach items="${command.articleList}" var="article">
 				
-					<!-- c:if test="${article.numberCategoryPage == command.selectedCategoryPageCurrent}" -->				
+					<c:if test="true">				
 						<li>
 					
 							<h2><a href="article/page/1/${article.uniqueName}">${article.title}</a></h2>
@@ -49,7 +49,7 @@
 							</p>
 							
 						</li>					
-					<!-- /c:if -->
+					</c:if>
 				
 				</c:forEach>
 			</c:otherwise>

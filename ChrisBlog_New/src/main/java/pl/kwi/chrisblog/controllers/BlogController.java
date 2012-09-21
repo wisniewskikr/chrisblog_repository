@@ -25,13 +25,10 @@ import org.springframework.web.servlet.view.RedirectView;
 import pl.kwi.chrisblog.commands.BlogCommand;
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
-import pl.kwi.chrisblog.entities.CategoryEntity;
 import pl.kwi.chrisblog.entities.ExplanationEntity;
 import pl.kwi.chrisblog.exceptions.ArticleException;
-import pl.kwi.chrisblog.exceptions.CategoryException;
 import pl.kwi.chrisblog.services.intf.IArticleService;
 import pl.kwi.chrisblog.services.intf.IArticleTagService;
-import pl.kwi.chrisblog.services.intf.ICategoryService;
 import pl.kwi.chrisblog.services.intf.IExplanationService;
 
 /**
@@ -50,9 +47,6 @@ public class BlogController{
 	
 	@Value("${path.context}")
 	private String pathContext;
-	
-	@Autowired
-	private ICategoryService categoryService;
 	
 	@Autowired
 	private IArticleService articleService;
@@ -163,7 +157,9 @@ public class BlogController{
 		command.setDisplaySelectedExplanation(true);
 		Locale loc = localeResolver.resolveLocale(request);
 		
-		fillCommand(command, loc);
+		command.setPathHost(pathHost);
+		command.setPathContext(pathContext);
+		command.setTagsCloud(articleTagService.getTagsCloud(articleService.getAllArticleList(loc)));
 		
 		ExplanationEntity explanation = explanationService.getExplanationByUniqueName(selectedExplanationUniqueName);
 		command.setSelectedExplanationId(explanation.getId());
@@ -190,7 +186,9 @@ public class BlogController{
 		command.setDisplayAboutMe(true);
 		Locale loc = localeResolver.resolveLocale(request);
 		
-		fillCommand(command, loc);
+		command.setPathHost(pathHost);
+		command.setPathContext(pathContext);
+		command.setTagsCloud(articleTagService.getTagsCloud(articleService.getAllArticleList(loc)));
 		
 		return new ModelAndView("blogJsp");
 		
@@ -257,78 +255,6 @@ public class BlogController{
 	
 	
 	/**
-	 * Method fills object BlogCommand with data.
-	 * 
-	 * @param command object BlogCommand with page data
-	 * @param loc object Locale with international localization
-	 * @throws Exception 
-	 */
-	protected void fillCommand(BlogCommand command, Locale loc) throws Exception{
-		
-		command.setPathHost(pathHost);
-		command.setPathContext(pathContext);
-		
-		List<CategoryEntity> categoryList = categoryService.getAllCategoriesList(loc);
-		command.setCategoryList(categoryList);
-		
-		command.setTagsCloud(getTagsCloud(categoryList));
-		
-		String selectedCategoryUniqueName = command.getSelectedCategoryUniqueName();			
-		CategoryEntity selectedCategory = categoryService.getCategoryFromListByUniqueName(categoryList, selectedCategoryUniqueName);
-		command.setSelectedCategory(selectedCategory);
-		
-		
-		if(selectedCategory == null){
-			return;
-		}	
-		
-		
-		String selectedArticleUniqueName = command.getSelectedArticleUniqueName();
-		ArticleEntity selectedArticle = articleService.getArticleFromListByUniqueName(command.getSelectedCategory().getArticleList(), selectedArticleUniqueName);
-		command.setSelectedArticle(selectedArticle);
-						
-	}
-	
-	/**
-	 * Method gets cloud of tags. Tags are topics connected
-	 * with specified article. For instance article "Hello World Servlet"
-	 * can have tags like: Java, Servlet, Jsp etc.
-	 * 
-	 * @param categoryList list of categories with articles and tags
-	 * @return object Cloud with tags cloud
-	 * @throws Exception 
-	 */
-	protected Cloud getTagsCloud(List<CategoryEntity> categoryList) throws Exception{
-		
-		if(categoryList == null){
-			throw new CategoryException("Error category handling. List of categories is null");
-		}
-		
-		Cloud cloud = new Cloud();
-		cloud.setMinWeight(10.0);
-		cloud.setMaxWeight(20.0);
-		
-		List<ArticleEntity> articleList = new ArrayList<ArticleEntity>();
-		List<ArticleTagEntity> articleTagList = new ArrayList<ArticleTagEntity>();
-				
-		for (CategoryEntity category : categoryList) {
-			articleList.addAll(category.getArticleList());
-		}
-		
-		for (ArticleEntity article : articleList) {
-			articleTagList.addAll(article.getArticleTagList());
-		}
-		
-		for (ArticleTagEntity articleTag : articleTagList) {
-			cloud.addTag(articleTag.getName());
-		}
-		
-		return cloud;
-		
-	}
-	
-	
-	/**
 	 * Method clears all display flags for central part.
 	 * 
 	 * @param command object BlogCommand with page data
@@ -336,10 +262,7 @@ public class BlogController{
 	protected void clearDisplays(BlogCommand command){
 		
 		command.setDisplayArticleList(false);
-		command.setDisplayArticle(false);
-		
-		command.setDisplaySelectedCategory(false);
-		command.setDisplaySelectedArticle(false);
+		command.setDisplayArticle(false);		
 		command.setDisplayAboutMe(false);
 		command.setDisplaySelectedExplanation(false);
 		command.setDisplayException(false);
@@ -411,10 +334,6 @@ public class BlogController{
 		this.pathContext = pathContext;
 	}
 	
-	public void setCategoryService(ICategoryService categoryService) {
-		this.categoryService = categoryService;
-	}	
-
 	public void setArticleService(IArticleService articleService) {
 		this.articleService = articleService;
 	}	

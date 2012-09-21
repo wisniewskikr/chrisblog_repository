@@ -38,7 +38,7 @@
 
 <p>
 	You can test this example application here: 
-	<a href="${command.selectedArticle.demoPath}" target="_blank" class="button">demo</a>
+	<a href="${command.article.demoPath}" target="_blank" class="button">demo</a>
 </p>
 
 

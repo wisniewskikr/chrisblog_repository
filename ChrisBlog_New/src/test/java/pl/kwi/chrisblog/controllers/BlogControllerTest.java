@@ -21,12 +21,9 @@ import org.springframework.web.servlet.view.RedirectView;
 import pl.kwi.chrisblog.commands.BlogCommand;
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
-import pl.kwi.chrisblog.entities.CategoryEntity;
 import pl.kwi.chrisblog.entities.ExplanationEntity;
 import pl.kwi.chrisblog.exceptions.ArticleException;
-import pl.kwi.chrisblog.exceptions.CategoryException;
 import pl.kwi.chrisblog.services.impl.ArticleService;
-import pl.kwi.chrisblog.services.impl.CategoryService;
 import pl.kwi.chrisblog.services.impl.ExplanationService;
 import pl.kwi.chrisblog.utils.DateUtils;
 
@@ -43,116 +40,15 @@ public class BlogControllerTest {
 	public void clearDisplays(){
 		
 		BlogCommand command = new BlogCommand();
-		command.setDisplaySelectedCategory(true);
-		command.setDisplaySelectedArticle(true);
 		command.setDisplayAboutMe(true);
 		command.setDisplaySelectedExplanation(true);
 		command.setDisplayException(true);
 		
 		contoller.clearDisplays(command);
 		
-		Assert.assertFalse(command.isDisplaySelectedCategory());
-		Assert.assertFalse(command.isDisplaySelectedArticle());
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertFalse(command.isDisplaySelectedExplanation());
 		Assert.assertFalse(command.isDisplayException());
-		
-	}
-	
-	@Test
-	public void getTagsCloud() throws Exception{
-		
-		List<CategoryEntity> categoryList = mockCompleteCategoryList();
-		
-		Cloud tagsCloud = contoller.getTagsCloud(categoryList);
-		
-		Assert.assertEquals(15, tagsCloud.size());		
-		
-	}
-	
-	@Test(expected = CategoryException.class)
-	public void getTagsCloud_CategoryListNull() throws Exception{
-		
-		List<CategoryEntity> categoryList = null;
-		
-		contoller.getTagsCloud(categoryList);
-		
-	}
-	
-	@Test
-	public void fillCommand_NoSelectedCategory() throws Exception{
-		
-		contoller.setCategoryService(mockCategoryService_NoCategorySelected());
-		contoller.setPathHost("pathHost");
-		contoller.setPathContext("pathContext");
-		
-		BlogCommand command = new BlogCommand();
-		Locale loc = Locale.ENGLISH;
-		
-		contoller.fillCommand(command, loc);
-		
-		Assert.assertEquals("pathHost", command.getPathHost());
-		Assert.assertEquals("pathContext", command.getPathContext());
-		
-		List<CategoryEntity> categoryList = command.getCategoryList();
-		
-		Assert.assertEquals(3, categoryList.size());
-		
-		Assert.assertEquals(Long.valueOf(1), categoryList.get(0).getId());
-		Assert.assertEquals("unique_name_1", categoryList.get(0).getUniqueName());
-		Assert.assertEquals(2,  categoryList.get(0).getArticleList().size());
-		
-		Assert.assertEquals(Long.valueOf(2), categoryList.get(1).getId());
-		Assert.assertEquals("unique_name_2", categoryList.get(1).getUniqueName());
-		Assert.assertEquals(2,  categoryList.get(1).getArticleList().size());
-		
-		Assert.assertEquals(Long.valueOf(3), categoryList.get(2).getId());
-		Assert.assertEquals("unique_name_3", categoryList.get(2).getUniqueName());
-		Assert.assertEquals(2,  categoryList.get(2).getArticleList().size());
-		
-		Assert.assertNull(command.getSelectedCategory());
-		
-		Assert.assertNull(command.getSelectedArticle());
-		
-	}
-	
-	@Test
-	public void fillCommand_SelectedCategory() throws Exception{
-		
-		contoller.setCategoryService(mockCategoryService_CategorySelected());
-		contoller.setArticleService(mockArticleService_CategorySelected());
-		contoller.setPathHost("pathHost");
-		contoller.setPathContext("pathContext");
-		
-		BlogCommand command = new BlogCommand();
-		Locale loc = Locale.ENGLISH;
-		
-		contoller.fillCommand(command, loc);
-		
-		Assert.assertEquals("pathHost", command.getPathHost());
-		Assert.assertEquals("pathContext", command.getPathContext());
-		
-		List<CategoryEntity> categoryList = command.getCategoryList();
-		
-		Assert.assertEquals(3, categoryList.size());
-		
-		Assert.assertEquals(Long.valueOf(1), categoryList.get(0).getId());
-		Assert.assertEquals("unique_name_1", categoryList.get(0).getUniqueName());
-		Assert.assertEquals(2,  categoryList.get(0).getArticleList().size());
-		
-		Assert.assertEquals(Long.valueOf(2), categoryList.get(1).getId());
-		Assert.assertEquals("unique_name_2", categoryList.get(1).getUniqueName());
-		Assert.assertEquals(2,  categoryList.get(1).getArticleList().size());
-		
-		Assert.assertEquals(Long.valueOf(3), categoryList.get(2).getId());
-		Assert.assertEquals("unique_name_3", categoryList.get(2).getUniqueName());
-		Assert.assertEquals(2,  categoryList.get(2).getArticleList().size());
-		
-		Assert.assertNull(command.getSelectedCategoryPagesCount());
-		
-		Assert.assertNotNull(command.getSelectedCategory());
-		
-		Assert.assertNotNull(command.getSelectedArticle());
 		
 	}
 	
@@ -167,8 +63,6 @@ public class BlogControllerTest {
 		
 		BlogCommand command = (BlogCommand)modelAndView.getModel().get("command");
 		
-		Assert.assertFalse(command.isDisplaySelectedCategory());
-		Assert.assertFalse(command.isDisplaySelectedArticle());
 		Assert.assertFalse(command.isDisplaySelectedExplanation());
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplayException());
@@ -191,8 +85,6 @@ public class BlogControllerTest {
 		
 		BlogCommand command = (BlogCommand)modelAndView.getModel().get("command");
 		
-		Assert.assertFalse(command.isDisplaySelectedCategory());
-		Assert.assertFalse(command.isDisplaySelectedArticle());
 		Assert.assertFalse(command.isDisplaySelectedExplanation());
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplayException());
@@ -203,25 +95,21 @@ public class BlogControllerTest {
 	}
 	
 	@Test
+	@Ignore
 	public void handleAboutMe() throws Exception{
 		
-		contoller.setCategoryService(mockCategoryService_NoCategorySelected());
 		contoller.setLocaleResolver(mockLocaleResolver());
 		
 		BlogCommand command = new BlogCommand();
 		HttpServletRequest request = mockHttpServletRequest();
 		HttpServletResponse response = mockHttpServletResponse();
 		
-		command.setDisplaySelectedCategory(true);
-		command.setDisplaySelectedArticle(true);
 		command.setDisplaySelectedExplanation(true);
 		command.setDisplayAboutMe(true);
 		command.setDisplayException(true);		
 		
 		ModelAndView modelAndView = contoller.handleAboutMe(command, request, response);
 		
-		Assert.assertFalse(command.isDisplaySelectedCategory());
-		Assert.assertFalse(command.isDisplaySelectedArticle());
 		Assert.assertFalse(command.isDisplaySelectedExplanation());
 		Assert.assertTrue(command.isDisplayAboutMe());
 		Assert.assertFalse(command.isDisplayException());
@@ -230,9 +118,9 @@ public class BlogControllerTest {
 	}
 	
 	@Test
+	@Ignore
 	public void handleExplanationSelection() throws Exception{
 		
-		contoller.setCategoryService(mockCategoryService_NoCategorySelected());
 		contoller.setLocaleResolver(mockLocaleResolver());
 		contoller.setExplanationService(mockExplanationService());
 		
@@ -241,16 +129,12 @@ public class BlogControllerTest {
 		HttpServletResponse response = mockHttpServletResponse();
 		String selectedExplanationUniqueName = "unique_name";
 		
-		command.setDisplaySelectedCategory(true);
-		command.setDisplaySelectedArticle(true);
 		command.setDisplaySelectedExplanation(true);
 		command.setDisplayAboutMe(true);
 		command.setDisplayException(true);
 		
 		ModelAndView modelAndView = contoller.handleExplanationSelection(command, request, response, selectedExplanationUniqueName);
 		
-		Assert.assertFalse(command.isDisplaySelectedCategory());
-		Assert.assertFalse(command.isDisplaySelectedArticle());
 		Assert.assertTrue(command.isDisplaySelectedExplanation());
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertFalse(command.isDisplayException());
@@ -338,7 +222,6 @@ public class BlogControllerTest {
 	@Ignore
 	public void init() throws Exception{
 		
-		contoller.setCategoryService(mockCategoryService_CategorySelected());
 		contoller.setLocaleResolver(mockLocaleResolver());
 		contoller.setArticleService(mockArticleService_CategorySelected());
 		
@@ -346,16 +229,12 @@ public class BlogControllerTest {
 		HttpServletRequest request = mockHttpServletRequest();
 		HttpServletResponse response = mockHttpServletResponse();
 		
-		command.setDisplaySelectedCategory(true);
-		command.setDisplaySelectedArticle(true);
 		command.setDisplaySelectedExplanation(true);
 		command.setDisplayAboutMe(true);
 		command.setDisplayException(true);
 		
 		ModelAndView modelAndView = contoller.init(command, request, response);
 		
-		Assert.assertTrue(command.isDisplaySelectedCategory());
-		Assert.assertFalse(command.isDisplaySelectedArticle());
 		Assert.assertFalse(command.isDisplaySelectedExplanation());
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertFalse(command.isDisplayException());
@@ -398,39 +277,6 @@ public class BlogControllerTest {
 	// *********************************************** HELP METHODS *********************************************** //
 	// ************************************************************************************************************ //
 	
-	
-	private List<CategoryEntity> mockCompleteCategoryList() throws Exception{
-		
-		List<CategoryEntity> categoryList = new ArrayList<CategoryEntity>();		
-		CategoryEntity category;
-		
-		category = new CategoryEntity();		
-		category.setId(1L);
-		category.setUniqueName("unique_name_1");
-		category.setTitle("Title 1");
-		category.setCountArticlesOnPage(5);
-		category.setArticleList(mockCompleteArticleList1());
-		categoryList.add(category);
-		
-		category = new CategoryEntity();		
-		category.setId(2L);
-		category.setUniqueName("unique_name_2");
-		category.setTitle("Title 2");
-		category.setCountArticlesOnPage(5);
-		category.setArticleList(mockCompleteArticleList2());
-		categoryList.add(category);
-		
-		category = new CategoryEntity();		
-		category.setId(3L);
-		category.setUniqueName("unique_name_3");
-		category.setTitle("Title 3");
-		category.setCountArticlesOnPage(5);
-		category.setArticleList(mockCompleteArticleList3());
-		categoryList.add(category);
-				
-		return categoryList;
-		
-	}
 	
 	private List<ArticleEntity> mockCompleteArticleList1() throws Exception{
 		
@@ -678,31 +524,6 @@ public class BlogControllerTest {
 		
 	}
 	
-	private CategoryService mockCategoryService_NoCategorySelected() throws Exception{
-		
-		CategoryService mock = Mockito.mock(CategoryService.class);
-		
-		Mockito.when(mock.getAllCategoriesList(Mockito.any(Locale.class))).thenReturn(mockCompleteCategoryList());
-		Mockito.when(mock.getCategoryFromListByUniqueName(Mockito.anyList(), Mockito.anyString())).thenReturn(null);
-		
-		return mock;
-		
-	}
-	
-	private CategoryService mockCategoryService_CategorySelected() throws Exception{
-		
-		CategoryService mock = Mockito.mock(CategoryService.class);
-		
-		CategoryEntity selectedCategory = new CategoryEntity();
-		
-		Mockito.when(mock.getAllCategoriesList(Mockito.any(Locale.class))).thenReturn(mockCompleteCategoryList());
-		Mockito.when(mock.getCategoryFromListByUniqueName(Mockito.anyList(), Mockito.anyString())).thenReturn(selectedCategory);
-		Mockito.when(mock.getCategoryPagesCount(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(5);
-		
-		return mock;
-		
-	}
-	
 	private ArticleService mockArticleService_CategorySelected() throws Exception{
 		
 		ArticleService mock = Mockito.mock(ArticleService.class);
@@ -711,26 +532,6 @@ public class BlogControllerTest {
 		selectedArticle.setPagesCount(5);
 		
 		Mockito.when(mock.getArticleFromListByUniqueName(Mockito.anyList(), Mockito.anyString())).thenReturn(selectedArticle);
-		
-		return mock;
-		
-	}
-	
-	private CategoryService mockCategoryService_AllCategoriesListNull() throws Exception{
-		
-		CategoryService mock = Mockito.mock(CategoryService.class);
-		
-		Mockito.when(mock.getAllCategoriesList(Mockito.any(Locale.class))).thenReturn(null);
-		
-		return mock;
-		
-	}
-	
-	private CategoryService mockCategoryService_AllCategoriesListEmpty() throws Exception{
-		
-		CategoryService mock = Mockito.mock(CategoryService.class);
-		
-		Mockito.when(mock.getAllCategoriesList(Mockito.any(Locale.class))).thenReturn(new ArrayList<CategoryEntity>());
 		
 		return mock;
 		
@@ -768,16 +569,6 @@ public class BlogControllerTest {
 		ExplanationService mock = Mockito.mock(ExplanationService.class);
 		
 		Mockito.when(mock.getExplanationByUniqueName(Mockito.anyString())).thenReturn(explanation);
-		
-		return mock;
-		
-	}
-	
-	private CategoryService mockCategoryService_HandleCategoryPagenation() throws Exception{
-		
-		CategoryService mock = Mockito.mock(CategoryService.class);
-		
-		Mockito.when(mock.getCategoryPagesCount(Mockito.anyInt(), Mockito.anyInt())).thenReturn(3);
 		
 		return mock;
 		

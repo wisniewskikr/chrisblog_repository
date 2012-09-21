@@ -144,7 +144,7 @@
 
 <p>
 	You can test <b>working example application</b> here: 
-	<a href="${command.selectedArticle.demoPath}" class="button" target="_blank">demo</a>
+	<a href="${command.article.demoPath}" class="button" target="_blank">demo</a>
 </p>
 
 
@@ -160,9 +160,9 @@
 </p>
 
 <p>
-	<span class="download"><b>Source:</b></span> <a href="${command.selectedArticle.sourcePath}">Download</a>
+	<span class="download"><b>Source:</b></span> <a href="${command.article.sourcePath}">Download</a>
 </p>
 
 <p>
-	<span  class="download"><b>War file:</b></span> <a href="${command.selectedArticle.examplePath}">Download</a>
+	<span  class="download"><b>War file:</b></span> <a href="${command.article.examplePath}">Download</a>
 </p>
