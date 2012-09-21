@@ -12,7 +12,6 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.mcavallo.opencloud.Cloud;
 import org.mockito.Mockito;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,7 +21,6 @@ import pl.kwi.chrisblog.commands.BlogCommand;
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.entities.ExplanationEntity;
-import pl.kwi.chrisblog.exceptions.ArticleException;
 import pl.kwi.chrisblog.services.impl.ArticleService;
 import pl.kwi.chrisblog.services.impl.ExplanationService;
 import pl.kwi.chrisblog.utils.DateUtils;
@@ -34,22 +32,6 @@ public class BlogControllerTest {
 	@Before
 	public void setUp(){
 		contoller = new BlogController();		
-	}
-	
-	@Test
-	public void clearDisplays(){
-		
-		BlogCommand command = new BlogCommand();
-		command.setDisplayAboutMe(true);
-		command.setDisplaySelectedExplanation(true);
-		command.setDisplayException(true);
-		
-		contoller.clearDisplays(command);
-		
-		Assert.assertFalse(command.isDisplayAboutMe());
-		Assert.assertFalse(command.isDisplaySelectedExplanation());
-		Assert.assertFalse(command.isDisplayException());
-		
 	}
 	
 	@Test

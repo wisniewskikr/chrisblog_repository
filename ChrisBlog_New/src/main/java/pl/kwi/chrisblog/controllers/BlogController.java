@@ -95,7 +95,6 @@ public class BlogController{
 			HttpServletRequest request, HttpServletResponse response,
 			@PathVariable int pageNumber) throws Exception{
 		
-		clearDisplays(command);
 		command.setDisplayArticleList(true);		
 		Locale loc = localeResolver.resolveLocale(request);
 		
@@ -120,7 +119,6 @@ public class BlogController{
 			@PathVariable int pageNumber, 
 			@PathVariable String articleUniqueName) throws Exception{
 		
-		clearDisplays(command);
 		command.setDisplayArticle(true);
 		Locale loc = localeResolver.resolveLocale(request);
 		
@@ -153,7 +151,6 @@ public class BlogController{
 			HttpServletRequest request, HttpServletResponse response, 
 			@PathVariable String selectedExplanationUniqueName) throws Exception{
 				
-		clearDisplays(command);
 		command.setDisplaySelectedExplanation(true);
 		Locale loc = localeResolver.resolveLocale(request);
 		
@@ -182,7 +179,6 @@ public class BlogController{
 	public ModelAndView handleAboutMe(@ModelAttribute("command")BlogCommand command,
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
 				
-		clearDisplays(command);
 		command.setDisplayAboutMe(true);
 		Locale loc = localeResolver.resolveLocale(request);
 		
@@ -210,7 +206,6 @@ public class BlogController{
 		ModelMap model = new ModelMap();
 		model.addAttribute("command", command);
 		
-		clearDisplays(command);
 		command.setDisplayException(true);
 		
 		command.setPathHost(pathHost);
@@ -238,7 +233,6 @@ public class BlogController{
 		ModelMap model = new ModelMap();
 		model.addAttribute("command", command);
 		
-		clearDisplays(command);
 		command.setDisplayException(true);
 		
 		command.setPathHost(pathHost);
@@ -252,22 +246,7 @@ public class BlogController{
 	// ************************************************************************************************************ //
 	// *********************************************** HELP METHODS *********************************************** //
 	// ************************************************************************************************************ //
-	
-	
-	/**
-	 * Method clears all display flags for central part.
-	 * 
-	 * @param command object BlogCommand with page data
-	 */
-	protected void clearDisplays(BlogCommand command){
-		
-		command.setDisplayArticleList(false);
-		command.setDisplayArticle(false);		
-		command.setDisplayAboutMe(false);
-		command.setDisplaySelectedExplanation(false);
-		command.setDisplayException(false);
-		
-	}
+
 	
 	/**
 	 * Method handles pagenation for all articles.
