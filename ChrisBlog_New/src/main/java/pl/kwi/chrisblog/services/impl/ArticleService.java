@@ -33,6 +33,17 @@ public class ArticleService implements IArticleService {
 	
 
 	/* (non-Javadoc)
+	 * @see pl.kwi.chrisblog.services.intf.IArticleService#getAllArticleList(java.util.Locale)
+	 */
+	public List<ArticleEntity> getAllArticleList(Locale loc) throws Exception {
+		
+		List<ArticleEntity> completeArticleList = initCompleteArticleList();
+		
+		return convertArticlesToDisplayableForm(completeArticleList, loc);
+		
+	}
+	
+	/* (non-Javadoc)
 	 * @see pl.kwi.chrisblog.services.intf.IArticleService#getArticleListByPageTagAndLocal(int, pl.kwi.chrisblog.entities.ArticleTagEntity, java.util.Locale)
 	 */
 	public List<ArticleEntity> getArticleListByPageTagAndLocal(int pageNumber, ArticleTagEntity tag, Locale loc) throws Exception {

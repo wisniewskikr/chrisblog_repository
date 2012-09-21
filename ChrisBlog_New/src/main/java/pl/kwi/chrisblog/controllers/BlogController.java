@@ -30,6 +30,7 @@ import pl.kwi.chrisblog.entities.ExplanationEntity;
 import pl.kwi.chrisblog.exceptions.ArticleException;
 import pl.kwi.chrisblog.exceptions.CategoryException;
 import pl.kwi.chrisblog.services.intf.IArticleService;
+import pl.kwi.chrisblog.services.intf.IArticleTagService;
 import pl.kwi.chrisblog.services.intf.ICategoryService;
 import pl.kwi.chrisblog.services.intf.IExplanationService;
 
@@ -58,6 +59,9 @@ public class BlogController{
 	
 	@Autowired
 	private IExplanationService explanationService;
+	
+	@Autowired
+	private IArticleTagService articleTagService;
 	
 	@Autowired
 	private LocaleResolver localeResolver;
@@ -103,6 +107,7 @@ public class BlogController{
 		
 		command.setPathHost(pathHost);
 		command.setPathContext(pathContext);
+		command.setTagsCloud(articleTagService.getTagsCloud(articleService.getAllArticleList(loc)));
 		
 		// TODO KWi: implement tag entity
 		ArticleTagEntity tag = null;
@@ -127,6 +132,7 @@ public class BlogController{
 		
 		command.setPathHost(pathHost);
 		command.setPathContext(pathContext);
+		command.setTagsCloud(articleTagService.getTagsCloud(articleService.getAllArticleList(loc)));
 		
 		command.setArticle(articleService.getArticleByUniqueName(articleUniqueName, loc));
 				
@@ -554,6 +560,10 @@ public class BlogController{
 
 	public void setExplanationService(IExplanationService explanationService) {
 		this.explanationService = explanationService;
+	}	
+
+	public void setArticleTagService(IArticleTagService articleTagService) {
+		this.articleTagService = articleTagService;
 	}
 
 	public void setLocaleResolver(LocaleResolver localeResolver) {

@@ -14,6 +14,15 @@ import pl.kwi.chrisblog.entities.ArticleTagEntity;
 public interface IArticleService {
 	
 	/**
+	 * Method gets list of all articles.
+	 * 
+	 * @param loc object Locale with international localization
+	 * @return list of all articles
+	 * @throws Exception
+	 */
+	public List<ArticleEntity> getAllArticleList(Locale loc) throws Exception;
+	
+	/**
 	 * Method gets list of articles connected with specified page number, tag and locale.
 	 * 
 	 * @param pageNumber int with number of page

@@ -6,10 +6,15 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.mcavallo.opencloud.Cloud;
 import org.springframework.stereotype.Service;
 
 import pl.kwi.chrisblog.comparators.ArticleTagIdComparator;
+import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
+import pl.kwi.chrisblog.entities.CategoryEntity;
+import pl.kwi.chrisblog.exceptions.ArticleTagException;
+import pl.kwi.chrisblog.exceptions.CategoryException;
 import pl.kwi.chrisblog.services.intf.IArticleTagService;
 
 /**
@@ -72,6 +77,33 @@ public class ArticleTagService implements IArticleTagService {
 		}
 		
 		return resultList;
+	}
+	
+	/* (non-Javadoc)
+	 * @see pl.kwi.chrisblog.services.intf.IArticleTagService#getTagsCloud(java.util.List)
+	 */
+	public Cloud getTagsCloud(List<ArticleEntity> articleList) throws Exception {
+		
+		if(articleList == null){
+			throw new ArticleTagException("Error article tags handling. List of articles is null");
+		}
+		
+		Cloud cloud = new Cloud();
+		cloud.setMinWeight(10.0);
+		cloud.setMaxWeight(20.0);
+		
+		List<ArticleTagEntity> articleTagList = new ArrayList<ArticleTagEntity>();
+				
+		for (ArticleEntity article : articleList) {
+			articleTagList.addAll(article.getArticleTagList());
+		}
+		
+		for (ArticleTagEntity articleTag : articleTagList) {
+			cloud.addTag(articleTag.getName());
+		}
+		
+		return cloud;
+		
 	}
 	
 	

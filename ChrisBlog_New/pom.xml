@@ -299,6 +299,9 @@
 				<server.username>chrisb</server.username>
 				<server.password>4BikDMn3</server.password>
 				<server.path>/${project.artifactId}</server.path>
+				
+				<!-- Sonar data -->
+				<sonar.host.url>http://chris-blog.org/sonar/</sonar.host.url>
 			</properties>		
 		</profile>
 		
