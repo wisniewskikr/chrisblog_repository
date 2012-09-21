@@ -58,13 +58,13 @@
 			</ul>
 		</div>
 		
-		<c:if test="${command.displaySelectedArticle}">
+		<c:if test="${command.displayArticle}">
 			<div class="sectionDivider sectionDividerNoLink">
 				<span>Tags</span>
 			</div>		
 			<div id="rightTags">
 				<ul>
-					<c:forEach items="${command.selectedArticle.articleTagList}" var="articleTag">
+					<c:forEach items="${command.article.articleTagList}" var="articleTag">
 						<li><span>${articleTag.name}</span></li>
 					</c:forEach>					
 				</ul>
