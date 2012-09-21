@@ -41,7 +41,7 @@ public class ArticleServiceTest {
 		Assert.assertEquals("Title", articleList.get(0).getTitle());
 		Assert.assertEquals("Description", articleList.get(0).getDescription());
 		Assert.assertEquals("Path/path", articleList.get(0).getContentPath());
-		Assert.assertEquals(Integer.valueOf(3), articleList.get(0).getPagesCount());
+		Assert.assertEquals(Integer.valueOf(4), articleList.get(0).getPagesCount());
 		Assert.assertEquals("Author", articleList.get(0).getAuthor());
 		Assert.assertEquals("December 25, 1999", articleList.get(0).getCreationDateAsString());
 		Assert.assertEquals("/Demo path", articleList.get(0).getDemoPath());

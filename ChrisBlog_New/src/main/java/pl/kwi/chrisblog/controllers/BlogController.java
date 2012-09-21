@@ -62,7 +62,131 @@ public class BlogController{
 	@Autowired
 	private LocaleResolver localeResolver;
 
-
+	
+	@RequestMapping(value="/init")
+	public ModelAndView init(@ModelAttribute("command")BlogCommand command, 
+			HttpServletRequest request, HttpServletResponse response) throws Exception{
+							
+		return new ModelAndView(new RedirectView("/page/1" , true, true, true));
+		
+	}
+	
+//	@RequestMapping("/")
+//	public ModelAndView displayArticleListPageOne(@ModelAttribute("command")BlogCommand command,
+//			HttpServletRequest request, HttpServletResponse response) throws Exception{
+//		
+//		return displayArticleList(command, request, response, 1);
+//		
+//	}
+//	
+//	@RequestMapping("/page/{pageNumber}")
+//	public ModelAndView displayArticleListPageNotOne(@ModelAttribute("command")BlogCommand command,
+//			HttpServletRequest request, HttpServletResponse response,
+//			@PathVariable int pageNumber) throws Exception{
+//		
+//		if(pageNumber == 1){
+//			return new ModelAndView(new RedirectView("/" , true, true, true));
+//		}else{
+//			return displayArticleList(command, request, response, pageNumber);
+//		}
+//		
+//	}
+	
+	@RequestMapping("/page/{pageNumber}")
+	public ModelAndView displayArticleList(@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, HttpServletResponse response,
+			@PathVariable int pageNumber) throws Exception{
+		
+		clearDisplays(command);
+		command.setDisplayArticleList(true);		
+		Locale loc = localeResolver.resolveLocale(request);
+		
+		command.setPathHost(pathHost);
+		command.setPathContext(pathContext);
+		
+		// TODO KWi: implement tag entity
+		ArticleTagEntity tag = null;
+		
+		command.setArticleList(articleService.getArticleListByPageTagAndLocal(pageNumber, tag, loc));
+		
+		handleArticleListPagenation(command, pageNumber);
+		
+		return new ModelAndView("blogJsp");
+		
+	}
+	
+	@RequestMapping("/article/page/{pageNumber}/{articleUniqueName}")
+	public ModelAndView displayArticle(@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, HttpServletResponse response,
+			@PathVariable int pageNumber, 
+			@PathVariable String articleUniqueName) throws Exception{
+		
+		clearDisplays(command);
+		command.setDisplayArticle(true);
+		Locale loc = localeResolver.resolveLocale(request);
+		
+		command.setPathHost(pathHost);
+		command.setPathContext(pathContext);
+		
+		command.setArticle(articleService.getArticleByUniqueName(articleUniqueName, loc));
+				
+		handleArticlePagenation(command, pageNumber);
+		
+		return new ModelAndView("blogJsp");
+		
+	}
+	
+	/**
+	 * Method handles pagenation for all articles.
+	 * 
+	 * @param command object BlogCommand with page data
+	 * @param pageNumber int with number of current page
+	 * @throws Exception
+	 */
+	protected void handleArticleListPagenation(BlogCommand command, int pageNumber) throws Exception {
+		
+		int pageCurrent = pageNumber;
+		int pagesCount = articleService.getPagesCountOfAllArticles();
+		
+		handlePagenation(command, pageCurrent, pagesCount);
+		
+	}
+	
+	/**
+	 * Method handles pagenation for article.
+	 * 
+	 * @param command object BlogCommand with page data
+	 * @param pageNumber int with number of current page
+	 * @throws Exception
+	 */
+	protected void handleArticlePagenation(BlogCommand command, int pageNumber) throws Exception {
+		
+		int pageCurrent = pageNumber;
+		int pagesCount = command.getArticle().getPagesCount();
+		
+		handlePagenation(command, pageCurrent, pagesCount);
+		
+	}
+	
+	/**
+	 * Method handles common pagenation.
+	 * 
+	 * @param command object BlogCommand with page data
+	 * @param pageCurrent int with number of current page
+	 * @param pagesCount int with count of all pages
+	 * @throws Exception
+	 */
+	protected void handlePagenation(BlogCommand command, int pageCurrent, int pagesCount) throws Exception {
+		
+		if(pageCurrent > pagesCount){
+			throw new ArticleException("Current page in URL is higher than pages count");
+		}
+		
+		command.setPageCurrent(pageCurrent);
+		command.setPagesCount(pagesCount);
+		
+	}
+	
 	/**
 	 * Method inits blog.
 	 * 
@@ -72,21 +196,21 @@ public class BlogController{
 	 * @return object ModelAndView with model and view of page
 	 * @throws Exception 
 	 */
-	@RequestMapping(value="/init")
-	public ModelAndView init(@ModelAttribute("command")BlogCommand command, 
-			HttpServletRequest request, HttpServletResponse response) throws Exception{
-			
-		clearDisplays(command);
-		command.setDisplaySelectedCategory(true);		
-		Locale loc = localeResolver.resolveLocale(request);
-		
-		initSelected(command, loc);
-		
-		fillCommand(command, loc);	
-				
-		return new ModelAndView(new RedirectView("/categories/" + command.getSelectedCategoryPageCurrent() + "/" + command.getSelectedCategoryUniqueName() , true, true, true));
-		
-	}
+//	@RequestMapping(value="/init")
+//	public ModelAndView init(@ModelAttribute("command")BlogCommand command, 
+//			HttpServletRequest request, HttpServletResponse response) throws Exception{
+//			
+//		clearDisplays(command);
+//		command.setDisplaySelectedCategory(true);		
+//		Locale loc = localeResolver.resolveLocale(request);
+//		
+//		initSelected(command, loc);
+//		
+//		fillCommand(command, loc);	
+//				
+//		return new ModelAndView(new RedirectView("/categories/" + command.getSelectedCategoryPageCurrent() + "/" + command.getSelectedCategoryUniqueName() , true, true, true));
+//		
+//	}
 	
 	/**
 	 * Method handles user category selection on page.
@@ -151,7 +275,7 @@ public class BlogController{
 		fillCommand(command, loc);
 		
 		handleCategoryPagenation(command);
-		handleArticlePagenation(command);
+		handleArticlePagenation(command, 0);
 		
 		return new ModelAndView("blogJsp");
 		
@@ -374,6 +498,9 @@ public class BlogController{
 	 */
 	protected void clearDisplays(BlogCommand command){
 		
+		command.setDisplayArticleList(false);
+		command.setDisplayArticle(false);
+		
 		command.setDisplaySelectedCategory(false);
 		command.setDisplaySelectedArticle(false);
 		command.setDisplayAboutMe(false);
@@ -400,26 +527,6 @@ public class BlogController{
 		
 		command.setSelectedCategoryPagesCount(selectedCategoryPagesCount);		
 		articleService.countPageNumberForEveryArticleFromList(selectedCategory.getArticleList(), selectedCategory.getCountArticlesOnPage());
-		
-	}
-	
-	/**
-	 * Method handles pagenation for article.
-	 * 
-	 * @param command object BlogCommand with page data
-	 * @throws Exception
-	 */
-	protected void handleArticlePagenation(BlogCommand command) throws Exception{
-		
-		ArticleEntity selectedArticle = command.getSelectedArticle();
-		
-		int selectedArticlePagesCount = selectedArticle.getPagesCount();
-		int selectedArticlePageCurrent = command.getSelectedArticlePageCurrent();
-		if(selectedArticlePageCurrent > selectedArticlePagesCount){
-			throw new ArticleException("Current article page in URL is higher than pages count");
-		}
-		
-		command.setSelectedArticlePagesCount(selectedArticlePagesCount);
 		
 	}
 	

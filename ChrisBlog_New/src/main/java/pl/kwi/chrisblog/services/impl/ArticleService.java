@@ -33,6 +33,47 @@ public class ArticleService implements IArticleService {
 	
 
 	/* (non-Javadoc)
+	 * @see pl.kwi.chrisblog.services.intf.IArticleService#getArticleListByPageTagAndLocal(int, pl.kwi.chrisblog.entities.ArticleTagEntity, java.util.Locale)
+	 */
+	public List<ArticleEntity> getArticleListByPageTagAndLocal(int pageNumber, ArticleTagEntity tag, Locale loc) throws Exception {
+		
+		// TODO KWi: implement tag
+		List<ArticleEntity> completeArticleList = initCompleteArticleList();
+		
+		return convertArticlesToDisplayableForm(completeArticleList, loc);
+		
+	}
+	
+	/* (non-Javadoc)
+	 * @see pl.kwi.chrisblog.services.intf.IArticleService#getArticleByUniqueName(java.lang.String)
+	 */
+	public ArticleEntity getArticleByUniqueName(String articleUniqueName, Locale loc) throws Exception {
+		
+		List<ArticleEntity> completeArticleList = initCompleteArticleList();
+		completeArticleList = convertArticlesToDisplayableForm(completeArticleList, loc);
+		
+		return getArticleFromListByUniqueName(completeArticleList, articleUniqueName);
+		
+	}
+	
+	public int getPagesCountOfAllArticles() throws Exception {
+		
+		// TODO KWi: implement real method
+		return 1;
+		
+	}
+	
+	/* (non-Javadoc)
+	 * @see pl.kwi.chrisblog.services.intf.IArticleService#getPagesCountByArticle(pl.kwi.chrisblog.entities.ArticleEntity)
+	 */
+	public int getPagesCountOfArticle(ArticleEntity article) throws Exception {
+		
+		// TODO KWi: implement real method
+		return 4;
+		
+	}
+	
+	/* (non-Javadoc)
 	 * @see pl.kwi.chrisblogjava.services.intf.ITopicService#getTopicListByCategoryId(java.lang.Long)
 	 */
 	public List<ArticleEntity> getArticleListByCategoryId(Long categoryId, Locale loc) throws Exception {
@@ -191,6 +232,7 @@ public class ArticleService implements IArticleService {
 			article.setCreationDateAsString(creationDateAsString);
 			article.setExamplePath("/" + folderExamples + article.getExamplePath());
 			article.setSourcePath("/" + folderSources + article.getSourcePath());
+			article.setPagesCount(getPagesCountOfArticle(article));
 			
 		}
 		
@@ -244,7 +286,6 @@ public class ArticleService implements IArticleService {
 		article.setTitle("Hello World Servlets");
 		article.setDescription(descriptionSb.toString());
 		article.setContentPath("categories/servlets/helloWorldServlets/helloWorldServletsJsp");
-		article.setPagesCount(4);
 		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("20120104200700"));
 		article.setAuthor("Chris");
 		article.setDemoPath("/HelloWorldServlets");

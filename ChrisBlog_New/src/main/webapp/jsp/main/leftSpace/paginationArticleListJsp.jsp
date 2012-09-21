@@ -39,7 +39,7 @@
 				<span class="disable">« First</span>
 			</c:when>
 			<c:otherwise>
-				<a href="article/page/1/${command.article.uniqueName}" class="first">« First</a>
+				<a href="page/1" class="first">« First</a>
 			</c:otherwise>
 		</c:choose>
 		
@@ -49,7 +49,7 @@
 				<span class="disable">« Prev</span>
 			</c:when>
 			<c:otherwise>
-				<a href="article/page/${command.pageCurrent - 1}/${command.article.uniqueName}" class="previouspostslink">« Prev</a>
+				<a href="page/${command.pageCurrent - 1}" class="previouspostslink">« Prev</a>
 			</c:otherwise>
 		</c:choose>			
 		
@@ -60,7 +60,7 @@
 					<span class="current">${page}</span>
 				</c:when>
 				<c:when test="${command.pageCurrent != page && page >= min && page <= max}">
-					<a href="article/page/${page}/${command.article.uniqueName}">${page}</a>
+					<a href="page/${page}">${page}</a>
 				</c:when>
 			</c:choose>			
 		</c:forEach>
@@ -71,7 +71,7 @@
 				<span class="disable">Next »</span>
 			</c:when>
 			<c:otherwise>
-				<a href="article/page/${command.pageCurrent + 1}/${command.article.uniqueName}" class="nextpostslink">Next »</a>
+				<a href="page/${command.pageCurrent + 1}" class="nextpostslink">Next »</a>
 			</c:otherwise>
 		</c:choose>
 		
@@ -81,7 +81,7 @@
 				<span class="disable">Last »</span>
 			</c:when>
 			<c:otherwise>
-				<a href="article/page/${command.pagesCount}/${command.article.uniqueName}" class="last">Last »</a>
+				<a href="page/${command.pagesCount}" class="last">Last »</a>
 			</c:otherwise>
 		</c:choose>	
 	

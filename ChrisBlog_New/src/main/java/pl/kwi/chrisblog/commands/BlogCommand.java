@@ -17,6 +17,15 @@ import pl.kwi.chrisblog.entities.ExplanationEntity;
 public class BlogCommand implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
+	
+	private List<ArticleEntity> articleList;
+	private boolean displayArticleList;
+	
+	private ArticleEntity article;
+	private boolean displayArticle;
+	
+	private Integer pageCurrent;
+	private Integer pagesCount;
 		
 	// Category list
 	private List<CategoryEntity> categoryList;
@@ -52,7 +61,49 @@ public class BlogCommand implements Serializable{
 	
 	private String pathHost;
 	private String pathContext;
+		
 	
+	public List<ArticleEntity> getArticleList() {
+		return articleList;
+	}
+	public void setArticleList(List<ArticleEntity> articleList) {
+		this.articleList = articleList;
+	}	
+	
+	public boolean isDisplayArticleList() {
+		return displayArticleList;
+	}
+	public void setDisplayArticleList(boolean displayArticleList) {
+		this.displayArticleList = displayArticleList;
+	}	
+	
+	public ArticleEntity getArticle() {
+		return article;
+	}
+	public void setArticle(ArticleEntity article) {
+		this.article = article;
+	}
+	
+	public boolean isDisplayArticle() {
+		return displayArticle;
+	}
+	public void setDisplayArticle(boolean displayArticle) {
+		this.displayArticle = displayArticle;
+	}
+	
+	public Integer getPageCurrent() {
+		return pageCurrent;
+	}
+	public void setPageCurrent(Integer pageCurrent) {
+		this.pageCurrent = pageCurrent;
+	}
+	
+	public Integer getPagesCount() {
+		return pagesCount;
+	}
+	public void setPagesCount(Integer pagesCount) {
+		this.pagesCount = pagesCount;
+	}
 	
 	public List<CategoryEntity> getCategoryList() {
 		return categoryList;

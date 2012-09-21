@@ -5,6 +5,16 @@
 	<div id="left">		
 		
 
+		<c:if test="${command.displayArticleList}">
+			<%@ include file="leftSpace/articleListJsp.jsp" %>
+			<%@ include file="leftSpace/paginationArticleListJsp.jsp" %>
+		</c:if>
+		
+		<c:if test="${command.displayArticle}">
+			<%@ include file="leftSpace/articleJsp.jsp" %>
+			<%@ include file="leftSpace/paginationArticleJsp.jsp" %>
+		</c:if>
+		
 		<c:if test="${command.displaySelectedCategory}">
 			<%@ include file="leftSpace/contentCategoryJsp.jsp" %>
 			<%@ include file="leftSpace/paginationCategoryJsp.jsp" %>
