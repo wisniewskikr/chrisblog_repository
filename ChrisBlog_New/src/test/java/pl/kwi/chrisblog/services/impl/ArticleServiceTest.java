@@ -177,6 +177,110 @@ public class ArticleServiceTest {
 	}
 	
 	@Test
+	public void getArticleByUniqueName() throws Exception{
+		
+		String articleUniqueName = "Unique name";
+		Locale loc = Locale.ENGLISH;
+		
+		ArticleEntity article = service.getArticleByUniqueName(articleUniqueName, loc);
+		
+		Assert.assertEquals(Long.valueOf(1L), article.getId());
+		Assert.assertEquals("Unique name", article.getUniqueName());
+		Assert.assertEquals(Long.valueOf(1L), article.getCategoryId());
+		Assert.assertEquals("Title", article.getTitle());
+		Assert.assertEquals("Description", article.getDescription());
+		Assert.assertEquals("Path/path", article.getContentPath());
+		Assert.assertEquals(Integer.valueOf(4), article.getPagesCount());
+		Assert.assertEquals("Author", article.getAuthor());
+		Assert.assertEquals("December 25, 1999", article.getCreationDateAsString());
+		Assert.assertEquals("/demoPath", article.getDemoPath());
+		Assert.assertEquals("/folderExamples/examplePath", article.getExamplePath());
+		Assert.assertEquals("/folderSources/sourcePath", article.getSourcePath());
+		
+		Assert.assertEquals(Integer.valueOf(1999), Integer.valueOf(article.getCreationDate().get(Calendar.YEAR)));
+		Assert.assertEquals(Integer.valueOf(11), Integer.valueOf(article.getCreationDate().get(Calendar.MONTH)));
+		Assert.assertEquals(Integer.valueOf(25), Integer.valueOf(article.getCreationDate().get(Calendar.DAY_OF_MONTH)));
+		Assert.assertEquals(Integer.valueOf(17), Integer.valueOf(article.getCreationDate().get(Calendar.HOUR_OF_DAY)));
+		Assert.assertEquals(Integer.valueOf(45), Integer.valueOf(article.getCreationDate().get(Calendar.MINUTE)));
+		Assert.assertEquals(Integer.valueOf(53), Integer.valueOf(article.getCreationDate().get(Calendar.SECOND)));
+		
+		List<ArticleTagEntity> articleTagList = article.getArticleTagList();
+		Assert.assertEquals(Integer.valueOf(3), Integer.valueOf(articleTagList.size()));
+		Assert.assertEquals(Long.valueOf(1), articleTagList.get(0).getId());
+		Assert.assertEquals("Java", articleTagList.get(0).getName());
+		Assert.assertEquals(Long.valueOf(2), articleTagList.get(1).getId());
+		Assert.assertEquals("Maven", articleTagList.get(1).getName());
+		Assert.assertEquals(Long.valueOf(3), articleTagList.get(2).getId());
+		Assert.assertEquals("Servlet", articleTagList.get(2).getName());
+		
+	}
+	
+	@Test(expected = ArticleException.class)
+	public void getArticleByUniqueName_articleListNull() throws Exception{
+		
+		service.setCompleteArticleList(null);
+		String articleUniqueName = "Unique name";
+		Locale loc = Locale.ENGLISH;
+		
+		service.getArticleByUniqueName(articleUniqueName, loc);
+		
+	}
+	
+	@Test(expected = ArticleException.class)
+	public void getArticleByUniqueName_localeNull() throws Exception{
+		
+		String articleUniqueName = "Unique name";
+		Locale loc = null;
+		
+		service.getArticleByUniqueName(articleUniqueName, loc);
+		
+	}
+	
+	@Test
+	public void getArticleByUniqueName_uniqueNameNull() throws Exception{
+		
+		String articleUniqueName = null;
+		Locale loc = Locale.ENGLISH;
+		
+		ArticleEntity article = service.getArticleByUniqueName(articleUniqueName, loc);
+		
+		Assert.assertNull(article);
+		
+	}
+	
+	@Test
+	public void getArticleByUniqueName_noArticleInList() throws Exception{
+		
+		String articleUniqueName = "Unique name another";
+		Locale loc = Locale.ENGLISH;
+		
+		ArticleEntity article = service.getArticleByUniqueName(articleUniqueName, loc);
+		
+		Assert.assertNull(article);
+		
+	}
+	
+	@Test
+	public void getPagesCountOfAllArticles() throws Exception{
+		
+		int result = service.getPagesCountOfAllArticles();
+		
+		Assert.assertEquals(1, result);
+		
+	}
+	
+	@Test
+	public void getPagesCountOfArticle() throws Exception{
+		
+		ArticleEntity article = null;
+		
+		int result = service.getPagesCountOfArticle(article);
+		
+		Assert.assertEquals(4, result);
+		
+	}
+	
+	@Test
 	public void getArticleFromListByUniqueName() throws Exception{
 		
 		List<ArticleEntity> articleList = mockCompleteArticleList();
@@ -216,7 +320,7 @@ public class ArticleServiceTest {
 	}
 	
 	@Test(expected = ArticleException.class)
-	public void getArticleFromListByUniqueName_ArticleListNull() throws Exception{
+	public void getArticleFromListByUniqueName_articleListNull() throws Exception{
 		
 		List<ArticleEntity> articleList = null;
 		String articleUniqueName = "Unique name";
@@ -226,7 +330,7 @@ public class ArticleServiceTest {
 	}
 	
 	@Test
-	public void getArticleFromListByUniqueName_UniqueNameNull() throws Exception{
+	public void getArticleFromListByUniqueName_uniqueNameNull() throws Exception{
 		
 		List<ArticleEntity> articleList = mockCompleteArticleList();
 		String articleUniqueName = null;
@@ -238,7 +342,7 @@ public class ArticleServiceTest {
 	}
 	
 	@Test
-	public void getArticleFromListByUniqueName_NoArticleInList() throws Exception{
+	public void getArticleFromListByUniqueName_noArticleInList() throws Exception{
 		
 		List<ArticleEntity> articleList = mockCompleteArticleList();
 		String articleUniqueName = "Unique name another";

@@ -114,7 +114,7 @@ public class ArticleService implements IArticleService {
 	 * @return object ArticleEntity with specified unique name
 	 * @throws Exception 
 	 */
-	public ArticleEntity getArticleFromListByUniqueName(List<ArticleEntity> articleList, String articleUniqueName) throws Exception {
+	protected ArticleEntity getArticleFromListByUniqueName(List<ArticleEntity> articleList, String articleUniqueName) throws Exception {
 		
 		if(articleList == null){
 			throw new ArticleException("Error article handling. List of articles is null.");
