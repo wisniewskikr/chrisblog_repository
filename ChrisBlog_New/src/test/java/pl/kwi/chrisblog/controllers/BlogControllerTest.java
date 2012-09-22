@@ -40,6 +40,7 @@ public class BlogControllerTest {
 		contoller.setLocaleResolver(mockLocaleResolver());
 		contoller.setArticleService(mockArticleService());
 		contoller.setArticleTagService(mockArticleTagService());
+		contoller.setExplanationService(mockExplanationService());
 	}
 	
 	@Test
@@ -136,12 +137,57 @@ public class BlogControllerTest {
 	}
 	
 	@Test
+	public void displayExplanation() throws Exception {
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		HttpServletResponse response = mockHttpServletResponse();
+		String uniqueName = "uniqueName";
+		
+		ModelAndView modelAndView = contoller.displayExplanation(command, request, response, uniqueName);
+		
+		Assert.assertFalse(command.isDisplayAboutMe());
+		Assert.assertTrue(command.isDisplayExplanation());
+		
+		Assert.assertEquals("pathHost", command.getPathHost());
+		Assert.assertEquals("pathContext", command.getPathContext());
+		Assert.assertNotNull(command.getLocale());
+		Assert.assertNotNull(command.getTagsCloud());
+		
+		Assert.assertNotNull(command.getExplanation());
+		Assert.assertEquals("explanation_unique_name", command.getExplanation().getUniqueName());
+		
+		Assert.assertEquals("blogJsp", modelAndView.getViewName());
+		
+	}
+	
+	@Test
+	public void displayAboutMe() throws Exception{
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		HttpServletResponse response = mockHttpServletResponse();
+		
+		ModelAndView modelAndView = contoller.displayAboutMe(command, request, response);
+		
+		Assert.assertFalse(command.isDisplayExplanation());
+		Assert.assertTrue(command.isDisplayAboutMe());
+		Assert.assertFalse(command.isDisplayException());
+		
+		Assert.assertEquals("pathHost", command.getPathHost());
+		Assert.assertEquals("pathContext", command.getPathContext());
+		Assert.assertNotNull(command.getLocale());
+		Assert.assertNotNull(command.getTagsCloud());
+		
+		Assert.assertEquals("blogJsp", modelAndView.getViewName());
+		
+	}
+	
+	@Test
 	public void displayException(){
 		
 		Exception e = new Exception();
-		contoller.setPathHost("pathHost");
-		contoller.setPathContext("pathContext");
-		
+				
 		ModelAndView modelAndView = contoller.displayException(e);
 		
 		BlogCommand command = (BlogCommand)modelAndView.getModel().get("command");
@@ -157,10 +203,7 @@ public class BlogControllerTest {
 	
 	@Test
 	public void displayError(){
-		
-		contoller.setPathHost("pathHost");
-		contoller.setPathContext("pathContext");
-		
+				
 		Exception e = new Exception();
 		String errorCode = "errorCode";
 		
@@ -174,128 +217,6 @@ public class BlogControllerTest {
 		Assert.assertEquals("pathHost", command.getPathHost());
 		Assert.assertEquals("pathContext", command.getPathContext());
 		Assert.assertEquals("blogJsp", modelAndView.getViewName());
-		
-	}
-	
-	@Test
-	@Ignore
-	public void displayAboutMe() throws Exception{
-		
-		contoller.setLocaleResolver(mockLocaleResolver());
-		
-		BlogCommand command = new BlogCommand();
-		HttpServletRequest request = mockHttpServletRequest();
-		HttpServletResponse response = mockHttpServletResponse();
-		
-		command.setDisplayExplanation(true);
-		command.setDisplayAboutMe(true);
-		command.setDisplayException(true);		
-		
-		ModelAndView modelAndView = contoller.displayAboutMe(command, request, response);
-		
-		Assert.assertFalse(command.isDisplayExplanation());
-		Assert.assertTrue(command.isDisplayAboutMe());
-		Assert.assertFalse(command.isDisplayException());
-		Assert.assertEquals("blogJsp", modelAndView.getViewName());
-		
-	}
-	
-	@Test
-	@Ignore
-	public void displayExplanation() throws Exception{
-		
-		contoller.setLocaleResolver(mockLocaleResolver());
-		contoller.setExplanationService(mockExplanationService());
-		
-		BlogCommand command = new BlogCommand();
-		HttpServletRequest request = mockHttpServletRequest();
-		HttpServletResponse response = mockHttpServletResponse();
-		String explanationUniqueName = "unique_name";
-		
-		command.setDisplayExplanation(true);
-		command.setDisplayAboutMe(true);
-		command.setDisplayException(true);
-		
-		ModelAndView modelAndView = contoller.displayExplanation(command, request, response, explanationUniqueName);
-		
-		Assert.assertTrue(command.isDisplayExplanation());
-		Assert.assertFalse(command.isDisplayAboutMe());
-		Assert.assertFalse(command.isDisplayException());
-		Assert.assertEquals("blogJsp", modelAndView.getViewName());
-		
-		Assert.assertNotNull(command.getExplanation());
-		
-	}
-	
-	@Test
-	@Ignore
-	public void handleArticleSelection() throws Exception{
-		
-//		contoller.setCategoryService(mockCategoryService_CategorySelected());
-//		contoller.setLocaleResolver(mockLocaleResolver());
-//		contoller.setArticleService(mockArticleService_CategorySelected());
-//		
-//		BlogCommand command = new BlogCommand();
-//		HttpServletRequest request = mockHttpServletRequest();
-//		HttpServletResponse response = mockHttpServletResponse();
-//		String selectedCategoryPageCurrent = "1";
-//		String selectedCategoryUniqueName = "category_unique_name";
-//		String selectedArticlePageCurrent = "2";
-//		String selectedArticleUniqueName = "article_unique_name";
-//		
-//		command.setDisplaySelectedCategory(true);
-//		command.setDisplaySelectedArticle(true);
-//		command.setDisplayExplanation(true);
-//		command.setDisplayAboutMe(true);
-//		command.setDisplayException(true);
-//		
-//		ModelAndView modelAndView = contoller.handleArticleSelection(command, request, response, selectedCategoryPageCurrent, selectedCategoryUniqueName, selectedArticlePageCurrent, selectedArticleUniqueName);
-//		
-//		Assert.assertFalse(command.isDisplaySelectedCategory());
-//		Assert.assertTrue(command.isDisplaySelectedArticle());
-//		Assert.assertFalse(command.isDisplayExplanation());
-//		Assert.assertFalse(command.isDisplayAboutMe());
-//		Assert.assertFalse(command.isDisplayException());
-//		Assert.assertEquals("blogJsp", modelAndView.getViewName());
-//		
-//		Assert.assertEquals(Integer.valueOf(1), command.getSelectedCategoryPageCurrent());
-//		Assert.assertEquals("category_unique_name", command.getSelectedCategoryUniqueName());
-//		Assert.assertEquals(Integer.valueOf(2), command.getSelectedArticlePageCurrent());
-//		Assert.assertEquals("article_unique_name", command.getSelectedArticleUniqueName());
-//		Assert.assertEquals(Integer.valueOf(5), command.getSelectedArticlePagesCount());
-		
-	}
-	
-	@Test
-	public void handleCategorySelection() throws Exception{
-		
-//		contoller.setCategoryService(mockCategoryService_CategorySelected());
-//		contoller.setLocaleResolver(mockLocaleResolver());
-//		contoller.setArticleService(mockArticleService_CategorySelected());
-//		
-//		BlogCommand command = new BlogCommand();
-//		HttpServletRequest request = mockHttpServletRequest();
-//		HttpServletResponse response = mockHttpServletResponse();
-//		String selectedCategoryPageCurrent = "1";
-//		String selectedCategoryUniqueName = "category_unique_name";
-//		
-//		command.setDisplaySelectedCategory(true);
-//		command.setDisplaySelectedArticle(true);
-//		command.setDisplayExplanation(true);
-//		command.setDisplayAboutMe(true);
-//		command.setDisplayException(true);
-//		
-//		ModelAndView modelAndView = contoller.handleCategorySelection(command, request, response, selectedCategoryPageCurrent, selectedCategoryUniqueName);
-//		
-//		Assert.assertTrue(command.isDisplaySelectedCategory());
-//		Assert.assertFalse(command.isDisplaySelectedArticle());
-//		Assert.assertFalse(command.isDisplayExplanation());
-//		Assert.assertFalse(command.isDisplayAboutMe());
-//		Assert.assertFalse(command.isDisplayException());
-//		Assert.assertEquals("blogJsp", modelAndView.getViewName());
-//		
-//		Assert.assertEquals(Integer.valueOf(1), command.getSelectedCategoryPageCurrent());
-//		Assert.assertEquals("category_unique_name", command.getSelectedCategoryUniqueName());
 		
 	}
 	
@@ -335,7 +256,7 @@ public class BlogControllerTest {
 	// ************************************************************************************************************ //
 	
 	
-	private List<ArticleEntity> mockCompleteArticleList1() throws Exception{
+	private List<ArticleEntity> mockCompleteArticleList() throws Exception{
 		
 		List<ArticleEntity> completeArticleList = new ArrayList<ArticleEntity>();
 		
@@ -416,184 +337,7 @@ public class BlogControllerTest {
 		return completeArticleList;		
 				
 	}
-	
-	private List<ArticleEntity> mockCompleteArticleList2() throws Exception{
 		
-		List<ArticleEntity> completeArticleList = new ArrayList<ArticleEntity>();
-		
-		List<ArticleTagEntity> articleTagList;
-		ArticleTagEntity articleTag;
-		ArticleEntity article;
-		
-		//Third Article
-		articleTagList = new ArrayList<ArticleTagEntity>();
-		articleTag = new ArticleTagEntity();
-		articleTag.setId(7L);
-		articleTag.setName("Name7");
-		articleTagList.add(articleTag);
-		
-		articleTag = new ArticleTagEntity();
-		articleTag.setId(8L);
-		articleTag.setName("Name8");
-		articleTagList.add(articleTag);
-		
-		articleTag = new ArticleTagEntity();
-		articleTag.setId(9L);
-		articleTag.setName("Name9");
-		articleTagList.add(articleTag);
-		
-		article = new ArticleEntity();
-		article.setId(3L);
-		article.setUniqueName("unique_name_3");
-		article.setCategoryId(2L);
-		article.setTitle("Title 3");
-		article.setDescription("Description 3");
-		article.setContentPath("Path/path3");
-		article.setPagesCount(3);		
-		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("19991225174553"));
-		article.setCreationDateAsString("December 25, 1999");
-		article.setAuthor("Author3");
-		article.setArticleTagList(articleTagList);
-		article.setDemoPath("/Demo path3");
-		article.setExamplePath("/Example path3");
-		article.setSourcePath("/Source path3");
-		completeArticleList.add(article);
-		
-		
-		//Fourth Article
-		articleTagList = new ArrayList<ArticleTagEntity>();
-		articleTag = new ArticleTagEntity();
-		articleTag.setId(10L);
-		articleTag.setName("Name10");
-		articleTagList.add(articleTag);
-		
-		articleTag = new ArticleTagEntity();
-		articleTag.setId(11L);
-		articleTag.setName("Name11");
-		articleTagList.add(articleTag);
-		
-		articleTag = new ArticleTagEntity();
-		articleTag.setId(12L);
-		articleTag.setName("Name12");
-		articleTagList.add(articleTag);
-		
-		article = new ArticleEntity();
-		article.setId(4L);
-		article.setUniqueName("unique_name_4");
-		article.setCategoryId(2L);
-		article.setTitle("Title 4");
-		article.setDescription("Description 4");
-		article.setContentPath("Path/path4");
-		article.setPagesCount(3);		
-		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("19991225174553"));
-		article.setCreationDateAsString("December 25, 1999");
-		article.setAuthor("Author4");
-		article.setArticleTagList(articleTagList);
-		article.setDemoPath("/Demo path4");
-		article.setExamplePath("/Example path4");
-		article.setSourcePath("/Source path4");
-		completeArticleList.add(article);
-		
-		
-		return completeArticleList;		
-				
-	}
-	
-	private List<ArticleEntity> mockCompleteArticleList3() throws Exception{
-		
-		List<ArticleEntity> completeArticleList = new ArrayList<ArticleEntity>();
-		
-		List<ArticleTagEntity> articleTagList;
-		ArticleTagEntity articleTag;
-		ArticleEntity article;
-		
-		//Fifth Article
-		articleTagList = new ArrayList<ArticleTagEntity>();
-		articleTag = new ArticleTagEntity();
-		articleTag.setId(13L);
-		articleTag.setName("Name13");
-		articleTagList.add(articleTag);
-		
-		articleTag = new ArticleTagEntity();
-		articleTag.setId(14L);
-		articleTag.setName("Name14");
-		articleTagList.add(articleTag);
-		
-		articleTag = new ArticleTagEntity();
-		articleTag.setId(15L);
-		articleTag.setName("Name15");
-		articleTagList.add(articleTag);
-		
-		article = new ArticleEntity();
-		article.setId(5L);
-		article.setUniqueName("unique_name_5");
-		article.setCategoryId(3L);
-		article.setTitle("Title 5");
-		article.setDescription("Description 5");
-		article.setContentPath("Path/path5");
-		article.setPagesCount(3);		
-		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("19991225174553"));
-		article.setCreationDateAsString("December 25, 1999");
-		article.setAuthor("Author5");
-		article.setArticleTagList(articleTagList);
-		article.setDemoPath("/Demo path5");
-		article.setExamplePath("/Example path5");
-		article.setSourcePath("/Source path5");
-		completeArticleList.add(article);
-		
-		
-		//Sixth Article
-		articleTagList = new ArrayList<ArticleTagEntity>();
-		articleTag = new ArticleTagEntity();
-		articleTag.setId(13L);
-		articleTag.setName("Name13");
-		articleTagList.add(articleTag);
-		
-		articleTag = new ArticleTagEntity();
-		articleTag.setId(14L);
-		articleTag.setName("Name14");
-		articleTagList.add(articleTag);
-		
-		articleTag = new ArticleTagEntity();
-		articleTag.setId(15L);
-		articleTag.setName("Name15");
-		articleTagList.add(articleTag);
-		
-		article = new ArticleEntity();
-		article.setId(6L);
-		article.setUniqueName("unique_name_6");
-		article.setCategoryId(3L);
-		article.setTitle("Title 4");
-		article.setDescription("Description 6");
-		article.setContentPath("Path/path6");
-		article.setPagesCount(3);		
-		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("19991225174553"));
-		article.setCreationDateAsString("December 25, 1999");
-		article.setAuthor("Author6");
-		article.setArticleTagList(articleTagList);
-		article.setDemoPath("/Demo path6");
-		article.setExamplePath("/Example path6");
-		article.setSourcePath("/Source path6");
-		completeArticleList.add(article);
-		
-		
-		return completeArticleList;		
-		
-	}
-	
-	private ArticleService mockArticleService_CategorySelected() throws Exception{
-		
-		ArticleService mock = Mockito.mock(ArticleService.class);
-		
-		ArticleEntity selectedArticle = new ArticleEntity();
-		selectedArticle.setPagesCount(5);
-		
-		Mockito.when(mock.getArticleFromListByUniqueName(Mockito.anyList(), Mockito.anyString())).thenReturn(selectedArticle);
-		
-		return mock;
-		
-	}
-	
 	private HttpServletRequest mockHttpServletRequest(){
 		
 		HttpServletRequest mock = Mockito.mock(HttpServletRequest.class);
@@ -604,20 +348,6 @@ public class BlogControllerTest {
 	private HttpServletResponse mockHttpServletResponse(){
 		
 		HttpServletResponse mock = Mockito.mock(HttpServletResponse.class);
-		return mock;
-		
-	}
-	
-	private ExplanationService mockExplanationService() throws Exception{
-		
-		ExplanationEntity explanation = new ExplanationEntity();
-		explanation.setId(1L);
-		explanation.setUniqueName("unique_name_1");
-		
-		ExplanationService mock = Mockito.mock(ExplanationService.class);
-		
-		Mockito.when(mock.getExplanationByUniqueName(Mockito.anyString())).thenReturn(explanation);
-		
 		return mock;
 		
 	}
@@ -635,10 +365,10 @@ public class BlogControllerTest {
 		
 		ArticleService mock = Mockito.mock(ArticleService.class);
 		
-		Mockito.when(mock.getAllArticleList(Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList1());
-		Mockito.when(mock.getArticleListByPageTagAndLocal(Mockito.anyInt(), Mockito.any(ArticleTagEntity.class), Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList1());
+		Mockito.when(mock.getAllArticleList(Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList());
+		Mockito.when(mock.getArticleListByPageTagAndLocal(Mockito.anyInt(), Mockito.any(ArticleTagEntity.class), Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList());
 		Mockito.when(mock.getPagesCountOfAllArticles()).thenReturn(4);
-		Mockito.when(mock.getArticleByUniqueName(Mockito.anyString(), Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList1().get(0));
+		Mockito.when(mock.getArticleByUniqueName(Mockito.anyString(), Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList().get(0));
 				
 		return mock;
 		
@@ -649,6 +379,20 @@ public class BlogControllerTest {
 		ArticleTagService mock = Mockito.mock(ArticleTagService.class);
 		
 		Mockito.when(mock.getTagsCloud(Mockito.anyList())).thenReturn(new Cloud());
+		
+		return mock;
+		
+	}
+	
+	private ExplanationService mockExplanationService() throws Exception{
+		
+		ExplanationEntity explanation = new ExplanationEntity();
+		explanation.setId(1L);
+		explanation.setUniqueName("explanation_unique_name");
+		
+		ExplanationService mock = Mockito.mock(ExplanationService.class);
+		
+		Mockito.when(mock.getExplanationByUniqueName(Mockito.anyString())).thenReturn(explanation);
 		
 		return mock;
 		

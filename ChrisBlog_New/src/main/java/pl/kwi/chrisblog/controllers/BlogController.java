@@ -158,18 +158,18 @@ public class BlogController{
 	 * @param command object BlogCommand with data from page
 	 * @param request object HttpServletRequest with request from page 
 	 * @param response object HttpServletResponse with response to page
-	 * @param explanationUniqueName object String with unique name of explanation
+	 * @param uniqueName object String with unique name of explanation
 	 * @return object ModelAndView with model and view of page
 	 */
-	@RequestMapping("/explanation/{explanationUniqueName}")
+	@RequestMapping("/explanation/{uniqueName}")
 	public ModelAndView displayExplanation(@ModelAttribute("command")BlogCommand command,
 			HttpServletRequest request, HttpServletResponse response, 
-			@PathVariable String explanationUniqueName) throws Exception{
+			@PathVariable String uniqueName) throws Exception{
 				
 		command.setDisplayExplanation(true);
 		handleCommand(command, request);
 		
-		command.setExplanation(explanationService.getExplanationByUniqueName(explanationUniqueName));
+		command.setExplanation(explanationService.getExplanationByUniqueName(uniqueName));
 		
 		return new ModelAndView("blogJsp");
 		
