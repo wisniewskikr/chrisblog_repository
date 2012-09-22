@@ -258,35 +258,84 @@ public class BlogControllerTest {
 		
 	}
 	
-//	@Test
-//	public void handleArticlePagenation() throws Exception{
-//		
-//		ArticleEntity selectedArticle = new ArticleEntity();
-//		selectedArticle.setPagesCount(3);
-//		
-//		BlogCommand command = new BlogCommand();
-//		command.setSelectedArticle(selectedArticle);
-//		command.setSelectedArticlePageCurrent(1);
-//		
-//		contoller.handleArticlePagenation(command);
-//		
-//		Assert.assertEquals(Integer.valueOf(3), command.getSelectedArticlePagesCount());
-//		
-//	}
-//	
-//	@Test(expected = ArticleException.class)
-//	public void handleArticlePagenation_exception() throws Exception{
-//		
-//		ArticleEntity selectedArticle = new ArticleEntity();
-//		selectedArticle.setPagesCount(3);
-//		
-//		BlogCommand command = new BlogCommand();
-//		command.setSelectedArticle(selectedArticle);
-//		command.setSelectedArticlePageCurrent(5);
-//		
-//		contoller.handleArticlePagenation(command);
-//		
-//	}
+	@Test
+	public void handleArticleListPagenation() throws Exception {
+		
+		BlogCommand command = new BlogCommand();
+		int pageNumber = 1;
+		
+		contoller.handleArticleListPagenation(command, pageNumber);
+		
+		Assert.assertEquals(Integer.valueOf(1), command.getPageCurrent());
+		Assert.assertEquals(Integer.valueOf(4), command.getPagesCount());
+		
+	}
+	
+	@Test(expected = ArticleException.class)
+	public void handleArticleListPagenation_withException() throws Exception{
+		
+		BlogCommand command = new BlogCommand();
+		int pageNumber = 8;
+		
+		contoller.handleArticleListPagenation(command, pageNumber);
+		
+	}
+	
+	@Test
+	public void handleArticlePagenation() throws Exception {
+		
+		ArticleEntity article = new ArticleEntity();
+		article.setPagesCount(4);
+		
+		BlogCommand command = new BlogCommand();
+		command.setArticle(article);
+		int pageNumber = 1;
+		
+		contoller.handleArticlePagenation(command, pageNumber);
+		
+		Assert.assertEquals(Integer.valueOf(1), command.getPageCurrent());
+		Assert.assertEquals(Integer.valueOf(4), command.getPagesCount());
+		
+	}
+	
+	@Test(expected = ArticleException.class)
+	public void handleArticlePagenation_withException() throws Exception{
+		
+		ArticleEntity article = new ArticleEntity();
+		article.setPagesCount(4);
+		
+		BlogCommand command = new BlogCommand();
+		command.setArticle(article);
+		int pageNumber = 8;
+		
+		contoller.handleArticlePagenation(command, pageNumber);
+		
+	}
+	
+	@Test
+	public void handlePagenation() throws Exception {
+		
+		BlogCommand command = new BlogCommand();
+		int pageCurrent = 1;
+		int pagesCount = 4;
+		
+		contoller.handlePagenation(command, pageCurrent, pagesCount);
+		
+		Assert.assertEquals(Integer.valueOf(1), command.getPageCurrent());
+		Assert.assertEquals(Integer.valueOf(4), command.getPagesCount());
+		
+	}
+	
+	@Test(expected = ArticleException.class)
+	public void handlePagenation_withException() throws Exception{
+		
+		BlogCommand command = new BlogCommand();
+		int pageCurrent = 8;
+		int pagesCount = 4;
+		
+		contoller.handlePagenation(command, pageCurrent, pagesCount);
+		
+	}
 	
 	
 	// ************************************************************************************************************ //
