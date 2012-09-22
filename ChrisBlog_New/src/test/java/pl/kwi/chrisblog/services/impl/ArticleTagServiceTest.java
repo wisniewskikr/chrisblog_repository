@@ -7,7 +7,12 @@ import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mcavallo.opencloud.Cloud;
+
+import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
+import pl.kwi.chrisblog.exceptions.ArticleTagException;
+import pl.kwi.chrisblog.utils.DateUtils;
 
 /**
  * Class with test for class ArticleTagService.
@@ -68,6 +73,26 @@ public class ArticleTagServiceTest {
 		
 	}
 	
+	@Test
+	public void getTagsCloud() throws Exception{
+		
+		List<ArticleEntity> articleList = mockArticleList();
+		
+		Cloud tagsCloud = service.getTagsCloud(articleList);
+		
+		Assert.assertEquals(3, tagsCloud.size());		
+		
+	}
+	
+	@Test(expected = ArticleTagException.class)
+	public void getTagsCloud_CategoryListNull() throws Exception{
+		
+		List<ArticleEntity> articleList = null;
+		
+		service.getTagsCloud(articleList);
+		
+	}
+	
 	
 	// ************************************************************************************************************ //
 	// *********************************************** HELP METHODS *********************************************** //
@@ -121,6 +146,68 @@ public class ArticleTagServiceTest {
 		
 		return articleTagList;
 		
+	}
+	
+	private List<ArticleEntity> mockArticleList() throws Exception{
+		
+		List<ArticleEntity> completeArticleList = new ArrayList<ArticleEntity>();
+		
+		List<ArticleTagEntity> articleTagList = new ArrayList<ArticleTagEntity>();
+		ArticleTagEntity articleTag;
+		
+		articleTag = new ArticleTagEntity();
+		articleTag.setId(1L);
+		articleTag.setName("Java");
+		articleTagList.add(articleTag);
+		
+		articleTag = new ArticleTagEntity();
+		articleTag.setId(2L);
+		articleTag.setName("Maven");
+		articleTagList.add(articleTag);
+		
+		articleTag = new ArticleTagEntity();
+		articleTag.setId(3L);
+		articleTag.setName("Servlet");
+		articleTagList.add(articleTag);
+		
+		ArticleEntity article;
+		
+		article = new ArticleEntity();
+		article.setId(1L);
+		article.setUniqueName("Unique name");
+		article.setCategoryId(1L);
+		article.setTitle("Title");
+		article.setDescription("Description");
+		article.setContentPath("Path/path");
+		article.setPagesCount(3);		
+		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("19991225174553"));
+		article.setCreationDateAsString("December 25, 1999");
+		article.setAuthor("Author");
+		article.setArticleTagList(articleTagList);
+		article.setDemoPath("/demoPath");
+		article.setExamplePath("/examplePath");
+		article.setSourcePath("/sourcePath");
+		completeArticleList.add(article);
+		
+		article = new ArticleEntity();
+		article.setId(2L);
+		article.setUniqueName("Unique name 2");
+		article.setCategoryId(1L);
+		article.setTitle("Title 2");
+		article.setDescription("Description 2");
+		article.setContentPath("Path/path");
+		article.setPagesCount(3);		
+		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("19991225174553"));
+		article.setCreationDateAsString("December 25, 1999");
+		article.setAuthor("Author");
+		article.setArticleTagList(articleTagList);
+		article.setDemoPath("/demoPath");
+		article.setExamplePath("/examplePath");
+		article.setSourcePath("/sourcePath");
+		completeArticleList.add(article);
+		
+		return completeArticleList;		
+				
 	}
 
 }
