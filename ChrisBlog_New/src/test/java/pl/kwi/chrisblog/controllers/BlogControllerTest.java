@@ -453,7 +453,7 @@ public class BlogControllerTest {
 		ArticleService mock = Mockito.mock(ArticleService.class);
 		
 		Mockito.when(mock.getAllArticleList(Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList());
-		Mockito.when(mock.getArticleListByPageTagAndLocal(Mockito.anyInt(), Mockito.any(ArticleTagEntity.class), Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList());
+		Mockito.when(mock.getArticleListSortedByDateDesc(Mockito.anyInt(), Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList());
 		Mockito.when(mock.getPagesCountOfAllArticles()).thenReturn(4);
 		Mockito.when(mock.getArticleByUniqueName(Mockito.anyString(), Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList().get(0));
 				

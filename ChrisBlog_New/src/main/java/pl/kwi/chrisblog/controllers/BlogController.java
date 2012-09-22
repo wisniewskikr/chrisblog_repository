@@ -112,10 +112,7 @@ public class BlogController{
 		command.setDisplayArticleList(true);		
 		handleCommand(command, request);
 		
-		// TODO KWi: implement tag entity
-		ArticleTagEntity tag = null;
-		
-		command.setArticleList(articleService.getArticleListByPageTagAndLocal(pageNumber, tag, command.getLocale()));
+		command.setArticleList(articleService.getArticleListSortedByDateDesc(pageNumber, command.getLocale()));
 		
 		handleArticleListPagenation(command, pageNumber);
 		

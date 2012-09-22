@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -31,25 +33,36 @@ public class ArticleService implements IArticleService {
 	@Autowired
 	private ArticleTagService articleTagService;
 	
+	private List<ArticleEntity> completeArticleList;
+	
 
+	@PostConstruct
+	public void init(){
+		completeArticleList = initCompleteArticleList();			
+	}
+	
 	/* (non-Javadoc)
 	 * @see pl.kwi.chrisblog.services.intf.IArticleService#getAllArticleList(java.util.Locale)
 	 */
 	public List<ArticleEntity> getAllArticleList(Locale loc) throws Exception {
-		
-		List<ArticleEntity> completeArticleList = initCompleteArticleList();
 		
 		return convertArticlesToDisplayableForm(completeArticleList, loc);
 		
 	}
 	
 	/* (non-Javadoc)
+	 * @see pl.kwi.chrisblog.services.intf.IArticleService#getArticleListSortedByDateAsc(int, java.util.Locale)
+	 */
+	public List<ArticleEntity> getArticleListSortedByDateDesc(int pageNumber, Locale loc) throws Exception {
+		
+		return getArticleListSortedByDateDesc(pageNumber, null, loc);
+		
+	}
+	
+	/* (non-Javadoc)
 	 * @see pl.kwi.chrisblog.services.intf.IArticleService#getArticleListByPageTagAndLocal(int, pl.kwi.chrisblog.entities.ArticleTagEntity, java.util.Locale)
 	 */
-	public List<ArticleEntity> getArticleListByPageTagAndLocal(int pageNumber, ArticleTagEntity tag, Locale loc) throws Exception {
-		
-		// TODO KWi: implement tag
-		List<ArticleEntity> completeArticleList = initCompleteArticleList();
+	public List<ArticleEntity> getArticleListSortedByDateDesc(int pageNumber, ArticleTagEntity tag, Locale loc) throws Exception {
 		
 		return convertArticlesToDisplayableForm(completeArticleList, loc);
 		
@@ -60,7 +73,6 @@ public class ArticleService implements IArticleService {
 	 */
 	public ArticleEntity getArticleByUniqueName(String articleUniqueName, Locale loc) throws Exception {
 		
-		List<ArticleEntity> completeArticleList = initCompleteArticleList();
 		completeArticleList = convertArticlesToDisplayableForm(completeArticleList, loc);
 		
 		return getArticleFromListByUniqueName(completeArticleList, articleUniqueName);
@@ -83,45 +95,20 @@ public class ArticleService implements IArticleService {
 		return 4;
 		
 	}
+		
 	
-	/* (non-Javadoc)
-	 * @see pl.kwi.chrisblogjava.services.intf.ITopicService#getTopicListByCategoryId(java.lang.Long)
-	 */
-	public List<ArticleEntity> getArticleListByCategoryId(Long categoryId, Locale loc) throws Exception {
-		
-		List<ArticleEntity> completeArticleList = initCompleteArticleList();
-		
-		return getArticleListByCategoryId(categoryId, loc, completeArticleList);
-		
-	}
+	// ************************************************************************************************************ //
+	// *********************************************** HELP METHODS *********************************************** //
+	// ************************************************************************************************************ //
 	
-	/* (non-Javadoc)
-	 * @see pl.kwi.chrisblogjava.services.intf.ITopicService#getTopicFromListById(java.util.List, java.lang.Long)
-	 */
-	public ArticleEntity getArticleFromListById(List<ArticleEntity> articleList, Long articleId) throws Exception {
-		
-		if(articleList == null){
-			throw new ArticleException("Error article handling. List of articles is null.");
-		}
-		
-		if(articleId == null){
-			throw new ArticleException("Error article handling. Id of article is null.");
-		}
-
-		for (ArticleEntity article : articleList) {
-			
-			if(article.getId().equals(articleId)){
-				return article;
-			}
-			
-		}
-		
-		return null;
-		
-	}
 	
-	/* (non-Javadoc)
-	 * @see pl.kwi.chrisblogjava.services.intf.ITopicService#getTopicFromListById(java.util.List, java.lang.Long)
+	/**
+	 * Method gets article from list by article unique name.
+	 * 
+	 * @param articleList list of article where specified article is looked for
+	 * @param articleUniqueName object String with unique name of article looked for
+	 * @return object ArticleEntity with specified unique name
+	 * @throws Exception 
 	 */
 	public ArticleEntity getArticleFromListByUniqueName(List<ArticleEntity> articleList, String articleUniqueName) throws Exception {
 		
@@ -143,78 +130,6 @@ public class ArticleService implements IArticleService {
 		
 		return null;
 		
-	}
-	
-	/* (non-Javadoc)
-	 * @see pl.kwi.chrisblog.services.intf.IArticleService#countPageNumberForEveryArticleFromList(java.util.List, int)
-	 */
-	public void countPageNumberForEveryArticleFromList(List<ArticleEntity> articleList, Integer articlesOnPage) throws Exception{
-		
-		if(articlesOnPage == null){
-			throw new ArticleException("Error article handling. Atribute with count of articles on one category page is null.");
-		}
-		
-		if(articleList == null){
-			return;
-		}
-		
-		int index = 0;
-		int pageNumber = 0;
-		int rest = 0;
-		
-		for (int i = 0; i < articleList.size(); i++) {
-			
-			index = i + 1;
-			pageNumber = index/articlesOnPage;
-			rest = index%articlesOnPage;
-			if(rest != 0){
-				pageNumber += 1;
-			}
-			
-			articleList.get(i).setNumberCategoryPage(pageNumber);
-			
-		}
-		
-	}
-	
-	
-	// ************************************************************************************************************ //
-	// *********************************************** HELP METHODS *********************************************** //
-	// ************************************************************************************************************ //
-	
-	
-	/**
-	 * Method gets list of articles connected with specified category.
-	 * 
-	 * @param categoryId object Long with id of specified category
-	 * @param loc object Locale with international localization
-	 * @param completeArticleList list of all articles
-	 * @return list of articles connected with specified category
-	 * @throws Exception
-	 */
-	protected List<ArticleEntity> getArticleListByCategoryId(Long categoryId, Locale loc, List<ArticleEntity> completeArticleList) throws Exception {
-		
-		if(categoryId == null){
-			throw new ArticleException("Error article handling. Id of category is null");
-		}
-		
-		if(loc == null){
-			throw new ArticleException("Error article handling. Object with locale is null");
-		}		
-		
-		List<ArticleEntity> articleList = new ArrayList<ArticleEntity>();
-		
-		for (ArticleEntity article : completeArticleList) {
-			
-			if(categoryId.equals(article.getCategoryId())){
-				articleList.add(article);
-			}
-			
-		}
-		
-		articleList = convertArticlesToDisplayableForm(articleList, loc);
-		
-		return articleList;
 	}
 	
 	/**
@@ -386,6 +301,13 @@ public class ArticleService implements IArticleService {
 	public void setFolderSources(String folderSources) {
 		this.folderSources = folderSources;
 	}
+
+	public List<ArticleEntity> getCompleteArticleList() {
+		return completeArticleList;
+	}
+	public void setCompleteArticleList(List<ArticleEntity> completeArticleList) {
+		this.completeArticleList = completeArticleList;
+	}	
 
 	
 }
