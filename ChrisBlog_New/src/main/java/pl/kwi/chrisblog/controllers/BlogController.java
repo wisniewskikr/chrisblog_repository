@@ -1,15 +1,12 @@
 package pl.kwi.chrisblog.controllers;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.mcavallo.opencloud.Cloud;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -23,9 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import pl.kwi.chrisblog.commands.BlogCommand;
-import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
-import pl.kwi.chrisblog.entities.ExplanationEntity;
 import pl.kwi.chrisblog.exceptions.ArticleException;
 import pl.kwi.chrisblog.services.intf.IArticleService;
 import pl.kwi.chrisblog.services.intf.IArticleTagService;
@@ -82,6 +77,15 @@ public class BlogController{
 //		
 //	}
 	
+	/**
+	 * Method handles initial/first appearance in application.
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/init")
 	public ModelAndView init(@ModelAttribute("command")BlogCommand command, 
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -90,6 +94,16 @@ public class BlogController{
 		
 	}
 	
+	/**
+	 * Method handles page with article list.
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param pageNumber int with current page number
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
 	@RequestMapping("/page/{pageNumber}")
 	public ModelAndView displayArticleList(@ModelAttribute("command")BlogCommand command,
 			HttpServletRequest request, HttpServletResponse response,
@@ -109,6 +123,17 @@ public class BlogController{
 		
 	}
 	
+	/**
+	 * Method handles page with single article.
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param pageNumber int with current page number
+	 * @param articleUniqueName object String with unique nane of article
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
 	@RequestMapping("/article/page/{pageNumber}/{articleUniqueName}")
 	public ModelAndView displayArticle(@ModelAttribute("command")BlogCommand command,
 			HttpServletRequest request, HttpServletResponse response,

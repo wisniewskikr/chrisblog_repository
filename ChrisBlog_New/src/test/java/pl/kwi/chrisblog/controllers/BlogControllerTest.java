@@ -21,7 +21,9 @@ import pl.kwi.chrisblog.commands.BlogCommand;
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.entities.ExplanationEntity;
+import pl.kwi.chrisblog.exceptions.ArticleException;
 import pl.kwi.chrisblog.services.impl.ArticleService;
+import pl.kwi.chrisblog.services.impl.ArticleTagService;
 import pl.kwi.chrisblog.services.impl.ExplanationService;
 import pl.kwi.chrisblog.utils.DateUtils;
 
@@ -30,8 +32,46 @@ public class BlogControllerTest {
 	private BlogController contoller;
 	
 	@Before
-	public void setUp(){
-		contoller = new BlogController();		
+	public void setUp() throws Exception{
+		contoller = new BlogController();
+		contoller.setPathHost("pathHost");
+		contoller.setPathContext("pathContext");
+		contoller.setLocaleResolver(mockLocaleResolver());
+		contoller.setArticleService(mockArticleService());
+		contoller.setArticleTagService(mockArticleTagService());
+	}
+	
+	@Test
+	public void displayArticleList() throws Exception{
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		HttpServletResponse response = mockHttpServletResponse();
+		int pageNumber = 1;
+		
+		ModelAndView modelAndView = contoller.displayArticleList(command, request, response, pageNumber);
+		
+		Assert.assertFalse(command.isDisplayAboutMe());
+		Assert.assertTrue(command.isDisplayArticleList());
+		Assert.assertEquals(2, command.getArticleList().size());
+		Assert.assertEquals(Integer.valueOf(1), command.getPageCurrent());
+		Assert.assertEquals(Integer.valueOf(4), command.getPagesCount());
+		Assert.assertEquals("pathHost", command.getPathHost());
+		Assert.assertEquals("pathContext", command.getPathContext());
+		Assert.assertEquals("blogJsp", modelAndView.getViewName());
+		
+	}
+	
+	@Test(expected = ArticleException.class)
+	public void displayArticleList_withException() throws Exception{
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		HttpServletResponse response = mockHttpServletResponse();
+		int pageNumber = 8;
+		
+		contoller.displayArticleList(command, request, response, pageNumber);
+		
 	}
 	
 	@Test
@@ -531,15 +571,6 @@ public class BlogControllerTest {
 		
 	}
 	
-	private LocaleResolver mockLocaleResolver() {
-
-		LocaleResolver mock = Mockito.mock(LocaleResolver.class);
-		Mockito.when(mock.resolveLocale(Mockito.any(HttpServletRequest.class)))
-				.thenReturn(Locale.ENGLISH);
-		return mock;
-
-	}
-	
 	private ExplanationService mockExplanationService() throws Exception{
 		
 		ExplanationEntity explanation = new ExplanationEntity();
@@ -549,6 +580,38 @@ public class BlogControllerTest {
 		ExplanationService mock = Mockito.mock(ExplanationService.class);
 		
 		Mockito.when(mock.getExplanationByUniqueName(Mockito.anyString())).thenReturn(explanation);
+		
+		return mock;
+		
+	}
+	
+	private LocaleResolver mockLocaleResolver() {
+
+		LocaleResolver mock = Mockito.mock(LocaleResolver.class);
+		Mockito.when(mock.resolveLocale(Mockito.any(HttpServletRequest.class)))
+				.thenReturn(Locale.ENGLISH);
+		return mock;
+
+	}
+	
+	private ArticleService mockArticleService() throws Exception{
+		
+		ArticleService mock = Mockito.mock(ArticleService.class);
+		
+		Mockito.when(mock.getAllArticleList(Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList1());
+		Mockito.when(mock.getArticleListByPageTagAndLocal(Mockito.anyInt(), Mockito.any(ArticleTagEntity.class), Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList1());
+		Mockito.when(mock.getPagesCountOfAllArticles()).thenReturn(4);
+		
+		
+		return mock;
+		
+	}
+	
+	private ArticleTagService mockArticleTagService() throws Exception{
+		
+		ArticleTagService mock = Mockito.mock(ArticleTagService.class);
+		
+		Mockito.when(mock.getTagsCloud(Mockito.anyList())).thenReturn(null);
 		
 		return mock;
 		
