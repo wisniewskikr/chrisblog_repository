@@ -151,7 +151,7 @@ public class BlogController{
 	}
 	
 	/**
-	 * Method handles section 'About me'.
+	 * Method displays section 'About me'.
 	 * 
 	 * @param command object BlogCommand with data from page
 	 * @param request object HttpServletRequest with request from page 
@@ -159,7 +159,7 @@ public class BlogController{
 	 * @return object ModelAndView with model and view of page
 	 */
 	@RequestMapping("/about_me")
-	public ModelAndView handleAboutMe(@ModelAttribute("command")BlogCommand command,
+	public ModelAndView displayAboutMe(@ModelAttribute("command")BlogCommand command,
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
 				
 		command.setDisplayAboutMe(true);
@@ -170,13 +170,13 @@ public class BlogController{
 	}
 	
 	/**
-	 * Method handles exceptions.
+	 * Method displays exceptions.
 	 * 
 	 * @param e object Exception with exception
 	 * @return object ModelAndView with model and view of page
 	 */
 	@ExceptionHandler(Exception.class)
-	public ModelAndView handleException(Exception e){
+	public ModelAndView displayException(Exception e){
 		
 		LOG.error("Error occured during processing", e);
 		
@@ -197,14 +197,14 @@ public class BlogController{
 	}
 	
 	/**
-	 * Method handles errors by code.
+	 * Method displays errors by code.
 	 * 
 	 * @param e object Exception with exception
 	 * @param errorCode object String with code of error
 	 * @return object ModelAndView with model and view of page
 	 */
 	@RequestMapping("/errors/{errorCode}")
-	public ModelAndView handleError(Exception e, 
+	public ModelAndView displayError(Exception e, 
 			@PathVariable String errorCode){
 				
 		LOG.error(MessageFormat.format("Error occured during processing. Error code: {0}.", errorCode));

@@ -35,13 +35,13 @@ public class BlogControllerTest {
 	}
 	
 	@Test
-	public void handleException(){
+	public void displayException(){
 		
 		Exception e = new Exception();
 		contoller.setPathHost("pathHost");
 		contoller.setPathContext("pathContext");
 		
-		ModelAndView modelAndView = contoller.handleException(e);
+		ModelAndView modelAndView = contoller.displayException(e);
 		
 		BlogCommand command = (BlogCommand)modelAndView.getModel().get("command");
 		
@@ -55,7 +55,7 @@ public class BlogControllerTest {
 	}
 	
 	@Test
-	public void handleError(){
+	public void displayError(){
 		
 		contoller.setPathHost("pathHost");
 		contoller.setPathContext("pathContext");
@@ -63,7 +63,7 @@ public class BlogControllerTest {
 		Exception e = new Exception();
 		String errorCode = "errorCode";
 		
-		ModelAndView modelAndView = contoller.handleError(e, errorCode);
+		ModelAndView modelAndView = contoller.displayError(e, errorCode);
 		
 		BlogCommand command = (BlogCommand)modelAndView.getModel().get("command");
 		
@@ -78,7 +78,7 @@ public class BlogControllerTest {
 	
 	@Test
 	@Ignore
-	public void handleAboutMe() throws Exception{
+	public void displayAboutMe() throws Exception{
 		
 		contoller.setLocaleResolver(mockLocaleResolver());
 		
@@ -90,7 +90,7 @@ public class BlogControllerTest {
 		command.setDisplayAboutMe(true);
 		command.setDisplayException(true);		
 		
-		ModelAndView modelAndView = contoller.handleAboutMe(command, request, response);
+		ModelAndView modelAndView = contoller.displayAboutMe(command, request, response);
 		
 		Assert.assertFalse(command.isDisplayExplanation());
 		Assert.assertTrue(command.isDisplayAboutMe());
