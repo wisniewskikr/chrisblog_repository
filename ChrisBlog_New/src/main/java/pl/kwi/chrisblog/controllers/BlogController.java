@@ -22,9 +22,9 @@ import org.springframework.web.servlet.view.RedirectView;
 import pl.kwi.chrisblog.commands.BlogCommand;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.exceptions.ArticleException;
-import pl.kwi.chrisblog.services.intf.IArticleService;
-import pl.kwi.chrisblog.services.intf.IArticleTagService;
-import pl.kwi.chrisblog.services.intf.IExplanationService;
+import pl.kwi.chrisblog.services.ArticleService;
+import pl.kwi.chrisblog.services.ArticleTagService;
+import pl.kwi.chrisblog.services.ExplanationService;
 
 /**
  * Class of controller for blog.
@@ -44,13 +44,13 @@ public class BlogController{
 	private String pathContext;
 	
 	@Autowired
-	private IArticleService articleService;
+	private ArticleService articleService;
 	
 	@Autowired
-	private IExplanationService explanationService;
+	private ExplanationService explanationService;
 	
 	@Autowired
-	private IArticleTagService articleTagService;
+	private ArticleTagService articleTagService;
 	
 	@Autowired
 	private LocaleResolver localeResolver;
@@ -338,15 +338,15 @@ public class BlogController{
 		this.pathContext = pathContext;
 	}
 	
-	public void setArticleService(IArticleService articleService) {
+	public void setArticleService(ArticleService articleService) {
 		this.articleService = articleService;
 	}	
 
-	public void setExplanationService(IExplanationService explanationService) {
+	public void setExplanationService(ExplanationService explanationService) {
 		this.explanationService = explanationService;
 	}	
 
-	public void setArticleTagService(IArticleTagService articleTagService) {
+	public void setArticleTagService(ArticleTagService articleTagService) {
 		this.articleTagService = articleTagService;
 	}
 

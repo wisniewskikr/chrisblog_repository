@@ -1,4 +1,4 @@
-package pl.kwi.chrisblog.services.impl;
+package pl.kwi.chrisblog.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import pl.kwi.chrisblog.entities.ExplanationEntity;
 import pl.kwi.chrisblog.exceptions.ExplanationException;
-import pl.kwi.chrisblog.services.intf.IExplanationService;
 
 /**
  * Class implementing interface IExplanationService.
@@ -17,7 +16,7 @@ import pl.kwi.chrisblog.services.intf.IExplanationService;
  * @author Krzysztof Wisniewski
  */
 @Service
-public class ExplanationService implements IExplanationService {
+public class ExplanationService {
 	
 	
 	private List<ExplanationEntity> completeExplanationList;
@@ -28,8 +27,17 @@ public class ExplanationService implements IExplanationService {
 		completeExplanationList = initCompleteExplanationList();		
 	}
 	
-	/* (non-Javadoc)
-	 * @see pl.kwi.chrisblog.services.intf.IExplanationService#getExplanationByUniqueName(java.lang.String)
+	/**
+	 * Method gets object ExplanationEntity by unique name. Unique
+	 * name is url adjusted: without spaces and unique. For
+	 * instance: web_application, java_script etc.
+	 * 
+	 * @param uniqueName object String with word which is explained
+	 * in dictionary. This word is key of dictionary: has to be
+	 * unique and have url display (without spaces, for instance
+	 * java_script, web_application etc.)
+	 * @return object ExplanationEntity with explanation of word
+	 * @throws Exception 
 	 */
 	public ExplanationEntity getExplanationByUniqueName(String uniqueName) throws Exception {
 		

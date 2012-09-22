@@ -23,9 +23,9 @@ import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.entities.ExplanationEntity;
 import pl.kwi.chrisblog.exceptions.ArticleException;
-import pl.kwi.chrisblog.services.impl.ArticleService;
-import pl.kwi.chrisblog.services.impl.ArticleTagService;
-import pl.kwi.chrisblog.services.impl.ExplanationService;
+import pl.kwi.chrisblog.services.ArticleService;
+import pl.kwi.chrisblog.services.ArticleTagService;
+import pl.kwi.chrisblog.services.ExplanationService;
 import pl.kwi.chrisblog.utils.DateUtils;
 
 public class BlogControllerTest {

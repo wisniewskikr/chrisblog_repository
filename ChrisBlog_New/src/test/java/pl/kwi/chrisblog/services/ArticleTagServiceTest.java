@@ -1,4 +1,4 @@
-package pl.kwi.chrisblog.services.impl;
+package pl.kwi.chrisblog.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,7 @@ import org.mcavallo.opencloud.Cloud;
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.exceptions.ArticleTagException;
+import pl.kwi.chrisblog.services.ArticleTagService;
 import pl.kwi.chrisblog.utils.DateUtils;
 
 /**

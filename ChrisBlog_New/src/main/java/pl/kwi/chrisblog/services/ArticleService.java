@@ -1,4 +1,4 @@
-package pl.kwi.chrisblog.services.impl;
+package pl.kwi.chrisblog.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.exceptions.ArticleException;
-import pl.kwi.chrisblog.services.intf.IArticleService;
 import pl.kwi.chrisblog.utils.DateUtils;
 
 /**
@@ -22,7 +21,7 @@ import pl.kwi.chrisblog.utils.DateUtils;
  * @author Krzysztof Wisniewski
  */
 @Service
-public class ArticleService implements IArticleService {
+public class ArticleService {
 		
 	
 	@Value("${folder.examples}")
@@ -41,8 +40,12 @@ public class ArticleService implements IArticleService {
 		completeArticleList = initCompleteArticleList();			
 	}
 	
-	/* (non-Javadoc)
-	 * @see pl.kwi.chrisblog.services.intf.IArticleService#getAllArticleList(java.util.Locale)
+	/**
+	 * Method gets list of all articles.
+	 * 
+	 * @param loc object Locale with international localization
+	 * @return list of all articles
+	 * @throws Exception
 	 */
 	public List<ArticleEntity> getAllArticleList(Locale loc) throws Exception {
 		
@@ -50,8 +53,14 @@ public class ArticleService implements IArticleService {
 		
 	}
 	
-	/* (non-Javadoc)
-	 * @see pl.kwi.chrisblog.services.intf.IArticleService#getArticleListSortedByDateAsc(int, java.util.Locale)
+	/**
+	 * Method gets list of articles connected with specified page number, tag and locale.
+	 * These articles are sorted by date descending.
+	 * 
+	 * @param pageNumber int with number of page
+	 * @param loc object Locale with international localization
+	 * @return list of articles connected with specified page number, tag and locale
+	 * @throws Exception
 	 */
 	public List<ArticleEntity> getArticleListSortedByDateDesc(int pageNumber, Locale loc) throws Exception {
 		
@@ -59,8 +68,15 @@ public class ArticleService implements IArticleService {
 		
 	}
 	
-	/* (non-Javadoc)
-	 * @see pl.kwi.chrisblog.services.intf.IArticleService#getArticleListByPageTagAndLocal(int, pl.kwi.chrisblog.entities.ArticleTagEntity, java.util.Locale)
+	/**
+	 * Method gets list of articles connected with specified page number, tag and locale.
+	 * These articles are sorted by date descending.
+	 * 
+	 * @param pageNumber int with number of page
+	 * @param tag object ArticleTagEntity with tag of article
+	 * @param loc object Locale with international localization
+	 * @return list of articles connected with specified page number, tag and locale
+	 * @throws Exception
 	 */
 	public List<ArticleEntity> getArticleListSortedByDateDesc(int pageNumber, ArticleTagEntity tag, Locale loc) throws Exception {
 		
@@ -69,8 +85,13 @@ public class ArticleService implements IArticleService {
 		
 	}
 	
-	/* (non-Javadoc)
-	 * @see pl.kwi.chrisblog.services.intf.IArticleService#getArticleByUniqueName(java.lang.String)
+	/**
+	 * Method gets article by article unique name.
+	 * 
+	 * @param articleUniqueName object String with unique name of article looked for
+	 * @param loc object Locale with international localization
+	 * @return object ArticleEntity with specified unique name
+	 * @throws Exception
 	 */
 	public ArticleEntity getArticleByUniqueName(String articleUniqueName, Locale loc) throws Exception {
 		
@@ -80,8 +101,11 @@ public class ArticleService implements IArticleService {
 		
 	}
 	
-	/* (non-Javadoc)
-	 * @see pl.kwi.chrisblog.services.intf.IArticleService#getPagesCountOfAllArticles()
+	/**
+	 * Method gets count of pages of all articles.
+	 * 
+	 * @return int with count of pages of all articles
+	 * @throws Exception
 	 */
 	public int getPagesCountOfAllArticles() throws Exception {
 		
@@ -90,8 +114,12 @@ public class ArticleService implements IArticleService {
 		
 	}
 	
-	/* (non-Javadoc)
-	 * @see pl.kwi.chrisblog.services.intf.IArticleService#getPagesCountByArticle(pl.kwi.chrisblog.entities.ArticleEntity)
+	/**
+	 * Method gets count of article`s pages.
+	 * 
+	 * @param article object ArticleEntity for whitch pages are counted
+	 * @return int with count of article`s pages
+	 * @throws Exception
 	 */
 	public int getPagesCountOfArticle(ArticleEntity article) throws Exception {
 		

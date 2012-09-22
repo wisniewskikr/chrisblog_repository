@@ -1,4 +1,4 @@
-package pl.kwi.chrisblog.services.impl;
+package pl.kwi.chrisblog.services;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +13,6 @@ import pl.kwi.chrisblog.comparators.ArticleTagIdComparator;
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.exceptions.ArticleTagException;
-import pl.kwi.chrisblog.services.intf.IArticleTagService;
 
 /**
  * Class implementing interface IArticleTagService.
@@ -21,7 +20,7 @@ import pl.kwi.chrisblog.services.intf.IArticleTagService;
  * @author Krzysztof Wisniewski
  */
 @Service
-public class ArticleTagService implements IArticleTagService {
+public class ArticleTagService {
 	
 	
 	private List<ArticleTagEntity> completeArticleTagList;
@@ -32,8 +31,11 @@ public class ArticleTagService implements IArticleTagService {
 		completeArticleTagList = initCompleteArticleTagList();			
 	}
 	
-	/* (non-Javadoc)
-	 * @see pl.kwi.chrisblog.services.intf.IArticleTagService#getArticleTagListByIdList(java.util.List)
+	/**
+	 * Method gest list of article tag by list of id these articles.
+	 * 
+	 * @param idList list of object Long with id selected articles
+	 * @return list of object ArticleTagEntity with article tags with specified ids
 	 */
 	public List<ArticleTagEntity> getArticleTagListByIdList(List<Long> idList) {
 		
@@ -55,8 +57,11 @@ public class ArticleTagService implements IArticleTagService {
 		return resultList;
 	}
 	
-	/* (non-Javadoc)
-	 * @see pl.kwi.chrisblog.services.intf.IArticleTagService#getArticleTagListByUniqueNameList(java.util.List)
+	/**
+	 * Method gest list of article tag by list of unique names these articles.
+	 * 
+	 * @param uniqueNameList list of object String with unique name selected articles
+	 * @return list of object ArticleTagEntity with article tags with specified unique names
 	 */
 	public List<ArticleTagEntity> getArticleTagListByUniqueNameList(List<String> uniqueNameList) {
 		
@@ -77,8 +82,14 @@ public class ArticleTagService implements IArticleTagService {
 		return resultList;
 	}
 	
-	/* (non-Javadoc)
-	 * @see pl.kwi.chrisblog.services.intf.IArticleTagService#getTagsCloud(java.util.List)
+	/**
+	 * Method gets cloud of tags. Tags are topics connected
+	 * with specified article. For instance article "Hello World Servlet"
+	 * can have tags like: Java, Servlet, Jsp etc.
+	 * 
+	 * @param articleList list of articles with articles tags
+	 * @return object Cloud with tags cloud
+	 * @throws Exception 
 	 */
 	public Cloud getTagsCloud(List<ArticleEntity> articleList) throws Exception {
 		

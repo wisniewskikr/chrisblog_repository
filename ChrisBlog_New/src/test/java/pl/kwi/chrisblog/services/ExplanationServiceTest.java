@@ -1,4 +1,4 @@
-package pl.kwi.chrisblog.services.impl;
+package pl.kwi.chrisblog.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import pl.kwi.chrisblog.entities.ExplanationEntity;
 import pl.kwi.chrisblog.exceptions.ExplanationException;
+import pl.kwi.chrisblog.services.ExplanationService;
 
 /**
  * Class with test for class ExplanationService.

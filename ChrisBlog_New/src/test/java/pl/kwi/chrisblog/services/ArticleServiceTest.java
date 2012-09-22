@@ -1,4 +1,4 @@
-package pl.kwi.chrisblog.services.impl;
+package pl.kwi.chrisblog.services;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -12,6 +12,7 @@ import org.junit.Test;
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.exceptions.ArticleException;
+import pl.kwi.chrisblog.services.ArticleService;
 import pl.kwi.chrisblog.utils.DateUtils;
 
 public class ArticleServiceTest {
