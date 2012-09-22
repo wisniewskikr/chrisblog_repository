@@ -130,20 +130,20 @@ public class BlogController{
 	 * @param request object HttpServletRequest with request from page 
 	 * @param response object HttpServletResponse with response to page
 	 * @param pageNumber int with current page number
-	 * @param articleUniqueName object String with unique nane of article
+	 * @param uniqueName object String with unique name of article
 	 * @return object ModelAndView with model and view of page
 	 * @throws Exception
 	 */
-	@RequestMapping("/article/page/{pageNumber}/{articleUniqueName}")
+	@RequestMapping("/article/page/{pageNumber}/{uniqueName}")
 	public ModelAndView displayArticle(@ModelAttribute("command")BlogCommand command,
 			HttpServletRequest request, HttpServletResponse response,
 			@PathVariable int pageNumber, 
-			@PathVariable String articleUniqueName) throws Exception{
+			@PathVariable String uniqueName) throws Exception{
 		
 		command.setDisplayArticle(true);
 		handleCommand(command, request);
 		
-		command.setArticle(articleService.getArticleByUniqueName(articleUniqueName, command.getLocale()));
+		command.setArticle(articleService.getArticleByUniqueName(uniqueName, command.getLocale()));
 				
 		handleArticlePagenation(command, pageNumber);
 		

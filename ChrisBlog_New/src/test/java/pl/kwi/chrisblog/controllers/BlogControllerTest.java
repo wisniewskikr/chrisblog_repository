@@ -12,6 +12,7 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.mcavallo.opencloud.Cloud;
 import org.mockito.Mockito;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,6 +43,19 @@ public class BlogControllerTest {
 	}
 	
 	@Test
+	public void init() throws Exception {
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		HttpServletResponse response = mockHttpServletResponse();
+		
+		ModelAndView modelAndView = contoller.init(command, request, response);
+		
+		Assert.assertEquals("/page/1", ((RedirectView)modelAndView.getView()).getUrl());
+		
+	}
+	
+	@Test
 	public void displayArticleList() throws Exception{
 		
 		BlogCommand command = new BlogCommand();
@@ -53,11 +67,17 @@ public class BlogControllerTest {
 		
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplayArticleList());
-		Assert.assertEquals(2, command.getArticleList().size());
-		Assert.assertEquals(Integer.valueOf(1), command.getPageCurrent());
-		Assert.assertEquals(Integer.valueOf(4), command.getPagesCount());
+		
 		Assert.assertEquals("pathHost", command.getPathHost());
 		Assert.assertEquals("pathContext", command.getPathContext());
+		Assert.assertNotNull(command.getLocale());
+		Assert.assertNotNull(command.getTagsCloud());
+		
+		Assert.assertEquals(2, command.getArticleList().size());
+		
+		Assert.assertEquals(Integer.valueOf(1), command.getPageCurrent());
+		Assert.assertEquals(Integer.valueOf(4), command.getPagesCount());
+		
 		Assert.assertEquals("blogJsp", modelAndView.getViewName());
 		
 	}
@@ -71,6 +91,47 @@ public class BlogControllerTest {
 		int pageNumber = 8;
 		
 		contoller.displayArticleList(command, request, response, pageNumber);
+		
+	}
+	
+	@Test
+	public void displayArticle() throws Exception {
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		HttpServletResponse response = mockHttpServletResponse();
+		int pageNumber = 1;
+		String uniqueName = "uniqueName";
+		
+		ModelAndView modelAndView = contoller.displayArticle(command, request, response, pageNumber, uniqueName);
+		
+		Assert.assertFalse(command.isDisplayAboutMe());
+		Assert.assertTrue(command.isDisplayArticle());
+		
+		Assert.assertEquals("pathHost", command.getPathHost());
+		Assert.assertEquals("pathContext", command.getPathContext());
+		Assert.assertNotNull(command.getLocale());
+		Assert.assertNotNull(command.getTagsCloud());
+		
+		Assert.assertEquals("unique_name_1", command.getArticle().getUniqueName());
+		
+		Assert.assertEquals(Integer.valueOf(1), command.getPageCurrent());
+		Assert.assertEquals(Integer.valueOf(3), command.getPagesCount());
+		
+		Assert.assertEquals("blogJsp", modelAndView.getViewName());
+		
+	}
+	
+	@Test(expected = ArticleException.class)
+	public void displayArticle_withException() throws Exception {
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		HttpServletResponse response = mockHttpServletResponse();
+		int pageNumber = 8;
+		String uniqueName = "uniqueName";
+		
+		contoller.displayArticle(command, request, response, pageNumber, uniqueName);
 		
 	}
 	
@@ -235,30 +296,6 @@ public class BlogControllerTest {
 //		
 //		Assert.assertEquals(Integer.valueOf(1), command.getSelectedCategoryPageCurrent());
 //		Assert.assertEquals("category_unique_name", command.getSelectedCategoryUniqueName());
-		
-	}
-	
-	@Test
-	@Ignore
-	public void init() throws Exception{
-		
-		contoller.setLocaleResolver(mockLocaleResolver());
-		contoller.setArticleService(mockArticleService_CategorySelected());
-		
-		BlogCommand command = new BlogCommand();
-		HttpServletRequest request = mockHttpServletRequest();
-		HttpServletResponse response = mockHttpServletResponse();
-		
-		command.setDisplayExplanation(true);
-		command.setDisplayAboutMe(true);
-		command.setDisplayException(true);
-		
-		ModelAndView modelAndView = contoller.init(command, request, response);
-		
-		Assert.assertFalse(command.isDisplayExplanation());
-		Assert.assertFalse(command.isDisplayAboutMe());
-		Assert.assertFalse(command.isDisplayException());
-		Assert.assertEquals("/page/1/unique_name_1", ((RedirectView)modelAndView.getView()).getUrl());
 		
 	}
 	
@@ -601,8 +638,8 @@ public class BlogControllerTest {
 		Mockito.when(mock.getAllArticleList(Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList1());
 		Mockito.when(mock.getArticleListByPageTagAndLocal(Mockito.anyInt(), Mockito.any(ArticleTagEntity.class), Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList1());
 		Mockito.when(mock.getPagesCountOfAllArticles()).thenReturn(4);
-		
-		
+		Mockito.when(mock.getArticleByUniqueName(Mockito.anyString(), Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList1().get(0));
+				
 		return mock;
 		
 	}
@@ -611,7 +648,7 @@ public class BlogControllerTest {
 		
 		ArticleTagService mock = Mockito.mock(ArticleTagService.class);
 		
-		Mockito.when(mock.getTagsCloud(Mockito.anyList())).thenReturn(null);
+		Mockito.when(mock.getTagsCloud(Mockito.anyList())).thenReturn(new Cloud());
 		
 		return mock;
 		
