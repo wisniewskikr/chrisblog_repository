@@ -195,8 +195,12 @@ public class BlogControllerTest {
 		Assert.assertFalse(command.isDisplayExplanation());
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplayException());
+		
 		Assert.assertEquals("pathHost", command.getPathHost());
 		Assert.assertEquals("pathContext", command.getPathContext());
+		Assert.assertNull(command.getLocale());
+		Assert.assertNull(command.getTagsCloud());
+		
 		Assert.assertEquals("blogJsp", modelAndView.getViewName());
 		
 	}
@@ -214,9 +218,43 @@ public class BlogControllerTest {
 		Assert.assertFalse(command.isDisplayExplanation());
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplayException());
+		
 		Assert.assertEquals("pathHost", command.getPathHost());
 		Assert.assertEquals("pathContext", command.getPathContext());
+		Assert.assertNull(command.getLocale());
+		Assert.assertNull(command.getTagsCloud());
+		
 		Assert.assertEquals("blogJsp", modelAndView.getViewName());
+		
+	}
+	
+	@Test
+	public void handleCommand() throws Exception {
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		
+		contoller.handleCommand(command, request);
+		
+		Assert.assertEquals("pathHost", command.getPathHost());
+		Assert.assertEquals("pathContext", command.getPathContext());
+		Assert.assertNotNull(command.getLocale());
+		Assert.assertNotNull(command.getTagsCloud());
+		
+	}
+	
+	@Test
+	public void handleCommand_withoutRequest() throws Exception {
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = null;
+		
+		contoller.handleCommand(command, request);
+		
+		Assert.assertEquals("pathHost", command.getPathHost());
+		Assert.assertEquals("pathContext", command.getPathContext());
+		Assert.assertNull(command.getLocale());
+		Assert.assertNull(command.getTagsCloud());
 		
 	}
 	
