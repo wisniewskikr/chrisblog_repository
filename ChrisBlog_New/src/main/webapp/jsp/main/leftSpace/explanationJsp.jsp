@@ -5,9 +5,9 @@
 
 <div id="explanations">
 
-	<h1>${command.selectedExplanation.title}</h1>
+	<h1>${command.explanation.title}</h1>
 	
-	<p>${command.selectedExplanation.content}</p>
+	<p>${command.explanation.content}</p>
 	
 	<p><a href="javascript:history.go(-1)" class="button">Back</a></p>
 

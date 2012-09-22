@@ -45,7 +45,7 @@ public class BlogControllerTest {
 		
 		BlogCommand command = (BlogCommand)modelAndView.getModel().get("command");
 		
-		Assert.assertFalse(command.isDisplaySelectedExplanation());
+		Assert.assertFalse(command.isDisplayExplanation());
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplayException());
 		Assert.assertEquals("pathHost", command.getPathHost());
@@ -67,7 +67,7 @@ public class BlogControllerTest {
 		
 		BlogCommand command = (BlogCommand)modelAndView.getModel().get("command");
 		
-		Assert.assertFalse(command.isDisplaySelectedExplanation());
+		Assert.assertFalse(command.isDisplayExplanation());
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplayException());
 		Assert.assertEquals("pathHost", command.getPathHost());
@@ -86,13 +86,13 @@ public class BlogControllerTest {
 		HttpServletRequest request = mockHttpServletRequest();
 		HttpServletResponse response = mockHttpServletResponse();
 		
-		command.setDisplaySelectedExplanation(true);
+		command.setDisplayExplanation(true);
 		command.setDisplayAboutMe(true);
 		command.setDisplayException(true);		
 		
 		ModelAndView modelAndView = contoller.handleAboutMe(command, request, response);
 		
-		Assert.assertFalse(command.isDisplaySelectedExplanation());
+		Assert.assertFalse(command.isDisplayExplanation());
 		Assert.assertTrue(command.isDisplayAboutMe());
 		Assert.assertFalse(command.isDisplayException());
 		Assert.assertEquals("blogJsp", modelAndView.getViewName());
@@ -101,7 +101,7 @@ public class BlogControllerTest {
 	
 	@Test
 	@Ignore
-	public void handleExplanationSelection() throws Exception{
+	public void displayExplanation() throws Exception{
 		
 		contoller.setLocaleResolver(mockLocaleResolver());
 		contoller.setExplanationService(mockExplanationService());
@@ -109,22 +109,20 @@ public class BlogControllerTest {
 		BlogCommand command = new BlogCommand();
 		HttpServletRequest request = mockHttpServletRequest();
 		HttpServletResponse response = mockHttpServletResponse();
-		String selectedExplanationUniqueName = "unique_name";
+		String explanationUniqueName = "unique_name";
 		
-		command.setDisplaySelectedExplanation(true);
+		command.setDisplayExplanation(true);
 		command.setDisplayAboutMe(true);
 		command.setDisplayException(true);
 		
-		ModelAndView modelAndView = contoller.handleExplanationSelection(command, request, response, selectedExplanationUniqueName);
+		ModelAndView modelAndView = contoller.displayExplanation(command, request, response, explanationUniqueName);
 		
-		Assert.assertTrue(command.isDisplaySelectedExplanation());
+		Assert.assertTrue(command.isDisplayExplanation());
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertFalse(command.isDisplayException());
 		Assert.assertEquals("blogJsp", modelAndView.getViewName());
 		
-		Assert.assertEquals(Long.valueOf(1), command.getSelectedExplanationId());
-		Assert.assertEquals("unique_name_1", command.getSelectedExplanationUniqueName());
-		Assert.assertNotNull(command.getSelectedExplanation());
+		Assert.assertNotNull(command.getExplanation());
 		
 	}
 	
@@ -146,7 +144,7 @@ public class BlogControllerTest {
 //		
 //		command.setDisplaySelectedCategory(true);
 //		command.setDisplaySelectedArticle(true);
-//		command.setDisplaySelectedExplanation(true);
+//		command.setDisplayExplanation(true);
 //		command.setDisplayAboutMe(true);
 //		command.setDisplayException(true);
 //		
@@ -154,7 +152,7 @@ public class BlogControllerTest {
 //		
 //		Assert.assertFalse(command.isDisplaySelectedCategory());
 //		Assert.assertTrue(command.isDisplaySelectedArticle());
-//		Assert.assertFalse(command.isDisplaySelectedExplanation());
+//		Assert.assertFalse(command.isDisplayExplanation());
 //		Assert.assertFalse(command.isDisplayAboutMe());
 //		Assert.assertFalse(command.isDisplayException());
 //		Assert.assertEquals("blogJsp", modelAndView.getViewName());
@@ -182,7 +180,7 @@ public class BlogControllerTest {
 //		
 //		command.setDisplaySelectedCategory(true);
 //		command.setDisplaySelectedArticle(true);
-//		command.setDisplaySelectedExplanation(true);
+//		command.setDisplayExplanation(true);
 //		command.setDisplayAboutMe(true);
 //		command.setDisplayException(true);
 //		
@@ -190,7 +188,7 @@ public class BlogControllerTest {
 //		
 //		Assert.assertTrue(command.isDisplaySelectedCategory());
 //		Assert.assertFalse(command.isDisplaySelectedArticle());
-//		Assert.assertFalse(command.isDisplaySelectedExplanation());
+//		Assert.assertFalse(command.isDisplayExplanation());
 //		Assert.assertFalse(command.isDisplayAboutMe());
 //		Assert.assertFalse(command.isDisplayException());
 //		Assert.assertEquals("blogJsp", modelAndView.getViewName());
@@ -211,13 +209,13 @@ public class BlogControllerTest {
 		HttpServletRequest request = mockHttpServletRequest();
 		HttpServletResponse response = mockHttpServletResponse();
 		
-		command.setDisplaySelectedExplanation(true);
+		command.setDisplayExplanation(true);
 		command.setDisplayAboutMe(true);
 		command.setDisplayException(true);
 		
 		ModelAndView modelAndView = contoller.init(command, request, response);
 		
-		Assert.assertFalse(command.isDisplaySelectedExplanation());
+		Assert.assertFalse(command.isDisplayExplanation());
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertFalse(command.isDisplayException());
 		Assert.assertEquals("/page/1/unique_name_1", ((RedirectView)modelAndView.getView()).getUrl());

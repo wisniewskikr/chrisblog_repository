@@ -145,7 +145,7 @@
 
 <p>
 	The presentation of web pages is defined by  
-	<a href="explanations/css" class='dialogLink'>CSS</a>. 
+	<a href="explanation/css" class='dialogLink'>CSS</a>. 
 </p>
 
 <p>

@@ -96,16 +96,12 @@ public class BlogController{
 			@PathVariable int pageNumber) throws Exception{
 		
 		command.setDisplayArticleList(true);		
-		Locale loc = localeResolver.resolveLocale(request);
-		
-		command.setPathHost(pathHost);
-		command.setPathContext(pathContext);
-		command.setTagsCloud(articleTagService.getTagsCloud(articleService.getAllArticleList(loc)));
+		handleCommand(command, request);
 		
 		// TODO KWi: implement tag entity
 		ArticleTagEntity tag = null;
 		
-		command.setArticleList(articleService.getArticleListByPageTagAndLocal(pageNumber, tag, loc));
+		command.setArticleList(articleService.getArticleListByPageTagAndLocal(pageNumber, tag, command.getLocale()));
 		
 		handleArticleListPagenation(command, pageNumber);
 		
@@ -120,21 +116,15 @@ public class BlogController{
 			@PathVariable String articleUniqueName) throws Exception{
 		
 		command.setDisplayArticle(true);
-		Locale loc = localeResolver.resolveLocale(request);
+		handleCommand(command, request);
 		
-		command.setPathHost(pathHost);
-		command.setPathContext(pathContext);
-		command.setTagsCloud(articleTagService.getTagsCloud(articleService.getAllArticleList(loc)));
-		
-		command.setArticle(articleService.getArticleByUniqueName(articleUniqueName, loc));
+		command.setArticle(articleService.getArticleByUniqueName(articleUniqueName, command.getLocale()));
 				
 		handleArticlePagenation(command, pageNumber);
 		
 		return new ModelAndView("blogJsp");
 		
 	}
-	
-
 	
 	/**
 	 * Method handles explanations - theoretical introduction
@@ -143,25 +133,18 @@ public class BlogController{
 	 * @param command object BlogCommand with data from page
 	 * @param request object HttpServletRequest with request from page 
 	 * @param response object HttpServletResponse with response to page
-	 * @param selectedExplanationUniqueName object String with unique name of explanation
+	 * @param explanationUniqueName object String with unique name of explanation
 	 * @return object ModelAndView with model and view of page
 	 */
-	@RequestMapping("/explanations/{selectedExplanationUniqueName}")
-	public ModelAndView handleExplanationSelection(@ModelAttribute("command")BlogCommand command,
+	@RequestMapping("/explanation/{explanationUniqueName}")
+	public ModelAndView displayExplanation(@ModelAttribute("command")BlogCommand command,
 			HttpServletRequest request, HttpServletResponse response, 
-			@PathVariable String selectedExplanationUniqueName) throws Exception{
+			@PathVariable String explanationUniqueName) throws Exception{
 				
-		command.setDisplaySelectedExplanation(true);
-		Locale loc = localeResolver.resolveLocale(request);
+		command.setDisplayExplanation(true);
+		handleCommand(command, request);
 		
-		command.setPathHost(pathHost);
-		command.setPathContext(pathContext);
-		command.setTagsCloud(articleTagService.getTagsCloud(articleService.getAllArticleList(loc)));
-		
-		ExplanationEntity explanation = explanationService.getExplanationByUniqueName(selectedExplanationUniqueName);
-		command.setSelectedExplanationId(explanation.getId());
-		command.setSelectedExplanationUniqueName(explanation.getUniqueName());
-		command.setSelectedExplanation(explanation);
+		command.setExplanation(explanationService.getExplanationByUniqueName(explanationUniqueName));
 		
 		return new ModelAndView("blogJsp");
 		
@@ -180,11 +163,7 @@ public class BlogController{
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
 				
 		command.setDisplayAboutMe(true);
-		Locale loc = localeResolver.resolveLocale(request);
-		
-		command.setPathHost(pathHost);
-		command.setPathContext(pathContext);
-		command.setTagsCloud(articleTagService.getTagsCloud(articleService.getAllArticleList(loc)));
+		handleCommand(command, request);
 		
 		return new ModelAndView("blogJsp");
 		
@@ -203,14 +182,16 @@ public class BlogController{
 		
 		BlogCommand command = new BlogCommand();
 		
+		command.setDisplayException(true);
+		try {
+			handleCommand(command, null);			
+		} catch (Exception e2) {
+			LOG.error("Error occured during processing", e2);
+		}
+		
 		ModelMap model = new ModelMap();
 		model.addAttribute("command", command);
-		
-		command.setDisplayException(true);
-		
-		command.setPathHost(pathHost);
-		command.setPathContext(pathContext);
-		
+				
 		return new ModelAndView("blogJsp", model);
 		
 	}
@@ -230,13 +211,15 @@ public class BlogController{
 		
 		BlogCommand command = new BlogCommand();
 		
+		command.setDisplayException(true);
+		try {
+			handleCommand(command, null);			
+		} catch (Exception e2) {
+			LOG.error("Error occured during processing", e2);
+		}
+		
 		ModelMap model = new ModelMap();
 		model.addAttribute("command", command);
-		
-		command.setDisplayException(true);
-		
-		command.setPathHost(pathHost);
-		command.setPathContext(pathContext);
 		
 		return new ModelAndView("blogJsp", model);
 				
@@ -247,6 +230,26 @@ public class BlogController{
 	// *********************************************** HELP METHODS *********************************************** //
 	// ************************************************************************************************************ //
 
+	
+	/**
+	 * Method handles object BlogCommand. All common fields are automatically set.
+	 * 
+	 * @param command object BlogCommand where all common fields are automatically set
+	 * @param request object HttpServletRequest with request from page 
+	 * @throws Exception
+	 */
+	public void handleCommand(BlogCommand command, HttpServletRequest request) throws Exception {
+		
+		command.setPathHost(pathHost);
+		command.setPathContext(pathContext);
+		
+		if(request != null){
+			Locale loc = localeResolver.resolveLocale(request);
+			command.setLocale(loc);
+			command.setTagsCloud(articleTagService.getTagsCloud(articleService.getAllArticleList(loc)));			
+		}		
+		
+	}
 	
 	/**
 	 * Method handles pagenation for all articles.

@@ -2,8 +2,10 @@ package pl.kwi.chrisblog.commands;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
 
 import org.mcavallo.opencloud.Cloud;
+import org.springframework.web.servlet.LocaleResolver;
 
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ExplanationEntity;
@@ -26,13 +28,10 @@ public class BlogCommand implements Serializable{
 	private Integer pageCurrent;
 	private Integer pagesCount;
 	
-	// Explanation
-	private Long selectedExplanationId;
-	private String selectedExplanationUniqueName;
-	private ExplanationEntity selectedExplanation;
+	private boolean displayExplanation;
+	private ExplanationEntity explanation;
 	
 	// Display
-	private boolean displaySelectedExplanation;
 	private boolean displayAboutMe;
 	private boolean displayException;
 		
@@ -41,6 +40,8 @@ public class BlogCommand implements Serializable{
 	
 	private String pathHost;
 	private String pathContext;
+	
+	private Locale locale;
 		
 	
 	public List<ArticleEntity> getArticleList() {
@@ -83,35 +84,20 @@ public class BlogCommand implements Serializable{
 	}
 	public void setPagesCount(Integer pagesCount) {
 		this.pagesCount = pagesCount;
+	}	
+	
+	public ExplanationEntity getExplanation() {
+		return explanation;
+	}
+	public void setExplanation(ExplanationEntity explanation) {
+		this.explanation = explanation;
 	}
 	
-	public Long getSelectedExplanationId() {
-		return selectedExplanationId;
+	public boolean isDisplayExplanation() {
+		return displayExplanation;
 	}
-	public void setSelectedExplanationId(Long selectedExplanationId) {
-		this.selectedExplanationId = selectedExplanationId;
-	}
-	
-	public String getSelectedExplanationUniqueName() {
-		return selectedExplanationUniqueName;
-	}
-	public void setSelectedExplanationUniqueName(
-			String selectedExplanationUniqueName) {
-		this.selectedExplanationUniqueName = selectedExplanationUniqueName;
-	}
-	
-	public ExplanationEntity getSelectedExplanation() {
-		return selectedExplanation;
-	}
-	public void setSelectedExplanation(ExplanationEntity selectedExplanation) {
-		this.selectedExplanation = selectedExplanation;
-	}
-	
-	public boolean isDisplaySelectedExplanation() {
-		return displaySelectedExplanation;
-	}
-	public void setDisplaySelectedExplanation(boolean displaySelectedExplanation) {
-		this.displaySelectedExplanation = displaySelectedExplanation;
+	public void setDisplayExplanation(boolean displayExplanation) {
+		this.displayExplanation = displayExplanation;
 	}
 	
 	public boolean isDisplayAboutMe() {
@@ -147,6 +133,13 @@ public class BlogCommand implements Serializable{
 	}
 	public void setPathContext(String pathContext) {
 		this.pathContext = pathContext;
+	}
+	
+	public Locale getLocale() {
+		return locale;
+	}
+	public void setLocale(Locale locale) {
+		this.locale = locale;
 	}	
 	
 	
