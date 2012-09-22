@@ -175,7 +175,6 @@ public class ArticleTagServiceTest {
 		article = new ArticleEntity();
 		article.setId(1L);
 		article.setUniqueName("Unique name");
-		article.setCategoryId(1L);
 		article.setTitle("Title");
 		article.setDescription("Description");
 		article.setContentPath("Path/path");
@@ -192,7 +191,6 @@ public class ArticleTagServiceTest {
 		article = new ArticleEntity();
 		article.setId(2L);
 		article.setUniqueName("Unique name 2");
-		article.setCategoryId(1L);
 		article.setTitle("Title 2");
 		article.setDescription("Description 2");
 		article.setContentPath("Path/path");

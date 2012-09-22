@@ -371,7 +371,6 @@ public class BlogControllerTest {
 		article = new ArticleEntity();
 		article.setId(1L);
 		article.setUniqueName("unique_name_1");
-		article.setCategoryId(1L);
 		article.setTitle("Title 1");
 		article.setDescription("Description 1");
 		article.setContentPath("Path/path1");
@@ -406,7 +405,6 @@ public class BlogControllerTest {
 		article = new ArticleEntity();
 		article.setId(2L);
 		article.setUniqueName("unique_name_2");
-		article.setCategoryId(1L);
 		article.setTitle("Title 2");
 		article.setDescription("Description 2");
 		article.setContentPath("Path/path1");

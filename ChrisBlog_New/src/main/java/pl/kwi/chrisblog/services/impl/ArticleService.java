@@ -212,7 +212,6 @@ public class ArticleService implements IArticleService {
 		article = new ArticleEntity();
 		article.setId(1L);
 		article.setUniqueName("hello_world_servlets");
-		article.setCategoryId(1L);
 		article.setTitle("Hello World Servlets");
 		article.setDescription(descriptionSb.toString());
 		article.setContentPath("categories/servlets/helloWorldServlets/helloWorldServletsJsp");

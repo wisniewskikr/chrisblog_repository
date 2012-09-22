@@ -13,7 +13,6 @@ public class ArticleEntity implements Serializable{
 	
 	private Long id;
 	private String uniqueName;
-	private Long categoryId;
 	private String title;
 	private String description;
 	private String contentPath;
@@ -96,13 +95,6 @@ public class ArticleEntity implements Serializable{
 	public void setUniqueName(String uniqueName) {
 		this.uniqueName = uniqueName;
 	}	
-	
-	public Long getCategoryId() {
-		return categoryId;
-	}
-	public void setCategoryId(Long categoryId) {
-		this.categoryId = categoryId;
-	}
 
 	public String getTitle() {
 		return title;

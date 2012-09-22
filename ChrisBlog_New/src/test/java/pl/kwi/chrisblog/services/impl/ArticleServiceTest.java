@@ -41,7 +41,6 @@ public class ArticleServiceTest {
 		Assert.assertEquals(Integer.valueOf(53), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.SECOND)));
 		Assert.assertEquals(Long.valueOf(1L), articleList.get(0).getId());
 		Assert.assertEquals("Unique name", articleList.get(0).getUniqueName());
-		Assert.assertEquals(Long.valueOf(1L), articleList.get(0).getCategoryId());
 		Assert.assertEquals("Title", articleList.get(0).getTitle());
 		Assert.assertEquals("Description", articleList.get(0).getDescription());
 		Assert.assertEquals("Path/path", articleList.get(0).getContentPath());
@@ -89,7 +88,6 @@ public class ArticleServiceTest {
 		Assert.assertEquals(Integer.valueOf(53), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.SECOND)));
 		Assert.assertEquals(Long.valueOf(1L), articleList.get(0).getId());
 		Assert.assertEquals("Unique name", articleList.get(0).getUniqueName());
-		Assert.assertEquals(Long.valueOf(1L), articleList.get(0).getCategoryId());
 		Assert.assertEquals("Title", articleList.get(0).getTitle());
 		Assert.assertEquals("Description", articleList.get(0).getDescription());
 		Assert.assertEquals("Path/path", articleList.get(0).getContentPath());
@@ -140,7 +138,6 @@ public class ArticleServiceTest {
 		Assert.assertEquals(Integer.valueOf(53), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.SECOND)));
 		Assert.assertEquals(Long.valueOf(1L), articleList.get(0).getId());
 		Assert.assertEquals("Unique name", articleList.get(0).getUniqueName());
-		Assert.assertEquals(Long.valueOf(1L), articleList.get(0).getCategoryId());
 		Assert.assertEquals("Title", articleList.get(0).getTitle());
 		Assert.assertEquals("Description", articleList.get(0).getDescription());
 		Assert.assertEquals("Path/path", articleList.get(0).getContentPath());
@@ -186,7 +183,6 @@ public class ArticleServiceTest {
 		
 		Assert.assertEquals(Long.valueOf(1L), article.getId());
 		Assert.assertEquals("Unique name", article.getUniqueName());
-		Assert.assertEquals(Long.valueOf(1L), article.getCategoryId());
 		Assert.assertEquals("Title", article.getTitle());
 		Assert.assertEquals("Description", article.getDescription());
 		Assert.assertEquals("Path/path", article.getContentPath());
@@ -290,7 +286,6 @@ public class ArticleServiceTest {
 		
 		Assert.assertEquals(Long.valueOf(1L), article.getId());
 		Assert.assertEquals("Unique name", article.getUniqueName());
-		Assert.assertEquals(Long.valueOf(1L), article.getCategoryId());
 		Assert.assertEquals("Title", article.getTitle());
 		Assert.assertEquals("Description", article.getDescription());
 		Assert.assertEquals("Path/path", article.getContentPath());
@@ -421,7 +416,6 @@ public class ArticleServiceTest {
 		article = new ArticleEntity();
 		article.setId(1L);
 		article.setUniqueName("Unique name");
-		article.setCategoryId(1L);
 		article.setTitle("Title");
 		article.setDescription("Description");
 		article.setContentPath("Path/path");
