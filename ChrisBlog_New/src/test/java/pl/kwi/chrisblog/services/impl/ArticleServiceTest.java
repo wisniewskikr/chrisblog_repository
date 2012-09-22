@@ -74,6 +74,109 @@ public class ArticleServiceTest {
 	}
 	
 	@Test
+	public void getArticleListSortedByDateDesc() throws Exception{
+		
+		int pageNumber = 1;
+		Locale loc = Locale.ENGLISH;
+		
+		List<ArticleEntity> articleList = service.getArticleListSortedByDateDesc(pageNumber, loc);
+		
+		Assert.assertEquals(Integer.valueOf(1999), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.YEAR)));
+		Assert.assertEquals(Integer.valueOf(11), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.MONTH)));
+		Assert.assertEquals(Integer.valueOf(25), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.DAY_OF_MONTH)));
+		Assert.assertEquals(Integer.valueOf(17), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.HOUR_OF_DAY)));
+		Assert.assertEquals(Integer.valueOf(45), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.MINUTE)));
+		Assert.assertEquals(Integer.valueOf(53), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.SECOND)));
+		Assert.assertEquals(Long.valueOf(1L), articleList.get(0).getId());
+		Assert.assertEquals("Unique name", articleList.get(0).getUniqueName());
+		Assert.assertEquals(Long.valueOf(1L), articleList.get(0).getCategoryId());
+		Assert.assertEquals("Title", articleList.get(0).getTitle());
+		Assert.assertEquals("Description", articleList.get(0).getDescription());
+		Assert.assertEquals("Path/path", articleList.get(0).getContentPath());
+		Assert.assertEquals(Integer.valueOf(4), articleList.get(0).getPagesCount());
+		Assert.assertEquals("Author", articleList.get(0).getAuthor());
+		Assert.assertEquals("December 25, 1999", articleList.get(0).getCreationDateAsString());
+		Assert.assertEquals("/demoPath", articleList.get(0).getDemoPath());
+		Assert.assertEquals("/folderExamples/examplePath", articleList.get(0).getExamplePath());
+		Assert.assertEquals("/folderSources/sourcePath", articleList.get(0).getSourcePath());
+		
+	}
+	
+	@Test(expected = ArticleException.class)
+	public void getArticleListSortedByDateDesc_articleListNull() throws Exception{
+		
+		service.setCompleteArticleList(null);
+		int pageNumber = 1;
+		Locale loc = Locale.ENGLISH;
+		
+		service.getArticleListSortedByDateDesc(pageNumber, loc);
+		
+	}
+	
+	@Test(expected = ArticleException.class)
+	public void getArticleListSortedByDateDesc_localeNull() throws Exception{
+		
+		int pageNumber = 1;
+		Locale loc = null;
+		
+		service.getArticleListSortedByDateDesc(pageNumber, loc);
+		
+	}
+	
+	@Test
+	public void getArticleListSortedByDateDesc_withTag() throws Exception{
+		
+		int pageNumber = 1;
+		ArticleTagEntity tag = null;
+		Locale loc = Locale.ENGLISH;
+		
+		List<ArticleEntity> articleList = service.getArticleListSortedByDateDesc(pageNumber, tag, loc);
+		
+		Assert.assertEquals(Integer.valueOf(1999), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.YEAR)));
+		Assert.assertEquals(Integer.valueOf(11), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.MONTH)));
+		Assert.assertEquals(Integer.valueOf(25), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.DAY_OF_MONTH)));
+		Assert.assertEquals(Integer.valueOf(17), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.HOUR_OF_DAY)));
+		Assert.assertEquals(Integer.valueOf(45), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.MINUTE)));
+		Assert.assertEquals(Integer.valueOf(53), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.SECOND)));
+		Assert.assertEquals(Long.valueOf(1L), articleList.get(0).getId());
+		Assert.assertEquals("Unique name", articleList.get(0).getUniqueName());
+		Assert.assertEquals(Long.valueOf(1L), articleList.get(0).getCategoryId());
+		Assert.assertEquals("Title", articleList.get(0).getTitle());
+		Assert.assertEquals("Description", articleList.get(0).getDescription());
+		Assert.assertEquals("Path/path", articleList.get(0).getContentPath());
+		Assert.assertEquals(Integer.valueOf(4), articleList.get(0).getPagesCount());
+		Assert.assertEquals("Author", articleList.get(0).getAuthor());
+		Assert.assertEquals("December 25, 1999", articleList.get(0).getCreationDateAsString());
+		Assert.assertEquals("/demoPath", articleList.get(0).getDemoPath());
+		Assert.assertEquals("/folderExamples/examplePath", articleList.get(0).getExamplePath());
+		Assert.assertEquals("/folderSources/sourcePath", articleList.get(0).getSourcePath());
+		
+	}
+	
+	@Test(expected = ArticleException.class)
+	public void getArticleListSortedByDateDesc_withTag_articleListNull() throws Exception{
+		
+		service.setCompleteArticleList(null);
+		int pageNumber = 1;
+		ArticleTagEntity tag = null;
+		Locale loc = Locale.ENGLISH;
+		
+		service.getArticleListSortedByDateDesc(pageNumber, tag, loc);
+		
+	}
+	
+	@Test(expected = ArticleException.class)
+	public void getArticleListSortedByDateDesc_withTag_localeNull() throws Exception{
+		
+		int pageNumber = 1;
+		ArticleTagEntity tag = null;
+		Locale loc = null;
+		
+		service.getArticleListSortedByDateDesc(pageNumber, tag, loc);
+		
+	}
+	
+	@Test
 	public void getArticleFromListByUniqueName() throws Exception{
 		
 		List<ArticleEntity> articleList = mockCompleteArticleList();
