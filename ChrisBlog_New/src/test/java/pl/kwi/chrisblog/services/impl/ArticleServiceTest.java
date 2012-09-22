@@ -24,7 +24,54 @@ public class ArticleServiceTest {
 		service.setFolderExamples("folderExamples");
 		service.setFolderSources("folderSources");
 		service.setCompleteArticleList(mockCompleteArticleList());
-	}	
+	}
+	
+	@Test
+	public void getAllArticleList() throws Exception{
+		
+		Locale loc = Locale.ENGLISH;
+		
+		List<ArticleEntity> articleList = service.getAllArticleList(loc);
+		
+		Assert.assertEquals(Integer.valueOf(1999), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.YEAR)));
+		Assert.assertEquals(Integer.valueOf(11), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.MONTH)));
+		Assert.assertEquals(Integer.valueOf(25), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.DAY_OF_MONTH)));
+		Assert.assertEquals(Integer.valueOf(17), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.HOUR_OF_DAY)));
+		Assert.assertEquals(Integer.valueOf(45), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.MINUTE)));
+		Assert.assertEquals(Integer.valueOf(53), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.SECOND)));
+		Assert.assertEquals(Long.valueOf(1L), articleList.get(0).getId());
+		Assert.assertEquals("Unique name", articleList.get(0).getUniqueName());
+		Assert.assertEquals(Long.valueOf(1L), articleList.get(0).getCategoryId());
+		Assert.assertEquals("Title", articleList.get(0).getTitle());
+		Assert.assertEquals("Description", articleList.get(0).getDescription());
+		Assert.assertEquals("Path/path", articleList.get(0).getContentPath());
+		Assert.assertEquals(Integer.valueOf(4), articleList.get(0).getPagesCount());
+		Assert.assertEquals("Author", articleList.get(0).getAuthor());
+		Assert.assertEquals("December 25, 1999", articleList.get(0).getCreationDateAsString());
+		Assert.assertEquals("/demoPath", articleList.get(0).getDemoPath());
+		Assert.assertEquals("/folderExamples/examplePath", articleList.get(0).getExamplePath());
+		Assert.assertEquals("/folderSources/sourcePath", articleList.get(0).getSourcePath());
+		
+	}
+	
+	@Test(expected = ArticleException.class)
+	public void getAllArticleList_articleListNull() throws Exception{
+		
+		service.setCompleteArticleList(null);
+		Locale loc = Locale.ENGLISH;
+		
+		service.getAllArticleList(loc);
+			
+	}
+	
+	@Test(expected = ArticleException.class)
+	public void getAllArticleList_localeNull() throws Exception{
+		
+		Locale loc = null;
+		
+		service.getAllArticleList(loc);
+			
+	}
 	
 	@Test
 	public void getArticleFromListByUniqueName() throws Exception{
@@ -43,9 +90,9 @@ public class ArticleServiceTest {
 		Assert.assertEquals(Integer.valueOf(3), article.getPagesCount());
 		Assert.assertEquals("Author", article.getAuthor());
 		Assert.assertEquals("December 25, 1999", article.getCreationDateAsString());
-		Assert.assertEquals("/Demo path", article.getDemoPath());
-		Assert.assertEquals("/Example path", article.getExamplePath());
-		Assert.assertEquals("/Source path", article.getSourcePath());
+		Assert.assertEquals("/demoPath", article.getDemoPath());
+		Assert.assertEquals("/examplePath", article.getExamplePath());
+		Assert.assertEquals("/sourcePath", article.getSourcePath());
 		
 		Assert.assertEquals(Integer.valueOf(1999), Integer.valueOf(article.getCreationDate().get(Calendar.YEAR)));
 		Assert.assertEquals(Integer.valueOf(11), Integer.valueOf(article.getCreationDate().get(Calendar.MONTH)));
@@ -176,9 +223,9 @@ public class ArticleServiceTest {
 		article.setCreationDateAsString("December 25, 1999");
 		article.setAuthor("Author");
 		article.setArticleTagList(articleTagList);
-		article.setDemoPath("/Demo path");
-		article.setExamplePath("/Example path");
-		article.setSourcePath("/Source path");
+		article.setDemoPath("/demoPath");
+		article.setExamplePath("/examplePath");
+		article.setSourcePath("/sourcePath");
 		completeArticleList.add(article);
 		
 		return completeArticleList;		

@@ -64,6 +64,7 @@ public class ArticleService implements IArticleService {
 	 */
 	public List<ArticleEntity> getArticleListSortedByDateDesc(int pageNumber, ArticleTagEntity tag, Locale loc) throws Exception {
 		
+		// TODO KWi: handle article tag
 		return convertArticlesToDisplayableForm(completeArticleList, loc);
 		
 	}
@@ -79,6 +80,9 @@ public class ArticleService implements IArticleService {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see pl.kwi.chrisblog.services.intf.IArticleService#getPagesCountOfAllArticles()
+	 */
 	public int getPagesCountOfAllArticles() throws Exception {
 		
 		// TODO KWi: implement real method
