@@ -86,7 +86,15 @@
 		</c:choose>	
 	
 	
+		<span class="navigation">
+			<a href="javascript:history.go(-1)" class="button">back</a>
+			<a href="" class="button">home</a>
+		</span>
+		
+		
 	</div>
+	
+	
 	
 		
 </c:if>

@@ -9,8 +9,8 @@
 
 <p>
 	The main goal of this tutorial is explaining - step by step - how to create a
-	simple <a href="explanation/web_application" class='dialogLink'>web application</a> 
-	using <a href="explanation/java_servlets_technology" class='dialogLink'>Java Servlets Technology</a>.
+	simple <a href="explanation/web_application" class='dialogLink' target='_blank'>web application</a> 
+	using <a href="explanation/java_servlets_technology" class='dialogLink' target='_blank'>Java Servlets Technology</a>.
 	The example web application consists of two pages: page 'Hello' and page 'Welcome'.
 </p>
 		
@@ -56,26 +56,26 @@
 		</li>
 		<li>
 			<b> 
-				<a href="explanation/java_virtual_machine" class='dialogLink'>Java Virtual Machine</a>
+				<a href="explanation/java_virtual_machine" class='dialogLink' target='_blank'>Java Virtual Machine</a>
 			</b>: 
 			Java in version 5 or higher. This application was tested for Java in version <i>1.6.0_23-ea</i>;
 		</li>
 		<li>
 			<b>
-				<a href="explanation/ide" class='dialogLink' 
+				<a href="explanation/ide" class='dialogLink' target='_blank' 
 				>IDE</a>
 			</b>: 
 			Eclipse Indigo.
 		</li>
 		<li>
 			<b> 
-				<a href="explanation/apache_maven" class='dialogLink'>Apache Maven</a>
+				<a href="explanation/apache_maven" class='dialogLink' target='_blank'>Apache Maven</a>
 			tool</b>: 
 			Apache Maven tool in version 2 or higher. This application was tested for Apache Maven in version <i>2.2.1</i>;
 		</li>
 		<li>
 			<b> 
-				<a href="explanation/application_server" class='dialogLink'>Application Server</a>
+				<a href="explanation/application_server" class='dialogLink' target='_blank'>Application Server</a>
 			</b>: 
 			this example application was tested on application server Apache Tomcat in version <i>7.0.21</i>;
 		</li>

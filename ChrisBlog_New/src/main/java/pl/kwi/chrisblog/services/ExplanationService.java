@@ -83,7 +83,7 @@ public class ExplanationService {
 				"which is used for creating programming applications. Java code (*.java files) is compiled to bytecode " +
 				"(*.class files) that can run on any " +
 				"<a href='explanation/java_virtual_machine' " +
-				"class='dialogLink'>Java Virtual Machine</a> (Java VM) regardless of computer architecture. " +
+				"class='dialogLink' target='_blank'>Java Virtual Machine</a> (Java VM) regardless of computer architecture. " +
 				"It`s so called 'write once, run anywhere' solution - code that runs on one platform does not need " +
 				"to be edited to run on another.");
 		explanationList.add(explanation);
@@ -105,7 +105,7 @@ public class ExplanationService {
 		explanation.setTitle("Java Servlets Technology");
 		explanation.setContent("<b>Java Servlet technology</b> is used for creating " +
 				"<a href='explanation/web_application' " +
-				"class='dialogLink'>web applications</a>. " +
+				"class='dialogLink' target='_blank'>web applications</a>. " +
 				"This technology is based on 'servlet' classes from Java language. Every such a class can be accessed " +
 				"from web browsers and after processing can send feedback to the browser " +
 				"(request-response programming).");
@@ -117,12 +117,12 @@ public class ExplanationService {
 		explanation.setTitle("Java Virtual Machine");
 		explanation.setContent("<b>Java Virtual Machine</b> (Java VM) is a software which translates a code of Java " +
 				"(<a href='explanation/java_bytecode' " +
-				"class='dialogLink'>Java bytecode</a>) " +
+				"class='dialogLink' target='_blank'>Java bytecode</a>) " +
 				"into a code which is acceptable for different operating systems (for instance Windows, Linux etc). " +
 				"In other words, it is a middle tier between Java applications and any specified computer architecture. " +
 				"Input to the Java VM is always the same - " +
 				"<a href='explanation/java_bytecode' " +
-				"class='dialogLink'>Java bytecode</a>" +
+				"class='dialogLink' target='_blank'>Java bytecode</a>" +
 				" - but output created by VM is different and depends on an operating system. In this way every code that runs " +
 				"on one platform does not need to be edited to run on another. This is so called " +
 				"'write once, run anywhere' solution - Java applications code can always look the same because " +
@@ -136,21 +136,21 @@ public class ExplanationService {
 		explanation.setContent("Apache Maven is a build automation tool. Its` main goal is to transform all resources " +
 				"(for instance " +
 				"<a href='explanation/java_bytecode' " +
-				"class='dialogLink'>Java bytecode</a> " +
+				"class='dialogLink' target='_blank'>Java bytecode</a> " +
 				"files, images, configuration files etc.) into one executable package. This package, for instance " +
 				"<a href='explanation/jar_file' " +
-				"class='dialogLink'>Jar file</a> or " +
+				"class='dialogLink' target='_blank'>Jar file</a> or " +
 				"<a href='explanation/war_file' " +
-				"class='dialogLink'>War file</a>" +
+				"class='dialogLink' target='_blank'>War file</a>" +
 				", can be later deployed (put and run) on " +
 				"<a href='explanation/application_server' " +
-				"class='dialogLink'>application servers</a>" +
+				"class='dialogLink' target='_blank'>application servers</a>" +
 				". Apache Maven takes care of such issues like: external dependencies, other components necessary for project " +
 				"or build order. These issues for every project are configured using a Project Object Model and stored " +
 				"in a file called pom.xml. In other words, Apache Maven is a very useful tool which helps " +
 				"to build a project (for instance " +
 				"<a href='explanation/war_file' " +
-				"class='dialogLink'>War file</a>) from different resources.");
+				"class='dialogLink' target='_blank'>War file</a>) from different resources.");
 		explanationList.add(explanation);
 		
 		explanation = new ExplanationEntity();
@@ -159,7 +159,7 @@ public class ExplanationService {
 		explanation.setTitle("Application Server");
 		explanation.setContent("<b>Application server</b> is a software with an enviroment where " +
 				"<a href='explanation/web_application' " +
-				"class='dialogLink'>web applications</a> " +
+				"class='dialogLink' target='_blank'>web applications</a> " +
 				"can be put and launch - shortly deployed. After deployment such applications become accesable for " +
 				"everyone connected to network (for instance to Internet). User can contact and interact with such " +
 				"programs using web browser. His requests from such browser are received by application server and passed " +
@@ -167,7 +167,7 @@ public class ExplanationService {
 				"user`s web browser where they are displayed. It`s so called request-response technology. " +
 				"One application server with deployed " +
 				"<a href='explanation/web_application' " +
-				"class='dialogLink'>web application</a>" +
+				"class='dialogLink' target='_blank'>web application</a>" +
 				" can be accessed in the same time by a lot of users. It`s co called clien-server technology. " +
 				"Mostly used application servers are Apache Tomcat, Apache JBoss and Oracle Glassfish.");
 		explanationList.add(explanation);
@@ -178,11 +178,11 @@ public class ExplanationService {
 		explanation.setTitle("Java bytecode");
 		explanation.setContent("<b>Java bytecode</b> is a set of instructions which are readable for " +
 				"<a href='explanation/java_virtual_machine' " +
-				"class='dialogLink'>Java Virtual Machine</a>" +
+				"class='dialogLink' target='_blank'>Java Virtual Machine</a>" +
 				". These instructions are created from Java code (*.java files) after compilation. Typically, this " +
 				"compilation is done automatically by " +
 				"<a href='explanation/ide' " +
-				"class='dialogLink'>IDE</a>" +
+				"class='dialogLink' target='_blank'>IDE</a>" +
 				".");
 		explanationList.add(explanation);
 		
@@ -201,14 +201,14 @@ public class ExplanationService {
 		explanation.setTitle("War file");
 		explanation.setContent("<b>War file</b>(Web application ARchive) is a " +
 				"<a href='explanation/jar_file' " +
-				"class='dialogLink'>Jar file</a> " +
+				"class='dialogLink' target='_blank'>Jar file</a> " +
 				"used to distribute a collection of JavaServer Pages, Java Servlets, Java classes, XML files, " +
 				"tag libraries and static Web pages (HTML and related files) that together constitute a " +
 				"<a href='explanation/web_application' " +
-				"class='dialogLink'>web application</a>" +
+				"class='dialogLink' target='_blank'>web application</a>" +
 				". War files can be later deployed (put and run) on " +
 				"<a href='explanation/application_server' " +
-				"class='dialogLink'>application server</a>" +
+				"class='dialogLink' target='_blank'>application server</a>" +
 				".");
 		explanationList.add(explanation);
 		
@@ -228,15 +228,15 @@ public class ExplanationService {
 		javaSeSb.append("for developing and running Java software. ");
 		javaSeSb.append("J2SE consists of ");
 		javaSeSb.append("<a href='explanation/java_virtual_machine' " +
-						"class='dialogLink'>Java Virtual Machine</a> ");
+						"class='dialogLink target='_blank''>Java Virtual Machine</a> ");
 		javaSeSb.append("and a set of libraries handling such issues like: file systems, graphical interfaces and so on. ");
 		javaSeSb.append("This platform is enought for developing and running standalone Java applications (bun not web applications). ");
 		javaSeSb.append("To create Java ");
 		javaSeSb.append("<a href='explanation/web_application' " +
-						"class='dialogLink'>web applications</a> ");
+						"class='dialogLink' target='_blank'>web applications</a> ");
 		javaSeSb.append("another platform has to be used - extension of J2SE called ");
 		javaSeSb.append("<a href='explanation/j2ee' " +
-						"class='dialogLink'>J2EE</a>.");
+						"class='dialogLink'  target='_blank'>J2EE</a>.");
 		explanation = new ExplanationEntity();
 		explanation.setId(11L);
 		explanation.setUniqueName("j2se");
@@ -248,9 +248,9 @@ public class ExplanationService {
 		javaEeSb.append("<b>Java Platform, Enterprise Edition</b> (Java EE, J2EE) is a platform with Java environment ");
 		javaEeSb.append("for developing and running Java software including ");
 		javaEeSb.append("<a href='explanation/web_application' " +
-						"class='dialogLink'>web applications</a>. ");
+						"class='dialogLink' target='_blank'>web applications</a>. ");
 		javaEeSb.append("J2EE consists of ");
-		javaEeSb.append("<a href='explanation/j2se' class='dialogLink'>J2SE</a> ");
+		javaEeSb.append("<a href='explanation/j2se' class='dialogLink' target='_blank'>J2SE</a> ");
 		javaEeSb.append("and a set of additional libraries handling such issues like: network, web services, multi-tiers levels and so on. ");
 		javaEeSb.append("This platform is enought for developing standalone and web applications. ");
 		explanation = new ExplanationEntity();

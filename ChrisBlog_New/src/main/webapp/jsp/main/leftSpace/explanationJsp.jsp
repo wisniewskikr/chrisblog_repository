@@ -9,6 +9,4 @@
 	
 	<p>${command.explanation.content}</p>
 	
-	<p><a href="javascript:history.go(-1)" class="button">Back</a></p>
-
 </div>

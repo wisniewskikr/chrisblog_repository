@@ -9,7 +9,7 @@
 	Some actions of web application can be done not on server-side (web server) 
 	but just on client-side (web browser). In our example application for this
 	purpose is used script language
-	<a href="explanation/java_script" class='dialogLink'>Java Script</a>. 
+	<a href="explanation/java_script" class='dialogLink' target='_blank'>Java Script</a>. 
 </p>
 
 <p>
@@ -34,14 +34,14 @@
 <p>
 	Next step is built the example application. We need to pack all our Java classes, libraries,
 	static web pages etc. in one 
-	<a href="explanation/war_file" class='dialogLink'>War file</a> 
+	<a href="explanation/war_file" class='dialogLink' target='_blank'>War file</a> 
 	which we can later move and launch (deploy) on web server. This is the simplest way to distribute
 	web application sources.
 </p>	
 
 <p>	
 	As it was mensioned earlier 
-	<a href="explanation/apache_maven" class='dialogLink' 
+	<a href="explanation/apache_maven" class='dialogLink' target='_blank' 
 		>Apache Maven</a>
 	 tool will be used for building our example application. 
 	In this purpose run console, go to the main project folder and use command <b>mvn clean install</b> 
@@ -55,11 +55,11 @@
 
 <p>
 	If everything goes right 
-	<a href="explanation/apache_maven" class='dialogLink' 
+	<a href="explanation/apache_maven" class='dialogLink' target='_blank' 
 		>Apache Maven</a> 
 	should create in main folder of our example application
 	a new folder called <b>'target'</b> with 
-	<a href="explanation/war_file" class='dialogLink' 
+	<a href="explanation/war_file" class='dialogLink' target='_blank' 
 		>War file</a>  
 	<b>'HelloWorldServlets.war'</b>.	 
 </p>
@@ -77,14 +77,14 @@
 
 <p>
 	Deploying web application means transforming 
-	<a href="explanation/web_application" class='dialogLink' 
+	<a href="explanation/web_application" class='dialogLink' target='_blank' 
 		>web application</a> 
 	from a packaged form to an operational working state. 
 </p>
 
 <p>				
 	The way of deploying 
-	<a href="explanation/war_file" class='dialogLink' 
+	<a href="explanation/war_file" class='dialogLink' target='_blank' 
 		>War file</a>
 	 in different for every application server - you should check documentation. 
 </p>
@@ -92,7 +92,7 @@
 <p>
 	As it was mentioned earlier <i>(see point 'Enviroment')</i> this example application 
 	was tested on <b>Apache Tomcat</b> 
-	<a href="explanation/application_server" class='dialogLink' 
+	<a href="explanation/application_server" class='dialogLink' target='_blank' 
 		>application server</a>. To deploy application on this server developer has
 	to just copy created file <b>'HelloWorldServlets.war'</b> into folder <b>'&lt;tomcat_home&gt;/webapps'</b>. 
 	The transformation from a packaged form to an operational working state is done automatically
@@ -107,7 +107,7 @@
 
 <p>
 	After deploying example application we can run our 
-	<a href="explanation/application_server" class='dialogLink' 
+	<a href="explanation/application_server" class='dialogLink' target='_blank' 
 		>application server</a>. The way, how to do it, depends on type
 	of server - check documentation.
 </p>
@@ -155,7 +155,7 @@
 
 <p>
 	You can download source of this example application or whole already built example 
-	<a href="explanation/war_file" class='dialogLink'>War file</a>
+	<a href="explanation/war_file" class='dialogLink' target='_blank'>War file</a>
 	.
 </p>
 

@@ -37,3 +37,7 @@
 	border: 1px solid #DDD;
 	border-image: initial;
 }
+
+.pagination span.navigation {
+	margin-left: 60px;
+}

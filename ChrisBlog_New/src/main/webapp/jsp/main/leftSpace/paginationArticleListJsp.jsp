@@ -83,7 +83,13 @@
 			<c:otherwise>
 				<a href="page/${command.pagesCount}" class="last">Last »</a>
 			</c:otherwise>
-		</c:choose>	
+		</c:choose>
+		
+		
+		<span class="navigation">
+			<a href="javascript:history.go(-1)" class="button">back</a>
+			<a href="" class="button">home</a>
+		</span>	
 	
 	
 	</div>

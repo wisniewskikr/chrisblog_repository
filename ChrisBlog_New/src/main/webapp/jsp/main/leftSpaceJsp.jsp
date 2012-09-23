@@ -20,11 +20,11 @@
 		</c:if>
 		
 		<c:if test="${command.displayAboutMe}">
-			<%@ include file="leftSpace/contentAboutMeJsp.jsp" %>
+			<%@ include file="leftSpace/aboutMeJsp.jsp" %>
 		</c:if>
 		
 		<c:if test="${command.displayException}">
-			<%@ include file="leftSpace/contentExceptionJsp.jsp" %>
+			<%@ include file="leftSpace/exceptionJsp.jsp" %>
 		</c:if>
 		
 	</div>
