@@ -57,23 +57,6 @@ public class BlogController{
 
 	
 	/**
-	 * Method handles initial/first appearance in application.
-	 * 
-	 * @param command object BlogCommand with data from page
-	 * @param request object HttpServletRequest with request from page 
-	 * @param response object HttpServletResponse with response to page
-	 * @return object ModelAndView with model and view of page
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/init")
-	public ModelAndView init(@ModelAttribute("command")BlogCommand command, 
-			HttpServletRequest request, HttpServletResponse response) throws Exception{
-							
-		return new ModelAndView(new RedirectView("/" , true, true, true));
-		
-	}
-	
-	/**
 	 * Method handles page with article list for page one. By page one 
 	 * should be no page number in url. This is also default method. 
 	 * 

@@ -75,7 +75,7 @@
 	</p>
 	
 	<p>
-		<a href="init" class="button">Back</a>
+		<a href="" class="button">Back</a>
 	</p>
 	
 </div>

@@ -44,19 +44,6 @@ public class BlogControllerTest {
 	}
 	
 	@Test
-	public void init() throws Exception {
-		
-		BlogCommand command = new BlogCommand();
-		HttpServletRequest request = mockHttpServletRequest();
-		HttpServletResponse response = mockHttpServletResponse();
-		
-		ModelAndView modelAndView = contoller.init(command, request, response);
-		
-		Assert.assertEquals("/", ((RedirectView)modelAndView.getView()).getUrl());
-		
-	}
-	
-	@Test
 	public void displayArticleListPageOne() throws Exception {
 		
 		BlogCommand command = new BlogCommand();

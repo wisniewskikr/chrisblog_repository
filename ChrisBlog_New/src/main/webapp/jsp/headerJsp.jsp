@@ -1,9 +1,9 @@
 <div id="header">
 	<div class="center">
 
-		<a href="init" id="headerImage">Duke Duke Duke Duke Duke Duke Duke Duke Duke Duke</a>
+		<a href="" id="headerImage">Duke Duke Duke Duke Duke Duke Duke Duke Duke Duke</a>
 		
-		<a href="init" id="headerTitle" >Chris`s Blog</a>
+		<a href="" id="headerTitle" >Chris`s Blog</a>
 		
 		<div id="headerSearchArea">
 			<form action="http://google.com/search" id="searchForm">
