@@ -161,6 +161,74 @@ public class BlogControllerTest {
 	}
 	
 	@Test
+	public void displayArticlePageOne() throws Exception {
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		HttpServletResponse response = mockHttpServletResponse();
+		String uniqueName = "uniqueName";
+		
+		ModelAndView modelAndView = contoller.displayArticlePageOne(command, request, response, uniqueName);
+		
+		Assert.assertFalse(command.isDisplayAboutMe());
+		Assert.assertTrue(command.isDisplayArticle());
+		
+		Assert.assertEquals("pathHost", command.getPathHost());
+		Assert.assertEquals("pathContext", command.getPathContext());
+		Assert.assertNotNull(command.getLocale());
+		Assert.assertNotNull(command.getTagsCloud());
+		
+		Assert.assertEquals("unique_name_1", command.getArticle().getUniqueName());
+		
+		Assert.assertEquals(Integer.valueOf(1), command.getPageCurrent());
+		Assert.assertEquals(Integer.valueOf(3), command.getPagesCount());
+		
+		Assert.assertEquals("blogJsp", modelAndView.getViewName());
+		
+	}
+	
+	@Test
+	public void displayArticlePageNotOne() throws Exception {
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		HttpServletResponse response = mockHttpServletResponse();
+		int pageNumber = 2;
+		String uniqueName = "uniqueName";
+		
+		ModelAndView modelAndView = contoller.displayArticlePageNotOne(command, request, response, pageNumber, uniqueName);
+		
+		Assert.assertFalse(command.isDisplayAboutMe());
+		Assert.assertTrue(command.isDisplayArticle());
+		
+		Assert.assertEquals("pathHost", command.getPathHost());
+		Assert.assertEquals("pathContext", command.getPathContext());
+		Assert.assertNotNull(command.getLocale());
+		Assert.assertNotNull(command.getTagsCloud());
+		
+		Assert.assertEquals("unique_name_1", command.getArticle().getUniqueName());
+		
+		Assert.assertEquals(Integer.valueOf(2), command.getPageCurrent());
+		Assert.assertEquals(Integer.valueOf(3), command.getPagesCount());
+		
+		Assert.assertEquals("blogJsp", modelAndView.getViewName());
+		
+	}
+	
+	@Test(expected = ArticleException.class)
+	public void displayArticlePageNot_withException() throws Exception {
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		HttpServletResponse response = mockHttpServletResponse();
+		int pageNumber = 8;
+		String uniqueName = "uniqueName";
+		
+		contoller.displayArticlePageNotOne(command, request, response, pageNumber, uniqueName);
+		
+	}
+	
+	@Test
 	public void displayArticle() throws Exception {
 		
 		BlogCommand command = new BlogCommand();

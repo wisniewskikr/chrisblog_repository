@@ -74,7 +74,8 @@ public class BlogController{
 	}
 	
 	/**
-	 * Method handles page with article list for page one. This is also default method.
+	 * Method handles page with article list for page one. By page one 
+	 * should be no page number in url. This is also default method. 
 	 * 
 	 * @param command object BlogCommand with data from page
 	 * @param request object HttpServletRequest with request from page 
@@ -92,6 +93,7 @@ public class BlogController{
 	
 	/**
 	 * Method handles page with article list for pages other then one.
+	 * By pages other then one should be page number in url.
 	 * 
 	 * @param command object BlogCommand with data from page
 	 * @param request object HttpServletRequest with request from page 
@@ -139,7 +141,29 @@ public class BlogController{
 	}
 	
 	/**
-	 * Method handles page with single article.
+	 * Method handles page with single article. By page one 
+	 * should be no page number in url.
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param pageNumber int with current page number
+	 * @param uniqueName object String with unique name of article
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping("/article/{uniqueName}")
+	public ModelAndView displayArticlePageOne(@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, HttpServletResponse response,
+			@PathVariable String uniqueName) throws Exception{
+		
+		return displayArticle(command, request, response, 1, uniqueName);
+		
+	}
+	
+	/**
+	 * Method handles page with single article. 
+	 * By pages other then one should be page number in url.
 	 * 
 	 * @param command object BlogCommand with data from page
 	 * @param request object HttpServletRequest with request from page 
@@ -150,7 +174,31 @@ public class BlogController{
 	 * @throws Exception
 	 */
 	@RequestMapping("/article/page/{pageNumber}/{uniqueName}")
-	public ModelAndView displayArticle(@ModelAttribute("command")BlogCommand command,
+	public ModelAndView displayArticlePageNotOne(@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, HttpServletResponse response,
+			@PathVariable int pageNumber, 
+			@PathVariable String uniqueName) throws Exception{
+		
+		if(pageNumber == 1){
+			return new ModelAndView(new RedirectView("/article/" + uniqueName , true, true, true));
+		}else{
+			return displayArticle(command, request, response, pageNumber, uniqueName);
+		}
+		
+	}
+	
+	/**
+	 * Method handles page with single article.
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param pageNumber int with current page number
+	 * @param uniqueName object String with unique name of article
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	protected ModelAndView displayArticle(@ModelAttribute("command")BlogCommand command,
 			HttpServletRequest request, HttpServletResponse response,
 			@PathVariable int pageNumber, 
 			@PathVariable String uniqueName) throws Exception{
