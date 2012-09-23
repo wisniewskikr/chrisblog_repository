@@ -52,7 +52,72 @@ public class BlogControllerTest {
 		
 		ModelAndView modelAndView = contoller.init(command, request, response);
 		
-		Assert.assertEquals("/page/1", ((RedirectView)modelAndView.getView()).getUrl());
+		Assert.assertEquals("/", ((RedirectView)modelAndView.getView()).getUrl());
+		
+	}
+	
+	@Test
+	public void displayArticleListPageOne() throws Exception {
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		HttpServletResponse response = mockHttpServletResponse();
+		
+		ModelAndView modelAndView = contoller.displayArticleListPageOne(command, request, response);
+		
+		Assert.assertFalse(command.isDisplayAboutMe());
+		Assert.assertTrue(command.isDisplayArticleList());
+		
+		Assert.assertEquals("pathHost", command.getPathHost());
+		Assert.assertEquals("pathContext", command.getPathContext());
+		Assert.assertNotNull(command.getLocale());
+		Assert.assertNotNull(command.getTagsCloud());
+		
+		Assert.assertEquals(2, command.getArticleList().size());
+		
+		Assert.assertEquals(Integer.valueOf(1), command.getPageCurrent());
+		Assert.assertEquals(Integer.valueOf(4), command.getPagesCount());
+		
+		Assert.assertEquals("blogJsp", modelAndView.getViewName());
+		
+	}
+	
+	@Test
+	public void displayArticleListPageNotOne() throws Exception{
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		HttpServletResponse response = mockHttpServletResponse();
+		int pageNumber = 2;
+		
+		ModelAndView modelAndView = contoller.displayArticleListPageNotOne(command, request, response, pageNumber);
+		
+		Assert.assertFalse(command.isDisplayAboutMe());
+		Assert.assertTrue(command.isDisplayArticleList());
+		
+		Assert.assertEquals("pathHost", command.getPathHost());
+		Assert.assertEquals("pathContext", command.getPathContext());
+		Assert.assertNotNull(command.getLocale());
+		Assert.assertNotNull(command.getTagsCloud());
+		
+		Assert.assertEquals(2, command.getArticleList().size());
+		
+		Assert.assertEquals(Integer.valueOf(2), command.getPageCurrent());
+		Assert.assertEquals(Integer.valueOf(4), command.getPagesCount());
+		
+		Assert.assertEquals("blogJsp", modelAndView.getViewName());
+		
+	}
+	
+	@Test(expected = ArticleException.class)
+	public void displayArticleListPageNotOne_withException() throws Exception{
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		HttpServletResponse response = mockHttpServletResponse();
+		int pageNumber = 8;
+		
+		contoller.displayArticleListPageNotOne(command, request, response, pageNumber);
 		
 	}
 	

@@ -56,27 +56,6 @@ public class BlogController{
 	private LocaleResolver localeResolver;
 
 	
-//	@RequestMapping("/")
-//	public ModelAndView displayArticleListPageOne(@ModelAttribute("command")BlogCommand command,
-//			HttpServletRequest request, HttpServletResponse response) throws Exception{
-//		
-//		return displayArticleList(command, request, response, 1);
-//		
-//	}
-//	
-//	@RequestMapping("/page/{pageNumber}")
-//	public ModelAndView displayArticleListPageNotOne(@ModelAttribute("command")BlogCommand command,
-//			HttpServletRequest request, HttpServletResponse response,
-//			@PathVariable int pageNumber) throws Exception{
-//		
-//		if(pageNumber == 1){
-//			return new ModelAndView(new RedirectView("/" , true, true, true));
-//		}else{
-//			return displayArticleList(command, request, response, pageNumber);
-//		}
-//		
-//	}
-	
 	/**
 	 * Method handles initial/first appearance in application.
 	 * 
@@ -90,7 +69,47 @@ public class BlogController{
 	public ModelAndView init(@ModelAttribute("command")BlogCommand command, 
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
 							
-		return new ModelAndView(new RedirectView("/page/1" , true, true, true));
+		return new ModelAndView(new RedirectView("/" , true, true, true));
+		
+	}
+	
+	/**
+	 * Method handles page with article list for page one. This is also default method.
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/")
+	public ModelAndView displayArticleListPageOne(@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		return displayArticleList(command, request, response, 1);
+		
+	}
+	
+	/**
+	 * Method handles page with article list for pages other then one.
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param pageNumber int with current page number
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping("/page/{pageNumber}")
+	public ModelAndView displayArticleListPageNotOne(@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, HttpServletResponse response,
+			@PathVariable int pageNumber) throws Exception{
+		
+		if(pageNumber == 1){
+			return new ModelAndView(new RedirectView("/" , true, true, true));
+		}else{
+			return displayArticleList(command, request, response, pageNumber);
+		}
 		
 	}
 	
@@ -104,8 +123,7 @@ public class BlogController{
 	 * @return object ModelAndView with model and view of page
 	 * @throws Exception
 	 */
-	@RequestMapping("/page/{pageNumber}")
-	public ModelAndView displayArticleList(@ModelAttribute("command")BlogCommand command,
+	protected ModelAndView displayArticleList(@ModelAttribute("command")BlogCommand command,
 			HttpServletRequest request, HttpServletResponse response,
 			@PathVariable int pageNumber) throws Exception{
 		
