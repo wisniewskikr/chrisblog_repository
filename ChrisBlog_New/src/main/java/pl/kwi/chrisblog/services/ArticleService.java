@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import pl.kwi.chrisblog.comparators.ArticleTagIdComparator;
+import pl.kwi.chrisblog.comparators.ArticleTagUniqueNameComparator;
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.exceptions.ArticleException;
@@ -265,25 +266,23 @@ public class ArticleService {
 	 * @return list of articles marked by one of the tagss
 	 */
 	protected List<ArticleEntity> extractArticleListMarkedByTags(List<ArticleEntity> articleList, List<ArticleTagEntity> tagsList){
-		
+				
 		List<ArticleEntity> resultList = new ArrayList<ArticleEntity>();
 		 
 		for (ArticleEntity article : articleList) {
 			List<ArticleTagEntity> articleTagList = article.getArticleTagList();
+						
 			for (ArticleTagEntity articleTag : tagsList) {
 				
-				ArticleTagIdComparator comparator = new ArticleTagIdComparator();
+				ArticleTagUniqueNameComparator comparator = new ArticleTagUniqueNameComparator();
 				
+				Collections.sort(articleTagList, comparator);				
 				int index = Collections.binarySearch(articleTagList, articleTag, comparator);
-				if(index == 0){
+				if(index >= 0){
 					resultList.add(article);
-					continue;
+					break;
 				}
-				
-//				if(articleTagList.contains(articleTag)){
-//					resultList.add(article);
-//					continue;
-//				}
+
 			}
 		}
 		 
