@@ -97,6 +97,27 @@ public class ArticleService {
 	}
 	
 	/**
+	 * Method gets list of articles connected with specified page number, tag and locale.
+	 * These articles are sorted by date descending. When article tag is null then
+	 * exception is thrown.
+	 * 
+	 * @param pageNumber int with number of page
+	 * @param tagUniqueName object String with unique name of tag specified for article from list
+	 * @param loc object Locale with international localization
+	 * @return list of articles connected with specified page number, tag and locale
+	 * @throws Exception
+	 */
+	public List<ArticleEntity> getArticleListWithTagSortedByDateDescWithExp(int pageNumber, ArticleTagEntity articleTag, Locale loc) throws Exception {
+		
+		if(articleTag == null){
+			throw new ArticleException("Error article handling. Can not get article list for article tag which is null");
+		}
+		
+		return getArticleListWithTagSortedByDateDesc(pageNumber, articleTag, loc);
+		
+	}
+	
+	/**
 	 * Method gets article by article unique name.
 	 * 
 	 * @param articleUniqueName object String with unique name of article looked for
@@ -118,7 +139,7 @@ public class ArticleService {
 	 * @return int with count of pages of all articles
 	 * @throws Exception
 	 */
-	public int getPagesCountOfAllArticles() throws Exception {
+	public Integer getPagesCountOfAllArticles() throws Exception {
 		
 		// TODO KWi: implement real method
 		return 1;
@@ -132,9 +153,12 @@ public class ArticleService {
 	 * @return int with count of article`s pages
 	 * @throws Exception
 	 */
-	public int getPagesCountOfArticle(ArticleEntity article) throws Exception {
+	public Integer getPagesCountOfArticle(ArticleEntity article) throws Exception {
 		
 		// TODO KWi: implement real method
+		if(article == null){
+			throw new ArticleException("Can not count pages for article which is null.");
+		}
 		return 4;
 		
 	}
@@ -146,9 +170,12 @@ public class ArticleService {
 	 * @return int with count of pages of all articles
 	 * @throws Exception
 	 */
-	public int getPagesCountArticlesWithTag(ArticleTagEntity articleTag) throws Exception {
+	public Integer getPagesCountArticlesWithTag(ArticleTagEntity articleTag) throws Exception {
 		
 		// TODO KWi: implement real method
+		if(articleTag == null){
+			throw new ArticleException("Can not count pages for article tag which is null.");
+		}
 		return 1;
 		
 	}

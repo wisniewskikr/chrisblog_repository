@@ -212,6 +212,51 @@ public class ArticleServiceTest {
 	}
 	
 	@Test
+	public void getArticleListWithTagSortedByDateDescWithExp() throws Exception{
+		
+		int pageNumber = 1;		
+		Locale loc = Locale.ENGLISH;
+		
+		ArticleTagEntity articleTag = new ArticleTagEntity();
+		articleTag.setId(5L);
+		articleTag.setName("EJB3");
+		articleTag.setUniqueName("ejb3");
+		
+		List<ArticleEntity> articleList = service.getArticleListWithTagSortedByDateDescWithExp(pageNumber, articleTag, loc);
+		
+		Assert.assertEquals(Integer.valueOf(1999), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.YEAR)));
+		Assert.assertEquals(Integer.valueOf(11), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.MONTH)));
+		Assert.assertEquals(Integer.valueOf(25), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.DAY_OF_MONTH)));
+		Assert.assertEquals(Integer.valueOf(17), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.HOUR_OF_DAY)));
+		Assert.assertEquals(Integer.valueOf(45), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.MINUTE)));
+		Assert.assertEquals(Integer.valueOf(53), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.SECOND)));
+		Assert.assertEquals(Long.valueOf(3L), articleList.get(0).getId());
+		Assert.assertEquals("Unique name 3", articleList.get(0).getUniqueName());
+		Assert.assertEquals("Title 3", articleList.get(0).getTitle());
+		Assert.assertEquals("Description", articleList.get(0).getDescription());
+		Assert.assertEquals("Path/path", articleList.get(0).getContentPath());
+		Assert.assertEquals(Integer.valueOf(4), articleList.get(0).getPagesCount());
+		Assert.assertEquals("Author", articleList.get(0).getAuthor());
+		Assert.assertEquals("December 25, 1999", articleList.get(0).getCreationDateAsString());
+		Assert.assertEquals("/demoPath", articleList.get(0).getDemoPath());
+		Assert.assertEquals("/folderExamples/examplePath", articleList.get(0).getExamplePath());
+		Assert.assertEquals("/folderSources/sourcePath", articleList.get(0).getSourcePath());
+		
+	}
+	
+	@Test(expected = ArticleException.class)
+	public void getArticleListWithTagSortedByDateDescWithExp_articleTagNull() throws Exception{
+		
+		int pageNumber = 1;		
+		Locale loc = Locale.ENGLISH;
+		
+		ArticleTagEntity articleTag = null;
+		
+		service.getArticleListWithTagSortedByDateDescWithExp(pageNumber, articleTag, loc);
+				
+	}
+	
+	@Test
 	public void getArticleByUniqueName() throws Exception{
 		
 		String articleUniqueName = "Unique name";
@@ -306,7 +351,7 @@ public class ArticleServiceTest {
 	@Test
 	public void getPagesCountOfArticle() throws Exception{
 		
-		ArticleEntity article = null;
+		ArticleEntity article = new ArticleEntity();
 		
 		int result = service.getPagesCountOfArticle(article);
 		
@@ -314,14 +359,32 @@ public class ArticleServiceTest {
 		
 	}
 	
+	@Test(expected = ArticleException.class)
+	public void getPagesCountOfArticle_articleNull() throws Exception{
+		
+		ArticleEntity article = null;
+		
+		service.getPagesCountOfArticle(article);
+		
+	}
+	
 	@Test
 	public void getPagesCountArticlesWithTag() throws Exception{
 		
-		ArticleTagEntity articleTag = null;
+		ArticleTagEntity articleTag = new ArticleTagEntity();
 		
 		int result = service.getPagesCountArticlesWithTag(articleTag);
 		
 		Assert.assertEquals(1, result);
+		
+	}
+	
+	@Test(expected = ArticleException.class)
+	public void getPagesCountArticlesWithTag_articleTagNull() throws Exception{
+		
+		ArticleTagEntity articleTag = null;
+		
+		service.getPagesCountArticlesWithTag(articleTag);
 		
 	}
 	

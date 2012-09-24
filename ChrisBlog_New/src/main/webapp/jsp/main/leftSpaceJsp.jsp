@@ -14,6 +14,11 @@
 			<%@ include file="leftSpace/articleJsp.jsp" %>
 			<%@ include file="leftSpace/paginationArticleJsp.jsp" %>
 		</c:if>
+		
+		<c:if test="${command.displayArticleListWithTag}">
+			<%@ include file="leftSpace/articleListJsp.jsp" %>
+			<%@ include file="leftSpace/paginationArticleListWithTagJsp.jsp" %>
+		</c:if>
 				
 		<c:if test="${command.displayExplanation}">
 			<%@ include file="leftSpace/explanationJsp.jsp" %>

@@ -23,6 +23,7 @@ import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.entities.ExplanationEntity;
 import pl.kwi.chrisblog.exceptions.ArticleException;
+import pl.kwi.chrisblog.exceptions.PagenationException;
 import pl.kwi.chrisblog.services.ArticleService;
 import pl.kwi.chrisblog.services.ArticleTagService;
 import pl.kwi.chrisblog.services.ExplanationService;
@@ -96,7 +97,7 @@ public class BlogControllerTest {
 		
 	}
 	
-	@Test(expected = ArticleException.class)
+	@Test(expected = PagenationException.class)
 	public void displayArticleListPageNotOne_withException() throws Exception{
 		
 		BlogCommand command = new BlogCommand();
@@ -135,7 +136,7 @@ public class BlogControllerTest {
 		
 	}
 	
-	@Test(expected = ArticleException.class)
+	@Test(expected = PagenationException.class)
 	public void displayArticleList_withException() throws Exception{
 		
 		BlogCommand command = new BlogCommand();
@@ -202,7 +203,7 @@ public class BlogControllerTest {
 		
 	}
 	
-	@Test(expected = ArticleException.class)
+	@Test(expected = PagenationException.class)
 	public void displayArticlePageNot_withException() throws Exception {
 		
 		BlogCommand command = new BlogCommand();
@@ -243,7 +244,7 @@ public class BlogControllerTest {
 		
 	}
 	
-	@Test(expected = ArticleException.class)
+	@Test(expected = PagenationException.class)
 	public void displayArticle_withException() throws Exception {
 		
 		BlogCommand command = new BlogCommand();
@@ -312,7 +313,7 @@ public class BlogControllerTest {
 		
 	}
 	
-	@Test(expected = ArticleException.class)
+	@Test(expected = PagenationException.class)
 	public void displayArticleListWithTagPageNotOne_withException() throws Exception{
 		
 		BlogCommand command = new BlogCommand();
@@ -354,7 +355,7 @@ public class BlogControllerTest {
 		
 	}
 	
-	@Test(expected = ArticleException.class)
+	@Test(expected = PagenationException.class)
 	public void displayArticleListWithTag_withException() throws Exception{
 		
 		BlogCommand command = new BlogCommand();
@@ -502,7 +503,7 @@ public class BlogControllerTest {
 		
 	}
 	
-	@Test(expected = ArticleException.class)
+	@Test(expected = PagenationException.class)
 	public void handleArticleListPagenation_withException() throws Exception{
 		
 		BlogCommand command = new BlogCommand();
@@ -529,7 +530,7 @@ public class BlogControllerTest {
 		
 	}
 	
-	@Test(expected = ArticleException.class)
+	@Test(expected = PagenationException.class)
 	public void handleArticlePagenation_withException() throws Exception{
 		
 		ArticleEntity article = new ArticleEntity();
@@ -556,7 +557,7 @@ public class BlogControllerTest {
 		
 	}
 	
-	@Test(expected = ArticleException.class)
+	@Test(expected = PagenationException.class)
 	public void handleArticleListWithTagPagenation_withException() throws Exception{
 		
 		BlogCommand command = new BlogCommand();
@@ -580,12 +581,34 @@ public class BlogControllerTest {
 		
 	}
 	
-	@Test(expected = ArticleException.class)
+	@Test(expected = PagenationException.class)
 	public void handlePagenation_withException() throws Exception{
 		
 		BlogCommand command = new BlogCommand();
-		int pageCurrent = 8;
-		int pagesCount = 4;
+		Integer pageCurrent = 8;
+		Integer pagesCount = 4;
+		
+		contoller.handlePagenation(command, pageCurrent, pagesCount);
+		
+	}
+	
+	@Test(expected = PagenationException.class)
+	public void handlePagenation_pageCurrentZero() throws Exception{
+		
+		BlogCommand command = new BlogCommand();
+		Integer pageCurrent = 0;
+		Integer pagesCount = 4;
+		
+		contoller.handlePagenation(command, pageCurrent, pagesCount);
+		
+	}
+	
+	@Test(expected = PagenationException.class)
+	public void handlePagenation_pagesCountNull() throws Exception{
+		
+		BlogCommand command = new BlogCommand();
+		Integer pageCurrent = 8;
+		Integer pagesCount = null;
 		
 		contoller.handlePagenation(command, pageCurrent, pagesCount);
 		
@@ -707,6 +730,7 @@ public class BlogControllerTest {
 		Mockito.when(mock.getAllArticleList(Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList());
 		Mockito.when(mock.getArticleListSortedByDateDesc(Mockito.anyInt(), Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList());
 		Mockito.when(mock.getArticleListWithTagSortedByDateDesc(Mockito.anyInt(), Mockito.any(ArticleTagEntity.class), Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList());
+		Mockito.when(mock.getArticleListWithTagSortedByDateDescWithExp(Mockito.anyInt(), Mockito.any(ArticleTagEntity.class), Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList());
 		Mockito.when(mock.getPagesCountOfAllArticles()).thenReturn(4);
 		Mockito.when(mock.getPagesCountArticlesWithTag(Mockito.any(ArticleTagEntity.class))).thenReturn(4);
 		Mockito.when(mock.getArticleByUniqueName(Mockito.anyString(), Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList().get(0));
