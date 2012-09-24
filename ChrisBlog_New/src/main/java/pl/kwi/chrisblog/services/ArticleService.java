@@ -1,5 +1,6 @@
 package pl.kwi.chrisblog.services;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -129,7 +130,13 @@ public class ArticleService {
 		
 		completeArticleList = convertArticlesToDisplayableForm(completeArticleList, loc);
 		
-		return getArticleFromListByUniqueName(completeArticleList, articleUniqueName);
+		ArticleEntity article = getArticleFromListByUniqueName(completeArticleList, articleUniqueName);
+		
+		if(article == null){
+			throw new ArticleException(MessageFormat.format("Can not find article with unique name: {0}", articleUniqueName));
+		}
+		
+		return article;
 		
 	}
 	

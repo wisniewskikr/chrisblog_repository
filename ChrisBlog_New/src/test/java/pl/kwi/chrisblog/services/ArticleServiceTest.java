@@ -315,27 +315,23 @@ public class ArticleServiceTest {
 		
 	}
 	
-	@Test
+	@Test(expected = ArticleException.class)
 	public void getArticleByUniqueName_uniqueNameNull() throws Exception{
 		
 		String articleUniqueName = null;
 		Locale loc = Locale.ENGLISH;
 		
-		ArticleEntity article = service.getArticleByUniqueName(articleUniqueName, loc);
-		
-		Assert.assertNull(article);
+		service.getArticleByUniqueName(articleUniqueName, loc);
 		
 	}
 	
-	@Test
+	@Test(expected = ArticleException.class)
 	public void getArticleByUniqueName_noArticleInList() throws Exception{
 		
 		String articleUniqueName = "Unique name another";
 		Locale loc = Locale.ENGLISH;
 		
-		ArticleEntity article = service.getArticleByUniqueName(articleUniqueName, loc);
-		
-		Assert.assertNull(article);
+		service.getArticleByUniqueName(articleUniqueName, loc);
 		
 	}
 	
