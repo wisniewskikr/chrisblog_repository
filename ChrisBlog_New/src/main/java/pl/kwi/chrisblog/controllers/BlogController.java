@@ -198,6 +198,83 @@ public class BlogController{
 	}
 	
 	/**
+	 * Method handles page with article list marked by tag for page one. By page one 
+	 * should be no page number in url. 
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param tagUniqueName object String with unique name of tag
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/tag/{tagUniqueName}")
+	public ModelAndView displayArticleListWithTagPageOne(@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, 
+			HttpServletResponse response,
+			@PathVariable String tagUniqueName) throws Exception{
+		
+		return displayArticleListWithTag(command, request, response, 1, tagUniqueName);
+		
+	}
+	
+	/**
+	 * Method handles page with article list marked by tag for pages other then one.
+	 * By pages other then one should be page number in url.
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param pageNumber int with current page number
+	 * @param tagUniqueName object String with unique name of tag
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping("/tag/page/{pageNumber}/{tagUniqueName}")
+	public ModelAndView displayArticleListWithTagPageNotOne(@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, 
+			HttpServletResponse response,
+			@PathVariable int pageNumber,
+			@PathVariable String tagUniqueName) throws Exception{
+		
+		if(pageNumber == 1){
+			return new ModelAndView(new RedirectView("/tag/" + tagUniqueName , true, true, true));
+		}else{
+			return displayArticleListWithTag(command, request, response, pageNumber, tagUniqueName);
+		}
+		
+	}
+	
+	/**
+	 * Method handles page with article list marked by tag.
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param pageNumber int with current page number
+	 * @param tagUniqueName object String with unique name of tag
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	protected ModelAndView displayArticleListWithTag(@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, 
+			HttpServletResponse response,
+			@PathVariable int pageNumber,
+			@PathVariable String tagUniqueName) throws Exception{
+		
+		command.setDisplayArticleListWithTag(true);		
+		handleCommand(command, request);
+		
+		command.setArticleTag((articleTagService.getArticleTagByUniqueName(tagUniqueName)));
+		command.setArticleList(articleService.getArticleListWithTagSortedByDateDesc(pageNumber, command.getArticleTag(), command.getLocale()));
+		
+		handleArticleListWithTagPagenation(command, pageNumber);
+		
+		return new ModelAndView("blogJsp");
+		
+	}
+	
+	/**
 	 * Method handles explanations - theoretical introduction
 	 * from articles.
 	 * 
@@ -349,6 +426,22 @@ public class BlogController{
 		
 		int pageCurrent = pageNumber;
 		int pagesCount = command.getArticle().getPagesCount();
+		
+		handlePagenation(command, pageCurrent, pagesCount);
+		
+	}
+	
+	/**
+	 * Method handles pagenation for articles with specified tag.
+	 * 
+	 * @param command object BlogCommand with page data
+	 * @param pageNumber int with number of current page
+	 * @throws Exception
+	 */
+	protected void handleArticleListWithTagPagenation(BlogCommand command, int pageNumber) throws Exception {
+		
+		int pageCurrent = pageNumber;
+		int pagesCount = articleService.getPagesCountArticlesWithTag(command.getArticleTag());
 		
 		handlePagenation(command, pageCurrent, pagesCount);
 		

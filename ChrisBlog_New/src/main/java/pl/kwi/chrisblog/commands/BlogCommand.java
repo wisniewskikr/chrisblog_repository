@@ -8,6 +8,7 @@ import org.mcavallo.opencloud.Cloud;
 import org.springframework.web.servlet.LocaleResolver;
 
 import pl.kwi.chrisblog.entities.ArticleEntity;
+import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.entities.ExplanationEntity;
 
 /**
@@ -23,6 +24,7 @@ public class BlogCommand implements Serializable{
 	// Displays
 	private boolean displayArticleList;
 	private boolean displayArticle;
+	private boolean displayArticleListWithTag;
 	private boolean displayExplanation;
 	private boolean displayAboutMe;
 	private boolean displayException;
@@ -31,6 +33,7 @@ public class BlogCommand implements Serializable{
 	private List<ArticleEntity> articleList;	
 	private ArticleEntity article;
 	private ExplanationEntity explanation;
+	private ArticleTagEntity articleTag;
 	
 	// Paths
 	private String pathHost;
@@ -59,8 +62,15 @@ public class BlogCommand implements Serializable{
 	}
 	public void setDisplayArticle(boolean displayArticle) {
 		this.displayArticle = displayArticle;
-	}
+	}	
 
+	public boolean isDisplayArticleListWithTag() {
+		return displayArticleListWithTag;
+	}
+	public void setDisplayArticleListWithTag(boolean displayArticleListWithTag) {
+		this.displayArticleListWithTag = displayArticleListWithTag;
+	}
+	
 	public boolean isDisplayExplanation() {
 		return displayExplanation;
 	}
@@ -101,8 +111,15 @@ public class BlogCommand implements Serializable{
 	}
 	public void setExplanation(ExplanationEntity explanation) {
 		this.explanation = explanation;
-	}
+	}	
 
+	public ArticleTagEntity getArticleTag() {
+		return articleTag;
+	}
+	public void setArticleTag(ArticleTagEntity articleTag) {
+		this.articleTag = articleTag;
+	}
+	
 	public String getPathHost() {
 		return pathHost;
 	}

@@ -29,6 +29,7 @@ public class ArticleTagServiceTest {
 	@Before
 	public void setUp(){
 		service = new ArticleTagService();
+		service.setCompleteArticleTagList(mockArticleTagList());
 	}
 	
 	@Test
@@ -38,8 +39,7 @@ public class ArticleTagServiceTest {
 		idList.add(1L);
 		idList.add(3L);
 		idList.add(5L);
-		
-		service.setCompleteArticleTagList(mockArticleTagList());
+				
 		List<ArticleTagEntity> resultList = service.getArticleTagListByIdList(idList);
 		
 		Assert.assertEquals(Integer.valueOf(3), Integer.valueOf(resultList.size()));
@@ -69,6 +69,82 @@ public class ArticleTagServiceTest {
 		List<Long> idList = new ArrayList<Long>();
 		
 		List<ArticleTagEntity> resultList = service.getArticleTagListByIdList(idList);
+		
+		Assert.assertTrue(resultList.isEmpty());
+		
+	}
+	
+	@Test
+	public void getArticleTagByUniqueName(){
+		
+		String uniqueName = "java";
+		
+		ArticleTagEntity result = service.getArticleTagByUniqueName(uniqueName);
+		
+		Assert.assertEquals(Long.valueOf(1), result.getId());
+		Assert.assertEquals("Java", result.getName());
+		
+	}
+	
+	@Test
+	public void getArticleTagByUniqueName_UniqueNameDoesNotFit(){
+		
+		String uniqueName = "tmp";
+		
+		ArticleTagEntity result = service.getArticleTagByUniqueName(uniqueName);
+		
+		Assert.assertNull(result);
+	
+	}
+	
+	@Test
+	public void getArticleTagByUniqueName_UniqueNameNull(){
+		
+		String uniqueName = null;
+		
+		ArticleTagEntity result = service.getArticleTagByUniqueName(uniqueName);
+		
+		Assert.assertNull(result);
+	
+	}
+	
+	@Test
+	public void getArticleTagListByUniqueNameList(){
+		
+		List<String> uniqueNameList = new ArrayList<String>();
+		uniqueNameList.add("java");
+		uniqueNameList.add("servlet");
+		uniqueNameList.add("html");
+		
+		List<ArticleTagEntity> resultList = service.getArticleTagListByUniqueNameList(uniqueNameList);
+		
+		Assert.assertEquals(Integer.valueOf(3), Integer.valueOf(resultList.size()));
+		Assert.assertEquals(Long.valueOf(1), resultList.get(0).getId());
+		Assert.assertEquals("Java", resultList.get(0).getName());
+		Assert.assertEquals(Long.valueOf(2), resultList.get(1).getId());
+		Assert.assertEquals("Servlet", resultList.get(1).getName());
+		Assert.assertEquals(Long.valueOf(3), resultList.get(2).getId());
+		Assert.assertEquals("Html", resultList.get(2).getName());
+		
+	}
+	
+	@Test
+	public void getArticleTagListByUniqueNameList_UniqueNameListEmpty(){
+		
+		List<String> uniqueNameList = new ArrayList<String>();
+		
+		List<ArticleTagEntity> resultList = service.getArticleTagListByUniqueNameList(uniqueNameList);
+		
+		Assert.assertTrue(resultList.isEmpty());
+		
+	}
+	
+	@Test
+	public void getArticleTagListByUniqueNameList_UniqueNameListNull(){
+		
+		List<String> uniqueNameList = null;
+		
+		List<ArticleTagEntity> resultList = service.getArticleTagListByUniqueNameList(uniqueNameList);
 		
 		Assert.assertTrue(resultList.isEmpty());
 		
@@ -108,41 +184,49 @@ public class ArticleTagServiceTest {
 		articleTag = new ArticleTagEntity();
 		articleTag.setId(1L);
 		articleTag.setName("Java");
+		articleTag.setUniqueName("java");
 		articleTagList.add(articleTag);
 		
 		articleTag = new ArticleTagEntity();
 		articleTag.setId(2L);
 		articleTag.setName("Servlet");
+		articleTag.setUniqueName("servlet");
 		articleTagList.add(articleTag);
 		
 		articleTag = new ArticleTagEntity();
 		articleTag.setId(3L);
 		articleTag.setName("Html");
+		articleTag.setUniqueName("html");
 		articleTagList.add(articleTag);
 		
 		articleTag = new ArticleTagEntity();
 		articleTag.setId(4L);
 		articleTag.setName("Jsp");
+		articleTag.setUniqueName("jsp");
 		articleTagList.add(articleTag);
 		
 		articleTag = new ArticleTagEntity();
 		articleTag.setId(5L);
 		articleTag.setName("Css");
+		articleTag.setUniqueName("css");
 		articleTagList.add(articleTag);
 		
 		articleTag = new ArticleTagEntity();
 		articleTag.setId(6L);
 		articleTag.setName("Java Script");
+		articleTag.setUniqueName("java_script");
 		articleTagList.add(articleTag);
 		
 		articleTag = new ArticleTagEntity();
 		articleTag.setId(7L);
 		articleTag.setName("Maven");
+		articleTag.setUniqueName("maven");
 		articleTagList.add(articleTag);
 		
 		articleTag = new ArticleTagEntity();
 		articleTag.setId(8L);
 		articleTag.setName("Tomcat");
+		articleTag.setUniqueName("tomcat");
 		articleTagList.add(articleTag);
 		
 		return articleTagList;

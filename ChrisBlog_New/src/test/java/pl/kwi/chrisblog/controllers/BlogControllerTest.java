@@ -257,6 +257,117 @@ public class BlogControllerTest {
 	}
 	
 	@Test
+	public void displayArticleListWithTagPageOne() throws Exception {
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		HttpServletResponse response = mockHttpServletResponse();
+		String tagUniqueName = "tagUniqueName";
+		
+		ModelAndView modelAndView = contoller.displayArticleListWithTagPageOne(command, request, response, tagUniqueName);
+		
+		Assert.assertFalse(command.isDisplayAboutMe());
+		Assert.assertTrue(command.isDisplayArticleListWithTag());
+		
+		Assert.assertEquals("pathHost", command.getPathHost());
+		Assert.assertEquals("pathContext", command.getPathContext());
+		Assert.assertNotNull(command.getLocale());
+		Assert.assertNotNull(command.getTagsCloud());
+		
+		Assert.assertEquals(2, command.getArticleList().size());
+		
+		Assert.assertEquals(Integer.valueOf(1), command.getPageCurrent());
+		Assert.assertEquals(Integer.valueOf(4), command.getPagesCount());
+		
+		Assert.assertEquals("blogJsp", modelAndView.getViewName());
+		
+	}
+	
+	@Test
+	public void displayArticleListWithTagPageNotOne() throws Exception{
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		HttpServletResponse response = mockHttpServletResponse();
+		int pageNumber = 2;
+		String tagUniqueName = "tagUniqueName";
+		
+		ModelAndView modelAndView = contoller.displayArticleListWithTagPageNotOne(command, request, response, pageNumber, tagUniqueName);
+		
+		Assert.assertFalse(command.isDisplayAboutMe());
+		Assert.assertTrue(command.isDisplayArticleListWithTag());
+		
+		Assert.assertEquals("pathHost", command.getPathHost());
+		Assert.assertEquals("pathContext", command.getPathContext());
+		Assert.assertNotNull(command.getLocale());
+		Assert.assertNotNull(command.getTagsCloud());
+		
+		Assert.assertEquals(2, command.getArticleList().size());
+		Assert.assertEquals("unique_name", command.getArticleTag().getUniqueName());
+		
+		Assert.assertEquals(Integer.valueOf(2), command.getPageCurrent());
+		Assert.assertEquals(Integer.valueOf(4), command.getPagesCount());
+		
+		Assert.assertEquals("blogJsp", modelAndView.getViewName());
+		
+	}
+	
+	@Test(expected = ArticleException.class)
+	public void displayArticleListWithTagPageNotOne_withException() throws Exception{
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		HttpServletResponse response = mockHttpServletResponse();
+		int pageNumber = 8;
+		String tagUniqueName = "tagUniqueName";
+		
+		contoller.displayArticleListWithTagPageNotOne(command, request, response, pageNumber, tagUniqueName);
+		
+	}
+	
+	@Test
+	public void displayArticleListWithTag() throws Exception{
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		HttpServletResponse response = mockHttpServletResponse();
+		int pageNumber = 1;
+		String tagUniqueName = "tagUniqueName";
+		
+		ModelAndView modelAndView = contoller.displayArticleListWithTag(command, request, response, pageNumber, tagUniqueName);
+		
+		Assert.assertFalse(command.isDisplayAboutMe());
+		Assert.assertTrue(command.isDisplayArticleListWithTag());
+		
+		Assert.assertEquals("pathHost", command.getPathHost());
+		Assert.assertEquals("pathContext", command.getPathContext());
+		Assert.assertNotNull(command.getLocale());
+		Assert.assertNotNull(command.getTagsCloud());
+		
+		Assert.assertEquals(2, command.getArticleList().size());
+		Assert.assertEquals("unique_name", command.getArticleTag().getUniqueName());
+		
+		Assert.assertEquals(Integer.valueOf(1), command.getPageCurrent());
+		Assert.assertEquals(Integer.valueOf(4), command.getPagesCount());
+		
+		Assert.assertEquals("blogJsp", modelAndView.getViewName());
+		
+	}
+	
+	@Test(expected = ArticleException.class)
+	public void displayArticleListWithTag_withException() throws Exception{
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		HttpServletResponse response = mockHttpServletResponse();
+		int pageNumber = 8;
+		String tagUniqueName = "tagUniqueName";
+		
+		contoller.displayArticleListWithTag(command, request, response, pageNumber, tagUniqueName);
+		
+	}
+	
+	@Test
 	public void displayExplanation() throws Exception {
 		
 		BlogCommand command = new BlogCommand();
@@ -433,6 +544,29 @@ public class BlogControllerTest {
 	}
 	
 	@Test
+	public void handleArticleListWithTagPagenation() throws Exception {
+		
+		BlogCommand command = new BlogCommand();
+		int pageNumber = 1;
+		
+		contoller.handleArticleListWithTagPagenation(command, pageNumber);
+		
+		Assert.assertEquals(Integer.valueOf(1), command.getPageCurrent());
+		Assert.assertEquals(Integer.valueOf(4), command.getPagesCount());
+		
+	}
+	
+	@Test(expected = ArticleException.class)
+	public void handleArticleListWithTagPagenation_withException() throws Exception{
+		
+		BlogCommand command = new BlogCommand();
+		int pageNumber = 8;
+		
+		contoller.handleArticleListWithTagPagenation(command, pageNumber);
+		
+	}
+	
+	@Test
 	public void handlePagenation() throws Exception {
 		
 		BlogCommand command = new BlogCommand();
@@ -572,7 +706,9 @@ public class BlogControllerTest {
 		
 		Mockito.when(mock.getAllArticleList(Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList());
 		Mockito.when(mock.getArticleListSortedByDateDesc(Mockito.anyInt(), Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList());
+		Mockito.when(mock.getArticleListWithTagSortedByDateDesc(Mockito.anyInt(), Mockito.any(ArticleTagEntity.class), Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList());
 		Mockito.when(mock.getPagesCountOfAllArticles()).thenReturn(4);
+		Mockito.when(mock.getPagesCountArticlesWithTag(Mockito.any(ArticleTagEntity.class))).thenReturn(4);
 		Mockito.when(mock.getArticleByUniqueName(Mockito.anyString(), Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList().get(0));
 				
 		return mock;
@@ -581,9 +717,16 @@ public class BlogControllerTest {
 	
 	private ArticleTagService mockArticleTagService() throws Exception{
 		
+		ArticleTagEntity articleTag;		
+		articleTag = new ArticleTagEntity();
+		articleTag.setId(1L);
+		articleTag.setName("Name");
+		articleTag.setUniqueName("unique_name");
+		
 		ArticleTagService mock = Mockito.mock(ArticleTagService.class);
 		
 		Mockito.when(mock.getTagsCloud(Mockito.anyList())).thenReturn(new Cloud());
+		Mockito.when(mock.getArticleTagByUniqueName(Mockito.anyString())).thenReturn(articleTag);
 		
 		return mock;
 		

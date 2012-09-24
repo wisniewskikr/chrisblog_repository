@@ -58,6 +58,32 @@ public class ArticleTagService {
 	}
 	
 	/**
+	 * Method gets article tag with unique name.
+	 * 
+	 * @param uniqueName object String with unique name of selected article
+	 * @return object ArticleTagEntity with article tag with specified unique name
+	 */
+	public ArticleTagEntity getArticleTagByUniqueName(String uniqueName) {
+		
+		ArticleTagEntity result = null;
+		
+		if(uniqueName == null){
+			return result;
+		}
+		
+		List<String> uniqueNameList = new ArrayList<String>();
+		uniqueNameList.add(uniqueName);		
+		
+		List<ArticleTagEntity> articleTagList = getArticleTagListByUniqueNameList(uniqueNameList);
+		
+		if(!articleTagList.isEmpty()){
+			result = articleTagList.get(0);
+		}
+		
+		return result;
+	}
+	
+	/**
 	 * Method gest list of article tag by list of unique names these articles.
 	 * 
 	 * @param uniqueNameList list of object String with unique name selected articles

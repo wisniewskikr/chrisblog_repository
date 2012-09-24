@@ -8,7 +8,10 @@ import java.util.Locale;
 import junit.framework.Assert;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.Mockito;
+
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.exceptions.ArticleException;
@@ -25,6 +28,7 @@ public class ArticleServiceTest {
 		service.setFolderExamples("folderExamples");
 		service.setFolderSources("folderSources");
 		service.setCompleteArticleList(mockCompleteArticleList());
+		service.setArticleTagService(mockArticleTagService());
 	}
 	
 	@Test
@@ -123,13 +127,13 @@ public class ArticleServiceTest {
 	}
 	
 	@Test
-	public void getArticleListSortedByDateDesc_withTag() throws Exception{
+	public void getArticleListWithTagSortedByDateDesc() throws Exception{
 		
 		int pageNumber = 1;
-		ArticleTagEntity tag = null;
+		ArticleTagEntity articleTag = null;
 		Locale loc = Locale.ENGLISH;
 		
-		List<ArticleEntity> articleList = service.getArticleListSortedByDateDesc(pageNumber, tag, loc);
+		List<ArticleEntity> articleList = service.getArticleListWithTagSortedByDateDesc(pageNumber, articleTag, loc);
 		
 		Assert.assertEquals(Integer.valueOf(1999), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.YEAR)));
 		Assert.assertEquals(Integer.valueOf(11), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.MONTH)));
@@ -152,25 +156,58 @@ public class ArticleServiceTest {
 	}
 	
 	@Test(expected = ArticleException.class)
-	public void getArticleListSortedByDateDesc_withTag_articleListNull() throws Exception{
+	public void getArticleListWithTagSortedByDateDesc_articleListNull() throws Exception{
 		
 		service.setCompleteArticleList(null);
 		int pageNumber = 1;
-		ArticleTagEntity tag = null;
+		ArticleTagEntity articleTag = null;
 		Locale loc = Locale.ENGLISH;
 		
-		service.getArticleListSortedByDateDesc(pageNumber, tag, loc);
+		service.getArticleListWithTagSortedByDateDesc(pageNumber, articleTag, loc);
 		
 	}
 	
 	@Test(expected = ArticleException.class)
-	public void getArticleListSortedByDateDesc_withTag_localeNull() throws Exception{
+	public void getArticleListWithTagSortedByDateDesc_localeNull() throws Exception{
 		
 		int pageNumber = 1;
-		ArticleTagEntity tag = null;
+		ArticleTagEntity articleTag = null;
 		Locale loc = null;
 		
-		service.getArticleListSortedByDateDesc(pageNumber, tag, loc);
+		service.getArticleListWithTagSortedByDateDesc(pageNumber, articleTag, loc);
+		
+	}
+	
+	@Test
+	public void getArticleListWithTagSortedByDateDesc_tagFits() throws Exception{
+		
+		int pageNumber = 1;		
+		Locale loc = Locale.ENGLISH;
+		
+		ArticleTagEntity articleTag = new ArticleTagEntity();
+		articleTag.setId(5L);
+		articleTag.setName("EJB3");
+		articleTag.setUniqueName("ejb3");
+		
+		List<ArticleEntity> articleList = service.getArticleListWithTagSortedByDateDesc(pageNumber, articleTag, loc);
+		
+		Assert.assertEquals(Integer.valueOf(1999), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.YEAR)));
+		Assert.assertEquals(Integer.valueOf(11), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.MONTH)));
+		Assert.assertEquals(Integer.valueOf(25), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.DAY_OF_MONTH)));
+		Assert.assertEquals(Integer.valueOf(17), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.HOUR_OF_DAY)));
+		Assert.assertEquals(Integer.valueOf(45), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.MINUTE)));
+		Assert.assertEquals(Integer.valueOf(53), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.SECOND)));
+		Assert.assertEquals(Long.valueOf(3L), articleList.get(0).getId());
+		Assert.assertEquals("Unique name 3", articleList.get(0).getUniqueName());
+		Assert.assertEquals("Title 3", articleList.get(0).getTitle());
+		Assert.assertEquals("Description", articleList.get(0).getDescription());
+		Assert.assertEquals("Path/path", articleList.get(0).getContentPath());
+		Assert.assertEquals(Integer.valueOf(4), articleList.get(0).getPagesCount());
+		Assert.assertEquals("Author", articleList.get(0).getAuthor());
+		Assert.assertEquals("December 25, 1999", articleList.get(0).getCreationDateAsString());
+		Assert.assertEquals("/demoPath", articleList.get(0).getDemoPath());
+		Assert.assertEquals("/folderExamples/examplePath", articleList.get(0).getExamplePath());
+		Assert.assertEquals("/folderSources/sourcePath", articleList.get(0).getSourcePath());
 		
 	}
 	
@@ -274,6 +311,17 @@ public class ArticleServiceTest {
 		int result = service.getPagesCountOfArticle(article);
 		
 		Assert.assertEquals(4, result);
+		
+	}
+	
+	@Test
+	public void getPagesCountArticlesWithTag() throws Exception{
+		
+		ArticleTagEntity articleTag = null;
+		
+		int result = service.getPagesCountArticlesWithTag(articleTag);
+		
+		Assert.assertEquals(1, result);
 		
 	}
 	
@@ -384,6 +432,62 @@ public class ArticleServiceTest {
 		
 	}
 	
+	@Test
+	public void extractArticleListMarkedByTags() throws Exception{
+		
+		List<ArticleEntity> articleList = mockCompleteArticleList();
+		
+		List<ArticleTagEntity> articleTagList = null;
+		ArticleTagEntity articleTag;
+		
+		articleTagList = new ArrayList<ArticleTagEntity>();
+		
+		articleTag = new ArticleTagEntity();
+		articleTag.setId(1L);
+		articleTag.setName("Java");
+		articleTag.setUniqueName("java");
+		articleTagList.add(articleTag);
+		
+		articleTag = new ArticleTagEntity();
+		articleTag.setId(2L);
+		articleTag.setName("Maven");
+		articleTag.setUniqueName("maven");
+		articleTagList.add(articleTag);
+		
+		articleTag = new ArticleTagEntity();
+		articleTag.setId(5L);
+		articleTag.setName("EJB3");
+		articleTag.setUniqueName("ejb3");
+		articleTagList.add(articleTag);
+		
+		List<ArticleEntity> resultList = service.extractArticleListMarkedByTags(articleList, articleTagList);
+		
+		Assert.assertEquals(2, resultList.size());
+		
+	}
+	
+	@Test
+	public void extractArticleListMarkedByTags_noResults() throws Exception{
+		
+		List<ArticleEntity> articleList = mockCompleteArticleList();
+		
+		List<ArticleTagEntity> articleTagList = null;
+		ArticleTagEntity articleTag;
+		
+		articleTagList = new ArrayList<ArticleTagEntity>();
+		
+		articleTag = new ArticleTagEntity();
+		articleTag.setId(8L);
+		articleTag.setName("Tmp");
+		articleTag.setUniqueName("tmp");
+		articleTagList.add(articleTag);
+				
+		List<ArticleEntity> resultList = service.extractArticleListMarkedByTags(articleList, articleTagList);
+		
+		Assert.assertEquals(0, resultList.size());
+		
+	}
+	
 	
 	// ************************************************************************************************************ //
 	// *********************************************** HELP METHODS *********************************************** //
@@ -393,26 +497,32 @@ public class ArticleServiceTest {
 	private List<ArticleEntity> mockCompleteArticleList() throws Exception{
 		
 		List<ArticleEntity> completeArticleList = new ArrayList<ArticleEntity>();
-		
-		List<ArticleTagEntity> articleTagList = new ArrayList<ArticleTagEntity>();
+		List<ArticleTagEntity> articleTagList = null;
 		ArticleTagEntity articleTag;
+		ArticleEntity article;
+
+		// ----- First article ----- //
+		
+		articleTagList = new ArrayList<ArticleTagEntity>();
 		
 		articleTag = new ArticleTagEntity();
 		articleTag.setId(1L);
 		articleTag.setName("Java");
+		articleTag.setUniqueName("java");
 		articleTagList.add(articleTag);
 		
 		articleTag = new ArticleTagEntity();
 		articleTag.setId(2L);
 		articleTag.setName("Maven");
+		articleTag.setUniqueName("maven");
 		articleTagList.add(articleTag);
 		
 		articleTag = new ArticleTagEntity();
 		articleTag.setId(3L);
 		articleTag.setName("Servlet");
+		articleTag.setUniqueName("servlet");
 		articleTagList.add(articleTag);
 		
-		ArticleEntity article;
 		
 		article = new ArticleEntity();
 		article.setId(1L);
@@ -430,8 +540,82 @@ public class ArticleServiceTest {
 		article.setSourcePath("/sourcePath");
 		completeArticleList.add(article);
 		
+		// ----- Second article ----- //
+		
+		articleTagList = new ArrayList<ArticleTagEntity>();
+		
+		articleTag = new ArticleTagEntity();
+		articleTag.setId(4L);
+		articleTag.setName("Swing");
+		articleTag.setUniqueName("swing");
+		articleTagList.add(articleTag);
+		
+		
+		article = new ArticleEntity();
+		article.setId(2L);
+		article.setUniqueName("Unique name 2");
+		article.setTitle("Title 2");
+		article.setDescription("Description");
+		article.setContentPath("Path/path");
+		article.setPagesCount(3);		
+		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("19991225174553"));
+		article.setCreationDateAsString("December 25, 1999");
+		article.setAuthor("Author");
+		article.setArticleTagList(articleTagList);
+		article.setDemoPath("/demoPath");
+		article.setExamplePath("/examplePath");
+		article.setSourcePath("/sourcePath");
+		completeArticleList.add(article);
+		
+		// ----- Third article ----- //
+		
+		articleTagList = new ArrayList<ArticleTagEntity>();
+		
+		articleTag = new ArticleTagEntity();
+		articleTag.setId(5L);
+		articleTag.setName("EJB3");
+		articleTag.setUniqueName("ejb3");
+		articleTagList.add(articleTag);
+		
+		
+		article = new ArticleEntity();
+		article.setId(3L);
+		article.setUniqueName("Unique name 3");
+		article.setTitle("Title 3");
+		article.setDescription("Description");
+		article.setContentPath("Path/path");
+		article.setPagesCount(3);		
+		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("19991225174553"));
+		article.setCreationDateAsString("December 25, 1999");
+		article.setAuthor("Author");
+		article.setArticleTagList(articleTagList);
+		article.setDemoPath("/demoPath");
+		article.setExamplePath("/examplePath");
+		article.setSourcePath("/sourcePath");
+		completeArticleList.add(article);
+		
+		
 		return completeArticleList;		
 				
+	}
+	
+	private ArticleTagService mockArticleTagService(){
+		
+		List<ArticleTagEntity> articleTagList = new ArrayList<ArticleTagEntity>();
+		ArticleTagEntity articleTag;
+		
+		articleTag = new ArticleTagEntity();
+		articleTag.setId(5L);
+		articleTag.setName("EJB3");
+		articleTag.setUniqueName("ejb3");
+		articleTagList.add(articleTag);
+		
+		ArticleTagService articleTagService = Mockito.mock(ArticleTagService.class);
+		
+		Mockito.when(articleTagService.getArticleTagListByUniqueNameList(Mockito.anyList())).thenReturn(articleTagList);
+		
+		return articleTagService;
+		
 	}
 
 	

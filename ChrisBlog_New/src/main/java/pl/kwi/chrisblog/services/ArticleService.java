@@ -1,6 +1,7 @@
 package pl.kwi.chrisblog.services;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import pl.kwi.chrisblog.comparators.ArticleTagIdComparator;
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.exceptions.ArticleException;
@@ -64,7 +66,7 @@ public class ArticleService {
 	 */
 	public List<ArticleEntity> getArticleListSortedByDateDesc(int pageNumber, Locale loc) throws Exception {
 		
-		return getArticleListSortedByDateDesc(pageNumber, null, loc);
+		return getArticleListWithTagSortedByDateDesc(pageNumber, null, loc);
 		
 	}
 	
@@ -73,15 +75,24 @@ public class ArticleService {
 	 * These articles are sorted by date descending.
 	 * 
 	 * @param pageNumber int with number of page
-	 * @param tag object ArticleTagEntity with tag of article
+	 * @param tagUniqueName object String with unique name of tag specified for article from list
 	 * @param loc object Locale with international localization
 	 * @return list of articles connected with specified page number, tag and locale
 	 * @throws Exception
 	 */
-	public List<ArticleEntity> getArticleListSortedByDateDesc(int pageNumber, ArticleTagEntity tag, Locale loc) throws Exception {
+	public List<ArticleEntity> getArticleListWithTagSortedByDateDesc(int pageNumber, ArticleTagEntity articleTag, Locale loc) throws Exception {
 		
-		// TODO KWi: handle article tag
-		return convertArticlesToDisplayableForm(completeArticleList, loc);
+		//TODO KWi: handle page number 
+		List<ArticleEntity> articleList = convertArticlesToDisplayableForm(completeArticleList, loc);
+				 
+		 List<ArticleTagEntity> searchedArticleTagList = new ArrayList<ArticleTagEntity>();
+		 searchedArticleTagList.add(articleTag);
+		 		 
+		 if(articleTag == null){
+			 return articleList;
+		 } else {
+			 return extractArticleListMarkedByTags(articleList, searchedArticleTagList);			 
+		 }
 		
 	}
 	
@@ -117,7 +128,7 @@ public class ArticleService {
 	/**
 	 * Method gets count of article`s pages.
 	 * 
-	 * @param article object ArticleEntity for whitch pages are counted
+	 * @param article object ArticleEntity for which pages are counted
 	 * @return int with count of article`s pages
 	 * @throws Exception
 	 */
@@ -125,6 +136,20 @@ public class ArticleService {
 		
 		// TODO KWi: implement real method
 		return 4;
+		
+	}
+	
+	/**
+	 * Method gets count of pages of articles containing specified tag.
+	 * 
+	 * @param articleTag object ArticleTagEntity with specified tag of articles which are counted
+	 * @return int with count of pages of all articles
+	 * @throws Exception
+	 */
+	public int getPagesCountArticlesWithTag(ArticleTagEntity articleTag) throws Exception {
+		
+		// TODO KWi: implement real method
+		return 1;
 		
 	}
 		
@@ -195,6 +220,40 @@ public class ArticleService {
 		}
 		
 		return articleList;
+		
+	}
+	
+	/**
+	 * Method extracts from article list only these articles which are marked by one of the tags from list.
+	 * 
+	 * @param articleList list of articles
+	 * @param tagsList list of tags
+	 * @return list of articles marked by one of the tagss
+	 */
+	protected List<ArticleEntity> extractArticleListMarkedByTags(List<ArticleEntity> articleList, List<ArticleTagEntity> tagsList){
+		
+		List<ArticleEntity> resultList = new ArrayList<ArticleEntity>();
+		 
+		for (ArticleEntity article : articleList) {
+			List<ArticleTagEntity> articleTagList = article.getArticleTagList();
+			for (ArticleTagEntity articleTag : tagsList) {
+				
+				ArticleTagIdComparator comparator = new ArticleTagIdComparator();
+				
+				int index = Collections.binarySearch(articleTagList, articleTag, comparator);
+				if(index == 0){
+					resultList.add(article);
+					continue;
+				}
+				
+//				if(articleTagList.contains(articleTag)){
+//					resultList.add(article);
+//					continue;
+//				}
+			}
+		}
+		 
+		 return resultList;
 		
 	}
 	
