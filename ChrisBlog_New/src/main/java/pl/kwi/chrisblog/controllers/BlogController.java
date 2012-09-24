@@ -411,8 +411,8 @@ public class BlogController{
 	 */
 	protected void handleArticleListPagenation(BlogCommand command, int pageNumber) throws Exception {
 		
-		int pageCurrent = pageNumber;
-		int pagesCount = articleService.getPagesCountOfAllArticles();
+		Integer pageCurrent = pageNumber;
+		Integer pagesCount = articleService.getPagesCountOfAllArticles();
 		
 		handlePagenation(command, pageCurrent, pagesCount);
 		
@@ -427,8 +427,8 @@ public class BlogController{
 	 */
 	protected void handleArticlePagenation(BlogCommand command, int pageNumber) throws Exception {
 		
-		int pageCurrent = pageNumber;
-		int pagesCount = command.getArticle().getPagesCount();
+		Integer pageCurrent = pageNumber;
+		Integer pagesCount = command.getArticle().getPagesCount();
 		
 		handlePagenation(command, pageCurrent, pagesCount);
 		
@@ -443,8 +443,8 @@ public class BlogController{
 	 */
 	protected void handleArticleListWithTagPagenation(BlogCommand command, int pageNumber) throws Exception {
 		
-		int pageCurrent = pageNumber;
-		int pagesCount = articleService.getPagesCountArticlesWithTag(command.getArticleTag());
+		Integer pageCurrent = pageNumber;
+		Integer pagesCount = articleService.getPagesCountArticlesWithTag(command.getArticleTag());
 		
 		handlePagenation(command, pageCurrent, pagesCount);
 		
@@ -466,6 +466,10 @@ public class BlogController{
 		
 		if(pagesCount == null || pagesCount == 0){
 			throw new PagenationException("Pages count is null or 0");
+		}
+		
+		if(pageCurrent < 0){
+			throw new PagenationException("Current page is less then 0");
 		}
 		
 		if(pageCurrent > pagesCount){

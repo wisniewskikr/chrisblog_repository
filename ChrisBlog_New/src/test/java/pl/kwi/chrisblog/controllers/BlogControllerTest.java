@@ -614,6 +614,17 @@ public class BlogControllerTest {
 		
 	}
 	
+	@Test(expected = PagenationException.class)
+	public void handlePagenation_pageCurrentLessThenZero() throws Exception{
+		
+		BlogCommand command = new BlogCommand();
+		Integer pageCurrent = -3;
+		Integer pagesCount = 4;
+		
+		contoller.handlePagenation(command, pageCurrent, pagesCount);
+		
+	}
+	
 	
 	// ************************************************************************************************************ //
 	// *********************************************** HELP METHODS *********************************************** //
