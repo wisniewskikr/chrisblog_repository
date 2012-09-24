@@ -30,49 +30,7 @@ public class ArticleTagServiceTest {
 	public void setUp(){
 		service = new ArticleTagService();
 		service.setCompleteArticleTagList(mockArticleTagList());
-	}
-	
-	@Test
-	public void getArticleTagListByIdList(){
-		
-		List<Long> idList = new ArrayList<Long>();
-		idList.add(1L);
-		idList.add(3L);
-		idList.add(5L);
-				
-		List<ArticleTagEntity> resultList = service.getArticleTagListByIdList(idList);
-		
-		Assert.assertEquals(Integer.valueOf(3), Integer.valueOf(resultList.size()));
-		Assert.assertEquals(Long.valueOf(1), resultList.get(0).getId());
-		Assert.assertEquals("Java", resultList.get(0).getName());
-		Assert.assertEquals(Long.valueOf(3), resultList.get(1).getId());
-		Assert.assertEquals("Html", resultList.get(1).getName());
-		Assert.assertEquals(Long.valueOf(5), resultList.get(2).getId());
-		Assert.assertEquals("Css", resultList.get(2).getName());
-		
-	}
-	
-	@Test
-	public void getArticleTagListByIdList_idListNull(){
-		
-		List<Long> idList = null;
-		
-		List<ArticleTagEntity> resultList = service.getArticleTagListByIdList(idList);
-		
-		Assert.assertTrue(resultList.isEmpty());
-		
-	}
-	
-	@Test
-	public void getArticleTagListByIdList_idListEmpty(){
-		
-		List<Long> idList = new ArrayList<Long>();
-		
-		List<ArticleTagEntity> resultList = service.getArticleTagListByIdList(idList);
-		
-		Assert.assertTrue(resultList.isEmpty());
-		
-	}
+	}	
 	
 	@Test
 	public void getArticleTagByUniqueName(){

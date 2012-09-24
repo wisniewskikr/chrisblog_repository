@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import pl.kwi.chrisblog.comparators.ArticleTagIdComparator;
 import pl.kwi.chrisblog.comparators.ArticleTagUniqueNameComparator;
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;

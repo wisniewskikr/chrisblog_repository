@@ -1,7 +1,6 @@
 package pl.kwi.chrisblog.services;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,7 +8,6 @@ import javax.annotation.PostConstruct;
 import org.mcavallo.opencloud.Cloud;
 import org.springframework.stereotype.Service;
 
-import pl.kwi.chrisblog.comparators.ArticleTagIdComparator;
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.exceptions.ArticleTagException;
@@ -29,33 +27,7 @@ public class ArticleTagService {
 	@PostConstruct
 	public void init(){		
 		completeArticleTagList = initCompleteArticleTagList();			
-	}
-	
-	/**
-	 * Method gest list of article tag by list of id these articles.
-	 * 
-	 * @param idList list of object Long with id selected articles
-	 * @return list of object ArticleTagEntity with article tags with specified ids
-	 */
-	public List<ArticleTagEntity> getArticleTagListByIdList(List<Long> idList) {
-		
-		List<ArticleTagEntity> resultList = new ArrayList<ArticleTagEntity>();
-		
-		if(idList == null || idList.isEmpty()){
-			return resultList;
-		}
-		
-		ArticleTagIdComparator comparator = new ArticleTagIdComparator();
-		
-		for (Long id : idList) {
-			int index = Collections.binarySearch(completeArticleTagList, new ArticleTagEntity(id), comparator);
-			if(index != -1){
-				resultList.add(completeArticleTagList.get(index));
-			}
-		}		
-		
-		return resultList;
-	}
+	}	
 	
 	/**
 	 * Method gets article tag with unique name.
