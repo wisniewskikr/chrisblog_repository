@@ -305,7 +305,7 @@ span.metaPagesCount {
 }
 
 #right{
-	padding: 40px 0px 0px 0px;
+	padding: 20px 0px 0px 0px;
 }
 
 .sectionDivider {
@@ -317,6 +317,7 @@ span.metaPagesCount {
 	font-size: 11px;
 	text-transform: uppercase;
 	cursor: default;
+	margin-top: 40px;
 }
 
 .sectionDividerNoLink{
@@ -372,9 +373,13 @@ span.metaPagesCount {
 #rightTags span{
 	margin-right: 5px;
 	text-transform: uppercase;
-	color: #77A6D2;
+	color: #888;
 	font-weight: bold;
 	font-style: italic;
+}
+
+.rightTagsCloud{
+	color: #888;
 }
 
 #footer {
@@ -544,4 +549,9 @@ span.metaPagesCount {
 	padding: 0px !important;
 	text-align: left !important;
 	background-color: white !important;
+}
+
+div#AdTaily_Widget_Container div.Footer {
+	margin-top: 0px !important;
+	padding-bottom: 0px !important;
 }

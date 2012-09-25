@@ -15,6 +15,7 @@ public class ArticleTagEntity implements Serializable{
 	private Long id;
 	private String uniqueName;
 	private String name;
+	private Integer occurencesCount;
 		
 	
 	public ArticleTagEntity() {
@@ -53,6 +54,13 @@ public class ArticleTagEntity implements Serializable{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Integer getOccurencesCount() {
+		return occurencesCount;
+	}
+	public void setOccurencesCount(Integer occurencesCount) {
+		this.occurencesCount = occurencesCount;
 	}	
 
 }

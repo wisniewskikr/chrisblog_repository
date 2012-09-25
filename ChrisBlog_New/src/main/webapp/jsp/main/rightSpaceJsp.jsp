@@ -44,6 +44,18 @@
 		</div>
 		
 		
+		<div class="sectionDivider ">
+				<span>Blog tags...</span>
+			</div>		
+			<div id="rightTags">
+				<ul>
+					<c:forEach items="${command.tagsCloudRightSpace.tags()}" var="tag">
+						<a href="${tag.link}" class="rightTagsCloud" style="font-size: ${tag.weight}px;">${tag.name}</a> 
+					</c:forEach>					
+				</ul>
+			</div>
+		
+		
 		<div class="sectionDivider">
 			<span>Sponsors...</span>
 		</div>		
@@ -60,13 +72,24 @@
 		
 		<c:if test="${command.displayArticle}">
 			<div class="sectionDivider sectionDividerNoLink">
-				<span>Tags</span>
+				<span>Article tags...</span>
 			</div>		
 			<div id="rightTags">
 				<ul>
 					<c:forEach items="${command.article.articleTagList}" var="articleTag">
 						<li><span>${articleTag.name}</span></li>
 					</c:forEach>					
+				</ul>
+			</div>
+		</c:if>
+		
+		<c:if test="${command.displayArticleListWithTag}">
+			<div class="sectionDivider sectionDividerNoLink">
+				<span>Selected tag...</span>
+			</div>		
+			<div id="rightTags">
+				<ul>
+					<li><span>${command.articleTag.name}</span></li>
 				</ul>
 			</div>
 		</c:if>

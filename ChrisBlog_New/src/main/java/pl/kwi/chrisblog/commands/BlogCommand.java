@@ -43,8 +43,9 @@ public class BlogCommand implements Serializable{
 	private Integer pageCurrent;
 	private Integer pagesCount;
 		
-	// Cloud of tags
+	// Clouds
 	private Cloud tagsCloud;
+	private Cloud tagsCloudRightSpace;
 	
 	// Locale
 	private Locale locale;
@@ -155,6 +156,13 @@ public class BlogCommand implements Serializable{
 		this.tagsCloud = tagsCloud;
 	}
 
+	public Cloud getTagsCloudRightSpace() {
+		return tagsCloudRightSpace;
+	}
+	public void setTagsCloudRightSpace(Cloud tagsCloudRightSpace) {
+		this.tagsCloudRightSpace = tagsCloudRightSpace;
+	}
+	
 	public Locale getLocale() {
 		return locale;
 	}
