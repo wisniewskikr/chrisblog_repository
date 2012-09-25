@@ -14,7 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 
-public class CategoriesIntg {
+public class ArticleListIntg {
 	
 	private String pathHost;
 	private String pathContext;
@@ -30,7 +30,7 @@ public class CategoriesIntg {
 	}
 	
 	@Test
-	public void indexJsp(){
+	public void test(){
 		
 		driver = new HtmlUnitDriver();
 		wait = new WebDriverWait(driver, 120);

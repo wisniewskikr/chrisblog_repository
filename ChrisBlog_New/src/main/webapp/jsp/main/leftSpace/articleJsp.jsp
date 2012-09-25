@@ -6,8 +6,8 @@
 <div id="article">
 	
 	<h1>
-		${command.article.title} 
-		<span class="articlePages">(${command.pageCurrent} of ${command.pagesCount})</span>
+		<span id="articleTitle">${command.article.title}</span> 
+		<span id="articlePages" class="articlePages">(${command.pageCurrent} of ${command.pagesCount})</span>
 	</h1>
 	
 	<div class="addthis_toolbox addthis_default_style">

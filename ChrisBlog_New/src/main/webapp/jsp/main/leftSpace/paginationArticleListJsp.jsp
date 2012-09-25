@@ -39,7 +39,7 @@
 				<span class="disable">« First</span>
 			</c:when>
 			<c:otherwise>
-				<a href="page/1" class="first">« First</a>
+				<a id="first" href="page/1" class="first">« First</a>
 			</c:otherwise>
 		</c:choose>
 		
@@ -49,7 +49,7 @@
 				<span class="disable">« Prev</span>
 			</c:when>
 			<c:otherwise>
-				<a href="page/${command.pageCurrent - 1}" class="previouspostslink">« Prev</a>
+				<a id="previous" href="page/${command.pageCurrent - 1}" class="previouspostslink">« Prev</a>
 			</c:otherwise>
 		</c:choose>			
 		
@@ -60,7 +60,7 @@
 					<span class="current">${page}</span>
 				</c:when>
 				<c:when test="${command.pageCurrent != page && page >= min && page <= max}">
-					<a href="page/${page}">${page}</a>
+					<a id="page_${page}" href="page/${page}">${page}</a>
 				</c:when>
 			</c:choose>			
 		</c:forEach>
@@ -71,7 +71,7 @@
 				<span class="disable">Next »</span>
 			</c:when>
 			<c:otherwise>
-				<a href="page/${command.pageCurrent + 1}" class="nextpostslink">Next »</a>
+				<a id="next" href="page/${command.pageCurrent + 1}" class="nextpostslink">Next »</a>
 			</c:otherwise>
 		</c:choose>
 		
@@ -81,14 +81,14 @@
 				<span class="disable">Last »</span>
 			</c:when>
 			<c:otherwise>
-				<a href="page/${command.pagesCount}" class="last">Last »</a>
+				<a id="last" href="page/${command.pagesCount}" class="last">Last »</a>
 			</c:otherwise>
 		</c:choose>
 		
 		
 		<span class="navigation">
-			<a href="javascript:history.go(-1)" class="button">back</a>
-			<a href="" class="button">home</a>
+			<a id="back" href="javascript:history.go(-1)" class="button">back</a>
+			<a id="home" href="" class="button">home</a>
 		</span>	
 	
 	
