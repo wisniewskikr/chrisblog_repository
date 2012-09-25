@@ -14,7 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 
-public class AboutMeIntg {
+public class ExplanationIntg {
 	
 	private String pathHost;
 	private String pathContext;
@@ -33,7 +33,7 @@ public class AboutMeIntg {
 	}
 	
 	@Test
-	public void testAboutMePage(){
+	public void testExplanationPage(){
 		
 		driver = new HtmlUnitDriver();
 		wait = new WebDriverWait(driver, 120);
@@ -51,32 +51,19 @@ public class AboutMeIntg {
         text = driver.findElement(By.id("hello_world_servlets_titleList")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         // actions
-        driver.findElement(By.id("aboutMeLink")).click();
+        driver.findElement(By.linkText("web application")).click();
         
         
-        // About me
-        wait.until(ExpectedConditions.textToBePresentInElement(By.id("headerTitle"), "Chris`s Blog"));
-        // conditions
-        header = driver.findElement(By.id("headerTitle")).getText();
-        Assert.assertEquals("Chris`s Blog", header);        
-        title = driver.getTitle();
-        Assert.assertEquals("Chris`s Blog - About Me", title);
-        text = driver.findElement(By.id("aboutMeTitle")).getText();
-        Assert.assertEquals("About Me", text);
-        // actions
-        driver.findElement(By.id("home")).click();
-        
-        
-        // Article list
-        wait.until(ExpectedConditions.textToBePresentInElement(By.id("headerTitle"), "Chris`s Blog"));
-        // conditions
-        header = driver.findElement(By.id("headerTitle")).getText();
-        Assert.assertEquals("Chris`s Blog", header);        
-        title = driver.getTitle();
-        Assert.assertEquals("Chris`s Blog - List of Articles", title);
-        text = driver.findElement(By.id("hello_world_servlets_titleList")).getText();
-        Assert.assertEquals("Hello World Servlets", text);
-       
+//        // Explanation 'web application'
+//        wait.until(ExpectedConditions.textToBePresentInElement(By.id("headerTitle"), "Chris`s Blog"));
+//        // conditions
+//        header = driver.findElement(By.id("headerTitle")).getText();
+//        Assert.assertEquals("Chris`s Blog", header);        
+//        title = driver.getTitle();
+//        Assert.assertEquals("Chris`s Blog", title);
+//        text = driver.findElement(By.id("explanationTitle")).getText();
+//        Assert.assertEquals("Web Application", text);
+   
         
 	}
 

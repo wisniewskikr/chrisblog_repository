@@ -478,6 +478,7 @@ public class BlogControllerTest {
 		
 		BlogCommand command = new BlogCommand();
 		HttpServletRequest request = mockHttpServletRequest();
+		command.setDisplayArticleList(true);
 		
 		contoller.handleCommand(command, request);
 		
@@ -486,6 +487,7 @@ public class BlogControllerTest {
 		Assert.assertNotNull(command.getLocale());
 		Assert.assertNotNull(command.getTagsCloudFooter());
 		Assert.assertNotNull(command.getTagsCloudRightSpace());
+		Assert.assertEquals("List of Articles", command.getWindowTitle());
 		
 	}
 	
@@ -494,6 +496,7 @@ public class BlogControllerTest {
 		
 		BlogCommand command = new BlogCommand();
 		HttpServletRequest request = null;
+		command.setDisplayArticleList(true);
 		
 		contoller.handleCommand(command, request);
 		
@@ -502,7 +505,18 @@ public class BlogControllerTest {
 		Assert.assertNull(command.getLocale());
 		Assert.assertNull(command.getTagsCloudFooter());
 		Assert.assertNull(command.getTagsCloudRightSpace());
+		Assert.assertEquals("List of Articles", command.getWindowTitle());
 		
+	}
+	
+	@Test(expected = Exception.class)
+	public void handleCommand_noDisplaySelected() throws Exception {
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		
+		contoller.handleCommand(command, request);
+				
 	}
 	
 	@Test
@@ -637,6 +651,36 @@ public class BlogControllerTest {
 		Integer pagesCount = 4;
 		
 		contoller.handlePagenation(command, pageCurrent, pagesCount);
+		
+	}
+	
+	@Test
+	public void getWindowTitle() throws Exception{
+		
+		BlogCommand command = new BlogCommand();
+		command.setDisplayArticleList(true);
+		
+		String windowTitle = contoller.getWindowTitle(command);
+		
+		Assert.assertEquals("List of Articles", windowTitle);
+		
+	}
+	
+	@Test(expected = Exception.class)
+	public void getWindowTitle_blogCommandNull() throws Exception{
+		
+		BlogCommand command = null;
+		
+		contoller.getWindowTitle(command);
+		
+	}
+	
+	@Test(expected = Exception.class)
+	public void getWindowTitle_noDisplaySelected() throws Exception{
+		
+		BlogCommand command = new BlogCommand();
+		
+		contoller.getWindowTitle(command);
 		
 	}
 	

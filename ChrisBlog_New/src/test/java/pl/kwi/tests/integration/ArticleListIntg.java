@@ -30,7 +30,7 @@ public class ArticleListIntg {
 	}
 	
 	@Test
-	public void test(){
+	public void testArticleListPage(){
 		
 		driver = new HtmlUnitDriver();
 		wait = new WebDriverWait(driver, 120);
@@ -43,7 +43,7 @@ public class ArticleListIntg {
         text = driver.findElement(By.id("headerTitle")).getText();
         Assert.assertEquals("Chris`s Blog", text);        
         String title = driver.getTitle();
-        Assert.assertEquals("Chris`s Blog", title);
+        Assert.assertEquals("Chris`s Blog - List of Articles", title);
         // actions
 //        driver.findElement(By.id("create")).click();
 		

@@ -5,7 +5,7 @@
 
 <div id="explanations">
 
-	<h1>${command.explanation.title}</h1>
+	<h1 id="explanationTitle">${command.explanation.title}</h1>
 	
 	<p>${command.explanation.content}</p>
 	

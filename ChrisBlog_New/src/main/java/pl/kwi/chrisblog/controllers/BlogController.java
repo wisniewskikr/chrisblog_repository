@@ -393,6 +393,7 @@ public class BlogController{
 		
 		command.setPathHost(pathHost);
 		command.setPathContext(pathContext);
+		command.setWindowTitle(getWindowTitle(command));
 		
 		if(request != null){
 			Locale loc = localeResolver.resolveLocale(request);
@@ -479,6 +480,41 @@ public class BlogController{
 		
 		command.setPageCurrent(pageCurrent);
 		command.setPagesCount(pagesCount);
+		
+	}
+	
+	/**
+	 * Method gets title of browser window.
+	 * 
+	 * @param command object BlogCommand with page data
+	 * @return object String with title of browser window
+	 * @throws Exception
+	 */
+	protected String getWindowTitle(BlogCommand command) throws Exception{
+		
+		if(command == null){
+			throw new Exception("Can not get title of browser window. Object BlogCommand is null.");
+		}
+		
+		String title = null;
+		
+		if(command.isDisplayArticleList()) {
+			title = "List of Articles";
+		}else if(command.isDisplayArticle()){
+			title = "Article";			
+		}else if(command.isDisplayArticleListWithTag()){
+			title = "List of Articles marked by Tag";			
+		}else if(command.isDisplayExplanation()){
+			title = "Explanation";			
+		}else if(command.isDisplayAboutMe()){
+			title = "About Me";			
+		}else if(command.isDisplayException()){
+			title = "Exception";			
+		}else{
+			throw new Exception("Can not get title of browser window. Can not find display mode.");
+		}
+		
+		return title;
 		
 	}
 	

@@ -10,7 +10,7 @@
 
 <head>
 
-	<title>Chris`s Blog</title>
+	<title>Chris`s Blog - ${command.windowTitle}</title>
 	
 	<base href="${command.pathHost}${command.pathContext}">
 	

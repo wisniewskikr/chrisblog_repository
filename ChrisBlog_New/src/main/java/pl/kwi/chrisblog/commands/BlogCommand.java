@@ -50,6 +50,9 @@ public class BlogCommand implements Serializable{
 	// Locale
 	private Locale locale;
 	
+	// Title of browser window
+	private String windowTitle;
+	
 
 	public boolean isDisplayArticleList() {
 		return displayArticleList;
@@ -168,6 +171,13 @@ public class BlogCommand implements Serializable{
 	}
 	public void setLocale(Locale locale) {
 		this.locale = locale;
+	}
+	
+	public String getWindowTitle() {
+		return windowTitle;
+	}
+	public void setWindowTitle(String windowTitle) {
+		this.windowTitle = windowTitle;
 	}
 	
 	

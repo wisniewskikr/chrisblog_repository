@@ -47,7 +47,7 @@ public class ArticleIntg {
         header = driver.findElement(By.id("headerTitle")).getText();
         Assert.assertEquals("Chris`s Blog", header);        
         title = driver.getTitle();
-        Assert.assertEquals("Chris`s Blog", title);
+        Assert.assertEquals("Chris`s Blog - List of Articles", title);
         text = driver.findElement(By.id("hello_world_servlets_titleList")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         // actions
@@ -60,7 +60,7 @@ public class ArticleIntg {
         header = driver.findElement(By.id("headerTitle")).getText();
         Assert.assertEquals("Chris`s Blog", header);        
         title = driver.getTitle();
-        Assert.assertEquals("Chris`s Blog", title);
+        Assert.assertEquals("Chris`s Blog - Article", title);
         text = driver.findElement(By.id("articleTitle")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         text = driver.findElement(By.id("articlePages")).getText();
@@ -75,7 +75,7 @@ public class ArticleIntg {
         header = driver.findElement(By.id("headerTitle")).getText();
         Assert.assertEquals("Chris`s Blog", header);        
         title = driver.getTitle();
-        Assert.assertEquals("Chris`s Blog", title);
+        Assert.assertEquals("Chris`s Blog - Article", title);
         text = driver.findElement(By.id("articleTitle")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         text = driver.findElement(By.id("articlePages")).getText();
@@ -90,7 +90,7 @@ public class ArticleIntg {
         header = driver.findElement(By.id("headerTitle")).getText();
         Assert.assertEquals("Chris`s Blog", header);        
         title = driver.getTitle();
-        Assert.assertEquals("Chris`s Blog", title);
+        Assert.assertEquals("Chris`s Blog - Article", title);
         text = driver.findElement(By.id("articleTitle")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         text = driver.findElement(By.id("articlePages")).getText();
@@ -105,7 +105,7 @@ public class ArticleIntg {
         header = driver.findElement(By.id("headerTitle")).getText();
         Assert.assertEquals("Chris`s Blog", header);        
         title = driver.getTitle();
-        Assert.assertEquals("Chris`s Blog", title);
+        Assert.assertEquals("Chris`s Blog - Article", title);
         text = driver.findElement(By.id("articleTitle")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         text = driver.findElement(By.id("articlePages")).getText();
@@ -120,7 +120,7 @@ public class ArticleIntg {
         header = driver.findElement(By.id("headerTitle")).getText();
         Assert.assertEquals("Chris`s Blog", header);        
         title = driver.getTitle();
-        Assert.assertEquals("Chris`s Blog", title);
+        Assert.assertEquals("Chris`s Blog - Article", title);
         text = driver.findElement(By.id("articleTitle")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         text = driver.findElement(By.id("articlePages")).getText();
@@ -135,7 +135,7 @@ public class ArticleIntg {
         header = driver.findElement(By.id("headerTitle")).getText();
         Assert.assertEquals("Chris`s Blog", header);        
         title = driver.getTitle();
-        Assert.assertEquals("Chris`s Blog", title);
+        Assert.assertEquals("Chris`s Blog - Article", title);
         text = driver.findElement(By.id("articleTitle")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         text = driver.findElement(By.id("articlePages")).getText();
@@ -150,7 +150,7 @@ public class ArticleIntg {
         header = driver.findElement(By.id("headerTitle")).getText();
         Assert.assertEquals("Chris`s Blog", header);        
         title = driver.getTitle();
-        Assert.assertEquals("Chris`s Blog", title);
+        Assert.assertEquals("Chris`s Blog - Article", title);
         text = driver.findElement(By.id("articleTitle")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         text = driver.findElement(By.id("articlePages")).getText();
@@ -165,7 +165,7 @@ public class ArticleIntg {
         header = driver.findElement(By.id("headerTitle")).getText();
         Assert.assertEquals("Chris`s Blog", header);        
         title = driver.getTitle();
-        Assert.assertEquals("Chris`s Blog", title);
+        Assert.assertEquals("Chris`s Blog - Article", title);
         text = driver.findElement(By.id("articleTitle")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         text = driver.findElement(By.id("articlePages")).getText();
@@ -180,7 +180,7 @@ public class ArticleIntg {
         header = driver.findElement(By.id("headerTitle")).getText();
         Assert.assertEquals("Chris`s Blog", header);        
         title = driver.getTitle();
-        Assert.assertEquals("Chris`s Blog", title);
+        Assert.assertEquals("Chris`s Blog - Article", title);
         text = driver.findElement(By.id("articleTitle")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         text = driver.findElement(By.id("articlePages")).getText();
@@ -195,7 +195,7 @@ public class ArticleIntg {
         header = driver.findElement(By.id("headerTitle")).getText();
         Assert.assertEquals("Chris`s Blog", header);        
         title = driver.getTitle();
-        Assert.assertEquals("Chris`s Blog", title);
+        Assert.assertEquals("Chris`s Blog - Article", title);
         text = driver.findElement(By.id("articleTitle")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         text = driver.findElement(By.id("articlePages")).getText();
@@ -210,7 +210,7 @@ public class ArticleIntg {
         header = driver.findElement(By.id("headerTitle")).getText();
         Assert.assertEquals("Chris`s Blog", header);        
         title = driver.getTitle();
-        Assert.assertEquals("Chris`s Blog", title);
+        Assert.assertEquals("Chris`s Blog - Article", title);
         text = driver.findElement(By.id("articleTitle")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         text = driver.findElement(By.id("articlePages")).getText();
@@ -225,7 +225,7 @@ public class ArticleIntg {
         header = driver.findElement(By.id("headerTitle")).getText();
         Assert.assertEquals("Chris`s Blog", header);        
         title = driver.getTitle();
-        Assert.assertEquals("Chris`s Blog", title);
+        Assert.assertEquals("Chris`s Blog - Article", title);
         text = driver.findElement(By.id("articleTitle")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         text = driver.findElement(By.id("articlePages")).getText();
@@ -240,7 +240,7 @@ public class ArticleIntg {
         header = driver.findElement(By.id("headerTitle")).getText();
         Assert.assertEquals("Chris`s Blog", header);        
         title = driver.getTitle();
-        Assert.assertEquals("Chris`s Blog", title);
+        Assert.assertEquals("Chris`s Blog - List of Articles", title);
         text = driver.findElement(By.id("hello_world_servlets_titleList")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         
