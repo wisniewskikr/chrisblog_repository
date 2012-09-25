@@ -33,7 +33,7 @@ public class ArticleIntg {
 	}
 	
 	@Test
-	public void navigation(){
+	public void articleHelloWorldServletsNavigation(){
 		
 		driver = new HtmlUnitDriver();
 		wait = new WebDriverWait(driver, 120);
