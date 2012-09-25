@@ -5,7 +5,7 @@
 
 <div id="aboutMe">
 	
-	<h1>About Me</h1>
+	<h1 id="aboutMeTitle">About Me</h1>
 	
 	
 	<div class="aboutMePhoto">
@@ -75,7 +75,7 @@
 	</p>
 	
 	<p>
-		<a href="" class="button">Back</a>
+		<a id="home" href="" class="button">HOME</a>
 	</p>
 	
 </div>

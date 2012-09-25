@@ -48,10 +48,10 @@ public class ArticleIntg {
         Assert.assertEquals("Chris`s Blog", header);        
         title = driver.getTitle();
         Assert.assertEquals("Chris`s Blog", title);
-        text = driver.findElement(By.id("hello_world_servlets_title_list")).getText();
+        text = driver.findElement(By.id("hello_world_servlets_titleList")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         // actions
-        driver.findElement(By.id("hello_world_servlets_read_more")).click();
+        driver.findElement(By.id("hello_world_servlets_readMore")).click();
         
         
         // Article "Hello World Servlets" page 1
@@ -241,7 +241,7 @@ public class ArticleIntg {
         Assert.assertEquals("Chris`s Blog", header);        
         title = driver.getTitle();
         Assert.assertEquals("Chris`s Blog", title);
-        text = driver.findElement(By.id("hello_world_servlets_title_list")).getText();
+        text = driver.findElement(By.id("hello_world_servlets_titleList")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         
 	}

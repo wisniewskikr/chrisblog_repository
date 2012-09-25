@@ -5,7 +5,7 @@
 	<div class="center">
 	
 		<section>
-			<a href="about_me">
+			<a id="aboutMePicture" href="about_me">
 				<img width="90px" height="100px" src="images/common/chris.jpg" style="float: left; margin-right: 15px;"/>
 			</a>
 			<h5>About me</h5>
@@ -13,7 +13,7 @@
 				My name is <b>Krzysztof Wisniewski</b> (or Chris for short) and I work as a Java Developer 
 				for an IT company in Szczecin, Poland. In my free time I like reading books, watching movies
 				and traveling. You can find more information about me 
-				<a href="about_me">here</a>.
+				<a id="aboutMeLink" href="about_me">here</a>.
 			</p>
 		</section>
 		

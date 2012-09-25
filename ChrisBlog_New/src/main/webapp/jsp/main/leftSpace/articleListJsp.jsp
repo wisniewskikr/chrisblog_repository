@@ -25,7 +25,7 @@
 					<c:if test="true">				
 						<li>
 					
-							<h2><a id="${article.uniqueName}_title_list" href="article/page/1/${article.uniqueName}">${article.title}</a></h2>
+							<h2><a id="${article.uniqueName}_titleList" href="article/page/1/${article.uniqueName}">${article.title}</a></h2>
 							
 							<ul class="meta">
 								<li><span class="metaDate" title="Creation date">${article.creationDateAsString}</span></li>
@@ -45,7 +45,7 @@
 							</p>
 							
 							<p>
-								<a id="${article.uniqueName}_read_more" class="button" href="article/page/1/${article.uniqueName}">Read more</a>
+								<a id="${article.uniqueName}_readMore" class="button" href="article/page/1/${article.uniqueName}">Read more</a>
 							</p>
 							
 						</li>					
