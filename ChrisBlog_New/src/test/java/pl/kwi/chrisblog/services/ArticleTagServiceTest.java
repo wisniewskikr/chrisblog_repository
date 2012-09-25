@@ -109,22 +109,22 @@ public class ArticleTagServiceTest {
 	}
 	
 	@Test
-	public void getTagsCloud() throws Exception{
+	public void getTagsCloudFooter() throws Exception{
 		
 		List<ArticleEntity> articleList = mockArticleList();
 		
-		Cloud tagsCloud = service.getTagsCloud(articleList);
+		Cloud tagsCloud = service.getTagsCloudFooter(articleList);
 		
 		Assert.assertEquals(3, tagsCloud.size());		
 		
 	}
 	
 	@Test(expected = ArticleTagException.class)
-	public void getTagsCloud_CategoryListNull() throws Exception{
+	public void getTagsCloudFooter_CategoryListNull() throws Exception{
 		
 		List<ArticleEntity> articleList = null;
 		
-		service.getTagsCloud(articleList);
+		service.getTagsCloudFooter(articleList);
 		
 	}
 	

@@ -44,7 +44,7 @@ public class BlogCommand implements Serializable{
 	private Integer pagesCount;
 		
 	// Clouds
-	private Cloud tagsCloud;
+	private Cloud tagsCloudFooter;
 	private Cloud tagsCloudRightSpace;
 	
 	// Locale
@@ -149,11 +149,11 @@ public class BlogCommand implements Serializable{
 		this.pagesCount = pagesCount;
 	}
 	
-	public Cloud getTagsCloud() {
-		return tagsCloud;
+	public Cloud getTagsCloudFooter() {
+		return tagsCloudFooter;
 	}
-	public void setTagsCloud(Cloud tagsCloud) {
-		this.tagsCloud = tagsCloud;
+	public void setTagsCloudFooter(Cloud tagsCloudFooter) {
+		this.tagsCloudFooter = tagsCloudFooter;
 	}
 
 	public Cloud getTagsCloudRightSpace() {

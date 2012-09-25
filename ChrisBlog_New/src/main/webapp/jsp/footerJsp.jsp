@@ -29,7 +29,7 @@
 		<section>
 			<h5>Tags</h5>
 			<p>
-				<c:forEach items="${command.tagsCloud.tags()}" var="tag">
+				<c:forEach items="${command.tagsCloudFooter.tags()}" var="tag">
 					<a href="#" class="footerTagsCloud" style="font-size: ${tag.weight}px;">${tag.name}</a> 
 				</c:forEach>
 			</p>

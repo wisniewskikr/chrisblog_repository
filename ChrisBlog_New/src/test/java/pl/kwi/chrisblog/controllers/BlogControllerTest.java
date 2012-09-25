@@ -59,7 +59,7 @@ public class BlogControllerTest {
 		Assert.assertEquals("pathHost", command.getPathHost());
 		Assert.assertEquals("pathContext", command.getPathContext());
 		Assert.assertNotNull(command.getLocale());
-		Assert.assertNotNull(command.getTagsCloud());
+		Assert.assertNotNull(command.getTagsCloudFooter());
 		
 		Assert.assertEquals(2, command.getArticleList().size());
 		
@@ -86,7 +86,7 @@ public class BlogControllerTest {
 		Assert.assertEquals("pathHost", command.getPathHost());
 		Assert.assertEquals("pathContext", command.getPathContext());
 		Assert.assertNotNull(command.getLocale());
-		Assert.assertNotNull(command.getTagsCloud());
+		Assert.assertNotNull(command.getTagsCloudFooter());
 		
 		Assert.assertEquals(2, command.getArticleList().size());
 		
@@ -125,7 +125,7 @@ public class BlogControllerTest {
 		Assert.assertEquals("pathHost", command.getPathHost());
 		Assert.assertEquals("pathContext", command.getPathContext());
 		Assert.assertNotNull(command.getLocale());
-		Assert.assertNotNull(command.getTagsCloud());
+		Assert.assertNotNull(command.getTagsCloudFooter());
 		
 		Assert.assertEquals(2, command.getArticleList().size());
 		
@@ -164,7 +164,7 @@ public class BlogControllerTest {
 		Assert.assertEquals("pathHost", command.getPathHost());
 		Assert.assertEquals("pathContext", command.getPathContext());
 		Assert.assertNotNull(command.getLocale());
-		Assert.assertNotNull(command.getTagsCloud());
+		Assert.assertNotNull(command.getTagsCloudFooter());
 		
 		Assert.assertEquals("unique_name_1", command.getArticle().getUniqueName());
 		
@@ -192,7 +192,7 @@ public class BlogControllerTest {
 		Assert.assertEquals("pathHost", command.getPathHost());
 		Assert.assertEquals("pathContext", command.getPathContext());
 		Assert.assertNotNull(command.getLocale());
-		Assert.assertNotNull(command.getTagsCloud());
+		Assert.assertNotNull(command.getTagsCloudFooter());
 		
 		Assert.assertEquals("unique_name_1", command.getArticle().getUniqueName());
 		
@@ -233,7 +233,7 @@ public class BlogControllerTest {
 		Assert.assertEquals("pathHost", command.getPathHost());
 		Assert.assertEquals("pathContext", command.getPathContext());
 		Assert.assertNotNull(command.getLocale());
-		Assert.assertNotNull(command.getTagsCloud());
+		Assert.assertNotNull(command.getTagsCloudFooter());
 		
 		Assert.assertEquals("unique_name_1", command.getArticle().getUniqueName());
 		
@@ -273,7 +273,7 @@ public class BlogControllerTest {
 		Assert.assertEquals("pathHost", command.getPathHost());
 		Assert.assertEquals("pathContext", command.getPathContext());
 		Assert.assertNotNull(command.getLocale());
-		Assert.assertNotNull(command.getTagsCloud());
+		Assert.assertNotNull(command.getTagsCloudFooter());
 		
 		Assert.assertEquals(2, command.getArticleList().size());
 		
@@ -301,7 +301,7 @@ public class BlogControllerTest {
 		Assert.assertEquals("pathHost", command.getPathHost());
 		Assert.assertEquals("pathContext", command.getPathContext());
 		Assert.assertNotNull(command.getLocale());
-		Assert.assertNotNull(command.getTagsCloud());
+		Assert.assertNotNull(command.getTagsCloudFooter());
 		
 		Assert.assertEquals(2, command.getArticleList().size());
 		Assert.assertEquals("unique_name", command.getArticleTag().getUniqueName());
@@ -343,7 +343,7 @@ public class BlogControllerTest {
 		Assert.assertEquals("pathHost", command.getPathHost());
 		Assert.assertEquals("pathContext", command.getPathContext());
 		Assert.assertNotNull(command.getLocale());
-		Assert.assertNotNull(command.getTagsCloud());
+		Assert.assertNotNull(command.getTagsCloudFooter());
 		
 		Assert.assertEquals(2, command.getArticleList().size());
 		Assert.assertEquals("unique_name", command.getArticleTag().getUniqueName());
@@ -384,7 +384,7 @@ public class BlogControllerTest {
 		Assert.assertEquals("pathHost", command.getPathHost());
 		Assert.assertEquals("pathContext", command.getPathContext());
 		Assert.assertNotNull(command.getLocale());
-		Assert.assertNotNull(command.getTagsCloud());
+		Assert.assertNotNull(command.getTagsCloudFooter());
 		
 		Assert.assertNotNull(command.getExplanation());
 		Assert.assertEquals("explanation_unique_name", command.getExplanation().getUniqueName());
@@ -409,7 +409,7 @@ public class BlogControllerTest {
 		Assert.assertEquals("pathHost", command.getPathHost());
 		Assert.assertEquals("pathContext", command.getPathContext());
 		Assert.assertNotNull(command.getLocale());
-		Assert.assertNotNull(command.getTagsCloud());
+		Assert.assertNotNull(command.getTagsCloudFooter());
 		
 		Assert.assertEquals("blogJsp", modelAndView.getViewName());
 		
@@ -431,7 +431,7 @@ public class BlogControllerTest {
 		Assert.assertEquals("pathHost", command.getPathHost());
 		Assert.assertEquals("pathContext", command.getPathContext());
 		Assert.assertNull(command.getLocale());
-		Assert.assertNull(command.getTagsCloud());
+		Assert.assertNull(command.getTagsCloudFooter());
 		
 		Assert.assertEquals("blogJsp", modelAndView.getViewName());
 		
@@ -454,7 +454,7 @@ public class BlogControllerTest {
 		Assert.assertEquals("pathHost", command.getPathHost());
 		Assert.assertEquals("pathContext", command.getPathContext());
 		Assert.assertNull(command.getLocale());
-		Assert.assertNull(command.getTagsCloud());
+		Assert.assertNull(command.getTagsCloudFooter());
 		
 		Assert.assertEquals("blogJsp", modelAndView.getViewName());
 		
@@ -471,7 +471,7 @@ public class BlogControllerTest {
 		Assert.assertEquals("pathHost", command.getPathHost());
 		Assert.assertEquals("pathContext", command.getPathContext());
 		Assert.assertNotNull(command.getLocale());
-		Assert.assertNotNull(command.getTagsCloud());
+		Assert.assertNotNull(command.getTagsCloudFooter());
 		
 	}
 	
@@ -486,7 +486,7 @@ public class BlogControllerTest {
 		Assert.assertEquals("pathHost", command.getPathHost());
 		Assert.assertEquals("pathContext", command.getPathContext());
 		Assert.assertNull(command.getLocale());
-		Assert.assertNull(command.getTagsCloud());
+		Assert.assertNull(command.getTagsCloudFooter());
 		
 	}
 	
@@ -760,7 +760,7 @@ public class BlogControllerTest {
 		
 		ArticleTagService mock = Mockito.mock(ArticleTagService.class);
 		
-		Mockito.when(mock.getTagsCloud(Mockito.anyList())).thenReturn(new Cloud());
+		Mockito.when(mock.getTagsCloudFooter(Mockito.anyList())).thenReturn(new Cloud());
 		Mockito.when(mock.getArticleTagByUniqueName(Mockito.anyString())).thenReturn(articleTag);
 		
 		return mock;

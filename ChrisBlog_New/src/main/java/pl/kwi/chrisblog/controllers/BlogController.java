@@ -397,7 +397,7 @@ public class BlogController{
 		if(request != null){
 			Locale loc = localeResolver.resolveLocale(request);
 			command.setLocale(loc);
-			command.setTagsCloud(articleTagService.getTagsCloud(articleService.getAllArticleList(loc)));			
+			command.setTagsCloudFooter(articleTagService.getTagsCloudFooter(articleService.getAllArticleList(loc)));			
 			command.setTagsCloudRightSpace(articleTagService.getTagsCloudRightSpace(articleService.getAllArticleList(loc)));			
 		}		
 		

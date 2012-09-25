@@ -82,7 +82,7 @@ public class ArticleTagService {
 	}
 	
 	/**
-	 * Method gets cloud of tags. Tags are topics connected
+	 * Method gets cloud of tags for footer. Tags are topics connected
 	 * with specified article. For instance article "Hello World Servlet"
 	 * can have tags like: Java, Servlet, Jsp etc.
 	 * 
@@ -90,7 +90,7 @@ public class ArticleTagService {
 	 * @return object Cloud with tags cloud
 	 * @throws Exception 
 	 */
-	public Cloud getTagsCloud(List<ArticleEntity> articleList) throws Exception {
+	public Cloud getTagsCloudFooter(List<ArticleEntity> articleList) throws Exception {
 		
 		if(articleList == null){
 			throw new ArticleTagException("Error article tags handling. List of articles is null");
