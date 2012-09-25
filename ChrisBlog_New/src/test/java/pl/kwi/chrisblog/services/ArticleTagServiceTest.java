@@ -115,7 +115,10 @@ public class ArticleTagServiceTest {
 		
 		Cloud tagsCloud = service.getTagsCloudFooter(articleList);
 		
-		Assert.assertEquals(3, tagsCloud.size());		
+		Assert.assertEquals(3, tagsCloud.size());
+		Assert.assertEquals("java", tagsCloud.tags().get(0).getName());
+		Assert.assertEquals("maven", tagsCloud.tags().get(1).getName());
+		Assert.assertEquals("servlet", tagsCloud.tags().get(2).getName());
 		
 	}
 	
@@ -125,6 +128,33 @@ public class ArticleTagServiceTest {
 		List<ArticleEntity> articleList = null;
 		
 		service.getTagsCloudFooter(articleList);
+		
+	}
+	
+	@Test
+	public void getTagsCloudRightSpace() throws Exception{
+		
+		List<ArticleEntity> articleList = mockArticleList();
+		
+		Cloud tagsCloud = service.getTagsCloudRightSpace(articleList);
+		
+		Assert.assertEquals(3, tagsCloud.size());
+		Assert.assertEquals("java (1)", tagsCloud.tags().get(0).getName());
+		Assert.assertEquals("maven (2)", tagsCloud.tags().get(1).getName());
+		Assert.assertEquals("servlet (3)", tagsCloud.tags().get(2).getName());
+		
+		Assert.assertEquals("tag/java", tagsCloud.tags().get(0).getLink());
+		Assert.assertEquals("tag/maven", tagsCloud.tags().get(1).getLink());
+		Assert.assertEquals("tag/servlet", tagsCloud.tags().get(2).getLink());
+		
+	}
+	
+	@Test(expected = ArticleTagException.class)
+	public void getTagsCloudRightSpace_CategoryListNull() throws Exception{
+		
+		List<ArticleEntity> articleList = null;
+		
+		service.getTagsCloudRightSpace(articleList);
 		
 	}
 	
@@ -143,48 +173,56 @@ public class ArticleTagServiceTest {
 		articleTag.setId(1L);
 		articleTag.setName("Java");
 		articleTag.setUniqueName("java");
+		articleTag.setOccurencesCount(1);
 		articleTagList.add(articleTag);
 		
 		articleTag = new ArticleTagEntity();
 		articleTag.setId(2L);
 		articleTag.setName("Servlet");
 		articleTag.setUniqueName("servlet");
+		articleTag.setOccurencesCount(2);
 		articleTagList.add(articleTag);
 		
 		articleTag = new ArticleTagEntity();
 		articleTag.setId(3L);
 		articleTag.setName("Html");
 		articleTag.setUniqueName("html");
+		articleTag.setOccurencesCount(3);
 		articleTagList.add(articleTag);
 		
 		articleTag = new ArticleTagEntity();
 		articleTag.setId(4L);
 		articleTag.setName("Jsp");
 		articleTag.setUniqueName("jsp");
+		articleTag.setOccurencesCount(4);
 		articleTagList.add(articleTag);
 		
 		articleTag = new ArticleTagEntity();
 		articleTag.setId(5L);
 		articleTag.setName("Css");
 		articleTag.setUniqueName("css");
+		articleTag.setOccurencesCount(5);
 		articleTagList.add(articleTag);
 		
 		articleTag = new ArticleTagEntity();
 		articleTag.setId(6L);
 		articleTag.setName("Java Script");
 		articleTag.setUniqueName("java_script");
+		articleTag.setOccurencesCount(6);
 		articleTagList.add(articleTag);
 		
 		articleTag = new ArticleTagEntity();
 		articleTag.setId(7L);
 		articleTag.setName("Maven");
 		articleTag.setUniqueName("maven");
+		articleTag.setOccurencesCount(7);
 		articleTagList.add(articleTag);
 		
 		articleTag = new ArticleTagEntity();
 		articleTag.setId(8L);
 		articleTag.setName("Tomcat");
 		articleTag.setUniqueName("tomcat");
+		articleTag.setOccurencesCount(8);
 		articleTagList.add(articleTag);
 		
 		return articleTagList;
@@ -201,16 +239,22 @@ public class ArticleTagServiceTest {
 		articleTag = new ArticleTagEntity();
 		articleTag.setId(1L);
 		articleTag.setName("Java");
+		articleTag.setUniqueName("java");
+		articleTag.setOccurencesCount(1);
 		articleTagList.add(articleTag);
 		
 		articleTag = new ArticleTagEntity();
 		articleTag.setId(2L);
 		articleTag.setName("Maven");
+		articleTag.setUniqueName("maven");
+		articleTag.setOccurencesCount(2);
 		articleTagList.add(articleTag);
 		
 		articleTag = new ArticleTagEntity();
 		articleTag.setId(3L);
 		articleTag.setName("Servlet");
+		articleTag.setUniqueName("servlet");
+		articleTag.setOccurencesCount(3);
 		articleTagList.add(articleTag);
 		
 		ArticleEntity article;
