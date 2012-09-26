@@ -1,5 +1,7 @@
 package pl.kwi.tests.integration;
 
+import java.util.Set;
+
 import junit.framework.Assert;
 
 import org.junit.Before;
@@ -13,6 +15,8 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+
+import pl.kwi.test.utils.SeleniumUtil;
 
 public class ExplanationIntg {
 	
@@ -53,18 +57,22 @@ public class ExplanationIntg {
         // actions
         driver.findElement(By.linkText("web application")).click();
         
+
+        // Move focus to new tab - with explanation
+        SeleniumUtil.switchToWindowWithTitle(driver, "Chris`s Blog - Explanation");
         
-//        // Explanation 'web application'
-//        wait.until(ExpectedConditions.textToBePresentInElement(By.id("headerTitle"), "Chris`s Blog"));
-//        // conditions
-//        header = driver.findElement(By.id("headerTitle")).getText();
-//        Assert.assertEquals("Chris`s Blog", header);        
-//        title = driver.getTitle();
-//        Assert.assertEquals("Chris`s Blog", title);
-//        text = driver.findElement(By.id("explanationTitle")).getText();
-//        Assert.assertEquals("Web Application", text);
-   
+        
+        // Explanation 'web application'
+        wait.until(ExpectedConditions.textToBePresentInElement(By.id("headerTitle"), "Chris`s Blog"));
+        // conditions
+        header = driver.findElement(By.id("headerTitle")).getText();
+        Assert.assertEquals("Chris`s Blog", header);        
+        title = driver.getTitle();
+        Assert.assertEquals("Chris`s Blog - Explanation", title);
+        text = driver.findElement(By.id("explanationTitle")).getText();
+        Assert.assertEquals("Web Application", text);
         
 	}
+
 
 }
