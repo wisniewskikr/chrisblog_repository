@@ -26,14 +26,16 @@
 			</p>
 		</section>
 		
-		<section>
-			<h5>Tags</h5>
-			<p>
-				<c:forEach items="${command.tagsCloudFooter.tags()}" var="tag">
-					<a href="#" class="footerTagsCloud" style="font-size: ${tag.weight}px;">${tag.name}</a> 
-				</c:forEach>
-			</p>
-		</section>
+		<c:if test="${!command.displayException}">
+			<section>
+				<h5>Tags</h5>
+				<p>
+					<c:forEach items="${command.tagsCloudFooter.tags()}" var="tag">
+						<a href="#" class="footerTagsCloud" style="font-size: ${tag.weight}px;">${tag.name}</a> 
+					</c:forEach>
+				</p>
+			</section>
+		</c:if>
 	
 	</div>	
 </div>

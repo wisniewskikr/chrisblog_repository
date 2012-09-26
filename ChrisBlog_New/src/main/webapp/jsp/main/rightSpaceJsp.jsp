@@ -44,7 +44,8 @@
 		</div>
 		
 		
-		<div class="sectionDivider ">
+		<c:if test="${!command.displayException}">
+			<div class="sectionDivider ">
 				<span>Blog tags...</span>
 			</div>		
 			<div id="rightTags">
@@ -54,6 +55,7 @@
 					</c:forEach>					
 				</ul>
 			</div>
+		</c:if>	
 		
 		
 		<div class="sectionDivider">
