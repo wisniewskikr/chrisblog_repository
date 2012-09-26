@@ -5,7 +5,7 @@
 
 <div id="exceptions">
 
-	<h1>Error found</h1>
+	<h1 id="exceptionTitle">Error found</h1>
 	
 	<p>
 		Sorry, but the page you were looking for can`t be displayed. 
@@ -13,7 +13,7 @@
 	</p>
 	
 	<p>
-		<a href="javascript:history.go(-1)" class="button">Back</a>
+		<a id="home" href="" class="button">Home</a>
 	</p>
 
 </div>
