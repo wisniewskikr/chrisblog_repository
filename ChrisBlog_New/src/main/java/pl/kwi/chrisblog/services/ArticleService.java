@@ -241,14 +241,14 @@ public class ArticleService {
 		
 		if(loc == null){
 			throw new ArticleException("Error article handling. Object with locale is null");
-		}		
+		}
 		
 		for (ArticleEntity article : articleList) {
 			
 			String creationDateAsString = DateUtils.convertCalendarToStringWithMonthAsText(article.getCreationDate(), loc);
 			article.setCreationDateAsString(creationDateAsString);
-			article.setExamplePath("/" + folderExamples + article.getExamplePath());
-			article.setSourcePath("/" + folderSources + article.getSourcePath());
+			article.setExamplePath("/" + folderExamples + "/" + article.getExampleFileName());
+			article.setSourcePath("/" + folderSources + "/" + article.getSourceFileName());
 			article.setPagesCount(getPagesCountOfArticle(article));
 			
 		}
@@ -337,8 +337,8 @@ public class ArticleService {
 		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("20120104200700"));
 		article.setAuthor("Chris");
 		article.setDemoPath("/HelloWorldServlets");
-		article.setExamplePath("/servlets/HelloWorldServlets.war");
-		article.setSourcePath("/servlets/HelloWorldServlets.zip");
+		article.setExampleFileName("HelloWorldServlets.war");
+		article.setSourceFileName("HelloWorldServlets.zip");
 		
 		
 		List<String> articleTagUniqueNameList = getArticleTagUniqueNameListForHelloWorldServlets();

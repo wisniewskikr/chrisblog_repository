@@ -24,6 +24,8 @@ public class ArticleEntity implements Serializable{
 	private String demoPath;
 	private String examplePath;
 	private String sourcePath;
+	private String exampleFileName;
+	private String sourceFileName;
 	private List<ArticleTagEntity> articleTagFrontEndList;
 	private List<ArticleTagEntity> articleTagBackEndList;
 	
@@ -171,8 +173,22 @@ public class ArticleEntity implements Serializable{
 	}
 	public void setSourcePath(String sourcePath) {
 		this.sourcePath = sourcePath;
-	}
+	}	
 	
+	public String getExampleFileName() {
+		return exampleFileName;
+	}
+	public void setExampleFileName(String exampleFileName) {
+		this.exampleFileName = exampleFileName;
+	}
+
+	public String getSourceFileName() {
+		return sourceFileName;
+	}
+	public void setSourceFileName(String sourceFileName) {
+		this.sourceFileName = sourceFileName;
+	}
+
 	public List<ArticleTagEntity> getArticleTagFrontEndList() {
 		return articleTagFrontEndList;
 	}

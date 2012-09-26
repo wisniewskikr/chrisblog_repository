@@ -53,8 +53,8 @@ public class ArticleServiceTest {
 		Assert.assertEquals("Author", articleList.get(0).getAuthor());
 		Assert.assertEquals("December 25, 1999", articleList.get(0).getCreationDateAsString());
 		Assert.assertEquals("/demoPath", articleList.get(0).getDemoPath());
-		Assert.assertEquals("/folderExamples/examplePath", articleList.get(0).getExamplePath());
-		Assert.assertEquals("/folderSources/sourcePath", articleList.get(0).getSourcePath());
+		Assert.assertEquals("/folderExamples/exampleFile", articleList.get(0).getExamplePath());
+		Assert.assertEquals("/folderSources/sourceFile", articleList.get(0).getSourcePath());
 		
 	}
 	
@@ -100,8 +100,8 @@ public class ArticleServiceTest {
 		Assert.assertEquals("Author", articleList.get(0).getAuthor());
 		Assert.assertEquals("December 25, 1999", articleList.get(0).getCreationDateAsString());
 		Assert.assertEquals("/demoPath", articleList.get(0).getDemoPath());
-		Assert.assertEquals("/folderExamples/examplePath", articleList.get(0).getExamplePath());
-		Assert.assertEquals("/folderSources/sourcePath", articleList.get(0).getSourcePath());
+		Assert.assertEquals("/folderExamples/exampleFile", articleList.get(0).getExamplePath());
+		Assert.assertEquals("/folderSources/sourceFile", articleList.get(0).getSourcePath());
 		
 	}
 	
@@ -150,8 +150,8 @@ public class ArticleServiceTest {
 		Assert.assertEquals("Author", articleList.get(0).getAuthor());
 		Assert.assertEquals("December 25, 1999", articleList.get(0).getCreationDateAsString());
 		Assert.assertEquals("/demoPath", articleList.get(0).getDemoPath());
-		Assert.assertEquals("/folderExamples/examplePath", articleList.get(0).getExamplePath());
-		Assert.assertEquals("/folderSources/sourcePath", articleList.get(0).getSourcePath());
+		Assert.assertEquals("/folderExamples/exampleFile", articleList.get(0).getExamplePath());
+		Assert.assertEquals("/folderSources/sourceFile", articleList.get(0).getSourcePath());
 		
 	}
 	
@@ -206,8 +206,8 @@ public class ArticleServiceTest {
 		Assert.assertEquals("Author", articleList.get(0).getAuthor());
 		Assert.assertEquals("December 25, 1999", articleList.get(0).getCreationDateAsString());
 		Assert.assertEquals("/demoPath", articleList.get(0).getDemoPath());
-		Assert.assertEquals("/folderExamples/examplePath", articleList.get(0).getExamplePath());
-		Assert.assertEquals("/folderSources/sourcePath", articleList.get(0).getSourcePath());
+		Assert.assertEquals("/folderExamples/exampleFile", articleList.get(0).getExamplePath());
+		Assert.assertEquals("/folderSources/sourceFile", articleList.get(0).getSourcePath());
 		
 	}
 	
@@ -239,8 +239,8 @@ public class ArticleServiceTest {
 		Assert.assertEquals("Author", articleList.get(0).getAuthor());
 		Assert.assertEquals("December 25, 1999", articleList.get(0).getCreationDateAsString());
 		Assert.assertEquals("/demoPath", articleList.get(0).getDemoPath());
-		Assert.assertEquals("/folderExamples/examplePath", articleList.get(0).getExamplePath());
-		Assert.assertEquals("/folderSources/sourcePath", articleList.get(0).getSourcePath());
+		Assert.assertEquals("/folderExamples/exampleFile", articleList.get(0).getExamplePath());
+		Assert.assertEquals("/folderSources/sourceFile", articleList.get(0).getSourcePath());
 		
 	}
 	
@@ -273,8 +273,8 @@ public class ArticleServiceTest {
 		Assert.assertEquals("Author", article.getAuthor());
 		Assert.assertEquals("December 25, 1999", article.getCreationDateAsString());
 		Assert.assertEquals("/demoPath", article.getDemoPath());
-		Assert.assertEquals("/folderExamples/examplePath", article.getExamplePath());
-		Assert.assertEquals("/folderSources/sourcePath", article.getSourcePath());
+		Assert.assertEquals("/folderExamples/exampleFile", article.getExamplePath());
+		Assert.assertEquals("/folderSources/sourceFile", article.getSourcePath());
 		
 		Assert.assertEquals(Integer.valueOf(1999), Integer.valueOf(article.getCreationDate().get(Calendar.YEAR)));
 		Assert.assertEquals(Integer.valueOf(11), Integer.valueOf(article.getCreationDate().get(Calendar.MONTH)));
@@ -401,8 +401,8 @@ public class ArticleServiceTest {
 		Assert.assertEquals("Author", article.getAuthor());
 		Assert.assertEquals("December 25, 1999", article.getCreationDateAsString());
 		Assert.assertEquals("/demoPath", article.getDemoPath());
-		Assert.assertEquals("/examplePath", article.getExamplePath());
-		Assert.assertEquals("/sourcePath", article.getSourcePath());
+		Assert.assertEquals("exampleFile", article.getExampleFileName());
+		Assert.assertEquals("sourceFile", article.getSourceFileName());
 		
 		Assert.assertEquals(Integer.valueOf(1999), Integer.valueOf(article.getCreationDate().get(Calendar.YEAR)));
 		Assert.assertEquals(Integer.valueOf(11), Integer.valueOf(article.getCreationDate().get(Calendar.MONTH)));
@@ -467,7 +467,9 @@ public class ArticleServiceTest {
 		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("20111226120000"));
 		article.setDemoPath("/demoPath");
 		article.setExamplePath("/examplePath");
+		article.setExampleFileName("exampleFile");
 		article.setSourcePath("/sourcePath");
+		article.setSourceFileName("sourceFile");
 		articleList.add(article);
 		
 		Locale loc = Locale.ENGLISH;
@@ -486,8 +488,8 @@ public class ArticleServiceTest {
 		Assert.assertEquals(Integer.valueOf(00), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.SECOND)));
 		Assert.assertEquals("December 26, 2011", articleList.get(0).getCreationDateAsString());
 		Assert.assertEquals("/demoPath", articleList.get(0).getDemoPath());
-		Assert.assertEquals("/folderExamples/examplePath", articleList.get(0).getExamplePath());
-		Assert.assertEquals("/folderSources/sourcePath", articleList.get(0).getSourcePath());
+		Assert.assertEquals("/folderExamples/exampleFile", articleList.get(0).getExamplePath());
+		Assert.assertEquals("/folderSources/sourceFile", articleList.get(0).getSourcePath());
 		
 	}
 	
@@ -595,8 +597,8 @@ public class ArticleServiceTest {
 		article.setAuthor("Author");
 		article.setArticleTagList(articleTagList);
 		article.setDemoPath("/demoPath");
-		article.setExamplePath("/examplePath");
-		article.setSourcePath("/sourcePath");
+		article.setExampleFileName("exampleFile");
+		article.setSourceFileName("sourceFile");
 		completeArticleList.add(article);
 		
 		// ----- Second article ----- //
@@ -622,8 +624,8 @@ public class ArticleServiceTest {
 		article.setAuthor("Author");
 		article.setArticleTagList(articleTagList);
 		article.setDemoPath("/demoPath");
-		article.setExamplePath("/examplePath");
-		article.setSourcePath("/sourcePath");
+		article.setExampleFileName("exampleFile");
+		article.setSourceFileName("sourceFile");
 		completeArticleList.add(article);
 		
 		// ----- Third article ----- //
@@ -649,8 +651,8 @@ public class ArticleServiceTest {
 		article.setAuthor("Author");
 		article.setArticleTagList(articleTagList);
 		article.setDemoPath("/demoPath");
-		article.setExamplePath("/examplePath");
-		article.setSourcePath("/sourcePath");
+		article.setExampleFileName("exampleFile");
+		article.setSourceFileName("sourceFile");
 		completeArticleList.add(article);
 		
 		
