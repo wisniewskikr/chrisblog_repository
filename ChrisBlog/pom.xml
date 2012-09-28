@@ -316,6 +316,12 @@
 				<!-- Locations of sources and examples folders -->
 				<folder.examples>chrisblog_examples</folder.examples>
 				<folder.sources>chrisblog_sources</folder.sources>
+				
+				<!-- Server data -->
+				<server.url>http://chris-blog.org/manager/html</server.url>
+				<server.username>chrisb</server.username>
+				<server.password>4BikDMn3</server.password>
+				<server.path>/</server.path>
 			</properties>			
 		</profile>
 		
