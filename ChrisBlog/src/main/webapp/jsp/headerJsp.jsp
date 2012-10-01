@@ -1,4 +1,7 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	
 <div id="header">
+
 	<div class="center">
 
 		<a href="" id="headerImage">Duke Duke Duke Duke Duke Duke Duke Duke Duke Duke</a>
@@ -14,22 +17,27 @@
 		</div>
 		
 		<div id="headerLogArea" class="fadeIn">
+			<form name='f' action="<c:url value='j_spring_security_check' />"
+			method='POST'>
 			
-			<div id="headerLoginSection">	
-				<label for="login" >Login:</label>
-				<input id="login" type="text"/>
-			</div>
+				<div id="headerLoginSection">	
+					<label for="login" >Login:</label>
+					<input id="login" name="j_username" type="text"/>
+				</div>
+				
+				<div id="passwordSection">
+					<label for="password">Password:</label>
+					<input id="password" name='j_password' type="password"/>
+				</div>
+				
+				<div id="actionSection">
+					<a href="#" id="headerPasswordReset">Password reset</a>
+					<!-- a href="#" id="headerSignIn">Sign In</a -->
+					<input name="submit" type="submit" value="submit" />
+					<a href="j_spring_security_logout" id="logout">Logout</a>
+				</div>
 			
-			<div id="passwordSection">
-				<label for="password">Password:</label>
-				<input id="password" type="password"/>
-			</div>
-			
-			<div id="actionSection">
-				<a href="#" id="headerPasswordReset">Password reset</a>
-				<a href="#" id="headerSignIn">Sign In</a>
-			</div>
-			
+			</form>
 		</div>
 		
 	</div>	

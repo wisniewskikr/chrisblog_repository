@@ -32,5 +32,9 @@
 			<%@ include file="leftSpace/exceptionJsp.jsp" %>
 		</c:if>
 		
+		<c:if test="${command.displaySecArticleList}">
+			<%@ include file="leftSpace/secured/articleListJsp.jsp" %>
+		</c:if>
+		
 	</div>
 </div>

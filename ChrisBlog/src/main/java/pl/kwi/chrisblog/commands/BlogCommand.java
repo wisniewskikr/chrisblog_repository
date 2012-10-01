@@ -1,6 +1,7 @@
 package pl.kwi.chrisblog.commands;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -29,6 +30,9 @@ public class BlogCommand implements Serializable{
 	private boolean displayAboutMe;
 	private boolean displayException;
 	
+	// Displays secured
+	private boolean displaySecArticleList;
+	
 	// Objects with data
 	private List<ArticleEntity> articleList;	
 	private ArticleEntity article;
@@ -52,6 +56,12 @@ public class BlogCommand implements Serializable{
 	
 	// Title of browser window
 	private String windowTitle;
+	
+	// Messages
+	private List<String> errorMsgs = new ArrayList<String>();
+	private List<String> infoMsgs = new ArrayList<String>();
+	private List<String> okMsgs = new ArrayList<String>();
+	private List<String> warnMsgs = new ArrayList<String>();
 	
 
 	public boolean isDisplayArticleList() {
@@ -96,6 +106,13 @@ public class BlogCommand implements Serializable{
 		this.displayException = displayException;
 	}
 
+	public boolean isDisplaySecArticleList() {
+		return displaySecArticleList;
+	}
+	public void setDisplaySecArticleList(boolean displaySecArticleList) {
+		this.displaySecArticleList = displaySecArticleList;
+	}
+	
 	public List<ArticleEntity> getArticleList() {
 		return articleList;
 	}
@@ -179,6 +196,34 @@ public class BlogCommand implements Serializable{
 	public void setWindowTitle(String windowTitle) {
 		this.windowTitle = windowTitle;
 	}
+	
+	public List<String> getErrorMsgs() {
+		return errorMsgs;
+	}
+	public void setErrorMsgs(List<String> errorMsgs) {
+		this.errorMsgs = errorMsgs;
+	}
+	
+	public List<String> getInfoMsgs() {
+		return infoMsgs;
+	}
+	public void setInfoMsgs(List<String> infoMsgs) {
+		this.infoMsgs = infoMsgs;
+	}
+	
+	public List<String> getOkMsgs() {
+		return okMsgs;
+	}
+	public void setOkMsgs(List<String> okMsgs) {
+		this.okMsgs = okMsgs;
+	}
+	
+	public List<String> getWarnMsgs() {
+		return warnMsgs;
+	}
+	public void setWarnMsgs(List<String> warnMsgs) {
+		this.warnMsgs = warnMsgs;
+	}		
 	
 	
 }

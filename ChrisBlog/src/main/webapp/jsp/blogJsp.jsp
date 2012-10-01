@@ -20,8 +20,10 @@
 	<link type="text/css" rel="stylesheet" href="styles/style.css">
 	<link type="text/css" rel="stylesheet" href="styles/menu.css">
 	<link type="text/css" rel="stylesheet" href="styles/pagination.css">
+	<link type="text/css" rel="stylesheet" href="styles/messages.css">
 	<script type="text/javascript" src="scripts/jquery-1.6.1.min.js"></script>
 	<script type="text/javascript" src="scripts/script.js"></script>
+	<script type="text/javascript" src="scripts/messages.js"></script>
 	
 	<!-- Scripts for 'SyntaxHighlighter' - google tool for highlighting code.
 	Part 1. -->
@@ -54,6 +56,8 @@
 
 
 <body>
+	
+	<%@ include file="messagesJsp.jsp" %>
 	
 	<%@ include file="headerJsp.jsp" %>
 	

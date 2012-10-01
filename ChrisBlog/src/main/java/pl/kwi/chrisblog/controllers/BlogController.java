@@ -376,6 +376,25 @@ public class BlogController{
 				
 	}
 	
+	/**
+	 * Method handles failed login.
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping("/login-failed")
+	public ModelAndView loginFailed(@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		command.getErrorMsgs().add("Incorrect username or password.");
+		
+		return displayArticleList(command, request, response, 1);
+		
+	}
+	
 	
 	// ************************************************************************************************************ //
 	// *********************************************** HELP METHODS *********************************************** //
