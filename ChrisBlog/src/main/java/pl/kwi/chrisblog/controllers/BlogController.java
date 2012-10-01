@@ -395,6 +395,26 @@ public class BlogController{
 		
 	}
 	
+	/**
+	 * Method handles situation when user want to get access to secured resources
+	 * but he is not authenticated.
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping("/secured-resource")
+	public ModelAndView securedResource(@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		command.getInfoMsgs().add("These resource are secured. You have to authenticate first.");
+		
+		return displayArticleList(command, request, response, 1);
+		
+	}
+	
 	
 	// ************************************************************************************************************ //
 	// *********************************************** HELP METHODS *********************************************** //

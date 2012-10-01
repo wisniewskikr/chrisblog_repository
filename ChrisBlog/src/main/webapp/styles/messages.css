@@ -36,7 +36,7 @@
    border-bottom: 2px solid #8CD76B;
    border:2px solid #8CD76B;
    overflow:auto;
-   font-size:1.4em;
+   font-size:1.0em;
    font-family:Verdana;
 }
  
@@ -49,7 +49,7 @@
    border-bottom: 2px solid #7BA6D6;
    border:2px solid #7BA6D6;
    overflow:auto;
-   font-size:1.4em;
+   font-size:1.0em;
    font-family:Verdana;
 }
  
@@ -62,7 +62,7 @@
    border-bottom: 2px solid #ffd324;
    border:2px solid #ffd324;
    overflow:auto;   
-   font-size:1.4em;
+   font-size:1.0em;
    font-family:Verdana;
 }
  
@@ -80,7 +80,7 @@
 }
 
 .closeMsg{
-	cursor:pointer;
+   cursor:pointer;
    cursor:hand;
    background: url('../images/common/cross.png') center no-repeat;
    float: right;

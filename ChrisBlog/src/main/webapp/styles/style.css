@@ -80,6 +80,8 @@ h1 a, h2 a {
 	text-transform: uppercase;
 	border-radius: .5em;
 	text-decoration: none;
+	cursor:pointer;
+    cursor:hand;
 }
 
 .dialogLink{

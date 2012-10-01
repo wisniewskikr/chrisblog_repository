@@ -12,21 +12,21 @@
 
 	<c:forEach items="${command.okMsgs}" var="msg">
 		<div class="msgOK" title="Click to close">
-			<span class="textMsg">OK message</span> 
+			<span class="textMsg">${msg}</span> 
 			<span class="closeMsg">close</span>
 		</div>
 	</c:forEach>
 
 	<c:forEach items="${command.warnMsgs}" var="msg">
 		<div class="msgWarn" title="Click to close">
-			<span class="textMsg">Warn message</span> 
+			<span class="textMsg">${msg}</span> 
 			<span class="closeMsg">close</span>
 		</div>
 	</c:forEach>
 
 	<c:forEach items="${command.infoMsgs}" var="msg">
 		<div class="msgInfo" title="Click to close">
-			<span class="textMsg">Info message</span> 
+			<span class="textMsg">${msg}</span> 
 			<span class="closeMsg">close</span>
 		</div>
 	</c:forEach>

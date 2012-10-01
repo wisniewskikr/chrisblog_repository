@@ -31,10 +31,10 @@
 				</div>
 				
 				<div id="actionSection">
-					<a href="#" id="headerPasswordReset">Password reset</a>
+					<!-- a href="#" id="headerPasswordReset">Password reset</a -->
 					<!-- a href="#" id="headerSignIn">Sign In</a -->
-					<input name="submit" type="submit" value="submit" />
-					<a href="j_spring_security_logout" id="logout">Logout</a>
+					<!-- a href="j_spring_security_logout" id="logout">Logout</a -->
+					<input id="signIn" class="button" type="submit" value="Sign In" />
 				</div>
 			
 			</form>
