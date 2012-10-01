@@ -17,24 +17,29 @@
 		</div>
 		
 		<div id="headerLogArea" class="fadeIn">
-			<form name='f' action="<c:url value='j_spring_security_check' />"
+			<form id="tmp" name='f' action="<c:url value='j_spring_security_check' />"
 			method='POST'>
 			
 				<div id="headerLoginSection">	
-					<label for="login" >Login:</label>
-					<input id="login" name="j_username" type="text"/>
+					<label class="labelLogArea" for="login" >Email</label>
+					<div><input id="login" name="j_username" type="text"/></div>
 				</div>
 				
 				<div id="passwordSection">
-					<label for="password">Password:</label>
+					<table>
+						<tr>
+							<td><label class="labelLogArea" for="password">Password</label></td>
+							<td>(<a href="#" id="createAccount">forgot password</a>)</td>
+						</tr>
+					</table>						
 					<input id="password" name='j_password' type="password"/>
 				</div>
 				
 				<div id="actionSection">
-					<!-- a href="#" id="headerPasswordReset">Password reset</a -->
-					<!-- a href="#" id="headerSignIn">Sign In</a -->
 					<!-- a href="j_spring_security_logout" id="logout">Logout</a -->
 					<input id="signIn" class="button" type="submit" value="Sign In" />
+					or
+					<a href="#" id="createAccount">Create Account</a>
 				</div>
 			
 			</form>

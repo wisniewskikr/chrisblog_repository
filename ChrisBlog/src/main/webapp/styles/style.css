@@ -170,7 +170,7 @@ h1 a, h2 a {
 }
 
 #headerLogArea div{
-	margin: 10px 0px 0px 5px;
+	/* margin: 10px 0px 0px 5px; */
 }
 
 #headerLogArea label {
@@ -178,8 +178,6 @@ h1 a, h2 a {
 	font-weight: bold;
 	color: #77A6D2;
 	line-height: 150%;
-	margin: 0;
-	padding: 0 0 3px 0;
 	border: none;
 	white-space: normal;
 	width: 100%;
@@ -187,16 +185,10 @@ h1 a, h2 a {
 	font-family: "Lucida Grande","Lucida Sans Unicode", Tahoma, sans-serif;
 	letter-spacing: .01em;
 	display: block;
-    float: left;
-    width: 80px;	
 }
 
 #headerLogArea input{
-	padding: 3px !important; 
-}
-
-#headerLoginSection{
-	margin-top: 20px !important;
+	padding: 3px !important;	
 }
 
 #headerPasswordReset{
@@ -223,6 +215,30 @@ h1 a, h2 a {
 	text-transform: uppercase;
 	cursor: pointer;
 	margin-left: 10px;
+}
+
+.labelLogArea{
+	display: block;
+}
+
+#tmp{
+	margin: 0px 0px 0px 40px;
+}
+
+#headerLoginSection{
+	margin-bottom: 5px;
+}
+
+#passwordSection{
+	margin-bottom: 5px;
+}
+
+#actionSection{
+	margin-left: 15px;
+}
+
+#createAccount{
+	padding: 3px !important;
 }
 
 #main {
