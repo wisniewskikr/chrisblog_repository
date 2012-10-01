@@ -221,15 +221,11 @@ h1 a, h2 a {
 	display: block;
 }
 
-#tmp{
+#logSection{
 	margin: 0px 0px 0px 40px;
 }
 
-#headerLoginSection{
-	margin-bottom: 5px;
-}
-
-#passwordSection{
+.headerSection{
 	margin-bottom: 5px;
 }
 
@@ -239,6 +235,15 @@ h1 a, h2 a {
 
 #createAccount{
 	padding: 3px !important;
+}
+
+#signOut{
+	padding: 3px !important;
+}
+
+.logText{
+	font-size: medium;
+	height: 22px;
 }
 
 #main {

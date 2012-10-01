@@ -57,8 +57,6 @@
 
 <body>
 	
-	<%@ include file="messagesJsp.jsp" %>
-	
 	<%@ include file="headerJsp.jsp" %>
 	
 	<%@ include file="mainJsp.jsp" %>
