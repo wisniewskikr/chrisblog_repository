@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -57,6 +58,9 @@ public class BlogController{
 	
 	@Autowired
 	private LocaleResolver localeResolver;
+	
+	@Autowired
+    protected MessageSource messageSource;
 
 	
 	/**
@@ -389,7 +393,7 @@ public class BlogController{
 	public ModelAndView loginFailed(@ModelAttribute("command")BlogCommand command,
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
-		command.getErrorMsgs().add("Incorrect username or password.");
+		command.getErrorMsgs().add(messageSource.getMessage("error_credentials", null, localeResolver.resolveLocale(request)));
 		
 		return displayArticleList(command, request, response, 1);
 		
@@ -409,8 +413,8 @@ public class BlogController{
 	public ModelAndView securedResource(@ModelAttribute("command")BlogCommand command,
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
-		command.getInfoMsgs().add("These resource are secured. You have to authenticate first.");
-		
+		command.getInfoMsgs().add(messageSource.getMessage("info_resource_secured", null, localeResolver.resolveLocale(request)));
+				
 		return displayArticleList(command, request, response, 1);
 		
 	}
@@ -585,6 +589,11 @@ public class BlogController{
 
 	public void setLocaleResolver(LocaleResolver localeResolver) {
 		this.localeResolver = localeResolver;
-	}	
+	}
+
+	public void setMessageSource(MessageSource messageSource) {
+		this.messageSource = messageSource;
+	}
+		
 
 }
