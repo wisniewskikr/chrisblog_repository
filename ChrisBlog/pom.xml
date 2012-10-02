@@ -274,6 +274,27 @@
 		    <groupId>javax.annotation</groupId>
 		    <artifactId>jsr250-api</artifactId>
 		    <version>1.0</version>
+		</dependency>
+		
+		<!-- Hibernate -->
+		<dependency>
+		   <groupId>org.hibernate</groupId>
+		   <artifactId>hibernate-entitymanager</artifactId>
+		   <version>3.6.9.Final</version>
+		   <scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.4.2</version>
+		</dependency>
+		
+		<!-- MySql -->
+		<dependency>
+		   <groupId>mysql</groupId>
+		   <artifactId>mysql-connector-java</artifactId>
+		   <version>5.1.18</version>
+		   <scope>runtime</scope>
 		</dependency>		
 						
 	</dependencies>
@@ -301,6 +322,12 @@
 				<server.username>admin</server.username>
 				<server.password>admin</server.password>
 				<server.path>/${project.artifactId}</server.path>
+				
+				<!-- Data base -->
+				<db.url>jdbc:mysql://localhost:3306/chrisblog_db</db.url>
+				<db.driver>com.mysql.jdbc.Driver</db.driver>
+				<db.username>root</db.username>
+				<db.password>P@ssw0rd</db.password>
 			</properties>				
 		</profile>
 				
