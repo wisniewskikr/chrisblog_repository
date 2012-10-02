@@ -55,7 +55,7 @@ public class SecuredBlogController{
 		
 		command.setPathHost(pathHost);
 		command.setPathContext(pathContext);
-		command.setWindowTitle("Title");
+		command.setWindowTitle("Secured List of Articles");
 		
 		if(request != null){
 			Locale loc = localeResolver.resolveLocale(request);
