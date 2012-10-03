@@ -8,6 +8,8 @@
     
     
     <persistence-unit name="chrisblog-pu" transaction-type="RESOURCE_LOCAL">
+    
+    	<class>pl.kwi.chrisblog.entities.UserEntity</class>
 		
 		<properties>
             <property name="hibernate.hbm2ddl.auto" value="update"/>

@@ -292,7 +292,14 @@
 		   <groupId>mysql</groupId>
 		   <artifactId>mysql-connector-java</artifactId>
 		   <version>5.1.18</version>
-		</dependency>		
+		</dependency>
+		
+		 <dependency>
+            <groupId>com.github.springtestdbunit</groupId>
+            <artifactId>spring-test-dbunit</artifactId>
+            <version>1.0.0</version>
+            <scope>test</scope>
+        </dependency>		
 						
 	</dependencies>
 		
@@ -450,8 +457,6 @@
 										<fileset>
 											<basedir>${basedir}/db/</basedir>
 											<includes>
-												<!-- Important is alphabetical order of files - "sets" with 
-												insert data after "releases" with data tables structure  -->
 												<include>releases/**/*.sql</include>
 												<include>sets/**/*.sql</include>
 											</includes>
@@ -537,6 +542,12 @@
 					          </goals>
 					          <configuration>			            	
 			                	<skip>false</skip>
+			                	<systemPropertyVariables>
+						            <db.url>${test.db.url}</db.url>
+						            <db.driver>${test.db.driver}</db.driver>
+						            <db.username>${test.db.username}</db.username>
+						            <db.password>${test.db.password}</db.password>
+						          </systemPropertyVariables>
 			                	<includes>
             						<include>**/*Test.java</include>
             					</includes>
@@ -570,7 +581,7 @@
 							<executions>						
 								<execution>
 									<id>setup-db-deploy</id>
-									<phase>post-integration-test</phase>
+									<phase>pre-integration-test</phase>
 									<goals>
 										<goal>execute</goal>
 									</goals>

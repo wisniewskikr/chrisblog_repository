@@ -16,6 +16,7 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
 				classpath:conf/spring-dispatcher-conf.xml,
+				classpath:conf/spring-db-conf.xml,
 				classpath:conf/spring-security-conf.xml
 			</param-value>
 		</init-param>
@@ -35,6 +36,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			classpath:conf/spring-dispatcher-conf.xml,
+			classpath:conf/spring-db-conf.xml,
 			classpath:conf/spring-security-conf.xml
 		</param-value>
 	</context-param>

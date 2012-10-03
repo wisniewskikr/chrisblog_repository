@@ -4,15 +4,18 @@ import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pl.kwi.test.abstr.AbstrDbUnitJUnitTestIntg;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
-public class LoggingIntg extends AbstrDbUnitJUnitTestIntg{
+public class LoggingIntg{
 	
 	private String pathHost;
 	private String pathContext;
@@ -34,12 +37,10 @@ public class LoggingIntg extends AbstrDbUnitJUnitTestIntg{
 	public void testLogging(){
 		
 		// TODO KWi
-//		createTransaction();
-//		executeDataFile("dbunit/input.xml");
-//		closeTransaction();
+//		executeDataFile("dbunit/loggingIntg.xml");
 		
 		driver = new HtmlUnitDriver();
-		wait = new WebDriverWait(driver, 120);
+		wait = new WebDriverWait(driver, 20);
 
         driver.get(pathHost + pathContext);
         
