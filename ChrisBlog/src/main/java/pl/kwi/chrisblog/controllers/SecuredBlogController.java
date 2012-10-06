@@ -1,17 +1,12 @@
 package pl.kwi.chrisblog.controllers;
 
-import java.util.Locale;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import pl.kwi.chrisblog.commands.BlogCommand;
@@ -23,19 +18,10 @@ import pl.kwi.chrisblog.commands.BlogCommand;
  */
 @Controller
 @RequestMapping(value="/secured")
-public class SecuredBlogController{
+public class SecuredBlogController extends AbstractController{
 	
 	
 	private static final Logger LOG = Logger.getLogger(SecuredBlogController.class);
-	
-	@Value("${path.host}")
-	private String pathHost;
-	
-	@Value("${path.context}")
-	private String pathContext;
-	
-	@Autowired
-	private LocaleResolver localeResolver;
 
 	
 	/**
@@ -53,35 +39,10 @@ public class SecuredBlogController{
 		
 		command.setDisplaySecArticleList(true);
 		
-		command.setPathHost(pathHost);
-		command.setPathContext(pathContext);
-		command.setWindowTitle("Secured List of Articles");
-		
-		if(request != null){
-			Locale loc = localeResolver.resolveLocale(request);
-			command.setLocale(loc);
-		}
+		handleCommand(command, request);
 		
 		return new ModelAndView("blogJsp");
 		
-	}
-		
-	
-	// ************************************************************************************************************ //
-	// *********************************************** GETTERS AND SETTERS **************************************** //
-	// ************************************************************************************************************ //
-	
-	
-	public void setPathHost(String pathHost) {
-		this.pathHost = pathHost;
-	}
-
-	public void setPathContext(String pathContext) {
-		this.pathContext = pathContext;
-	}
-
-	public void setLocaleResolver(LocaleResolver localeResolver) {
-		this.localeResolver = localeResolver;
 	}
 	
 	
