@@ -10,19 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import junit.framework.Assert;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mcavallo.opencloud.Cloud;
 import org.mockito.Mockito;
+import org.springframework.context.MessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
-
 import pl.kwi.chrisblog.commands.BlogCommand;
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.entities.ExplanationEntity;
-import pl.kwi.chrisblog.exceptions.ArticleException;
 import pl.kwi.chrisblog.exceptions.PagenationException;
 import pl.kwi.chrisblog.services.ArticleService;
 import pl.kwi.chrisblog.services.ArticleTagService;
@@ -31,17 +28,18 @@ import pl.kwi.chrisblog.utils.DateUtils;
 
 public class BlogControllerTest {
 	
-	private BlogController contoller;
+	private BlogController controller;
 	
 	@Before
 	public void setUp() throws Exception{
-		contoller = new BlogController();
-		contoller.setPathHost("pathHost");
-		contoller.setPathContext("pathContext");
-		contoller.setLocaleResolver(mockLocaleResolver());
-		contoller.setArticleService(mockArticleService());
-		contoller.setArticleTagService(mockArticleTagService());
-		contoller.setExplanationService(mockExplanationService());
+		controller = new BlogController();
+		controller.setPathHost("pathHost");
+		controller.setPathContext("pathContext");
+		controller.setLocaleResolver(mockLocaleResolver());
+		controller.setArticleService(mockArticleService());
+		controller.setArticleTagService(mockArticleTagService());
+		controller.setExplanationService(mockExplanationService());
+		controller.setMessageSource(mockMessageSource());
 	}
 	
 	@Test
@@ -51,7 +49,7 @@ public class BlogControllerTest {
 		HttpServletRequest request = mockHttpServletRequest();
 		HttpServletResponse response = mockHttpServletResponse();
 		
-		ModelAndView modelAndView = contoller.displayArticleListPageOne(command, request, response);
+		ModelAndView modelAndView = controller.displayArticleListPageOne(command, request, response);
 		
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplayArticleList());
@@ -79,7 +77,7 @@ public class BlogControllerTest {
 		HttpServletResponse response = mockHttpServletResponse();
 		int pageNumber = 2;
 		
-		ModelAndView modelAndView = contoller.displayArticleListPageNotOne(command, request, response, pageNumber);
+		ModelAndView modelAndView = controller.displayArticleListPageNotOne(command, request, response, pageNumber);
 		
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplayArticleList());
@@ -107,7 +105,7 @@ public class BlogControllerTest {
 		HttpServletResponse response = mockHttpServletResponse();
 		int pageNumber = 8;
 		
-		contoller.displayArticleListPageNotOne(command, request, response, pageNumber);
+		controller.displayArticleListPageNotOne(command, request, response, pageNumber);
 		
 	}
 	
@@ -119,7 +117,7 @@ public class BlogControllerTest {
 		HttpServletResponse response = mockHttpServletResponse();
 		int pageNumber = 1;
 		
-		ModelAndView modelAndView = contoller.displayArticleList(command, request, response, pageNumber);
+		ModelAndView modelAndView = controller.displayArticleList(command, request, response, pageNumber);
 		
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplayArticleList());
@@ -147,7 +145,7 @@ public class BlogControllerTest {
 		HttpServletResponse response = mockHttpServletResponse();
 		int pageNumber = 8;
 		
-		contoller.displayArticleList(command, request, response, pageNumber);
+		controller.displayArticleList(command, request, response, pageNumber);
 		
 	}
 	
@@ -159,7 +157,7 @@ public class BlogControllerTest {
 		HttpServletResponse response = mockHttpServletResponse();
 		String uniqueName = "uniqueName";
 		
-		ModelAndView modelAndView = contoller.displayArticlePageOne(command, request, response, uniqueName);
+		ModelAndView modelAndView = controller.displayArticlePageOne(command, request, response, uniqueName);
 		
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplayArticle());
@@ -188,7 +186,7 @@ public class BlogControllerTest {
 		int pageNumber = 2;
 		String uniqueName = "uniqueName";
 		
-		ModelAndView modelAndView = contoller.displayArticlePageNotOne(command, request, response, pageNumber, uniqueName);
+		ModelAndView modelAndView = controller.displayArticlePageNotOne(command, request, response, pageNumber, uniqueName);
 		
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplayArticle());
@@ -217,7 +215,7 @@ public class BlogControllerTest {
 		int pageNumber = 8;
 		String uniqueName = "uniqueName";
 		
-		contoller.displayArticlePageNotOne(command, request, response, pageNumber, uniqueName);
+		controller.displayArticlePageNotOne(command, request, response, pageNumber, uniqueName);
 		
 	}
 	
@@ -230,7 +228,7 @@ public class BlogControllerTest {
 		int pageNumber = 1;
 		String uniqueName = "uniqueName";
 		
-		ModelAndView modelAndView = contoller.displayArticle(command, request, response, pageNumber, uniqueName);
+		ModelAndView modelAndView = controller.displayArticle(command, request, response, pageNumber, uniqueName);
 		
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplayArticle());
@@ -259,7 +257,7 @@ public class BlogControllerTest {
 		int pageNumber = 8;
 		String uniqueName = "uniqueName";
 		
-		contoller.displayArticle(command, request, response, pageNumber, uniqueName);
+		controller.displayArticle(command, request, response, pageNumber, uniqueName);
 		
 	}
 	
@@ -271,7 +269,7 @@ public class BlogControllerTest {
 		HttpServletResponse response = mockHttpServletResponse();
 		String tagUniqueName = "tagUniqueName";
 		
-		ModelAndView modelAndView = contoller.displayArticleListWithTagPageOne(command, request, response, tagUniqueName);
+		ModelAndView modelAndView = controller.displayArticleListWithTagPageOne(command, request, response, tagUniqueName);
 		
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplayArticleListWithTag());
@@ -300,7 +298,7 @@ public class BlogControllerTest {
 		int pageNumber = 2;
 		String tagUniqueName = "tagUniqueName";
 		
-		ModelAndView modelAndView = contoller.displayArticleListWithTagPageNotOne(command, request, response, pageNumber, tagUniqueName);
+		ModelAndView modelAndView = controller.displayArticleListWithTagPageNotOne(command, request, response, pageNumber, tagUniqueName);
 		
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplayArticleListWithTag());
@@ -330,7 +328,7 @@ public class BlogControllerTest {
 		int pageNumber = 8;
 		String tagUniqueName = "tagUniqueName";
 		
-		contoller.displayArticleListWithTagPageNotOne(command, request, response, pageNumber, tagUniqueName);
+		controller.displayArticleListWithTagPageNotOne(command, request, response, pageNumber, tagUniqueName);
 		
 	}
 	
@@ -343,7 +341,7 @@ public class BlogControllerTest {
 		int pageNumber = 1;
 		String tagUniqueName = "tagUniqueName";
 		
-		ModelAndView modelAndView = contoller.displayArticleListWithTag(command, request, response, pageNumber, tagUniqueName);
+		ModelAndView modelAndView = controller.displayArticleListWithTag(command, request, response, pageNumber, tagUniqueName);
 		
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplayArticleListWithTag());
@@ -373,7 +371,7 @@ public class BlogControllerTest {
 		int pageNumber = 8;
 		String tagUniqueName = "tagUniqueName";
 		
-		contoller.displayArticleListWithTag(command, request, response, pageNumber, tagUniqueName);
+		controller.displayArticleListWithTag(command, request, response, pageNumber, tagUniqueName);
 		
 	}
 	
@@ -385,7 +383,7 @@ public class BlogControllerTest {
 		HttpServletResponse response = mockHttpServletResponse();
 		String uniqueName = "uniqueName";
 		
-		ModelAndView modelAndView = contoller.displayExplanation(command, request, response, uniqueName);
+		ModelAndView modelAndView = controller.displayExplanation(command, request, response, uniqueName);
 		
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplayExplanation());
@@ -410,7 +408,7 @@ public class BlogControllerTest {
 		HttpServletRequest request = mockHttpServletRequest();
 		HttpServletResponse response = mockHttpServletResponse();
 		
-		ModelAndView modelAndView = contoller.displayAboutMe(command, request, response);
+		ModelAndView modelAndView = controller.displayAboutMe(command, request, response);
 		
 		Assert.assertFalse(command.isDisplayExplanation());
 		Assert.assertTrue(command.isDisplayAboutMe());
@@ -431,7 +429,7 @@ public class BlogControllerTest {
 		
 		Exception e = new Exception();
 				
-		ModelAndView modelAndView = contoller.displayException(e);
+		ModelAndView modelAndView = controller.displayException(e);
 		
 		BlogCommand command = (BlogCommand)modelAndView.getModel().get("command");
 		
@@ -455,7 +453,7 @@ public class BlogControllerTest {
 		Exception e = new Exception();
 		String errorCode = "errorCode";
 		
-		ModelAndView modelAndView = contoller.displayError(e, errorCode);
+		ModelAndView modelAndView = controller.displayError(e, errorCode);
 		
 		BlogCommand command = (BlogCommand)modelAndView.getModel().get("command");
 		
@@ -474,13 +472,73 @@ public class BlogControllerTest {
 	}
 	
 	@Test
+	public void loginFailed() throws Exception{
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		HttpServletResponse response = mockHttpServletResponse();
+		
+		ModelAndView modelAndView = controller.loginFailed(command, request, response);
+		
+		Assert.assertFalse(command.isDisplayAboutMe());
+		Assert.assertTrue(command.isDisplayArticleList());
+		
+		Assert.assertEquals("pathHost", command.getPathHost());
+		Assert.assertEquals("pathContext", command.getPathContext());
+		Assert.assertNotNull(command.getLocale());
+		Assert.assertNotNull(command.getTagsCloudFooter());
+		Assert.assertNotNull(command.getTagsCloudRightSpace());
+		
+		Assert.assertEquals(2, command.getArticleList().size());
+		
+		Assert.assertEquals(Integer.valueOf(1), command.getPageCurrent());
+		Assert.assertEquals(Integer.valueOf(4), command.getPagesCount());
+		
+		Assert.assertEquals("blogJsp", modelAndView.getViewName());
+		
+		Assert.assertEquals(1, command.getErrorMsgs().size());
+		Assert.assertEquals("Some message", command.getErrorMsgs().get(0));
+		
+	}
+	
+	@Test
+	public void securedResource() throws Exception{
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		HttpServletResponse response = mockHttpServletResponse();
+		
+		ModelAndView modelAndView = controller.securedResource(command, request, response);
+		
+		Assert.assertFalse(command.isDisplayAboutMe());
+		Assert.assertTrue(command.isDisplayArticleList());
+		
+		Assert.assertEquals("pathHost", command.getPathHost());
+		Assert.assertEquals("pathContext", command.getPathContext());
+		Assert.assertNotNull(command.getLocale());
+		Assert.assertNotNull(command.getTagsCloudFooter());
+		Assert.assertNotNull(command.getTagsCloudRightSpace());
+		
+		Assert.assertEquals(2, command.getArticleList().size());
+		
+		Assert.assertEquals(Integer.valueOf(1), command.getPageCurrent());
+		Assert.assertEquals(Integer.valueOf(4), command.getPagesCount());
+		
+		Assert.assertEquals("blogJsp", modelAndView.getViewName());
+		
+		Assert.assertEquals(1, command.getInfoMsgs().size());
+		Assert.assertEquals("Some message", command.getInfoMsgs().get(0));
+		
+	}
+	
+	@Test
 	public void handleCommand() throws Exception {
 		
 		BlogCommand command = new BlogCommand();
 		HttpServletRequest request = mockHttpServletRequest();
 		command.setDisplayArticleList(true);
 		
-		contoller.handleCommand(command, request);
+		controller.handleCommand(command, request);
 		
 		Assert.assertEquals("pathHost", command.getPathHost());
 		Assert.assertEquals("pathContext", command.getPathContext());
@@ -498,7 +556,7 @@ public class BlogControllerTest {
 		HttpServletRequest request = null;
 		command.setDisplayArticleList(true);
 		
-		contoller.handleCommand(command, request);
+		controller.handleCommand(command, request);
 		
 		Assert.assertEquals("pathHost", command.getPathHost());
 		Assert.assertEquals("pathContext", command.getPathContext());
@@ -515,7 +573,7 @@ public class BlogControllerTest {
 		BlogCommand command = new BlogCommand();
 		HttpServletRequest request = mockHttpServletRequest();
 		
-		contoller.handleCommand(command, request);
+		controller.handleCommand(command, request);
 				
 	}
 	
@@ -525,7 +583,7 @@ public class BlogControllerTest {
 		BlogCommand command = new BlogCommand();
 		int pageNumber = 1;
 		
-		contoller.handleArticleListPagenation(command, pageNumber);
+		controller.handleArticleListPagenation(command, pageNumber);
 		
 		Assert.assertEquals(Integer.valueOf(1), command.getPageCurrent());
 		Assert.assertEquals(Integer.valueOf(4), command.getPagesCount());
@@ -538,7 +596,7 @@ public class BlogControllerTest {
 		BlogCommand command = new BlogCommand();
 		int pageNumber = 8;
 		
-		contoller.handleArticleListPagenation(command, pageNumber);
+		controller.handleArticleListPagenation(command, pageNumber);
 		
 	}
 	
@@ -552,7 +610,7 @@ public class BlogControllerTest {
 		command.setArticle(article);
 		int pageNumber = 1;
 		
-		contoller.handleArticlePagenation(command, pageNumber);
+		controller.handleArticlePagenation(command, pageNumber);
 		
 		Assert.assertEquals(Integer.valueOf(1), command.getPageCurrent());
 		Assert.assertEquals(Integer.valueOf(4), command.getPagesCount());
@@ -569,7 +627,7 @@ public class BlogControllerTest {
 		command.setArticle(article);
 		int pageNumber = 8;
 		
-		contoller.handleArticlePagenation(command, pageNumber);
+		controller.handleArticlePagenation(command, pageNumber);
 		
 	}
 	
@@ -579,7 +637,7 @@ public class BlogControllerTest {
 		BlogCommand command = new BlogCommand();
 		int pageNumber = 1;
 		
-		contoller.handleArticleListWithTagPagenation(command, pageNumber);
+		controller.handleArticleListWithTagPagenation(command, pageNumber);
 		
 		Assert.assertEquals(Integer.valueOf(1), command.getPageCurrent());
 		Assert.assertEquals(Integer.valueOf(4), command.getPagesCount());
@@ -592,7 +650,7 @@ public class BlogControllerTest {
 		BlogCommand command = new BlogCommand();
 		int pageNumber = 8;
 		
-		contoller.handleArticleListWithTagPagenation(command, pageNumber);
+		controller.handleArticleListWithTagPagenation(command, pageNumber);
 		
 	}
 	
@@ -603,7 +661,7 @@ public class BlogControllerTest {
 		int pageCurrent = 1;
 		int pagesCount = 4;
 		
-		contoller.handlePagenation(command, pageCurrent, pagesCount);
+		controller.handlePagenation(command, pageCurrent, pagesCount);
 		
 		Assert.assertEquals(Integer.valueOf(1), command.getPageCurrent());
 		Assert.assertEquals(Integer.valueOf(4), command.getPagesCount());
@@ -617,7 +675,7 @@ public class BlogControllerTest {
 		Integer pageCurrent = 8;
 		Integer pagesCount = 4;
 		
-		contoller.handlePagenation(command, pageCurrent, pagesCount);
+		controller.handlePagenation(command, pageCurrent, pagesCount);
 		
 	}
 	
@@ -628,7 +686,7 @@ public class BlogControllerTest {
 		Integer pageCurrent = 0;
 		Integer pagesCount = 4;
 		
-		contoller.handlePagenation(command, pageCurrent, pagesCount);
+		controller.handlePagenation(command, pageCurrent, pagesCount);
 		
 	}
 	
@@ -639,7 +697,7 @@ public class BlogControllerTest {
 		Integer pageCurrent = 8;
 		Integer pagesCount = null;
 		
-		contoller.handlePagenation(command, pageCurrent, pagesCount);
+		controller.handlePagenation(command, pageCurrent, pagesCount);
 		
 	}
 	
@@ -650,7 +708,7 @@ public class BlogControllerTest {
 		Integer pageCurrent = -3;
 		Integer pagesCount = 4;
 		
-		contoller.handlePagenation(command, pageCurrent, pagesCount);
+		controller.handlePagenation(command, pageCurrent, pagesCount);
 		
 	}
 	
@@ -660,7 +718,7 @@ public class BlogControllerTest {
 		BlogCommand command = new BlogCommand();
 		command.setDisplayArticleList(true);
 		
-		String windowTitle = contoller.getWindowTitle(command);
+		String windowTitle = controller.getWindowTitle(command);
 		
 		Assert.assertEquals("List of Articles", windowTitle);
 		
@@ -671,7 +729,7 @@ public class BlogControllerTest {
 		
 		BlogCommand command = null;
 		
-		contoller.getWindowTitle(command);
+		controller.getWindowTitle(command);
 		
 	}
 	
@@ -680,7 +738,7 @@ public class BlogControllerTest {
 		
 		BlogCommand command = new BlogCommand();
 		
-		contoller.getWindowTitle(command);
+		controller.getWindowTitle(command);
 		
 	}
 	
@@ -836,6 +894,16 @@ public class BlogControllerTest {
 		ExplanationService mock = Mockito.mock(ExplanationService.class);
 		
 		Mockito.when(mock.getExplanationByUniqueName(Mockito.anyString())).thenReturn(explanation);
+		
+		return mock;
+		
+	}
+	
+	private MessageSource mockMessageSource(){
+		
+		MessageSource mock = Mockito.mock(MessageSource.class);
+		
+		Mockito.when(mock.getMessage(Mockito.anyString(), Mockito.any(Object[].class), Mockito.any(Locale.class))).thenReturn("Some message");
 		
 		return mock;
 		

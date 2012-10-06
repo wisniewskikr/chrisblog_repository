@@ -498,7 +498,7 @@
 						<executions>						
 							<execution>
 								<id>setup-db-unit</id>
-								<phase>pre-integration-test</phase>
+								<phase>test</phase>
 								<goals>
 									<goal>execute</goal>
 								</goals>
