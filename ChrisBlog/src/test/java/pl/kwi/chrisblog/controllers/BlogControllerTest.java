@@ -784,7 +784,7 @@ public class BlogControllerTest {
 		article.setCreationDateAsString("December 25, 1999");
 		article.setAuthor("Author1");
 		article.setArticleTagList(articleTagList);
-		article.setDemoPath("/Demo path1");
+		article.setDemoName("Demo path1");
 		article.setExamplePath("/Example path1");
 		article.setSourcePath("/Source path1");
 		completeArticleList.add(article);
@@ -818,7 +818,7 @@ public class BlogControllerTest {
 		article.setCreationDateAsString("December 25, 1999");
 		article.setAuthor("Author2");
 		article.setArticleTagList(articleTagList);
-		article.setDemoPath("/Demo path2");
+		article.setDemoName("Demo path2");
 		article.setExamplePath("/Example path2");
 		article.setSourcePath("/Source path2");
 		completeArticleList.add(article);

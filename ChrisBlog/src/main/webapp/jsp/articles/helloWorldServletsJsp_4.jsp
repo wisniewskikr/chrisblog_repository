@@ -49,7 +49,7 @@
 </p>
 
 <div class="img">
-	<img src="images/servlets/helloWorldServlets_pic4.png"/>
+	<img src="images/articles/helloWorldServlets_pic4.png"/>
 	<div>Maven command for building project</div>
 </div>
 
@@ -65,7 +65,7 @@
 </p>
 
 <div class="img">
-	<img src="images/servlets/helloWorldServlets_pic5.png"/>
+	<img src="images/articles/helloWorldServlets_pic5.png"/>
 	<div>File 'HelloWorldServlets.war' in folder 'target'</div>
 </div>
 
@@ -134,7 +134,7 @@
 </p>
 
 <div class="img">
-	<img src="images/servlets/helloWorldServlets_pic6.png"/>
+	<img src="images/articles/helloWorldServlets_pic6.png"/>
 	<div>Url of web application HelloWorldServlets</div>
 </div>
 

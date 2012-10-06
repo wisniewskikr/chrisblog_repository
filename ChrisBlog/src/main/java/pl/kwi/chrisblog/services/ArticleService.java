@@ -247,6 +247,7 @@ public class ArticleService {
 			
 			String creationDateAsString = DateUtils.convertCalendarToStringWithMonthAsText(article.getCreationDate(), loc);
 			article.setCreationDateAsString(creationDateAsString);
+			article.setDemoPath("/" + article.getDemoName());
 			article.setExamplePath("/" + folderExamples + "/" + article.getExampleFileName());
 			article.setSourcePath("/" + folderSources + "/" + article.getSourceFileName());
 			article.setPagesCount(getPagesCountOfArticle(article));
@@ -333,10 +334,10 @@ public class ArticleService {
 		article.setUniqueName("hello_world_servlets");
 		article.setTitle("Hello World Servlets");
 		article.setDescription(descriptionSb.toString());
-		article.setContentPath("categories/servlets/helloWorldServlets/helloWorldServletsJsp");
+		article.setContentPath("articles/helloWorldServletsJsp");
 		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("20120104200700"));
 		article.setAuthor("Chris");
-		article.setDemoPath("/HelloWorldServlets");
+		article.setDemoName("HelloWorldServlets");
 		article.setExampleFileName("HelloWorldServlets.war");
 		article.setSourceFileName("HelloWorldServlets.zip");
 		

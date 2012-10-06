@@ -18,20 +18,21 @@ public class ArticleEntity implements Serializable{
 	private String contentPath;
 	private Integer pagesCount;
 	private Calendar creationDate;
-	private String creationDateAsString;
 	private String author;
-	private List<ArticleTagEntity> articleTagList;
-	private String demoPath;
-	private String examplePath;
-	private String sourcePath;
+	private String demoName;
 	private String exampleFileName;
 	private String sourceFileName;
+	private List<ArticleTagEntity> articleTagList;
 	private List<ArticleTagEntity> articleTagFrontEndList;
 	private List<ArticleTagEntity> articleTagBackEndList;
 	
+	// Transient
+	private String demoPath;
+	private String examplePath;
+	private String sourcePath;
+	private String creationDateAsString;
 	private String frontEndAsString;
 	private String backEndAsString;
-	private Integer numberCategoryPage;
 	
 	
 	// ************************************************************************************************************ //
@@ -131,13 +132,6 @@ public class ArticleEntity implements Serializable{
 	}
 	public void setCreationDate(Calendar creationDate) {
 		this.creationDate = creationDate;
-	}	
-	
-	public String getCreationDateAsString() {
-		return creationDateAsString;
-	}
-	public void setCreationDateAsString(String creationDateAsString) {
-		this.creationDateAsString = creationDateAsString;
 	}
 	
 	public String getAuthor() {
@@ -145,36 +139,15 @@ public class ArticleEntity implements Serializable{
 	}
 	public void setAuthor(String author) {
 		this.author = author;
-	}
-	
-	public List<ArticleTagEntity> getArticleTagList() {
-		return articleTagList;
-	}
-	public void setArticleTagList(List<ArticleTagEntity> articleTagList) {
-		this.articleTagList = articleTagList;
-	}
-	
-	public String getDemoPath() {
-		return demoPath;
-	}
-	public void setDemoPath(String demoPath) {
-		this.demoPath = demoPath;
-	}
-	
-	public String getExamplePath() {
-		return examplePath;
-	}
-	public void setExamplePath(String examplePath) {
-		this.examplePath = examplePath;
-	}
-	
-	public String getSourcePath() {
-		return sourcePath;
-	}
-	public void setSourcePath(String sourcePath) {
-		this.sourcePath = sourcePath;
 	}	
 	
+	public String getDemoName() {
+		return demoName;
+	}
+	public void setDemoName(String demoName) {
+		this.demoName = demoName;
+	}
+
 	public String getExampleFileName() {
 		return exampleFileName;
 	}
@@ -204,13 +177,41 @@ public class ArticleEntity implements Serializable{
 			List<ArticleTagEntity> articleTagBackEndList) {
 		this.articleTagBackEndList = articleTagBackEndList;
 	}
-
-	public Integer getNumberCategoryPage() {
-		return numberCategoryPage;
+	
+	public List<ArticleTagEntity> getArticleTagList() {
+		return articleTagList;
 	}
-	public void setNumberCategoryPage(Integer numberCategoryPage) {
-		this.numberCategoryPage = numberCategoryPage;
-	}	
+	public void setArticleTagList(List<ArticleTagEntity> articleTagList) {
+		this.articleTagList = articleTagList;
+	}
+	
+	public String getDemoPath() {
+		return demoPath;
+	}
+	public void setDemoPath(String demoPath) {
+		this.demoPath = demoPath;
+	}
+	
+	public String getExamplePath() {
+		return examplePath;
+	}
+	public void setExamplePath(String examplePath) {
+		this.examplePath = examplePath;
+	}
+	
+	public String getSourcePath() {
+		return sourcePath;
+	}
+	public void setSourcePath(String sourcePath) {
+		this.sourcePath = sourcePath;
+	}
+	
+	public String getCreationDateAsString() {
+		return creationDateAsString;
+	}
+	public void setCreationDateAsString(String creationDateAsString) {
+		this.creationDateAsString = creationDateAsString;
+	}
 
 	
 }

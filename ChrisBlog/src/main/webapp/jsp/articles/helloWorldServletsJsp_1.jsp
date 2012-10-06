@@ -20,7 +20,7 @@
 </p>
 		
 <div class="img">
-	<img src="images/servlets/helloWorldServlets_pic1.png"/>
+	<img src="images/articles/helloWorldServlets_pic1.png"/>
 	<div>Page 'Hello'</div>
 </div>			
 
@@ -32,7 +32,7 @@
 </p>
 
 <div class="img">
-	<img src="images/servlets/helloWorldServlets_pic2.png"/>
+	<img src="images/articles/helloWorldServlets_pic2.png"/>
 	<div>Page 'Welcome'</div>
 </div>
 
@@ -98,7 +98,7 @@
 </p>
 
 <div class="img">
-	<img src="images/servlets/helloWorldServlets_pic3.png"/>
+	<img src="images/articles/helloWorldServlets_pic3.png"/>
 	<div>Structure of project</div>
 </div>
 

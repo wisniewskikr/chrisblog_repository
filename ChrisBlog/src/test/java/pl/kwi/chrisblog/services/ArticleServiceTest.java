@@ -8,7 +8,6 @@ import java.util.Locale;
 import junit.framework.Assert;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -400,7 +399,7 @@ public class ArticleServiceTest {
 		Assert.assertEquals(Integer.valueOf(3), article.getPagesCount());
 		Assert.assertEquals("Author", article.getAuthor());
 		Assert.assertEquals("December 25, 1999", article.getCreationDateAsString());
-		Assert.assertEquals("/demoPath", article.getDemoPath());
+		Assert.assertEquals("demoPath", article.getDemoName());
 		Assert.assertEquals("exampleFile", article.getExampleFileName());
 		Assert.assertEquals("sourceFile", article.getSourceFileName());
 		
@@ -465,7 +464,7 @@ public class ArticleServiceTest {
 		article = new ArticleEntity();
 		article.setId(1L);
 		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("20111226120000"));
-		article.setDemoPath("/demoPath");
+		article.setDemoName("demoPath");
 		article.setExamplePath("/examplePath");
 		article.setExampleFileName("exampleFile");
 		article.setSourcePath("/sourcePath");
@@ -596,7 +595,7 @@ public class ArticleServiceTest {
 		article.setCreationDateAsString("December 25, 1999");
 		article.setAuthor("Author");
 		article.setArticleTagList(articleTagList);
-		article.setDemoPath("/demoPath");
+		article.setDemoName("demoPath");
 		article.setExampleFileName("exampleFile");
 		article.setSourceFileName("sourceFile");
 		completeArticleList.add(article);
@@ -623,7 +622,7 @@ public class ArticleServiceTest {
 		article.setCreationDateAsString("December 25, 1999");
 		article.setAuthor("Author");
 		article.setArticleTagList(articleTagList);
-		article.setDemoPath("/demoPath");
+		article.setDemoName("demoPath");
 		article.setExampleFileName("exampleFile");
 		article.setSourceFileName("sourceFile");
 		completeArticleList.add(article);
@@ -650,7 +649,7 @@ public class ArticleServiceTest {
 		article.setCreationDateAsString("December 25, 1999");
 		article.setAuthor("Author");
 		article.setArticleTagList(articleTagList);
-		article.setDemoPath("/demoPath");
+		article.setDemoName("demoPath");
 		article.setExampleFileName("exampleFile");
 		article.setSourceFileName("sourceFile");
 		completeArticleList.add(article);
