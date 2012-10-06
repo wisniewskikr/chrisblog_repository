@@ -47,7 +47,7 @@ public class ArticleServiceTest {
 		Assert.assertEquals("Unique name", articleList.get(0).getUniqueName());
 		Assert.assertEquals("Title", articleList.get(0).getTitle());
 		Assert.assertEquals("Description", articleList.get(0).getDescription());
-		Assert.assertEquals("Path/path", articleList.get(0).getContentPath());
+		Assert.assertEquals("Path/path", articleList.get(0).getContent());
 		Assert.assertEquals(Integer.valueOf(4), articleList.get(0).getPagesCount());
 		Assert.assertEquals("Author", articleList.get(0).getAuthor());
 		Assert.assertEquals("December 25, 1999", articleList.get(0).getCreationDateAsString());
@@ -94,7 +94,7 @@ public class ArticleServiceTest {
 		Assert.assertEquals("Unique name", articleList.get(0).getUniqueName());
 		Assert.assertEquals("Title", articleList.get(0).getTitle());
 		Assert.assertEquals("Description", articleList.get(0).getDescription());
-		Assert.assertEquals("Path/path", articleList.get(0).getContentPath());
+		Assert.assertEquals("Path/path", articleList.get(0).getContent());
 		Assert.assertEquals(Integer.valueOf(4), articleList.get(0).getPagesCount());
 		Assert.assertEquals("Author", articleList.get(0).getAuthor());
 		Assert.assertEquals("December 25, 1999", articleList.get(0).getCreationDateAsString());
@@ -144,7 +144,7 @@ public class ArticleServiceTest {
 		Assert.assertEquals("Unique name", articleList.get(0).getUniqueName());
 		Assert.assertEquals("Title", articleList.get(0).getTitle());
 		Assert.assertEquals("Description", articleList.get(0).getDescription());
-		Assert.assertEquals("Path/path", articleList.get(0).getContentPath());
+		Assert.assertEquals("Path/path", articleList.get(0).getContent());
 		Assert.assertEquals(Integer.valueOf(4), articleList.get(0).getPagesCount());
 		Assert.assertEquals("Author", articleList.get(0).getAuthor());
 		Assert.assertEquals("December 25, 1999", articleList.get(0).getCreationDateAsString());
@@ -200,7 +200,7 @@ public class ArticleServiceTest {
 		Assert.assertEquals("Unique name 3", articleList.get(0).getUniqueName());
 		Assert.assertEquals("Title 3", articleList.get(0).getTitle());
 		Assert.assertEquals("Description", articleList.get(0).getDescription());
-		Assert.assertEquals("Path/path", articleList.get(0).getContentPath());
+		Assert.assertEquals("Path/path", articleList.get(0).getContent());
 		Assert.assertEquals(Integer.valueOf(4), articleList.get(0).getPagesCount());
 		Assert.assertEquals("Author", articleList.get(0).getAuthor());
 		Assert.assertEquals("December 25, 1999", articleList.get(0).getCreationDateAsString());
@@ -233,7 +233,7 @@ public class ArticleServiceTest {
 		Assert.assertEquals("Unique name 3", articleList.get(0).getUniqueName());
 		Assert.assertEquals("Title 3", articleList.get(0).getTitle());
 		Assert.assertEquals("Description", articleList.get(0).getDescription());
-		Assert.assertEquals("Path/path", articleList.get(0).getContentPath());
+		Assert.assertEquals("Path/path", articleList.get(0).getContent());
 		Assert.assertEquals(Integer.valueOf(4), articleList.get(0).getPagesCount());
 		Assert.assertEquals("Author", articleList.get(0).getAuthor());
 		Assert.assertEquals("December 25, 1999", articleList.get(0).getCreationDateAsString());
@@ -267,7 +267,7 @@ public class ArticleServiceTest {
 		Assert.assertEquals("Unique name", article.getUniqueName());
 		Assert.assertEquals("Title", article.getTitle());
 		Assert.assertEquals("Description", article.getDescription());
-		Assert.assertEquals("Path/path", article.getContentPath());
+		Assert.assertEquals("Path/path", article.getContent());
 		Assert.assertEquals(Integer.valueOf(4), article.getPagesCount());
 		Assert.assertEquals("Author", article.getAuthor());
 		Assert.assertEquals("December 25, 1999", article.getCreationDateAsString());
@@ -395,7 +395,7 @@ public class ArticleServiceTest {
 		Assert.assertEquals("Unique name", article.getUniqueName());
 		Assert.assertEquals("Title", article.getTitle());
 		Assert.assertEquals("Description", article.getDescription());
-		Assert.assertEquals("Path/path", article.getContentPath());
+		Assert.assertEquals("Path/path", article.getContent());
 		Assert.assertEquals(Integer.valueOf(3), article.getPagesCount());
 		Assert.assertEquals("Author", article.getAuthor());
 		Assert.assertEquals("December 25, 1999", article.getCreationDateAsString());
@@ -589,7 +589,7 @@ public class ArticleServiceTest {
 		article.setUniqueName("Unique name");
 		article.setTitle("Title");
 		article.setDescription("Description");
-		article.setContentPath("Path/path");
+		article.setContent("Path/path");
 		article.setPagesCount(3);		
 		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("19991225174553"));
 		article.setCreationDateAsString("December 25, 1999");
@@ -616,7 +616,7 @@ public class ArticleServiceTest {
 		article.setUniqueName("Unique name 2");
 		article.setTitle("Title 2");
 		article.setDescription("Description");
-		article.setContentPath("Path/path");
+		article.setContent("Path/path");
 		article.setPagesCount(3);		
 		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("19991225174553"));
 		article.setCreationDateAsString("December 25, 1999");
@@ -643,7 +643,7 @@ public class ArticleServiceTest {
 		article.setUniqueName("Unique name 3");
 		article.setTitle("Title 3");
 		article.setDescription("Description");
-		article.setContentPath("Path/path");
+		article.setContent("Path/path");
 		article.setPagesCount(3);		
 		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("19991225174553"));
 		article.setCreationDateAsString("December 25, 1999");

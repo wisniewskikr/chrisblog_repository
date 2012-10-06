@@ -15,7 +15,7 @@ public class ArticleEntity implements Serializable{
 	private String uniqueName;
 	private String title;
 	private String description;
-	private String contentPath;
+	private String content;
 	private Integer pagesCount;
 	private Calendar creationDate;
 	private String author;
@@ -113,11 +113,11 @@ public class ArticleEntity implements Serializable{
 		this.description = description;
 	}
 	
-	public String getContentPath() {
-		return contentPath;
+	public String getContent() {
+		return content;
 	}
-	public void setContentPath(String contentPath) {
-		this.contentPath = contentPath;
+	public void setContent(String content) {
+		this.content = content;
 	}
 	
 	public Integer getPagesCount() {

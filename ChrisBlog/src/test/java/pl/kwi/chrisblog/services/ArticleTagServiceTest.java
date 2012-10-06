@@ -264,7 +264,7 @@ public class ArticleTagServiceTest {
 		article.setUniqueName("Unique name");
 		article.setTitle("Title");
 		article.setDescription("Description");
-		article.setContentPath("Path/path");
+		article.setContent("Path/path");
 		article.setPagesCount(3);		
 		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("19991225174553"));
 		article.setCreationDateAsString("December 25, 1999");
@@ -280,7 +280,7 @@ public class ArticleTagServiceTest {
 		article.setUniqueName("Unique name 2");
 		article.setTitle("Title 2");
 		article.setDescription("Description 2");
-		article.setContentPath("Path/path");
+		article.setContent("Path/path");
 		article.setPagesCount(3);		
 		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("19991225174553"));
 		article.setCreationDateAsString("December 25, 1999");

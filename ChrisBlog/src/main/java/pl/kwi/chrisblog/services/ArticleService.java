@@ -334,7 +334,7 @@ public class ArticleService {
 		article.setUniqueName("hello_world_servlets");
 		article.setTitle("Hello World Servlets");
 		article.setDescription(descriptionSb.toString());
-		article.setContentPath("articles/helloWorldServletsJsp");
+		article.setContent("articles/helloWorldServletsJsp");
 		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("20120104200700"));
 		article.setAuthor("Chris");
 		article.setDemoName("HelloWorldServlets");
