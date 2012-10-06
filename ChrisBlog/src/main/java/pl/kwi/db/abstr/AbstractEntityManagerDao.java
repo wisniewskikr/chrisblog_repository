@@ -7,13 +7,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- * Abstract class for daos. It implements methods of CRUD.
+ * Abstract class for daos using entity manager. It implements methods of CRUD.
  * 
  * @author Krzysztof Wisniewski
  *
  * @param <T> object implements Serializable
  */
-public class AbstractDao < T extends Serializable >{
+public class AbstractEntityManagerDao < T extends Serializable >{
 
 	
 		@PersistenceContext
@@ -30,6 +30,7 @@ public class AbstractDao < T extends Serializable >{
 	      return entityManager.find( clazz, id );
 	   }
 	   
+	   @SuppressWarnings("unchecked")
 	   public List< T > findAll(){
 	      return entityManager.createQuery( "from " + clazz.getName() )
 	       .getResultList();
