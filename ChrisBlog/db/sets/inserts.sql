@@ -1,5 +1,5 @@
 INSERT INTO users (ID, USERNAME,PASSWORD, ENABLED)
-VALUES (1, 'admin', 'admin', TRUE);
+VALUES (1, 'chris', 'e50b3c5d55c6565bc0dcfbedae036e1b0dcb1f92', TRUE);
 
 GO
 
