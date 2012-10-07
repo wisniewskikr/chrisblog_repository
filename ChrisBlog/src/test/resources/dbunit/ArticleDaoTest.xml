@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+
+	<articles ID="1" UNIQUE_NAME="uniqueName1" TITLE="title1" DESCRIPTION="description1" CONTENT="content1" PAGES_COUNT="1" CREATION_DATE="2001-01-01 12:00:00" AUTHOR="author1" DEMO_NAME="demoName1" EXAMPLE_FILE_NAME="exampleFileName1" SOURCE_FILE_NAME="sourceFilename1"/>
+	<articles ID="2" UNIQUE_NAME="uniqueName2" TITLE="title2" DESCRIPTION="description2" CONTENT="content2" PAGES_COUNT="2" CREATION_DATE="2002-02-02 12:00:00" AUTHOR="author2" DEMO_NAME="demoName2" EXAMPLE_FILE_NAME="exampleFileName2" SOURCE_FILE_NAME="sourceFilename2"/>
+	<articles ID="3" UNIQUE_NAME="uniqueName3" TITLE="title3" DESCRIPTION="description3" CONTENT="content3" PAGES_COUNT="3" CREATION_DATE="2003-03-03 12:00:00" AUTHOR="author3" DEMO_NAME="demoName3" EXAMPLE_FILE_NAME="exampleFileName3" SOURCE_FILE_NAME="sourceFilename3"/>
+		
+</dataset>
