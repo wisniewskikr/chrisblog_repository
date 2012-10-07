@@ -1,17 +1,24 @@
 package pl.kwi.chrisblog.entities;
 
-import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.apache.commons.lang.StringUtils;
 
-public class ArticleEntity implements Serializable{	
+import pl.kwi.db.abstr.AbstractEntity;
+
+@Entity
+@Table(name="articles")
+public class ArticleEntity extends AbstractEntity{	
 	
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;
 	private String uniqueName;
 	private String title;
 	private String description;
@@ -22,6 +29,8 @@ public class ArticleEntity implements Serializable{
 	private String demoName;
 	private String exampleFileName;
 	private String sourceFileName;
+	
+	// Tmp transient
 	private List<ArticleTagEntity> articleTagList;
 	private List<ArticleTagEntity> articleTagFrontEndList;
 	private List<ArticleTagEntity> articleTagBackEndList;
@@ -40,6 +49,7 @@ public class ArticleEntity implements Serializable{
 	// ************************************************************************************************************ //
 	
 	
+	@Transient
 	public String getFrontEndAsString() {
 		
 		StringBuffer sb = new StringBuffer();
@@ -60,6 +70,7 @@ public class ArticleEntity implements Serializable{
 		
 	}
 	
+	@Transient
 	public String getBackEndAsString() {
 		
 		StringBuffer sb = new StringBuffer();
@@ -85,13 +96,7 @@ public class ArticleEntity implements Serializable{
 	// ************************************************************************************************************ //
 	
 	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}	
-	
+	@Column(name="UNIQUE_NAME", length=100, nullable=false)
 	public String getUniqueName() {
 		return uniqueName;
 	}
@@ -99,6 +104,7 @@ public class ArticleEntity implements Serializable{
 		this.uniqueName = uniqueName;
 	}	
 
+	@Column(name="TITLE", length=100, nullable=false)
 	public String getTitle() {
 		return title;
 	}
@@ -106,6 +112,7 @@ public class ArticleEntity implements Serializable{
 		this.title = title;
 	}
 	
+	@Column(name="DESCRIPTION", length=100, nullable=false)
 	public String getDescription() {
 		return description;
 	}
@@ -113,6 +120,7 @@ public class ArticleEntity implements Serializable{
 		this.description = description;
 	}
 	
+	@Column(name="CONTENT", length=100, nullable=false)
 	public String getContent() {
 		return content;
 	}
@@ -120,6 +128,7 @@ public class ArticleEntity implements Serializable{
 		this.content = content;
 	}
 	
+	@Column(name="PAGES_COUNT", nullable=false)
 	public Integer getPagesCount() {
 		return pagesCount;
 	}
@@ -127,6 +136,7 @@ public class ArticleEntity implements Serializable{
 		this.pagesCount = pagesCount;
 	}
 	
+	@Column(name="CREATION_DATE", nullable=false)
 	public Calendar getCreationDate() {
 		return creationDate;
 	}
@@ -134,6 +144,7 @@ public class ArticleEntity implements Serializable{
 		this.creationDate = creationDate;
 	}
 	
+	@Column(name="AUTHOR", length=50, nullable=false)
 	public String getAuthor() {
 		return author;
 	}
@@ -141,6 +152,7 @@ public class ArticleEntity implements Serializable{
 		this.author = author;
 	}	
 	
+	@Column(name="DEMO_NAME", length=100, nullable=true)
 	public String getDemoName() {
 		return demoName;
 	}
@@ -148,6 +160,7 @@ public class ArticleEntity implements Serializable{
 		this.demoName = demoName;
 	}
 
+	@Column(name="EXAMPLE_FILE_NAME", length=100, nullable=true)
 	public String getExampleFileName() {
 		return exampleFileName;
 	}
@@ -155,6 +168,7 @@ public class ArticleEntity implements Serializable{
 		this.exampleFileName = exampleFileName;
 	}
 
+	@Column(name="SOURCE_FILE_NAME", length=100, nullable=true)
 	public String getSourceFileName() {
 		return sourceFileName;
 	}
@@ -162,6 +176,7 @@ public class ArticleEntity implements Serializable{
 		this.sourceFileName = sourceFileName;
 	}
 
+	@Transient
 	public List<ArticleTagEntity> getArticleTagFrontEndList() {
 		return articleTagFrontEndList;
 	}
@@ -170,6 +185,7 @@ public class ArticleEntity implements Serializable{
 		this.articleTagFrontEndList = articleTagFrontEndList;
 	}
 		
+	@Transient
 	public List<ArticleTagEntity> getArticleTagBackEndList() {
 		return articleTagBackEndList;
 	}
@@ -178,6 +194,7 @@ public class ArticleEntity implements Serializable{
 		this.articleTagBackEndList = articleTagBackEndList;
 	}
 	
+	@Transient
 	public List<ArticleTagEntity> getArticleTagList() {
 		return articleTagList;
 	}
@@ -185,6 +202,7 @@ public class ArticleEntity implements Serializable{
 		this.articleTagList = articleTagList;
 	}
 	
+	@Transient
 	public String getDemoPath() {
 		return demoPath;
 	}
@@ -192,6 +210,7 @@ public class ArticleEntity implements Serializable{
 		this.demoPath = demoPath;
 	}
 	
+	@Transient
 	public String getExamplePath() {
 		return examplePath;
 	}
@@ -199,6 +218,7 @@ public class ArticleEntity implements Serializable{
 		this.examplePath = examplePath;
 	}
 	
+	@Transient
 	public String getSourcePath() {
 		return sourcePath;
 	}
@@ -206,6 +226,7 @@ public class ArticleEntity implements Serializable{
 		this.sourcePath = sourcePath;
 	}
 	
+	@Transient
 	public String getCreationDateAsString() {
 		return creationDateAsString;
 	}

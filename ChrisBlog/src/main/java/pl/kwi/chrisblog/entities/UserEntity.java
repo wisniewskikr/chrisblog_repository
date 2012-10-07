@@ -16,7 +16,7 @@ public class UserEntity extends AbstractEntity{
 	private Boolean enabled;
 
 	
-	@Column(name="username")
+	@Column(name="username", length=45, nullable=false)
 	public String getName() {
 		return name;
 	}
@@ -24,7 +24,7 @@ public class UserEntity extends AbstractEntity{
 		this.name = name;
 	}
 	
-	@Column(name="password")
+	@Column(name="password", length=45, nullable=false)
 	public String getPassword() {
 		return password;
 	}
@@ -32,7 +32,7 @@ public class UserEntity extends AbstractEntity{
 		this.password = password;
 	}
 	
-	@Column(name="enabled")
+	@Column(name="enabled", nullable=false)
 	public Boolean getEnabled() {
 		return enabled;
 	}
