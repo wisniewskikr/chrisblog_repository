@@ -1,12 +1,12 @@
 package pl.kwi.chrisblog.services;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
 import org.mcavallo.opencloud.Cloud;
-import org.mcavallo.opencloud.Tag;
 import org.springframework.stereotype.Service;
 
 import pl.kwi.chrisblog.entities.ArticleEntity;
@@ -103,6 +103,10 @@ public class ArticleTagService {
 		List<ArticleTagEntity> articleTagList = new ArrayList<ArticleTagEntity>();
 				
 		for (ArticleEntity article : articleList) {
+			
+			if(article.getArticleTagList() == null || article.getArticleTagList().isEmpty()){
+				throw new ArticleTagException(MessageFormat.format("Article with unique name: {0} has no article tag", article.getUniqueName()));
+			}			
 			articleTagList.addAll(article.getArticleTagList());
 		}
 		
