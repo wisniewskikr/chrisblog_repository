@@ -1,5 +1,7 @@
 package pl.kwi.chrisblog.daos;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import pl.kwi.chrisblog.entities.ArticleEntity;
@@ -10,6 +12,13 @@ public class ArticleDao extends AbstractHibernateTemplateDao<ArticleEntity>{
 	
 	public ArticleDao(){
 		setClazz(ArticleEntity.class);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<ArticleEntity> findAllSortedByDateDesc(){
+		
+		return hibernateTemplate.findByNamedQuery("ArticleEntity.findAllSortedByDateDesc");
+		
 	}
 
 }

@@ -6,13 +6,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import pl.kwi.chrisblog.comparators.ArticleTagUniqueNameComparator;
+import pl.kwi.chrisblog.daos.ArticleDao;
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.exceptions.ArticleException;
@@ -35,13 +34,9 @@ public class ArticleService {
 	@Autowired
 	private ArticleTagService articleTagService;
 	
-	private List<ArticleEntity> completeArticleList;
-	
+	@Autowired
+	private ArticleDao articleDao;
 
-	@PostConstruct
-	public void init(){
-		completeArticleList = initCompleteArticleList();			
-	}
 	
 	/**
 	 * Method gets list of all articles.
@@ -52,7 +47,9 @@ public class ArticleService {
 	 */
 	public List<ArticleEntity> getAllArticleList(Locale loc) throws Exception {
 		
-		return convertArticlesToDisplayableForm(completeArticleList, loc);
+		List<ArticleEntity> articleList = articleDao.findAll();
+		
+		return convertArticlesToDisplayableForm(articleList, loc);
 		
 	}
 	
@@ -84,7 +81,8 @@ public class ArticleService {
 	public List<ArticleEntity> getArticleListWithTagSortedByDateDesc(int pageNumber, ArticleTagEntity articleTag, Locale loc) throws Exception {
 		
 		//TODO KWi: handle page number 
-		List<ArticleEntity> articleList = convertArticlesToDisplayableForm(completeArticleList, loc);
+		List<ArticleEntity> articleList = articleDao.findAllSortedByDateDesc();
+		articleList = convertArticlesToDisplayableForm(articleList, loc);
 				 
 		 List<ArticleTagEntity> searchedArticleTagList = new ArrayList<ArticleTagEntity>();
 		 searchedArticleTagList.add(articleTag);
@@ -128,9 +126,10 @@ public class ArticleService {
 	 */
 	public ArticleEntity getArticleByUniqueName(String articleUniqueName, Locale loc) throws Exception {
 		
-		completeArticleList = convertArticlesToDisplayableForm(completeArticleList, loc);
+		List<ArticleEntity> articleList = articleDao.findAll();
+		articleList = convertArticlesToDisplayableForm(articleList, loc);
 		
-		ArticleEntity article = getArticleFromListByUniqueName(completeArticleList, articleUniqueName);
+		ArticleEntity article = getArticleFromListByUniqueName(articleList, articleUniqueName);
 		
 		if(article == null){
 			throw new ArticleException(MessageFormat.format("Can not find article with unique name: {0}", articleUniqueName));
@@ -252,6 +251,8 @@ public class ArticleService {
 			article.setSourcePath("/" + folderSources + "/" + article.getSourceFileName());
 			article.setPagesCount(getPagesCountOfArticle(article));
 			
+			handleList(article);
+			
 		}
 		
 		return articleList;
@@ -289,60 +290,7 @@ public class ArticleService {
 		 return resultList;
 		
 	}
-	
-	/**
-	 * Method inits complete article list.
-	 * 
-	 * @return list with all articles
-	 */
-	private List<ArticleEntity> initCompleteArticleList(){
 		
-		List<ArticleEntity> articleList = new ArrayList<ArticleEntity>();
-		
-		articleList.add(getArticleHelloWorldServlets());
-		
-		return articleList;
-		
-	}
-	
-	/**
-	 * Method gets content of article "Hello World Servlets".
-	 * 
-	 * @return object ArticleEntity with content of article "Hello World Servlets"
-	 */
-	private ArticleEntity getArticleHelloWorldServlets(){
-		
-		ArticleEntity article;
-					
-		article = new ArticleEntity();
-		article.setId(1L);
-		article.setUniqueName("hello_world_servlets");
-		article.setTitle("Hello World Servlets");
-		article.setDescription("helloWorldServletsJsp");
-		article.setContent("helloWorldServletsJsp");
-		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("20120104200700"));
-		article.setAuthor("Chris");
-		article.setDemoName("HelloWorldServlets");
-		article.setExampleFileName("HelloWorldServlets.war");
-		article.setSourceFileName("HelloWorldServlets.zip");
-		
-		
-		List<String> articleTagUniqueNameList = getArticleTagUniqueNameListForHelloWorldServlets();
-		List<ArticleTagEntity> articleTagList = articleTagService.getArticleTagListByUniqueNameList(articleTagUniqueNameList);
-		article.setArticleTagList(articleTagList);
-		
-		List<String> articleTagFrontEndIdList = getArticleTagFrontEndIdListForHelloWorldServlets();
-		List<ArticleTagEntity> articleTagFrontEndList = articleTagService.getArticleTagListByUniqueNameList(articleTagFrontEndIdList);
-		article.setArticleTagFrontEndList(articleTagFrontEndList);
-		
-		List<String> articleTagBackEndIdList = getArticleTagBackEndIdListForHelloWorldServlets();
-		List<ArticleTagEntity> articleTagBackEndList = articleTagService.getArticleTagListByUniqueNameList(articleTagBackEndIdList);
-		article.setArticleTagBackEndList(articleTagBackEndList);
-		
-		return article;
-		
-	}
-	
 	/**
 	 * Method gets list with unique names of tags for article 'Hello World Servlets'.
 	 * 
@@ -392,6 +340,26 @@ public class ArticleService {
 		
 	}
 	
+	protected void handleList(ArticleEntity article){
+		
+		if("hello_world_servlets".equals(article.getUniqueName())){
+			
+			List<String> articleTagUniqueNameList = getArticleTagUniqueNameListForHelloWorldServlets();
+			List<ArticleTagEntity> articleTagList = articleTagService.getArticleTagListByUniqueNameList(articleTagUniqueNameList);
+			article.setArticleTagList(articleTagList);
+			
+			List<String> articleTagFrontEndIdList = getArticleTagFrontEndIdListForHelloWorldServlets();
+			List<ArticleTagEntity> articleTagFrontEndList = articleTagService.getArticleTagListByUniqueNameList(articleTagFrontEndIdList);
+			article.setArticleTagFrontEndList(articleTagFrontEndList);
+			
+			List<String> articleTagBackEndIdList = getArticleTagBackEndIdListForHelloWorldServlets();
+			List<ArticleTagEntity> articleTagBackEndList = articleTagService.getArticleTagListByUniqueNameList(articleTagBackEndIdList);
+			article.setArticleTagBackEndList(articleTagBackEndList);
+			
+		}		
+		
+	}
+	
 	
 	// ************************************************************************************************************ //
 	// *********************************************** GETTERS AND SETTERS **************************************** //
@@ -410,12 +378,9 @@ public class ArticleService {
 		this.folderSources = folderSources;
 	}
 
-	public List<ArticleEntity> getCompleteArticleList() {
-		return completeArticleList;
+	public void setArticleDao(ArticleDao articleDao) {
+		this.articleDao = articleDao;
 	}
-	public void setCompleteArticleList(List<ArticleEntity> completeArticleList) {
-		this.completeArticleList = completeArticleList;
-	}	
-
+	
 	
 }

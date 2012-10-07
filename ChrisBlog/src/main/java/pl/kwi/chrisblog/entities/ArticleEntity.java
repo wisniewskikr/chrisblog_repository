@@ -5,12 +5,19 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
 
 import pl.kwi.db.abstr.AbstractEntity;
+
+@NamedQueries(value = { 
+		@NamedQuery(name="ArticleEntity.findAllSortedByDateDesc", 
+			query="SELECT a FROM ArticleEntity a ORDER BY a.creationDate DESC")	
+	})
 
 @Entity
 @Table(name="articles")

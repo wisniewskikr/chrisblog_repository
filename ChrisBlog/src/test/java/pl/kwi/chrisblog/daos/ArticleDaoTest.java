@@ -37,5 +37,17 @@ public class ArticleDaoTest {
 		assertEquals(3, list.size());
 		
 	}
+	
+	@Test
+	@DatabaseSetup("/dbunit/ArticleDaoTest.xml")
+	public void findAllSortedByDateDesc(){
+		
+		List<ArticleEntity> list = dao.findAllSortedByDateDesc();
+		assertEquals(3, list.size());
+		assertEquals(Long.valueOf(3), list.get(0).getId());
+		assertEquals(Long.valueOf(2), list.get(1).getId());
+		assertEquals(Long.valueOf(1), list.get(2).getId());
+		
+	}
 
 }

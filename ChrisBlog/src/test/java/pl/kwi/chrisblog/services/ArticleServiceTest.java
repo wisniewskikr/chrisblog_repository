@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import pl.kwi.chrisblog.daos.ArticleDao;
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.exceptions.ArticleException;
@@ -26,8 +27,8 @@ public class ArticleServiceTest {
 		service = new ArticleService();
 		service.setFolderExamples("folderExamples");
 		service.setFolderSources("folderSources");
-		service.setCompleteArticleList(mockCompleteArticleList());
 		service.setArticleTagService(mockArticleTagService());
+		service.setArticleDao(mockArticleDao(mockCompleteArticleList()));
 	}
 	
 	@Test
@@ -60,7 +61,7 @@ public class ArticleServiceTest {
 	@Test(expected = ArticleException.class)
 	public void getAllArticleList_articleListNull() throws Exception{
 		
-		service.setCompleteArticleList(null);
+		service.setArticleDao(mockArticleDao(null));
 		Locale loc = Locale.ENGLISH;
 		
 		service.getAllArticleList(loc);
@@ -107,7 +108,7 @@ public class ArticleServiceTest {
 	@Test(expected = ArticleException.class)
 	public void getArticleListSortedByDateDesc_articleListNull() throws Exception{
 		
-		service.setCompleteArticleList(null);
+		service.setArticleDao(mockArticleDao(null));
 		int pageNumber = 1;
 		Locale loc = Locale.ENGLISH;
 		
@@ -157,7 +158,7 @@ public class ArticleServiceTest {
 	@Test(expected = ArticleException.class)
 	public void getArticleListWithTagSortedByDateDesc_articleListNull() throws Exception{
 		
-		service.setCompleteArticleList(null);
+		service.setArticleDao(mockArticleDao(null));
 		int pageNumber = 1;
 		ArticleTagEntity articleTag = null;
 		Locale loc = Locale.ENGLISH;
@@ -296,7 +297,7 @@ public class ArticleServiceTest {
 	@Test(expected = ArticleException.class)
 	public void getArticleByUniqueName_articleListNull() throws Exception{
 		
-		service.setCompleteArticleList(null);
+		service.setArticleDao(mockArticleDao(null));
 		String articleUniqueName = "Unique name";
 		Locale loc = Locale.ENGLISH;
 		
@@ -553,6 +554,15 @@ public class ArticleServiceTest {
 	// *********************************************** HELP METHODS *********************************************** //
 	// ************************************************************************************************************ //
 	
+	
+	private ArticleDao mockArticleDao(List<ArticleEntity> articleList) throws Exception{
+				
+		ArticleDao mock = Mockito.mock(ArticleDao.class);
+		Mockito.when(mock.findAll()).thenReturn(articleList);
+		Mockito.when(mock.findAllSortedByDateDesc()).thenReturn(articleList);
+		return mock;
+		
+	}
 	
 	private List<ArticleEntity> mockCompleteArticleList() throws Exception{
 		

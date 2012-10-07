@@ -17,7 +17,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 public class AbstractHibernateTemplateDao < T extends Serializable >{
 
 	
-		private HibernateTemplate hibernateTemplate;
+		protected HibernateTemplate hibernateTemplate;
 		private Class< T > clazz;
 		
 	
