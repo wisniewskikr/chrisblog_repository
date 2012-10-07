@@ -313,28 +313,13 @@ public class ArticleService {
 	private ArticleEntity getArticleHelloWorldServlets(){
 		
 		ArticleEntity article;
-		
-		StringBuffer descriptionSb = new StringBuffer();
-		descriptionSb.append("In this tutorial you can learn - step by step - how to create a simple ");
-		descriptionSb.append("<a href='explanation/web_application' target='_blank' class='dialogLink'>web application</a> ");
-		descriptionSb.append("using ");
-		descriptionSb.append("<a href='explanation/java_servlets_technology' target='_blank' class='dialogLink'>Java Servlets Technology</a> ");
-		descriptionSb.append("and ");
-		descriptionSb.append("<a href='explanation/jsp' target='_blank' class='dialogLink'>JSP</a>. ");
-		descriptionSb.append("An example application will retrieve user`s name from one ");
-		descriptionSb.append("<a href='explanation/web_page' target='_blank' class='dialogLink'>web page</a> ");
-		descriptionSb.append("and display on the second page after the sentence: 'Hello World' (view demo). ");
-		descriptionSb.append("This used Java Servlet Technology is the part of ");
-		descriptionSb.append("<a href='explanation/j2ee' target='_blank' class='dialogLink'>J2EE</a> ");
-		descriptionSb.append("and it`s a base for creating web applications in ");
-		descriptionSb.append("<a href='explanation/java_language' target='_blank' class='dialogLink'>Java language</a>. ");
 					
 		article = new ArticleEntity();
 		article.setId(1L);
 		article.setUniqueName("hello_world_servlets");
 		article.setTitle("Hello World Servlets");
-		article.setDescription(descriptionSb.toString());
-		article.setContent("articles/helloWorldServletsJsp");
+		article.setDescription("helloWorldServletsJsp");
+		article.setContent("helloWorldServletsJsp");
 		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("20120104200700"));
 		article.setAuthor("Chris");
 		article.setDemoName("HelloWorldServlets");

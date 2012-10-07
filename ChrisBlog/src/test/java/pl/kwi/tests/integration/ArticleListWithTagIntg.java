@@ -6,13 +6,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
 
 public class ArticleListWithTagIntg {
 	
@@ -37,7 +34,7 @@ public class ArticleListWithTagIntg {
 	public void testArticleListWithTag(){
 		
 		driver = new HtmlUnitDriver();
-		wait = new WebDriverWait(driver, 120);
+		wait = new WebDriverWait(driver, 20);
 
         driver.get(pathHost + pathContext);
         

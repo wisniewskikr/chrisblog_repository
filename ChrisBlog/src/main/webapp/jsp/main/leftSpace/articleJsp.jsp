@@ -17,6 +17,6 @@
 		<a class="addthis_counter addthis_pill_style"></a>
 	</div>	
 
-	<jsp:include page="${command.article.content}_${command.pageCurrent}.jsp"/>
+	<jsp:include page="articles_content/${command.article.content}_${command.pageCurrent}.jsp"/>
 	
 </div>
