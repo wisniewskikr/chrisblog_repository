@@ -233,8 +233,6 @@ public class ArticleService {
 			article.setExamplePath("/" + folderExamples + "/" + article.getExampleFileName());
 			article.setSourcePath("/" + folderSources + "/" + article.getSourceFileName());
 			
-			handleList(article);
-			
 		}
 		
 		return articleList;
@@ -270,38 +268,6 @@ public class ArticleService {
 		}
 		 
 		 return resultList;
-		
-	}
-		
-	/**
-	 * Method gets list with unique names of tags for article 'Hello World Servlets'.
-	 * 
-	 * @return list of objects String with unique names of tags for article 'Hello World Servlets'
-	 */
-	private List<String> getArticleTagUniqueNameListForHelloWorldServlets(){
-		
-		List<String> articleTagUniqueNamesList = new ArrayList<String>();
-		
-		articleTagUniqueNamesList.add("java");
-		articleTagUniqueNamesList.add("servlets");
-		articleTagUniqueNamesList.add("jsp");
-		articleTagUniqueNamesList.add("css");
-		articleTagUniqueNamesList.add("maven");
-		articleTagUniqueNamesList.add("tomcat");
-		
-		return articleTagUniqueNamesList;
-		
-	}
-	
-	protected void handleList(ArticleEntity article){
-		
-		if("hello_world_servlets".equals(article.getUniqueName())){
-			
-			List<String> articleTagUniqueNameList = getArticleTagUniqueNameListForHelloWorldServlets();
-			List<ArticleTagEntity> articleTagList = articleTagService.getArticleTagListByUniqueNameList(articleTagUniqueNameList);
-			article.setArticleTagList(articleTagList);
-			
-		}		
 		
 	}
 	
