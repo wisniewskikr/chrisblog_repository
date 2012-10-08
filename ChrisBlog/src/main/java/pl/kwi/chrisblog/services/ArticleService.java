@@ -311,35 +311,6 @@ public class ArticleService {
 		
 	}
 	
-	/**
-	 * Method gets list with unique names of front-end tags for article 'Hello World Servlets'.
-	 * 
-	 * @return list of objects String with unique names of tags for article 'Hello World Servlets'
-	 */
-	private List<String> getArticleTagFrontEndIdListForHelloWorldServlets(){
-		
-		List<String> articleTagUniqueNamesList = new ArrayList<String>();
-		
-		articleTagUniqueNamesList.add("servlets");
-		articleTagUniqueNamesList.add("jsp");
-		
-		return articleTagUniqueNamesList;
-		
-	}
-	
-	/**
-	 * Method gets list with unique names of back-end tags for article 'Hello World Servlets'.
-	 * 
-	 * @return list of objects String with unique names of tags for article 'Hello World Servlets'
-	 */
-	private List<String> getArticleTagBackEndIdListForHelloWorldServlets(){
-		
-		List<String> articleTagUniqueNamesList = new ArrayList<String>();
-				
-		return articleTagUniqueNamesList;
-		
-	}
-	
 	protected void handleList(ArticleEntity article){
 		
 		if("hello_world_servlets".equals(article.getUniqueName())){

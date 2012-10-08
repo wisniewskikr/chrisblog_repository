@@ -1,28 +1,32 @@
 package pl.kwi.chrisblog.entities;
 
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import pl.kwi.db.abstr.AbstractEntity;
 
 /**
  * Entity of tag (IT topic).
  * 
  * @author Krzysztof Wisniewski
  */
-public class ArticleTagEntity implements Serializable{
+@Entity
+@Table(name="article_tags")
+public class ArticleTagEntity extends AbstractEntity{
 
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;
 	private String uniqueName;
 	private String name;
+	
+	// Transient
 	private Integer occurencesCount;
 		
 	
 	public ArticleTagEntity() {
-	}
-	
-	public ArticleTagEntity(Long id) {
-		this.id = id;
 	}
 	
 	public ArticleTagEntity(String uniqueName) {
@@ -35,13 +39,7 @@ public class ArticleTagEntity implements Serializable{
 	// ************************************************************************************************************ //
 	
 	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}	
-	
+	@Column(name="UNIQUE_NAME", length=100, nullable=false)
 	public String getUniqueName() {
 		return uniqueName;
 	}
@@ -49,6 +47,7 @@ public class ArticleTagEntity implements Serializable{
 		this.uniqueName = uniqueName;
 	}
 
+	@Column(name="NAME", length=100, nullable=false)
 	public String getName() {
 		return name;
 	}
@@ -56,6 +55,7 @@ public class ArticleTagEntity implements Serializable{
 		this.name = name;
 	}
 
+	@Transient
 	public Integer getOccurencesCount() {
 		return occurencesCount;
 	}

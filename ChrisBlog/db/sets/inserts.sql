@@ -12,3 +12,43 @@ INSERT INTO articles (ID, UNIQUE_NAME, TITLE, DESCRIPTION, CONTENT, PAGES_COUNT,
 VALUES (1, 'hello_world_servlets', 'Hello World Servlets', 'helloWorldServletsJsp', 'helloWorldServletsJsp', 4, '2012-01-04 12:00:00', 'Chris', 'HelloWorldServlets', 'HelloWorldServlets.war', 'HelloWorldServlets.zip');
 
 GO
+
+INSERT INTO article_tags (ID, UNIQUE_NAME, NAME)
+VALUES (1, 'java', 'Java');
+
+GO
+
+INSERT INTO article_tags (ID, UNIQUE_NAME, NAME)
+VALUES (2, 'servlets', 'Servlets');
+
+GO
+
+INSERT INTO article_tags (ID, UNIQUE_NAME, NAME)
+VALUES (3, 'html', 'Html');
+
+GO
+
+INSERT INTO article_tags (ID, UNIQUE_NAME, NAME)
+VALUES (4, 'jsp', 'Jsp');
+
+GO
+
+INSERT INTO article_tags (ID, UNIQUE_NAME, NAME)
+VALUES (5, 'css', 'Css');
+
+GO
+
+INSERT INTO article_tags (ID, UNIQUE_NAME, NAME)
+VALUES (6, 'java_script', 'Java Script');
+
+GO
+
+INSERT INTO article_tags (ID, UNIQUE_NAME, NAME)
+VALUES (7, 'maven', 'Maven');
+
+GO
+
+INSERT INTO article_tags (ID, UNIQUE_NAME, NAME)
+VALUES (8, 'tomcat', 'Tomcat');
+
+GO
