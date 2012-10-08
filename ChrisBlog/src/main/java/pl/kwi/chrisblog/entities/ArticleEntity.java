@@ -10,8 +10,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.apache.commons.lang.StringUtils;
-
 import pl.kwi.db.abstr.AbstractEntity;
 
 @NamedQueries(value = { 
@@ -39,63 +37,12 @@ public class ArticleEntity extends AbstractEntity{
 	
 	// Tmp transient
 	private List<ArticleTagEntity> articleTagList;
-	private List<ArticleTagEntity> articleTagFrontEndList;
-	private List<ArticleTagEntity> articleTagBackEndList;
-	
+		
 	// Transient
 	private String demoPath;
 	private String examplePath;
 	private String sourcePath;
 	private String creationDateAsString;
-	private String frontEndAsString;
-	private String backEndAsString;
-	
-	
-	// ************************************************************************************************************ //
-	// *********************************************** HELP METHODS *********************************************** //
-	// ************************************************************************************************************ //
-	
-	
-	@Transient
-	public String getFrontEndAsString() {
-		
-		StringBuffer sb = new StringBuffer();
-		for (ArticleTagEntity articleTag : articleTagFrontEndList) {
-			sb.append(articleTag.getName());
-			sb.append(", ");
-		}
-		
-		frontEndAsString = sb.toString();
-		
-		if(StringUtils.isBlank(frontEndAsString)){
-			frontEndAsString = "none";
-		}else{
-			frontEndAsString = frontEndAsString.substring(0, frontEndAsString.length() - 2);			
-		}		
-		
-		return frontEndAsString;
-		
-	}
-	
-	@Transient
-	public String getBackEndAsString() {
-		
-		StringBuffer sb = new StringBuffer();
-		for (ArticleTagEntity articleTag : articleTagBackEndList) {
-			sb.append(articleTag.getName());
-			sb.append(", ");
-		}
-		
-		backEndAsString = sb.toString();
-		
-		if(StringUtils.isBlank(backEndAsString)){
-			backEndAsString = "none";
-		}else{
-			backEndAsString = backEndAsString.substring(0, backEndAsString.length() - 2);			
-		}		
-		
-		return backEndAsString;
-	}
 	
 	
 	// ************************************************************************************************************ //
@@ -181,24 +128,6 @@ public class ArticleEntity extends AbstractEntity{
 	}
 	public void setSourceFileName(String sourceFileName) {
 		this.sourceFileName = sourceFileName;
-	}
-
-	@Transient
-	public List<ArticleTagEntity> getArticleTagFrontEndList() {
-		return articleTagFrontEndList;
-	}
-	public void setArticleTagFrontEndList(
-			List<ArticleTagEntity> articleTagFrontEndList) {
-		this.articleTagFrontEndList = articleTagFrontEndList;
-	}
-		
-	@Transient
-	public List<ArticleTagEntity> getArticleTagBackEndList() {
-		return articleTagBackEndList;
-	}
-	public void setArticleTagBackEndList(
-			List<ArticleTagEntity> articleTagBackEndList) {
-		this.articleTagBackEndList = articleTagBackEndList;
 	}
 	
 	@Transient

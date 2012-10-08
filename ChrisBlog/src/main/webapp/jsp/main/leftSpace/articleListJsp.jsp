@@ -37,13 +37,7 @@
 							<p>
 								<jsp:include page="articles_description/${article.description}.jsp"/>
 							</p>
-							
-							<p>
-								<span class="frontAndBackEnd"><b>Front-End</b></span>: ${article.frontEndAsString}
-								<br/>
-								<span class="frontAndBackEnd"><b>Back-End</b></span>: ${article.backEndAsString}
-							</p>
-							
+								
 							<p>
 								<a id="${article.uniqueName}_readMore" class="button" href="article/page/1/${article.uniqueName}">Read more</a>
 							</p>

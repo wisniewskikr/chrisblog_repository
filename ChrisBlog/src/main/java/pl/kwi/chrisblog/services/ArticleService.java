@@ -348,14 +348,6 @@ public class ArticleService {
 			List<ArticleTagEntity> articleTagList = articleTagService.getArticleTagListByUniqueNameList(articleTagUniqueNameList);
 			article.setArticleTagList(articleTagList);
 			
-			List<String> articleTagFrontEndIdList = getArticleTagFrontEndIdListForHelloWorldServlets();
-			List<ArticleTagEntity> articleTagFrontEndList = articleTagService.getArticleTagListByUniqueNameList(articleTagFrontEndIdList);
-			article.setArticleTagFrontEndList(articleTagFrontEndList);
-			
-			List<String> articleTagBackEndIdList = getArticleTagBackEndIdListForHelloWorldServlets();
-			List<ArticleTagEntity> articleTagBackEndList = articleTagService.getArticleTagListByUniqueNameList(articleTagBackEndIdList);
-			article.setArticleTagBackEndList(articleTagBackEndList);
-			
 		}		
 		
 	}
