@@ -1,10 +1,16 @@
 package pl.kwi.chrisblog.entities;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -34,9 +40,7 @@ public class ArticleEntity extends AbstractEntity{
 	private String demoName;
 	private String exampleFileName;
 	private String sourceFileName;
-	
-	// Tmp transient
-	private List<ArticleTagEntity> articleTagList;
+	private List<ArticleTagEntity> articleTagList = new ArrayList<ArticleTagEntity>();
 		
 	// Transient
 	private String demoPath;
@@ -130,7 +134,12 @@ public class ArticleEntity extends AbstractEntity{
 		this.sourceFileName = sourceFileName;
 	}
 	
-	@Transient
+	@ManyToMany(cascade=(CascadeType.ALL), fetch=FetchType.EAGER)
+	@JoinTable(
+			name="join_article_and_tag",
+			joinColumns={@JoinColumn(name="ARTICLE_ID", referencedColumnName="ID")},
+			inverseJoinColumns={@JoinColumn(name="ARTICLE_TAG_ID", referencedColumnName="ID")}
+			)
 	public List<ArticleTagEntity> getArticleTagList() {
 		return articleTagList;
 	}

@@ -48,6 +48,8 @@ public class ArticleDaoTest {
 		assertEquals(Long.valueOf(2), list.get(1).getId());
 		assertEquals(Long.valueOf(1), list.get(2).getId());
 		
+		assertEquals(2, list.get(0).getArticleTagList().size());
+		
 	}
 
 }

@@ -1,7 +1,11 @@
 package pl.kwi.chrisblog.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -21,6 +25,7 @@ public class ArticleTagEntity extends AbstractEntity{
 	
 	private String uniqueName;
 	private String name;
+	private List<ArticleEntity> articleList;
 	
 	// Transient
 	private Integer occurencesCount;
@@ -53,6 +58,14 @@ public class ArticleTagEntity extends AbstractEntity{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@ManyToMany(mappedBy="articleTagList", fetch=FetchType.EAGER)
+	public List<ArticleEntity> getArticleList() {
+		return articleList;
+	}
+	public void setArticleList(List<ArticleEntity> articleList) {
+		this.articleList = articleList;
 	}
 
 	@Transient
