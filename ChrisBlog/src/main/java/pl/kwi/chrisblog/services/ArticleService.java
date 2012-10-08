@@ -153,22 +153,6 @@ public class ArticleService {
 	}
 	
 	/**
-	 * Method gets count of article`s pages.
-	 * 
-	 * @param article object ArticleEntity for which pages are counted
-	 * @return int with count of article`s pages
-	 * @throws Exception
-	 */
-	public Integer getPagesCountOfArticle(ArticleEntity article) throws Exception {
-		
-		if(article == null){
-			throw new ArticleException("Can not count pages for article which is null.");
-		}
-		return article.getPagesCount();
-		
-	}
-	
-	/**
 	 * Method gets count of pages of articles containing specified tag.
 	 * 
 	 * @param articleTag object ArticleTagEntity with specified tag of articles which are counted
@@ -248,7 +232,6 @@ public class ArticleService {
 			article.setDemoPath("/" + article.getDemoName());
 			article.setExamplePath("/" + folderExamples + "/" + article.getExampleFileName());
 			article.setSourcePath("/" + folderSources + "/" + article.getSourceFileName());
-			article.setPagesCount(getPagesCountOfArticle(article));
 			
 			handleList(article);
 			

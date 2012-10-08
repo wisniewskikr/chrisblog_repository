@@ -345,27 +345,6 @@ public class ArticleServiceTest {
 	}
 	
 	@Test
-	public void getPagesCountOfArticle() throws Exception{
-		
-		ArticleEntity article = new ArticleEntity();
-		article.setPagesCount(4);
-		
-		int result = service.getPagesCountOfArticle(article);
-		
-		Assert.assertEquals(4, result);
-		
-	}
-	
-	@Test(expected = ArticleException.class)
-	public void getPagesCountOfArticle_articleNull() throws Exception{
-		
-		ArticleEntity article = null;
-		
-		service.getPagesCountOfArticle(article);
-		
-	}
-	
-	@Test
 	public void getPagesCountArticlesWithTag() throws Exception{
 		
 		ArticleTagEntity articleTag = new ArticleTagEntity();
