@@ -1,5 +1,6 @@
 package pl.kwi.chrisblog.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -25,7 +26,7 @@ public class ArticleTagEntity extends AbstractEntity{
 	
 	private String uniqueName;
 	private String name;
-	private List<ArticleEntity> articleList;
+	private List<ArticleEntity> articleList = new ArrayList<ArticleEntity>();
 	
 	// Transient
 	private Integer occurencesCount;
@@ -70,6 +71,7 @@ public class ArticleTagEntity extends AbstractEntity{
 
 	@Transient
 	public Integer getOccurencesCount() {
+		occurencesCount = articleList.size();
 		return occurencesCount;
 	}
 	public void setOccurencesCount(Integer occurencesCount) {
