@@ -45,6 +45,357 @@
 		</plugins>
 		
 	</build>
+	
+	
+	<profiles>
+		
+		<!-- Local: local developer environment -->
+		<profile>
+			<id>loc</id>
+			<activation>
+	            <activeByDefault>true</activeByDefault>
+	        </activation>			
+			<properties>			
+				<!-- Paths of host and context -->
+				<path.host>http://localhost:8080</path.host>
+				<path.context>/ChrisBlog/</path.context>
+				
+				<!-- Locations of sources and examples folders -->
+				<folder.examples>chrisblog_examples</folder.examples>
+				<folder.sources>chrisblog_sources</folder.sources>
+				
+				<!-- Server data -->
+				<server.url>http://localhost:8080/manager/html</server.url>
+				<server.username>admin</server.username>
+				<server.password>admin</server.password>
+				<server.path>/${project.artifactId}</server.path>
+				
+				<!-- Data base -->
+				<db.url>jdbc:mysql://localhost:3306/chrisblog_db</db.url>
+				<db.driver>com.mysql.jdbc.Driver</db.driver>
+				<db.username>root</db.username>
+				<db.password>P@ssw0rd</db.password>
+				
+				<!-- Test data base -->
+				<test.db.url>jdbc:mysql://localhost:3306/chrisblog_db_test</test.db.url>
+				<test.db.driver>com.mysql.jdbc.Driver</test.db.driver>
+				<test.db.username>root</test.db.username>
+				<test.db.password>P@ssw0rd</test.db.password>
+			</properties>				
+		</profile>
+		
+				
+		<!-- Remote: jenkins and/or integration tests environment -->
+		<profile>
+			<id>rem</id>			
+			<properties>			
+				<!-- Paths of host and context -->
+				<path.host>http://chris-blog.org</path.host>
+				<path.context>/ChrisBlog/</path.context>
+				
+				<!-- Locations of sources and examples folders -->
+				<folder.examples>chrisblog_examples</folder.examples>
+				<folder.sources>chrisblog_sources</folder.sources>
+				
+				<!-- Server data -->
+				<server.url>http://chris-blog.org/manager/html</server.url>
+				<server.username>chrisb</server.username>
+				<server.password>4BikDMn3</server.password>
+				<server.path>/${project.artifactId}</server.path>
+				
+				<!-- Sonar data -->
+				<sonar.host.url>http://chris-blog.org/sonar/</sonar.host.url>
+				
+				<!-- Data base -->
+				<db.url>jdbc:mysql://localhost:3306/chrisb_blog_jenkins</db.url>
+				<db.driver>com.mysql.jdbc.Driver</db.driver>
+				<db.username>chrisb_admin</db.username>
+				<db.password>P@ssw0rd</db.password>
+				
+				<!-- Test data base -->
+				<test.db.url>jdbc:mysql://localhost:3306/chrisb_blog_jenkins_test</test.db.url>
+				<test.db.driver>com.mysql.jdbc.Driver</test.db.driver>
+				<test.db.username>chrisb_admin</test.db.username>
+				<test.db.password>P@ssw0rd</test.db.password>
+			</properties>		
+		</profile>
+		
+		
+		<!-- Production: production environment -->
+		<profile>
+			<id>prod</id>
+			<properties>
+				<!-- Paths of host and context -->
+				<path.host>http://chris-blog.org</path.host>
+				<path.context>/</path.context>
+				
+				<!-- Locations of sources and examples folders -->
+				<folder.examples>chrisblog_examples</folder.examples>
+				<folder.sources>chrisblog_sources</folder.sources>
+				
+				<!-- Server data -->
+				<server.url>http://chris-blog.org/manager/html</server.url>
+				<server.username>chrisb</server.username>
+				<server.password>4BikDMn3</server.password>
+				<server.path>/</server.path>
+			</properties>			
+		</profile>
+		
+		
+		<!-- Unit: profile which runs unit tests -->
+		<profile>
+			<id>unit</id>
+			<activation>
+	            <activeByDefault>true</activeByDefault>
+	        </activation>			
+			<build>
+				<plugins>
+					<!-- Fill db with data -->
+			        <plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>sql-maven-plugin</artifactId>
+						<version>1.5</version>
+						<configuration>
+							<delimiter>GO</delimiter>							
+							<skip>false</skip>
+							<autocommit>true</autocommit>
+							<orderFile>ascending</orderFile>
+						</configuration>
+						<executions>						
+							<execution>
+								<id>setup-db-unit</id>
+								<phase>test</phase>
+								<goals>
+									<goal>execute</goal>
+								</goals>
+								<configuration>
+									<driver>${test.db.driver}</driver>
+									<url>${test.db.url}</url>
+									<username>${test.db.username}</username>
+									<password>${test.db.password}</password>
+									<fileset>
+										<basedir>${basedir}/db/</basedir>
+										<includes>
+											<!-- Important is alphabetical order of files - "sets" with 
+											insert data after "releases" with data tables structure  -->
+											<include>releases/**/*.sql</include>
+										</includes>
+									</fileset>																
+								</configuration>
+							</execution>
+						</executions>
+						<dependencies>
+							<dependency>
+							   <groupId>mysql</groupId>
+							   <artifactId>mysql-connector-java</artifactId>
+							   <version>5.1.18</version>
+							</dependency>
+						</dependencies>							
+					</plugin>
+					<!-- Unit tests -->
+					<plugin>
+			            <groupId>org.apache.maven.plugins</groupId>
+			            <artifactId>maven-surefire-plugin</artifactId>
+			            <configuration>			            	
+			                <skip>true</skip>			                
+			            </configuration>
+			            <executions>
+					       <execution>
+					          <id>unit-tests</id>
+					          <phase>test</phase>
+					          <goals>
+					             <goal>test</goal>
+					          </goals>
+					          <configuration>			            	
+			                	<skip>false</skip>
+			                	<systemPropertyVariables>
+						            <db.url>${test.db.url}</db.url>
+						            <db.driver>${test.db.driver}</db.driver>
+						            <db.username>${test.db.username}</db.username>
+						            <db.password>${test.db.password}</db.password>
+						          </systemPropertyVariables>
+			                	<includes>
+            						<include>**/*Test.java</include>
+            					</includes>
+			                	<excludes>
+                					<exclude>**/*Intg.java</exclude>
+            					</excludes>			                
+			            	  </configuration>
+					        </execution>					        
+					     </executions>			              
+			        </plugin>			        
+				</plugins>
+			</build>			
+		</profile>
+		
+		
+		<!-- Deploy: deploying application on the server -->
+		<profile>
+			<id>deploy</id>			
+			<build>
+				<plugins>
+					<!-- Skip unit tests -->
+					<plugin>
+			            <groupId>org.apache.maven.plugins</groupId>
+			            <artifactId>maven-surefire-plugin</artifactId>
+			            <configuration>			            	
+			                <skip>true</skip>
+			            </configuration>
+			        </plugin>			       
+			        <!-- Deploy application -->
+					<plugin>
+				        <groupId>org.apache.tomcat.maven</groupId>
+		          		<artifactId>tomcat7-maven-plugin</artifactId>
+		          		<version>2.0</version>
+				        <executions>
+				        	<execution>
+				        		<phase>pre-integration-test</phase>
+				        		<goals>
+				        			<goal>deploy</goal>
+				        		</goals>
+				        	</execution>
+				        </executions>
+				        <configuration>
+				        	<url>${server.url}</url>
+				        	<username>${server.username}</username>
+		          			<password>${server.password}</password>
+		          			<path>${server.path}</path>
+                            <update>true</update>
+				        </configuration>
+				      </plugin>
+			           <!-- Fill db with data -->
+				        <plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>sql-maven-plugin</artifactId>
+							<version>1.5</version>
+							<configuration>
+								<delimiter>GO</delimiter>							
+								<skip>false</skip>
+								<autocommit>true</autocommit>
+								<orderFile>ascending</orderFile>
+							</configuration>
+							<executions>						
+								<execution>
+									<id>setup-db-deploy</id>
+									<phase>post-integration-test</phase>
+									<goals>
+										<goal>execute</goal>
+									</goals>
+									<configuration>
+										<driver>${db.driver}</driver>
+										<url>${db.url}</url>
+										<username>${db.username}</username>
+										<password>${db.password}</password>
+										<fileset>
+											<basedir>${basedir}/db/</basedir>
+											<includes>
+												<include>releases/**/*.sql</include>
+												<include>sets/**/*.sql</include>
+											</includes>
+										</fileset>																
+									</configuration>
+								</execution>
+							</executions>
+							<dependencies>
+								<dependency>
+								   <groupId>mysql</groupId>
+								   <artifactId>mysql-connector-java</artifactId>
+								   <version>5.1.18</version>
+								</dependency>
+							</dependencies>							
+						</plugin>
+				</plugins>
+			</build>			
+		</profile>
+		
+		
+		<!-- Integration: profile which runs integration tests -->
+		<profile>
+			<id>intg</id>			
+			<build>
+				<plugins>
+					<!-- Fill db with data -->
+				        <plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>sql-maven-plugin</artifactId>
+							<version>1.5</version>
+							<configuration>
+								<delimiter>GO</delimiter>							
+								<skip>false</skip>
+								<autocommit>true</autocommit>
+								<orderFile>ascending</orderFile>
+							</configuration>
+							<executions>						
+								<execution>
+									<id>setup-db-intg</id>
+									<phase>pre-integration-test</phase>
+									<goals>
+										<goal>execute</goal>
+									</goals>
+									<configuration>
+										<driver>${db.driver}</driver>
+										<url>${db.url}</url>
+										<username>${db.username}</username>
+										<password>${db.password}</password>
+										<fileset>
+											<basedir>${basedir}/db/</basedir>
+											<includes>
+												<!-- Important is alphabetical order of files - "sets" with 
+												insert data after "releases" with data tables structure  -->
+												<include>releases/**/*.sql</include>
+												<include>sets/**/*.sql</include>
+											</includes>
+										</fileset>																
+									</configuration>
+								</execution>
+							</executions>
+							<dependencies>
+								<dependency>
+								   <groupId>mysql</groupId>
+								   <artifactId>mysql-connector-java</artifactId>
+								   <version>5.1.18</version>
+								</dependency>
+							</dependencies>							
+						</plugin>
+						<!-- Integration tests -->
+					<plugin>
+			            <groupId>org.apache.maven.plugins</groupId>
+			            <artifactId>maven-surefire-plugin</artifactId>
+			            <configuration>			            	
+			                <skip>true</skip>			                 			                
+			            </configuration>
+			            <executions>
+					        <execution>
+					          <id>integration-tests</id>
+					          <phase>integration-test</phase>
+					          <goals>
+					             <goal>test</goal>
+					          </goals>
+					          <configuration>			            	
+			                	<skip>false</skip>
+			                	<systemPropertyVariables>
+						            <path.host>${path.host}</path.host>
+						            <path.context>${path.context}</path.context>
+						            <db.url>${db.url}</db.url>
+						            <db.driver>${db.driver}</db.driver>
+						            <db.username>${db.username}</db.username>
+						            <db.password>${db.password}</db.password>
+						          </systemPropertyVariables>			                	
+            					<includes>
+            						<include>**/*Intg.java</include>
+            					</includes>
+            					<excludes>
+                					<exclude>**/*Test.java</exclude>
+            					</excludes>			                
+			            	  </configuration>
+					        </execution>
+					     </executions>			              
+			        </plugin>			        
+				</plugins>
+			</build>			
+		</profile>				
+				
+	</profiles>
 
 
 	<dependencies>	
@@ -303,354 +654,7 @@
 						
 	</dependencies>
 		
-	
-	<profiles>
-		
-		<!-- Local: local developer environment -->
-		<profile>
-			<id>loc</id>
-			<activation>
-	            <activeByDefault>true</activeByDefault>
-	        </activation>			
-			<properties>			
-				<!-- Paths of host and context -->
-				<path.host>http://localhost:8080</path.host>
-				<path.context>/ChrisBlog/</path.context>
-				
-				<!-- Locations of sources and examples folders -->
-				<folder.examples>chrisblog_examples</folder.examples>
-				<folder.sources>chrisblog_sources</folder.sources>
-				
-				<!-- Server data -->
-				<server.url>http://localhost:8080/manager/html</server.url>
-				<server.username>admin</server.username>
-				<server.password>admin</server.password>
-				<server.path>/${project.artifactId}</server.path>
-				
-				<!-- Data base -->
-				<db.url>jdbc:mysql://localhost:3306/chrisblog_db</db.url>
-				<db.driver>com.mysql.jdbc.Driver</db.driver>
-				<db.username>root</db.username>
-				<db.password>P@ssw0rd</db.password>
-				
-				<!-- Test data base -->
-				<test.db.url>jdbc:mysql://localhost:3306/chrisblog_db_test</test.db.url>
-				<test.db.driver>com.mysql.jdbc.Driver</test.db.driver>
-				<test.db.username>root</test.db.username>
-				<test.db.password>P@ssw0rd</test.db.password>
-			</properties>				
-		</profile>
-				
-		<!-- Remote: jenkins and/or integration tests environment -->
-		<profile>
-			<id>rem</id>			
-			<properties>			
-				<!-- Paths of host and context -->
-				<path.host>http://chris-blog.org</path.host>
-				<path.context>/ChrisBlog/</path.context>
-				
-				<!-- Locations of sources and examples folders -->
-				<folder.examples>chrisblog_examples</folder.examples>
-				<folder.sources>chrisblog_sources</folder.sources>
-				
-				<!-- Server data -->
-				<server.url>http://chris-blog.org/manager/html</server.url>
-				<server.username>chrisb</server.username>
-				<server.password>4BikDMn3</server.password>
-				<server.path>/${project.artifactId}</server.path>
-				
-				<!-- Sonar data -->
-				<sonar.host.url>http://chris-blog.org/sonar/</sonar.host.url>
-				
-				<!-- Data base -->
-				<db.url>jdbc:mysql://localhost:3306/chrisb_blog_jenkins</db.url>
-				<db.driver>com.mysql.jdbc.Driver</db.driver>
-				<db.username>chrisb_admin</db.username>
-				<db.password>P@ssw0rd</db.password>
-				
-				<!-- Test data base -->
-				<test.db.url>jdbc:mysql://localhost:3306/chrisb_blog_jenkins_test</test.db.url>
-				<test.db.driver>com.mysql.jdbc.Driver</test.db.driver>
-				<test.db.username>chrisb_admin</test.db.username>
-				<test.db.password>P@ssw0rd</test.db.password>
-			</properties>		
-		</profile>
-		
-		<!-- Production: production environment -->
-		<profile>
-			<id>prod</id>
-			<properties>
-				<!-- Paths of host and context -->
-				<path.host>http://chris-blog.org</path.host>
-				<path.context>/</path.context>
-				
-				<!-- Locations of sources and examples folders -->
-				<folder.examples>chrisblog_examples</folder.examples>
-				<folder.sources>chrisblog_sources</folder.sources>
-				
-				<!-- Server data -->
-				<server.url>http://chris-blog.org/manager/html</server.url>
-				<server.username>chrisb</server.username>
-				<server.password>4BikDMn3</server.password>
-				<server.path>/</server.path>
-			</properties>			
-		</profile>
-		
-		<!-- Deploy: deploying application on the server 
-			 Directly connected with profiles loc/rem/prod -->
-		<profile>
-			<id>deploy</id>			
-			<build>
-				<plugins>
-					<!-- Skip unit tests -->
-					<plugin>
-			            <groupId>org.apache.maven.plugins</groupId>
-			            <artifactId>maven-surefire-plugin</artifactId>
-			            <configuration>			            	
-			                <skip>true</skip>
-			            </configuration>
-			        </plugin>			       
-			        <!-- Deploy application -->
-					<plugin>
-				        <groupId>org.apache.tomcat.maven</groupId>
-		          		<artifactId>tomcat7-maven-plugin</artifactId>
-		          		<version>2.0</version>
-				        <executions>
-				        	<execution>
-				        		<phase>pre-integration-test</phase>
-				        		<goals>
-				        			<goal>deploy</goal>
-				        		</goals>
-				        	</execution>
-				        </executions>
-				        <configuration>
-				        	<url>${server.url}</url>
-				        	<username>${server.username}</username>
-		          			<password>${server.password}</password>
-		          			<path>${server.path}</path>
-                            <update>true</update>
-				        </configuration>
-				      </plugin>
-			           <!-- Fill db with data -->
-				        <plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>sql-maven-plugin</artifactId>
-							<version>1.5</version>
-							<configuration>
-								<delimiter>GO</delimiter>							
-								<skip>false</skip>
-								<autocommit>true</autocommit>
-								<orderFile>ascending</orderFile>
-							</configuration>
-							<executions>						
-								<execution>
-									<id>setup-db-deploy</id>
-									<phase>post-integration-test</phase>
-									<goals>
-										<goal>execute</goal>
-									</goals>
-									<configuration>
-										<driver>${db.driver}</driver>
-										<url>${db.url}</url>
-										<username>${db.username}</username>
-										<password>${db.password}</password>
-										<fileset>
-											<basedir>${basedir}/db/</basedir>
-											<includes>
-												<include>releases/**/*.sql</include>
-												<include>sets/**/*.sql</include>
-											</includes>
-										</fileset>																
-									</configuration>
-								</execution>
-							</executions>
-							<dependencies>
-								<dependency>
-								   <groupId>mysql</groupId>
-								   <artifactId>mysql-connector-java</artifactId>
-								   <version>5.1.18</version>
-								</dependency>
-							</dependencies>							
-						</plugin>
-				</plugins>
-			</build>			
-		</profile>
-		
-		<!-- Unit: profile which runs unit tests -->
-		<profile>
-			<id>unit</id>
-			<activation>
-	            <activeByDefault>true</activeByDefault>
-	        </activation>			
-			<build>
-				<plugins>
-					<!-- Fill db with data -->
-			        <plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>sql-maven-plugin</artifactId>
-						<version>1.5</version>
-						<configuration>
-							<delimiter>GO</delimiter>							
-							<skip>false</skip>
-							<autocommit>true</autocommit>
-							<orderFile>ascending</orderFile>
-						</configuration>
-						<executions>						
-							<execution>
-								<id>setup-db-unit</id>
-								<phase>test</phase>
-								<goals>
-									<goal>execute</goal>
-								</goals>
-								<configuration>
-									<driver>${test.db.driver}</driver>
-									<url>${test.db.url}</url>
-									<username>${test.db.username}</username>
-									<password>${test.db.password}</password>
-									<fileset>
-										<basedir>${basedir}/db/</basedir>
-										<includes>
-											<!-- Important is alphabetical order of files - "sets" with 
-											insert data after "releases" with data tables structure  -->
-											<include>releases/**/*.sql</include>
-										</includes>
-									</fileset>																
-								</configuration>
-							</execution>
-						</executions>
-						<dependencies>
-							<dependency>
-							   <groupId>mysql</groupId>
-							   <artifactId>mysql-connector-java</artifactId>
-							   <version>5.1.18</version>
-							</dependency>
-						</dependencies>							
-					</plugin>
-					<!-- Unit tests -->
-					<plugin>
-			            <groupId>org.apache.maven.plugins</groupId>
-			            <artifactId>maven-surefire-plugin</artifactId>
-			            <configuration>			            	
-			                <skip>true</skip>			                
-			            </configuration>
-			            <executions>
-					       <execution>
-					          <id>unit-tests</id>
-					          <phase>test</phase>
-					          <goals>
-					             <goal>test</goal>
-					          </goals>
-					          <configuration>			            	
-			                	<skip>false</skip>
-			                	<systemPropertyVariables>
-						            <db.url>${test.db.url}</db.url>
-						            <db.driver>${test.db.driver}</db.driver>
-						            <db.username>${test.db.username}</db.username>
-						            <db.password>${test.db.password}</db.password>
-						          </systemPropertyVariables>
-			                	<includes>
-            						<include>**/*Test.java</include>
-            					</includes>
-			                	<excludes>
-                					<exclude>**/*Intg.java</exclude>
-            					</excludes>			                
-			            	  </configuration>
-					        </execution>					        
-					     </executions>			              
-			        </plugin>			        
-				</plugins>
-			</build>			
-		</profile>
-		
-		<!-- Integration: profile which runs integration tests -->
-		<profile>
-			<id>intg</id>			
-			<build>
-				<plugins>
-					<!-- Fill db with data -->
-				        <plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>sql-maven-plugin</artifactId>
-							<version>1.5</version>
-							<configuration>
-								<delimiter>GO</delimiter>							
-								<skip>false</skip>
-								<autocommit>true</autocommit>
-								<orderFile>ascending</orderFile>
-							</configuration>
-							<executions>						
-								<execution>
-									<id>setup-db-deploy</id>
-									<phase>pre-integration-test</phase>
-									<goals>
-										<goal>execute</goal>
-									</goals>
-									<configuration>
-										<driver>${db.driver}</driver>
-										<url>${db.url}</url>
-										<username>${db.username}</username>
-										<password>${db.password}</password>
-										<fileset>
-											<basedir>${basedir}/db/</basedir>
-											<includes>
-												<!-- Important is alphabetical order of files - "sets" with 
-												insert data after "releases" with data tables structure  -->
-												<include>releases/**/*.sql</include>
-												<include>sets/**/*.sql</include>
-											</includes>
-										</fileset>																
-									</configuration>
-								</execution>
-							</executions>
-							<dependencies>
-								<dependency>
-								   <groupId>mysql</groupId>
-								   <artifactId>mysql-connector-java</artifactId>
-								   <version>5.1.18</version>
-								</dependency>
-							</dependencies>							
-						</plugin>
-						<!-- Integration tests -->
-					<plugin>
-			            <groupId>org.apache.maven.plugins</groupId>
-			            <artifactId>maven-surefire-plugin</artifactId>
-			            <configuration>			            	
-			                <skip>true</skip>			                 			                
-			            </configuration>
-			            <executions>
-					        <execution>
-					          <id>integration-tests</id>
-					          <phase>integration-test</phase>
-					          <goals>
-					             <goal>test</goal>
-					          </goals>
-					          <configuration>			            	
-			                	<skip>false</skip>
-			                	<systemPropertyVariables>
-						            <path.host>${path.host}</path.host>
-						            <path.context>${path.context}</path.context>
-						            <db.url>${db.url}</db.url>
-						            <db.driver>${db.driver}</db.driver>
-						            <db.username>${db.username}</db.username>
-						            <db.password>${db.password}</db.password>
-						          </systemPropertyVariables>			                	
-            					<includes>
-            						<include>**/*Intg.java</include>
-            					</includes>
-            					<excludes>
-                					<exclude>**/*Test.java</exclude>
-            					</excludes>			                
-			            	  </configuration>
-					        </execution>
-					     </executions>			              
-			        </plugin>			        
-				</plugins>
-			</build>			
-		</profile>				
-				
-	</profiles>
-	
-	
+
 	<!-- Internal project repository - for jars 
 	which are not in any oficial Maven repositories 
 	(for instnce opencloud) -->
