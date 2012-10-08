@@ -4,11 +4,11 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.mcavallo.opencloud.Cloud;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pl.kwi.chrisblog.daos.ArticleTagDao;
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.exceptions.ArticleTagException;
@@ -22,13 +22,9 @@ import pl.kwi.chrisblog.exceptions.ArticleTagException;
 public class ArticleTagService {
 	
 	
-	private List<ArticleTagEntity> completeArticleTagList;
+	@Autowired
+	private ArticleTagDao dao;
 	
-
-	@PostConstruct
-	public void init(){		
-		completeArticleTagList = initCompleteArticleTagList();			
-	}	
 	
 	/**
 	 * Method gets article tag with unique name.
@@ -70,7 +66,9 @@ public class ArticleTagService {
 			return resultList;
 		}
 		
-		for (ArticleTagEntity articleTag : completeArticleTagList) {
+		List<ArticleTagEntity> articleList = dao.findAll();
+		
+		for (ArticleTagEntity articleTag : articleList) {
 			for (String uniqueName : uniqueNameList) {
 				if(uniqueName.equals(articleTag.getUniqueName())){
 					resultList.add(articleTag);
@@ -233,14 +231,10 @@ public class ArticleTagService {
 	// ************************************************************************************************************ //
 	// *********************************************** GETTERS AND SETTERS **************************************** //
 	// ************************************************************************************************************ //
-
-
-	public List<ArticleTagEntity> getCompleteArticleTagList() {
-		return completeArticleTagList;
+	
+	
+	public void setDao(ArticleTagDao dao) {
+		this.dao = dao;
 	}
-	public void setCompleteArticleTagList(
-			List<ArticleTagEntity> completeArticleTagList) {
-		this.completeArticleTagList = completeArticleTagList;
-	}	
 	
 }

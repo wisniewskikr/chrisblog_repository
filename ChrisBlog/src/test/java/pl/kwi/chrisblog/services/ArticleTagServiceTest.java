@@ -8,7 +8,9 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mcavallo.opencloud.Cloud;
+import org.mockito.Mockito;
 
+import pl.kwi.chrisblog.daos.ArticleTagDao;
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.exceptions.ArticleTagException;
@@ -29,7 +31,7 @@ public class ArticleTagServiceTest {
 	@Before
 	public void setUp(){
 		service = new ArticleTagService();
-		service.setCompleteArticleTagList(mockArticleTagList());
+		service.setDao(mockArticleTagDao());
 	}	
 	
 	@Test
@@ -229,6 +231,16 @@ public class ArticleTagServiceTest {
 		articleTagList.add(articleTag);
 		
 		return articleTagList;
+		
+	}
+	
+	private ArticleTagDao mockArticleTagDao(){
+		
+		ArticleTagDao mock = Mockito.mock(ArticleTagDao.class);
+		
+		Mockito.when(mock.findAll()).thenReturn(mockArticleTagList());
+		
+		return mock;
 		
 	}
 	

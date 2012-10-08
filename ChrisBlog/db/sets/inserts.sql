@@ -52,3 +52,43 @@ INSERT INTO article_tags (ID, UNIQUE_NAME, NAME)
 VALUES (8, 'tomcat', 'Tomcat');
 
 GO
+
+INSERT INTO join_article_and_tag (ARTICLE_ID, ARTICLE_TAG_ID)
+VALUES (1, 1);
+
+GO
+
+INSERT INTO join_article_and_tag (ARTICLE_ID, ARTICLE_TAG_ID)
+VALUES (1, 2);
+
+GO
+
+INSERT INTO join_article_and_tag (ARTICLE_ID, ARTICLE_TAG_ID)
+VALUES (1, 3);
+
+GO
+
+INSERT INTO join_article_and_tag (ARTICLE_ID, ARTICLE_TAG_ID)
+VALUES (1, 4);
+
+GO
+
+INSERT INTO join_article_and_tag (ARTICLE_ID, ARTICLE_TAG_ID)
+VALUES (1, 5);
+
+GO
+
+INSERT INTO join_article_and_tag (ARTICLE_ID, ARTICLE_TAG_ID)
+VALUES (1, 6);
+
+GO
+
+INSERT INTO join_article_and_tag (ARTICLE_ID, ARTICLE_TAG_ID)
+VALUES (1, 7);
+
+GO
+
+INSERT INTO join_article_and_tag (ARTICLE_ID, ARTICLE_TAG_ID)
+VALUES (1, 8);
+
+GO
