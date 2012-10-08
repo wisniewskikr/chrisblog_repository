@@ -348,6 +348,7 @@ public class ArticleServiceTest {
 	public void getPagesCountOfArticle() throws Exception{
 		
 		ArticleEntity article = new ArticleEntity();
+		article.setPagesCount(4);
 		
 		int result = service.getPagesCountOfArticle(article);
 		
@@ -397,7 +398,7 @@ public class ArticleServiceTest {
 		Assert.assertEquals("Title", article.getTitle());
 		Assert.assertEquals("Description", article.getDescription());
 		Assert.assertEquals("Path/path", article.getContent());
-		Assert.assertEquals(Integer.valueOf(3), article.getPagesCount());
+		Assert.assertEquals(Integer.valueOf(4), article.getPagesCount());
 		Assert.assertEquals("Author", article.getAuthor());
 		Assert.assertEquals("December 25, 1999", article.getCreationDateAsString());
 		Assert.assertEquals("demoPath", article.getDemoName());
@@ -600,7 +601,7 @@ public class ArticleServiceTest {
 		article.setTitle("Title");
 		article.setDescription("Description");
 		article.setContent("Path/path");
-		article.setPagesCount(3);		
+		article.setPagesCount(4);		
 		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("19991225174553"));
 		article.setCreationDateAsString("December 25, 1999");
 		article.setAuthor("Author");
@@ -627,7 +628,7 @@ public class ArticleServiceTest {
 		article.setTitle("Title 2");
 		article.setDescription("Description");
 		article.setContent("Path/path");
-		article.setPagesCount(3);		
+		article.setPagesCount(4);		
 		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("19991225174553"));
 		article.setCreationDateAsString("December 25, 1999");
 		article.setAuthor("Author");
@@ -654,7 +655,7 @@ public class ArticleServiceTest {
 		article.setTitle("Title 3");
 		article.setDescription("Description");
 		article.setContent("Path/path");
-		article.setPagesCount(3);		
+		article.setPagesCount(4);		
 		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("19991225174553"));
 		article.setCreationDateAsString("December 25, 1999");
 		article.setAuthor("Author");

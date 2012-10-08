@@ -161,11 +161,10 @@ public class ArticleService {
 	 */
 	public Integer getPagesCountOfArticle(ArticleEntity article) throws Exception {
 		
-		// TODO KWi: implement real method
 		if(article == null){
 			throw new ArticleException("Can not count pages for article which is null.");
 		}
-		return 4;
+		return article.getPagesCount();
 		
 	}
 	
