@@ -30,6 +30,8 @@ public class ArticleService {
 	private String folderExamples;
 	@Value("${folder.sources}")
 	private String folderSources;
+	@Value("${count.articles.per.page}")
+	private int countArticlesPerPage;
 	
 	@Autowired
 	private ArticleTagService articleTagService;
@@ -147,8 +149,20 @@ public class ArticleService {
 	 */
 	public Integer getPagesCountOfAllArticles() throws Exception {
 		
-		// TODO KWi: implement real method
-		return 1;
+		int articlesCount = articleDao.getCountOfAllArticles();
+		
+		if(articlesCount == 0){
+			throw new ArticleException("Count of all articles in db is 0.");
+		}
+		
+		int result = articlesCount / countArticlesPerPage;
+		int rest = articlesCount % countArticlesPerPage;
+		
+		if(rest != 0){
+			result++;
+		}
+		
+		return result;
 		
 	}
 	
@@ -275,11 +289,7 @@ public class ArticleService {
 	// ************************************************************************************************************ //
 	// *********************************************** GETTERS AND SETTERS **************************************** //
 	// ************************************************************************************************************ //
-		
 	
-	public void setArticleTagService(ArticleTagService articleTagService) {
-		this.articleTagService = articleTagService;
-	}
 
 	public void setFolderExamples(String folderExamples) {
 		this.folderExamples = folderExamples;
@@ -287,6 +297,14 @@ public class ArticleService {
 
 	public void setFolderSources(String folderSources) {
 		this.folderSources = folderSources;
+	}
+		
+	public void setCountArticlesPerPage(int countArticlesPerPage) {
+		this.countArticlesPerPage = countArticlesPerPage;
+	}
+
+	public void setArticleTagService(ArticleTagService articleTagService) {
+		this.articleTagService = articleTagService;
 	}
 
 	public void setArticleDao(ArticleDao articleDao) {

@@ -27,6 +27,7 @@ public class ArticleServiceTest {
 		service = new ArticleService();
 		service.setFolderExamples("folderExamples");
 		service.setFolderSources("folderSources");
+		service.setCountArticlesPerPage(10);
 		service.setArticleTagService(mockArticleTagService());
 		service.setArticleDao(mockArticleDao(mockCompleteArticleList()));
 	}
@@ -336,11 +337,33 @@ public class ArticleServiceTest {
 	}
 	
 	@Test
-	public void getPagesCountOfAllArticles() throws Exception{
+	public void getPagesCountOfAllArticles_articlesPerPage_10() throws Exception{
 		
 		int result = service.getPagesCountOfAllArticles();
 		
 		Assert.assertEquals(1, result);
+		
+	}
+	
+	@Test
+	public void getPagesCountOfAllArticles_articlesPerPage_3() throws Exception{
+		
+		service.setCountArticlesPerPage(3);
+		
+		int result = service.getPagesCountOfAllArticles();
+		
+		Assert.assertEquals(1, result);
+		
+	}
+	
+	@Test
+	public void getPagesCountOfAllArticles_articlesPerPage_2() throws Exception{
+		
+		service.setCountArticlesPerPage(2);
+		
+		int result = service.getPagesCountOfAllArticles();
+		
+		Assert.assertEquals(2, result);
 		
 	}
 	
@@ -540,6 +563,7 @@ public class ArticleServiceTest {
 		ArticleDao mock = Mockito.mock(ArticleDao.class);
 		Mockito.when(mock.findAll()).thenReturn(articleList);
 		Mockito.when(mock.findAllSortedByDateDesc()).thenReturn(articleList);
+		Mockito.when(mock.getCountOfAllArticles()).thenReturn(3);
 		return mock;
 		
 	}

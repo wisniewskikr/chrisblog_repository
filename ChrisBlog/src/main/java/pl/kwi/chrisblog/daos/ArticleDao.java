@@ -20,5 +20,12 @@ public class ArticleDao extends AbstractHibernateTemplateDao<ArticleEntity>{
 		return hibernateTemplate.findByNamedQuery("ArticleEntity.findAllSortedByDateDesc");
 		
 	}
+	
+	public int getCountOfAllArticles(){
+		
+		Long articlesCount = (Long)hibernateTemplate.findByNamedQuery("ArticleEntity.getCountOfAllArticles").get(0);
+		return articlesCount.intValue();
+		
+	}
 
 }

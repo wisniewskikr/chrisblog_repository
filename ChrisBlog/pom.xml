@@ -11,6 +11,9 @@
 	
 	
 	<properties>
+		<!-- How many articles can be displayed on single page -->
+		<count.articles.per.page>10</count.articles.per.page>
+		
 		<!-- Spring properties -->
 		<spring.version>3.0.4.RELEASE</spring.version>		
 	</properties>
@@ -55,7 +58,7 @@
 			<activation>
 	            <activeByDefault>true</activeByDefault>
 	        </activation>			
-			<properties>			
+			<properties>
 				<!-- Paths of host and context -->
 				<path.host>http://localhost:8080</path.host>
 				<path.context>/ChrisBlog/</path.context>
@@ -88,7 +91,7 @@
 		<!-- Remote: jenkins and/or integration tests environment -->
 		<profile>
 			<id>rem</id>			
-			<properties>			
+			<properties>
 				<!-- Paths of host and context -->
 				<path.host>http://chris-blog.org</path.host>
 				<path.context>/ChrisBlog/</path.context>

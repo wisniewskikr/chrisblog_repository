@@ -20,7 +20,9 @@ import pl.kwi.db.abstr.AbstractEntity;
 
 @NamedQueries(value = { 
 		@NamedQuery(name="ArticleEntity.findAllSortedByDateDesc", 
-			query="SELECT a FROM ArticleEntity a ORDER BY a.creationDate DESC")	
+			query="SELECT a FROM ArticleEntity a ORDER BY a.creationDate DESC"),
+		@NamedQuery(name="ArticleEntity.getCountOfAllArticles", 
+			query="SELECT COUNT(a) FROM ArticleEntity a")
 	})
 
 @Entity

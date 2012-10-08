@@ -51,5 +51,15 @@ public class ArticleDaoTest {
 		assertEquals(2, list.get(0).getArticleTagList().size());
 		
 	}
+	
+	@Test
+	@DatabaseSetup("/dbunit/ArticleDaoTest.xml")
+	public void getCountOfAllArticles(){
+		
+		int result = dao.getCountOfAllArticles();
+		assertEquals(3, result);
+		
+		
+	}
 
 }
