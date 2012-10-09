@@ -16,7 +16,15 @@
 		<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
 		<a class="addthis_counter addthis_pill_style"></a>
 	</div>	
-
-	<jsp:include page="articles_content/${command.article.content}_${command.pageCurrent}.jsp"/>
+	
+	
+	<c:choose>			
+		<c:when test="${command.article.pagesCount == 1}">
+			<jsp:include page="articles_content/${command.article.content}.jsp"/>
+		</c:when>
+		<c:otherwise>
+			<jsp:include page="articles_content/${command.article.content}_${command.pageCurrent}.jsp"/>
+		</c:otherwise>
+	</c:choose>
 	
 </div>
