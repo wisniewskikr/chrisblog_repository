@@ -48,8 +48,8 @@ public class ArticleServiceTest {
 		Assert.assertEquals(Long.valueOf(1L), articleList.get(0).getId());
 		Assert.assertEquals("Unique name", articleList.get(0).getUniqueName());
 		Assert.assertEquals("Title", articleList.get(0).getTitle());
-		Assert.assertEquals("Description", articleList.get(0).getDescription());
-		Assert.assertEquals("Path/path", articleList.get(0).getContent());
+		Assert.assertEquals("Unique name", articleList.get(0).getDescription());
+		Assert.assertEquals("Unique name", articleList.get(0).getContent());
 		Assert.assertEquals(Integer.valueOf(4), articleList.get(0).getPagesCount());
 		Assert.assertEquals("Author", articleList.get(0).getAuthor());
 		Assert.assertEquals("December 25, 1999", articleList.get(0).getCreationDateAsString());
@@ -95,8 +95,8 @@ public class ArticleServiceTest {
 		Assert.assertEquals(Long.valueOf(1L), articleList.get(0).getId());
 		Assert.assertEquals("Unique name", articleList.get(0).getUniqueName());
 		Assert.assertEquals("Title", articleList.get(0).getTitle());
-		Assert.assertEquals("Description", articleList.get(0).getDescription());
-		Assert.assertEquals("Path/path", articleList.get(0).getContent());
+		Assert.assertEquals("Unique name", articleList.get(0).getDescription());
+		Assert.assertEquals("Unique name", articleList.get(0).getContent());
 		Assert.assertEquals(Integer.valueOf(4), articleList.get(0).getPagesCount());
 		Assert.assertEquals("Author", articleList.get(0).getAuthor());
 		Assert.assertEquals("December 25, 1999", articleList.get(0).getCreationDateAsString());
@@ -149,8 +149,8 @@ public class ArticleServiceTest {
 		Assert.assertEquals(Long.valueOf(1L), articleList.get(0).getId());
 		Assert.assertEquals("Unique name", articleList.get(0).getUniqueName());
 		Assert.assertEquals("Title", articleList.get(0).getTitle());
-		Assert.assertEquals("Description", articleList.get(0).getDescription());
-		Assert.assertEquals("Path/path", articleList.get(0).getContent());
+		Assert.assertEquals("Unique name", articleList.get(0).getDescription());
+		Assert.assertEquals("Unique name", articleList.get(0).getContent());
 		Assert.assertEquals(Integer.valueOf(4), articleList.get(0).getPagesCount());
 		Assert.assertEquals("Author", articleList.get(0).getAuthor());
 		Assert.assertEquals("December 25, 1999", articleList.get(0).getCreationDateAsString());
@@ -183,8 +183,8 @@ public class ArticleServiceTest {
 		Assert.assertEquals(Long.valueOf(1L), article.getId());
 		Assert.assertEquals("Unique name", article.getUniqueName());
 		Assert.assertEquals("Title", article.getTitle());
-		Assert.assertEquals("Description", article.getDescription());
-		Assert.assertEquals("Path/path", article.getContent());
+		Assert.assertEquals("Unique name", article.getDescription());
+		Assert.assertEquals("Unique name", article.getContent());
 		Assert.assertEquals(Integer.valueOf(4), article.getPagesCount());
 		Assert.assertEquals("Author", article.getAuthor());
 		Assert.assertEquals("December 25, 1999", article.getCreationDateAsString());

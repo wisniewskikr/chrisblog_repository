@@ -48,8 +48,6 @@ public class ArticleEntity extends AbstractEntity{
 	
 	private String uniqueName;
 	private String title;
-	private String description;
-	private String content;
 	private Integer pagesCount;
 	private Calendar creationDate;
 	private String author;
@@ -59,6 +57,8 @@ public class ArticleEntity extends AbstractEntity{
 	private List<ArticleTagEntity> articleTagList = new ArrayList<ArticleTagEntity>();
 		
 	// Transient
+	private String description;
+	private String content;
 	private String demoPath;
 	private String examplePath;
 	private String sourcePath;
@@ -84,22 +84,6 @@ public class ArticleEntity extends AbstractEntity{
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}
-	
-	@Column(name="DESCRIPTION", length=100, nullable=false)
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	@Column(name="CONTENT", length=100, nullable=false)
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
 	}
 	
 	@Column(name="PAGES_COUNT", nullable=false)
@@ -161,6 +145,22 @@ public class ArticleEntity extends AbstractEntity{
 	}
 	public void setArticleTagList(List<ArticleTagEntity> articleTagList) {
 		this.articleTagList = articleTagList;
+	}
+	
+	@Transient
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	@Transient
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
 	}
 	
 	@Transient

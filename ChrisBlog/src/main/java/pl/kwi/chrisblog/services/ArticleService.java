@@ -217,6 +217,8 @@ public class ArticleService {
 			article.setDemoPath("/" + article.getDemoName());
 			article.setExamplePath("/" + folderExamples + "/" + article.getExampleFileName());
 			article.setSourcePath("/" + folderSources + "/" + article.getSourceFileName());
+			article.setContent(article.getUniqueName());
+			article.setDescription(article.getUniqueName());
 			
 		}
 		
