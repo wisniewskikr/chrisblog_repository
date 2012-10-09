@@ -72,6 +72,24 @@ public class ArticleDao extends AbstractHibernateTemplateDao<ArticleEntity>{
 	}
 	
 	/**
+	 * Method gets article with specified unique name.
+	 * 
+	 * @param uniqueName object String with specified unique name
+	 * @return object ArticleEntity with article with specified unique name
+	 */
+	public ArticleEntity getArticleByUniqueName(String uniqueName){
+		
+		@SuppressWarnings("unchecked")
+		List<ArticleEntity> resultList = hibernateTemplate.findByNamedQueryAndNamedParam("ArticleEntity.getArticleByUniqueName", "uniqueName", uniqueName);
+		if(!resultList.isEmpty()){
+			return resultList.get(0);
+		}else{
+			return null;
+		}
+		
+	}
+	
+	/**
 	 * Method counts amount of all articles in db.
 	 * 
 	 * @return int with amount of all articles in db

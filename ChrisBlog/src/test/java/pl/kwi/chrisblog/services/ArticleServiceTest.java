@@ -241,16 +241,6 @@ public class ArticleServiceTest {
 		
 	}
 	
-	@Test(expected = ArticleException.class)
-	public void getArticleByUniqueName_noArticleInList() throws Exception{
-		
-		String articleUniqueName = "Unique name another";
-		Locale loc = Locale.ENGLISH;
-		
-		service.getArticleByUniqueName(articleUniqueName, loc);
-		
-	}
-	
 	@Test
 	public void getPagesCountOfAllArticles_articlesPerPage_10() throws Exception{
 		
@@ -339,78 +329,6 @@ public class ArticleServiceTest {
 	}
 	
 	@Test
-	public void getArticleFromListByUniqueName() throws Exception{
-		
-		List<ArticleEntity> articleList = mockCompleteArticleList();
-		String articleUniqueName = "Unique name";
-		
-		ArticleEntity article = service.getArticleFromListByUniqueName(articleList, articleUniqueName);
-		
-		Assert.assertEquals(Long.valueOf(1L), article.getId());
-		Assert.assertEquals("Unique name", article.getUniqueName());
-		Assert.assertEquals("Title", article.getTitle());
-		Assert.assertEquals("Description", article.getDescription());
-		Assert.assertEquals("Path/path", article.getContent());
-		Assert.assertEquals(Integer.valueOf(4), article.getPagesCount());
-		Assert.assertEquals("Author", article.getAuthor());
-		Assert.assertEquals("December 25, 1999", article.getCreationDateAsString());
-		Assert.assertEquals("demoPath", article.getDemoName());
-		Assert.assertEquals("exampleFile", article.getExampleFileName());
-		Assert.assertEquals("sourceFile", article.getSourceFileName());
-		
-		Assert.assertEquals(Integer.valueOf(1999), Integer.valueOf(article.getCreationDate().get(Calendar.YEAR)));
-		Assert.assertEquals(Integer.valueOf(11), Integer.valueOf(article.getCreationDate().get(Calendar.MONTH)));
-		Assert.assertEquals(Integer.valueOf(25), Integer.valueOf(article.getCreationDate().get(Calendar.DAY_OF_MONTH)));
-		Assert.assertEquals(Integer.valueOf(17), Integer.valueOf(article.getCreationDate().get(Calendar.HOUR_OF_DAY)));
-		Assert.assertEquals(Integer.valueOf(45), Integer.valueOf(article.getCreationDate().get(Calendar.MINUTE)));
-		Assert.assertEquals(Integer.valueOf(53), Integer.valueOf(article.getCreationDate().get(Calendar.SECOND)));
-		
-		List<ArticleTagEntity> articleTagList = article.getArticleTagList();
-		Assert.assertEquals(Integer.valueOf(3), Integer.valueOf(articleTagList.size()));
-		Assert.assertEquals(Long.valueOf(1), articleTagList.get(0).getId());
-		Assert.assertEquals("Java", articleTagList.get(0).getName());
-		Assert.assertEquals(Long.valueOf(2), articleTagList.get(1).getId());
-		Assert.assertEquals("Maven", articleTagList.get(1).getName());
-		Assert.assertEquals(Long.valueOf(3), articleTagList.get(2).getId());
-		Assert.assertEquals("Servlet", articleTagList.get(2).getName());
-		
-	}
-	
-	@Test(expected = ArticleException.class)
-	public void getArticleFromListByUniqueName_articleListNull() throws Exception{
-		
-		List<ArticleEntity> articleList = null;
-		String articleUniqueName = "Unique name";
-		
-		service.getArticleFromListByUniqueName(articleList, articleUniqueName);
-		
-	}
-	
-	@Test
-	public void getArticleFromListByUniqueName_uniqueNameNull() throws Exception{
-		
-		List<ArticleEntity> articleList = mockCompleteArticleList();
-		String articleUniqueName = null;
-		
-		ArticleEntity article = service.getArticleFromListByUniqueName(articleList, articleUniqueName);
-		
-		Assert.assertNull(article);
-		
-	}
-	
-	@Test
-	public void getArticleFromListByUniqueName_noArticleInList() throws Exception{
-		
-		List<ArticleEntity> articleList = mockCompleteArticleList();
-		String articleUniqueName = "Unique name another";
-		
-		ArticleEntity article = service.getArticleFromListByUniqueName(articleList, articleUniqueName);
-		
-		Assert.assertNull(article);
-		
-	}
-	
-	@Test
 	public void convertArticlesToDisplayableForm() throws Exception{
 		
 		List<ArticleEntity> articleList = new ArrayList<ArticleEntity>();
@@ -459,6 +377,11 @@ public class ArticleServiceTest {
 		Mockito.when(mock.findAll()).thenReturn(articleList);
 		Mockito.when(mock.findAllSortedByDateDesc(Mockito.anyInt(), Mockito.anyInt())).thenReturn(articleList);
 		Mockito.when(mock.findAllWithTagsSortedByDateDesc(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyList())).thenReturn(articleList);
+		if(articleList != null){
+			Mockito.when(mock.getArticleByUniqueName(Mockito.anyString())).thenReturn(articleList.get(0));
+		}else {
+			Mockito.when(mock.getArticleByUniqueName(Mockito.anyString())).thenReturn(null);
+		}
 		Mockito.when(mock.getCountOfAllArticles()).thenReturn(3);
 		Mockito.when(mock.getCountArticlesWithTags(Mockito.anyList())).thenReturn(2);
 		return mock;

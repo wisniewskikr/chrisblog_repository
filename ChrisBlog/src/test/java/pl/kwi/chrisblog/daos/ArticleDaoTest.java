@@ -1,6 +1,6 @@
 package pl.kwi.chrisblog.daos;
 
-import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,6 +121,30 @@ public class ArticleDaoTest {
 		
 		assertEquals(1, list.size());
 		assertEquals(Long.valueOf(1), list.get(0).getId());
+		
+	}
+	
+	@Test
+	@DatabaseSetup("/dbunit/ArticleDaoTest.xml")
+	public void getArticleByUniqueName(){
+		
+		String uniqueName = "uniqueName1";
+		
+		ArticleEntity result = dao.getArticleByUniqueName(uniqueName);
+		assertEquals(Long.valueOf(1), result.getId());
+		
+		
+	}
+	
+	@Test
+	@DatabaseSetup("/dbunit/ArticleDaoTest.xml")
+	public void getArticleByUniqueName_noArticle(){
+		
+		String uniqueName = "test";
+		
+		ArticleEntity result = dao.getArticleByUniqueName(uniqueName);
+		assertNull(result);
+		
 		
 	}
 	

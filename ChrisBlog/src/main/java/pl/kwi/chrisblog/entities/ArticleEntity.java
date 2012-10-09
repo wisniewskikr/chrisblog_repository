@@ -28,6 +28,8 @@ import pl.kwi.db.abstr.AbstractEntity;
 					"GROUP BY a.id " +
 					"ORDER BY a.creationDate DESC"
 					),
+		@NamedQuery(name="ArticleEntity.getArticleByUniqueName", 
+			query="SELECT a FROM ArticleEntity a WHERE a.uniqueName = :uniqueName"),
 		@NamedQuery(name="ArticleEntity.getCountOfAllArticles", 		
 			query="SELECT COUNT(a) FROM ArticleEntity a"),
 		@NamedQuery(name="ArticleEntity.getCountArticlesWithTags", 

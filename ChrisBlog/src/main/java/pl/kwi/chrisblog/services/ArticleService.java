@@ -109,16 +109,21 @@ public class ArticleService {
 	 */
 	public ArticleEntity getArticleByUniqueName(String articleUniqueName, Locale loc) throws Exception {
 		
-		List<ArticleEntity> articleList = articleDao.findAll();
-		articleList = convertArticlesToDisplayableForm(articleList, loc);
-		
-		ArticleEntity article = getArticleFromListByUniqueName(articleList, articleUniqueName);
+		if(articleUniqueName == null){
+			throw new ArticleException("Can not find article because unique name is null.");
+		}
+			
+		ArticleEntity article = articleDao.getArticleByUniqueName(articleUniqueName);
 		
 		if(article == null){
 			throw new ArticleException(MessageFormat.format("Can not find article with unique name: {0}", articleUniqueName));
 		}
 		
-		return article;
+		List<ArticleEntity> articleList = new ArrayList<ArticleEntity>();
+		articleList.add(article);
+		articleList = convertArticlesToDisplayableForm(articleList, loc);
+				
+		return articleList.get(0);
 		
 	}
 	
@@ -183,37 +188,7 @@ public class ArticleService {
 	// ************************************************************************************************************ //
 	// *********************************************** HELP METHODS *********************************************** //
 	// ************************************************************************************************************ //
-	
-	
-	/**
-	 * Method gets article from list by article unique name.
-	 * 
-	 * @param articleList list of article where specified article is looked for
-	 * @param articleUniqueName object String with unique name of article looked for
-	 * @return object ArticleEntity with specified unique name
-	 * @throws Exception 
-	 */
-	protected ArticleEntity getArticleFromListByUniqueName(List<ArticleEntity> articleList, String articleUniqueName) throws Exception {
-		
-		if(articleList == null){
-			throw new ArticleException("Error article handling. List of articles is null.");
-		}
-		
-		if(articleUniqueName == null){
-			return null;
-		}
-		
-		for (ArticleEntity article : articleList) {
-			
-			if(article.getUniqueName().equals(articleUniqueName)){
-				return article;
-			}
-			
-		}
-		
-		return null;
-		
-	}
+
 	
 	/**
 	 * Method converts list of articles to displayable in jsp form - for instance converts data from object
