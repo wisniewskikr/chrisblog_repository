@@ -1,6 +1,8 @@
 package pl.kwi.chrisblog.daos;
 
 import static junit.framework.Assert.assertEquals;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -13,6 +15,8 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.transaction.annotation.Transactional;
 
 import pl.kwi.chrisblog.entities.ArticleEntity;
+import pl.kwi.chrisblog.entities.ArticleTagEntity;
+
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
@@ -59,6 +63,65 @@ public class ArticleDaoTest {
 		int result = dao.getCountOfAllArticles();
 		assertEquals(3, result);
 		
+		
+	}
+	
+	@Test
+	@DatabaseSetup("/dbunit/ArticleDaoTest.xml")
+	public void getCountArticlesWithTags_tag_1(){
+		
+		ArticleTagEntity articleTag = new ArticleTagEntity();
+		articleTag.setId(1l);
+		articleTag.setUniqueName("uniqueName1");
+		articleTag.setName("name1");
+		
+		List<ArticleTagEntity> articleTagList = new ArrayList<ArticleTagEntity>();
+		articleTagList.add(articleTag);
+		
+		int result = dao.getCountArticlesWithTags(articleTagList);
+		assertEquals(3, result);
+				
+	}
+	
+	@Test
+	@DatabaseSetup("/dbunit/ArticleDaoTest.xml")
+	public void getCountArticlesWithTags_tag_2(){
+		
+		ArticleTagEntity articleTag = new ArticleTagEntity();
+		articleTag.setId(2l);
+		articleTag.setUniqueName("uniqueName2");
+		articleTag.setName("name2");
+		
+		List<ArticleTagEntity> articleTagList = new ArrayList<ArticleTagEntity>();
+		articleTagList.add(articleTag);
+		
+		int result = dao.getCountArticlesWithTags(articleTagList);
+		assertEquals(1, result);		
+		
+	}
+	
+	@Test
+	@DatabaseSetup("/dbunit/ArticleDaoTest.xml")
+	public void getCountArticlesWithTags_tag_1_and_2(){
+		
+		List<ArticleTagEntity> articleTagList = new ArrayList<ArticleTagEntity>();
+		ArticleTagEntity articleTag = null;
+		
+		articleTag = new ArticleTagEntity();
+		articleTag.setId(1l);
+		articleTag.setUniqueName("uniqueName1");
+		articleTag.setName("name1");
+		articleTagList.add(articleTag);
+		
+		articleTag = new ArticleTagEntity();
+		articleTag.setId(2l);
+		articleTag.setUniqueName("uniqueName2");
+		articleTag.setName("name2");
+		articleTagList.add(articleTag);
+		
+		
+		int result = dao.getCountArticlesWithTags(articleTagList);
+		assertEquals(3, result);		
 		
 	}
 

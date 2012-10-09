@@ -368,13 +368,49 @@ public class ArticleServiceTest {
 	}
 	
 	@Test
-	public void getPagesCountArticlesWithTag() throws Exception{
+	public void getPagesCountArticlesWithTag_articlesPerPage_10() throws Exception{
 		
 		ArticleTagEntity articleTag = new ArticleTagEntity();
 		
 		int result = service.getPagesCountArticlesWithTag(articleTag);
 		
 		Assert.assertEquals(1, result);
+		
+	}
+	
+	@Test
+	public void getPagesCountArticlesWithTag_articlesPerPage_3() throws Exception{
+		
+		service.setCountArticlesPerPage(3);
+		ArticleTagEntity articleTag = new ArticleTagEntity();
+		
+		int result = service.getPagesCountArticlesWithTag(articleTag);
+		
+		Assert.assertEquals(1, result);
+		
+	}
+	
+	@Test
+	public void getPagesCountArticlesWithTag_articlesPerPage_2() throws Exception{
+		
+		service.setCountArticlesPerPage(2);
+		ArticleTagEntity articleTag = new ArticleTagEntity();
+		
+		int result = service.getPagesCountArticlesWithTag(articleTag);
+		
+		Assert.assertEquals(1, result);
+		
+	}
+	
+	@Test
+	public void getPagesCountArticlesWithTag_articlesPerPage_1() throws Exception{
+		
+		service.setCountArticlesPerPage(1);
+		ArticleTagEntity articleTag = new ArticleTagEntity();
+		
+		int result = service.getPagesCountArticlesWithTag(articleTag);
+		
+		Assert.assertEquals(2, result);
 		
 	}
 	
@@ -564,6 +600,7 @@ public class ArticleServiceTest {
 		Mockito.when(mock.findAll()).thenReturn(articleList);
 		Mockito.when(mock.findAllSortedByDateDesc()).thenReturn(articleList);
 		Mockito.when(mock.getCountOfAllArticles()).thenReturn(3);
+		Mockito.when(mock.getCountArticlesWithTags(Mockito.anyList())).thenReturn(2);
 		return mock;
 		
 	}

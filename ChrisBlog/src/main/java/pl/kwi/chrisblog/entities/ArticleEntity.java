@@ -22,7 +22,12 @@ import pl.kwi.db.abstr.AbstractEntity;
 		@NamedQuery(name="ArticleEntity.findAllSortedByDateDesc", 
 			query="SELECT a FROM ArticleEntity a ORDER BY a.creationDate DESC"),
 		@NamedQuery(name="ArticleEntity.getCountOfAllArticles", 
-			query="SELECT COUNT(a) FROM ArticleEntity a")
+			query="SELECT COUNT(a) FROM ArticleEntity a"),
+		@NamedQuery(name="ArticleEntity.getCountArticlesWithTags", 
+			query="SELECT COUNT(a) FROM ArticleEntity AS a " +
+					"JOIN a.articleTagList AS t " +
+					"WHERE t IN (:articleTagList) " +
+					"GROUP BY t.id")
 	})
 
 @Entity

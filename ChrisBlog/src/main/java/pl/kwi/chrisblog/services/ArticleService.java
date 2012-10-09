@@ -152,7 +152,7 @@ public class ArticleService {
 		int articlesCount = articleDao.getCountOfAllArticles();
 		
 		if(articlesCount == 0){
-			throw new ArticleException("Count of all articles in db is 0.");
+			throw new ArticleException("Count of all articles strored in db is 0.");
 		}
 		
 		int result = articlesCount / countArticlesPerPage;
@@ -175,11 +175,26 @@ public class ArticleService {
 	 */
 	public Integer getPagesCountArticlesWithTag(ArticleTagEntity articleTag) throws Exception {
 		
-		// TODO KWi: implement real method
 		if(articleTag == null){
 			throw new ArticleException("Can not count pages for article tag which is null.");
 		}
-		return 1;
+		List<ArticleTagEntity> articleTagList = new ArrayList<ArticleTagEntity>();
+		articleTagList.add(articleTag);
+		
+		int articlesCount = articleDao.getCountArticlesWithTags(articleTagList);
+		
+		if(articlesCount == 0){
+			throw new ArticleException(MessageFormat.format("Count of articles with tag: {0} stored in db is 0.", articleTag.getName()));
+		}
+		
+		int result = articlesCount / countArticlesPerPage;
+		int rest = articlesCount % countArticlesPerPage;
+		
+		if(rest != 0){
+			result++;
+		}
+		
+		return result;
 		
 	}
 		
