@@ -104,7 +104,7 @@ public class BlogController extends AbstractController{
 		command.setDisplayArticleList(true);		
 		handleCommand(command, request);
 		
-		command.setArticleList(articleService.getArticleListSortedByDateDesc(pageNumber, command.getLocale()));
+		command.setArticleList(articleService.findAllSortedByDateDesc(pageNumber, command.getLocale()));
 		
 		handleArticleListPagenation(command, pageNumber);
 		
@@ -255,7 +255,7 @@ public class BlogController extends AbstractController{
 		handleCommand(command, request);
 		
 		command.setArticleTag((articleTagService.getArticleTagByUniqueName(tagUniqueName)));
-		command.setArticleList(articleService.getArticleListWithTagSortedByDateDescWithExp(pageNumber, command.getArticleTag(), command.getLocale()));
+		command.setArticleList(articleService.findAllWithTagsSortedByDateDesc(pageNumber, command.getArticleTag(), command.getLocale()));
 		
 		handleArticleListWithTagPagenation(command, pageNumber);
 		

@@ -44,12 +44,12 @@ public class ArticleDaoTest {
 	
 	@Test
 	@DatabaseSetup("/dbunit/ArticleDaoTest.xml")
-	public void findAllWithPaginationSortedByDateDesc_firstResult_0(){
+	public void findAllSortedByDateDesc_firstResult_0(){
 		
 		int firstResult = 0; 
 		int maxResults = 2;
 		
-		List<ArticleEntity> list = dao.findAllWithPaginationSortedByDateDesc(firstResult, maxResults);
+		List<ArticleEntity> list = dao.findAllSortedByDateDesc(firstResult, maxResults);
 		
 		assertEquals(2, list.size());
 		assertEquals(Long.valueOf(3), list.get(0).getId());
@@ -59,12 +59,65 @@ public class ArticleDaoTest {
 	
 	@Test
 	@DatabaseSetup("/dbunit/ArticleDaoTest.xml")
-	public void findAllWithPaginationSortedByDateDesc_firstResult_2(){
+	public void findAllSortedByDateDesc_firstResult_2(){
 		
 		int firstResult = 2; 
 		int maxResults = 2;
 		
-		List<ArticleEntity> list = dao.findAllWithPaginationSortedByDateDesc(firstResult, maxResults);
+		List<ArticleEntity> list = dao.findAllSortedByDateDesc(firstResult, maxResults);
+		
+		assertEquals(1, list.size());
+		assertEquals(Long.valueOf(1), list.get(0).getId());
+		
+	}
+	
+	@Test
+	@DatabaseSetup("/dbunit/ArticleDaoTest.xml")
+	public void findAllWithTagsSortedByDateDesc_firstResult_0(){
+		
+		int firstResult = 0; 
+		int maxResults = 2;
+		
+		List<ArticleTagEntity> articleTagList = new ArrayList<ArticleTagEntity>();
+		ArticleTagEntity articleTag = null;
+		
+		articleTag = new ArticleTagEntity();
+		articleTag.setId(1l);
+		articleTag.setUniqueName("uniqueName1");
+		articleTag.setName("name1");
+		articleTagList.add(articleTag);
+		
+		List<ArticleEntity> list = dao.findAllWithTagsSortedByDateDesc(firstResult, maxResults, articleTagList);
+		
+		assertEquals(2, list.size());
+		assertEquals(Long.valueOf(3), list.get(0).getId());
+		assertEquals(Long.valueOf(2), list.get(1).getId());
+		
+	}
+	
+	@Test
+	@DatabaseSetup("/dbunit/ArticleDaoTest.xml")
+	public void findAllWithTagsSortedByDateDesc_firstResult_2(){
+		
+		int firstResult = 2; 
+		int maxResults = 2;
+		
+		List<ArticleTagEntity> articleTagList = new ArrayList<ArticleTagEntity>();
+		ArticleTagEntity articleTag = null;
+		
+		articleTag = new ArticleTagEntity();
+		articleTag.setId(1l);
+		articleTag.setUniqueName("uniqueName1");
+		articleTag.setName("name1");
+		articleTagList.add(articleTag);
+		
+		articleTag = new ArticleTagEntity();
+		articleTag.setId(2l);
+		articleTag.setUniqueName("uniqueName2");
+		articleTag.setName("name2");
+		articleTagList.add(articleTag);
+		
+		List<ArticleEntity> list = dao.findAllWithTagsSortedByDateDesc(firstResult, maxResults, articleTagList);
 		
 		assertEquals(1, list.size());
 		assertEquals(Long.valueOf(1), list.get(0).getId());
@@ -88,7 +141,7 @@ public class ArticleDaoTest {
 		ArticleTagEntity articleTag = new ArticleTagEntity();
 		articleTag.setId(1l);
 		articleTag.setUniqueName("uniqueName1");
-		articleTag.setName("name1");
+		articleTag.setName("name1");		
 		
 		List<ArticleTagEntity> articleTagList = new ArrayList<ArticleTagEntity>();
 		articleTagList.add(articleTag);

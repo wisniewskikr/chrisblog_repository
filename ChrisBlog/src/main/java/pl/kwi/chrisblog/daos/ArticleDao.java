@@ -29,12 +29,39 @@ public class ArticleDao extends AbstractHibernateTemplateDao<ArticleEntity>{
 	 * @return list of articles sorted descending by date
 	 */
 	@SuppressWarnings("unchecked")
-	public List<ArticleEntity> findAllWithPaginationSortedByDateDesc(final int firstResult, final int maxResults){
+	public List<ArticleEntity> findAllSortedByDateDesc(final int firstResult, final int maxResults){
 		
 		return hibernateTemplate.executeFind(new HibernateCallback<List<ArticleEntity>>() {
 			
             public List<ArticleEntity> doInHibernate(Session session) throws HibernateException, SQLException {
                 Query query = session.getNamedQuery("ArticleEntity.findAllSortedByDateDesc");
+                query.setFirstResult(firstResult);
+                query.setMaxResults(maxResults);
+                return query.list();
+            }
+            
+        });
+		
+	}
+	
+	/**
+	 * Method finds and paginates articles from db with specified tags sorted descending by date.
+	 * 
+	 * @param firstResult int with number of first article which should be found in db
+	 * @param maxResults int with amount of articles which should be found in db
+	 * @param articleTagList list of specified tags
+	 * @return list of articles with specified tags sorted descending by date
+	 */
+	@SuppressWarnings("unchecked")
+	public List<ArticleEntity> findAllWithTagsSortedByDateDesc(final int firstResult, final int maxResults, 
+			final List<ArticleTagEntity> articleTagList){
+				
+		return hibernateTemplate.executeFind(new HibernateCallback<List<ArticleEntity>>() {
+			
+            public List<ArticleEntity> doInHibernate(Session session) throws HibernateException, SQLException {
+            	
+                Query query = session.getNamedQuery("ArticleEntity.findAllWithTagsSortedByDateDesc");
+                query.setParameterList("articleTagList", articleTagList);
                 query.setFirstResult(firstResult);
                 query.setMaxResults(maxResults);
                 return query.list();

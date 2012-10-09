@@ -2,7 +2,6 @@ package pl.kwi.chrisblog.services;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import pl.kwi.chrisblog.comparators.ArticleTagUniqueNameComparator;
 import pl.kwi.chrisblog.daos.ArticleDao;
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
@@ -64,38 +62,13 @@ public class ArticleService {
 	 * @return list of articles connected with specified page number, tag and locale
 	 * @throws Exception
 	 */
-	public List<ArticleEntity> getArticleListSortedByDateDesc(int pageNumber, Locale loc) throws Exception {
-		
-		return getArticleListWithTagSortedByDateDesc(pageNumber, null, loc);
-		
-	}
-	
-	/**
-	 * Method gets list of articles connected with specified page number, tag and locale.
-	 * These articles are sorted by date descending.
-	 * 
-	 * @param pageNumber int with number of page
-	 * @param tagUniqueName object String with unique name of tag specified for article from list
-	 * @param loc object Locale with international localization
-	 * @return list of articles connected with specified page number, tag and locale
-	 * @throws Exception
-	 */
-	public List<ArticleEntity> getArticleListWithTagSortedByDateDesc(int pageNumber, ArticleTagEntity articleTag, Locale loc) throws Exception {
+	public List<ArticleEntity> findAllSortedByDateDesc(int pageNumber, Locale loc) throws Exception {
 		
 		int firstResult = (pageNumber - 1) * countArticlesPerPage;
 		int maxResults = countArticlesPerPage;
 		
-		List<ArticleEntity> articleList = articleDao.findAllWithPaginationSortedByDateDesc(firstResult, maxResults);
-		articleList = convertArticlesToDisplayableForm(articleList, loc);
-				 
-		 List<ArticleTagEntity> searchedArticleTagList = new ArrayList<ArticleTagEntity>();
-		 searchedArticleTagList.add(articleTag);
-		 		 
-		 if(articleTag == null){
-			 return articleList;
-		 } else {
-			 return extractArticleListMarkedByTags(articleList, searchedArticleTagList);			 
-		 }
+		List<ArticleEntity> articleList = articleDao.findAllSortedByDateDesc(firstResult, maxResults);
+		return convertArticlesToDisplayableForm(articleList, loc);
 		
 	}
 	
@@ -110,13 +83,19 @@ public class ArticleService {
 	 * @return list of articles connected with specified page number, tag and locale
 	 * @throws Exception
 	 */
-	public List<ArticleEntity> getArticleListWithTagSortedByDateDescWithExp(int pageNumber, ArticleTagEntity articleTag, Locale loc) throws Exception {
+	public List<ArticleEntity> findAllWithTagsSortedByDateDesc(int pageNumber, ArticleTagEntity articleTag, Locale loc) throws Exception {
 		
 		if(articleTag == null){
 			throw new ArticleException("Error article handling. Can not get article list for article tag which is null");
 		}
+		List<ArticleTagEntity> articleTagList = new ArrayList<ArticleTagEntity>();
+		articleTagList.add(articleTag);
 		
-		return getArticleListWithTagSortedByDateDesc(pageNumber, articleTag, loc);
+		int firstResult = (pageNumber - 1) * countArticlesPerPage;
+		int maxResults = countArticlesPerPage;
+		
+		List<ArticleEntity> articleList = articleDao.findAllWithTagsSortedByDateDesc(firstResult, maxResults, articleTagList);
+		return convertArticlesToDisplayableForm(articleList, loc);
 		
 	}
 	
@@ -267,38 +246,6 @@ public class ArticleService {
 		}
 		
 		return articleList;
-		
-	}
-	
-	/**
-	 * Method extracts from article list only these articles which are marked by one of the tags from list.
-	 * 
-	 * @param articleList list of articles
-	 * @param tagsList list of tags
-	 * @return list of articles marked by one of the tagss
-	 */
-	protected List<ArticleEntity> extractArticleListMarkedByTags(List<ArticleEntity> articleList, List<ArticleTagEntity> tagsList){
-				
-		List<ArticleEntity> resultList = new ArrayList<ArticleEntity>();
-		 
-		for (ArticleEntity article : articleList) {
-			List<ArticleTagEntity> articleTagList = article.getArticleTagList();
-						
-			for (ArticleTagEntity articleTag : tagsList) {
-				
-				ArticleTagUniqueNameComparator comparator = new ArticleTagUniqueNameComparator();
-				
-				Collections.sort(articleTagList, comparator);				
-				int index = Collections.binarySearch(articleTagList, articleTag, comparator);
-				if(index >= 0){
-					resultList.add(article);
-					break;
-				}
-
-			}
-		}
-		 
-		 return resultList;
 		
 	}
 	

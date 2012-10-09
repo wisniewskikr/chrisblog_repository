@@ -79,12 +79,12 @@ public class ArticleServiceTest {
 	}
 	
 	@Test
-	public void getArticleListSortedByDateDesc() throws Exception{
+	public void findAllSortedByDateDesc() throws Exception{
 		
 		int pageNumber = 1;
 		Locale loc = Locale.ENGLISH;
 		
-		List<ArticleEntity> articleList = service.getArticleListSortedByDateDesc(pageNumber, loc);
+		List<ArticleEntity> articleList = service.findAllSortedByDateDesc(pageNumber, loc);
 		
 		Assert.assertEquals(Integer.valueOf(1999), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.YEAR)));
 		Assert.assertEquals(Integer.valueOf(11), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.MONTH)));
@@ -107,34 +107,38 @@ public class ArticleServiceTest {
 	}
 	
 	@Test(expected = ArticleException.class)
-	public void getArticleListSortedByDateDesc_articleListNull() throws Exception{
+	public void findAllSortedByDateDesc_articleListNull() throws Exception{
 		
 		service.setArticleDao(mockArticleDao(null));
 		int pageNumber = 1;
 		Locale loc = Locale.ENGLISH;
 		
-		service.getArticleListSortedByDateDesc(pageNumber, loc);
+		service.findAllSortedByDateDesc(pageNumber, loc);
 		
 	}
 	
 	@Test(expected = ArticleException.class)
-	public void getArticleListSortedByDateDesc_localeNull() throws Exception{
+	public void findAllSortedByDateDesc_localeNull() throws Exception{
 		
 		int pageNumber = 1;
 		Locale loc = null;
 		
-		service.getArticleListSortedByDateDesc(pageNumber, loc);
+		service.findAllSortedByDateDesc(pageNumber, loc);
 		
 	}
 	
 	@Test
-	public void getArticleListWithTagSortedByDateDesc() throws Exception{
+	public void findAllWithTagsSortedByDateDesc() throws Exception{
 		
-		int pageNumber = 1;
-		ArticleTagEntity articleTag = null;
+		int pageNumber = 1;		
 		Locale loc = Locale.ENGLISH;
 		
-		List<ArticleEntity> articleList = service.getArticleListWithTagSortedByDateDesc(pageNumber, articleTag, loc);
+		ArticleTagEntity articleTag = new ArticleTagEntity();
+		articleTag.setId(5L);
+		articleTag.setName("EJB3");
+		articleTag.setUniqueName("ejb3");
+		
+		List<ArticleEntity> articleList = service.findAllWithTagsSortedByDateDesc(pageNumber, articleTag, loc);
 		
 		Assert.assertEquals(Integer.valueOf(1999), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.YEAR)));
 		Assert.assertEquals(Integer.valueOf(11), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.MONTH)));
@@ -157,103 +161,14 @@ public class ArticleServiceTest {
 	}
 	
 	@Test(expected = ArticleException.class)
-	public void getArticleListWithTagSortedByDateDesc_articleListNull() throws Exception{
-		
-		service.setArticleDao(mockArticleDao(null));
-		int pageNumber = 1;
-		ArticleTagEntity articleTag = null;
-		Locale loc = Locale.ENGLISH;
-		
-		service.getArticleListWithTagSortedByDateDesc(pageNumber, articleTag, loc);
-		
-	}
-	
-	@Test(expected = ArticleException.class)
-	public void getArticleListWithTagSortedByDateDesc_localeNull() throws Exception{
-		
-		int pageNumber = 1;
-		ArticleTagEntity articleTag = null;
-		Locale loc = null;
-		
-		service.getArticleListWithTagSortedByDateDesc(pageNumber, articleTag, loc);
-		
-	}
-	
-	@Test
-	public void getArticleListWithTagSortedByDateDesc_tagFits() throws Exception{
-		
-		int pageNumber = 1;		
-		Locale loc = Locale.ENGLISH;
-		
-		ArticleTagEntity articleTag = new ArticleTagEntity();
-		articleTag.setId(5L);
-		articleTag.setName("EJB3");
-		articleTag.setUniqueName("ejb3");
-		
-		List<ArticleEntity> articleList = service.getArticleListWithTagSortedByDateDesc(pageNumber, articleTag, loc);
-		
-		Assert.assertEquals(Integer.valueOf(1999), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.YEAR)));
-		Assert.assertEquals(Integer.valueOf(11), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.MONTH)));
-		Assert.assertEquals(Integer.valueOf(25), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.DAY_OF_MONTH)));
-		Assert.assertEquals(Integer.valueOf(17), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.HOUR_OF_DAY)));
-		Assert.assertEquals(Integer.valueOf(45), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.MINUTE)));
-		Assert.assertEquals(Integer.valueOf(53), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.SECOND)));
-		Assert.assertEquals(Long.valueOf(3L), articleList.get(0).getId());
-		Assert.assertEquals("Unique name 3", articleList.get(0).getUniqueName());
-		Assert.assertEquals("Title 3", articleList.get(0).getTitle());
-		Assert.assertEquals("Description", articleList.get(0).getDescription());
-		Assert.assertEquals("Path/path", articleList.get(0).getContent());
-		Assert.assertEquals(Integer.valueOf(4), articleList.get(0).getPagesCount());
-		Assert.assertEquals("Author", articleList.get(0).getAuthor());
-		Assert.assertEquals("December 25, 1999", articleList.get(0).getCreationDateAsString());
-		Assert.assertEquals("/demoPath", articleList.get(0).getDemoPath());
-		Assert.assertEquals("/folderExamples/exampleFile", articleList.get(0).getExamplePath());
-		Assert.assertEquals("/folderSources/sourceFile", articleList.get(0).getSourcePath());
-		
-	}
-	
-	@Test
-	public void getArticleListWithTagSortedByDateDescWithExp() throws Exception{
-		
-		int pageNumber = 1;		
-		Locale loc = Locale.ENGLISH;
-		
-		ArticleTagEntity articleTag = new ArticleTagEntity();
-		articleTag.setId(5L);
-		articleTag.setName("EJB3");
-		articleTag.setUniqueName("ejb3");
-		
-		List<ArticleEntity> articleList = service.getArticleListWithTagSortedByDateDescWithExp(pageNumber, articleTag, loc);
-		
-		Assert.assertEquals(Integer.valueOf(1999), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.YEAR)));
-		Assert.assertEquals(Integer.valueOf(11), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.MONTH)));
-		Assert.assertEquals(Integer.valueOf(25), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.DAY_OF_MONTH)));
-		Assert.assertEquals(Integer.valueOf(17), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.HOUR_OF_DAY)));
-		Assert.assertEquals(Integer.valueOf(45), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.MINUTE)));
-		Assert.assertEquals(Integer.valueOf(53), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.SECOND)));
-		Assert.assertEquals(Long.valueOf(3L), articleList.get(0).getId());
-		Assert.assertEquals("Unique name 3", articleList.get(0).getUniqueName());
-		Assert.assertEquals("Title 3", articleList.get(0).getTitle());
-		Assert.assertEquals("Description", articleList.get(0).getDescription());
-		Assert.assertEquals("Path/path", articleList.get(0).getContent());
-		Assert.assertEquals(Integer.valueOf(4), articleList.get(0).getPagesCount());
-		Assert.assertEquals("Author", articleList.get(0).getAuthor());
-		Assert.assertEquals("December 25, 1999", articleList.get(0).getCreationDateAsString());
-		Assert.assertEquals("/demoPath", articleList.get(0).getDemoPath());
-		Assert.assertEquals("/folderExamples/exampleFile", articleList.get(0).getExamplePath());
-		Assert.assertEquals("/folderSources/sourceFile", articleList.get(0).getSourcePath());
-		
-	}
-	
-	@Test(expected = ArticleException.class)
-	public void getArticleListWithTagSortedByDateDescWithExp_articleTagNull() throws Exception{
+	public void findAllWithTagsSortedByDateDesc_articleTagNull() throws Exception{
 		
 		int pageNumber = 1;		
 		Locale loc = Locale.ENGLISH;
 		
 		ArticleTagEntity articleTag = null;
 		
-		service.getArticleListWithTagSortedByDateDescWithExp(pageNumber, articleTag, loc);
+		service.findAllWithTagsSortedByDateDesc(pageNumber, articleTag, loc);
 				
 	}
 	
@@ -532,62 +447,6 @@ public class ArticleServiceTest {
 		
 	}
 	
-	@Test
-	public void extractArticleListMarkedByTags() throws Exception{
-		
-		List<ArticleEntity> articleList = mockCompleteArticleList();
-		
-		List<ArticleTagEntity> articleTagList = null;
-		ArticleTagEntity articleTag;
-		
-		articleTagList = new ArrayList<ArticleTagEntity>();
-		
-		articleTag = new ArticleTagEntity();
-		articleTag.setId(1L);
-		articleTag.setName("Java");
-		articleTag.setUniqueName("java");
-		articleTagList.add(articleTag);
-		
-		articleTag = new ArticleTagEntity();
-		articleTag.setId(2L);
-		articleTag.setName("Maven");
-		articleTag.setUniqueName("maven");
-		articleTagList.add(articleTag);
-		
-		articleTag = new ArticleTagEntity();
-		articleTag.setId(5L);
-		articleTag.setName("EJB3");
-		articleTag.setUniqueName("ejb3");
-		articleTagList.add(articleTag);
-		
-		List<ArticleEntity> resultList = service.extractArticleListMarkedByTags(articleList, articleTagList);
-		
-		Assert.assertEquals(2, resultList.size());
-		
-	}
-	
-	@Test
-	public void extractArticleListMarkedByTags_noResults() throws Exception{
-		
-		List<ArticleEntity> articleList = mockCompleteArticleList();
-		
-		List<ArticleTagEntity> articleTagList = null;
-		ArticleTagEntity articleTag;
-		
-		articleTagList = new ArrayList<ArticleTagEntity>();
-		
-		articleTag = new ArticleTagEntity();
-		articleTag.setId(8L);
-		articleTag.setName("Tmp");
-		articleTag.setUniqueName("tmp");
-		articleTagList.add(articleTag);
-				
-		List<ArticleEntity> resultList = service.extractArticleListMarkedByTags(articleList, articleTagList);
-		
-		Assert.assertEquals(0, resultList.size());
-		
-	}
-	
 	
 	// ************************************************************************************************************ //
 	// *********************************************** HELP METHODS *********************************************** //
@@ -598,7 +457,8 @@ public class ArticleServiceTest {
 				
 		ArticleDao mock = Mockito.mock(ArticleDao.class);
 		Mockito.when(mock.findAll()).thenReturn(articleList);
-		Mockito.when(mock.findAllWithPaginationSortedByDateDesc(Mockito.anyInt(), Mockito.anyInt())).thenReturn(articleList);
+		Mockito.when(mock.findAllSortedByDateDesc(Mockito.anyInt(), Mockito.anyInt())).thenReturn(articleList);
+		Mockito.when(mock.findAllWithTagsSortedByDateDesc(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyList())).thenReturn(articleList);
 		Mockito.when(mock.getCountOfAllArticles()).thenReturn(3);
 		Mockito.when(mock.getCountArticlesWithTags(Mockito.anyList())).thenReturn(2);
 		return mock;
