@@ -82,8 +82,10 @@ public class ArticleService {
 	 */
 	public List<ArticleEntity> getArticleListWithTagSortedByDateDesc(int pageNumber, ArticleTagEntity articleTag, Locale loc) throws Exception {
 		
-		//TODO KWi: handle page number 
-		List<ArticleEntity> articleList = articleDao.findAllSortedByDateDesc();
+		int firstResult = (pageNumber - 1) * countArticlesPerPage;
+		int maxResults = countArticlesPerPage;
+		
+		List<ArticleEntity> articleList = articleDao.findAllWithPaginationSortedByDateDesc(firstResult, maxResults);
 		articleList = convertArticlesToDisplayableForm(articleList, loc);
 				 
 		 List<ArticleTagEntity> searchedArticleTagList = new ArrayList<ArticleTagEntity>();

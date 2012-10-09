@@ -1,7 +1,13 @@
 package pl.kwi.chrisblog.daos;
 
+import java.sql.SQLException;
 import java.util.List;
 
+
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
 import pl.kwi.chrisblog.entities.ArticleEntity;
@@ -15,10 +21,26 @@ public class ArticleDao extends AbstractHibernateTemplateDao<ArticleEntity>{
 		setClazz(ArticleEntity.class);
 	}
 	
+	/**
+	 * Method finds and paginates all articles from db sorted descending by date.
+	 * 
+	 * @param firstResult int with number of first article which should be found in db
+	 * @param maxResults int with amount of articles which should be found in db
+	 * @return list of articles sorted descending by date
+	 */
 	@SuppressWarnings("unchecked")
-	public List<ArticleEntity> findAllSortedByDateDesc(){
+	public List<ArticleEntity> findAllWithPaginationSortedByDateDesc(final int firstResult, final int maxResults){
 		
-		return hibernateTemplate.findByNamedQuery("ArticleEntity.findAllSortedByDateDesc");
+		return hibernateTemplate.executeFind(new HibernateCallback<List<ArticleEntity>>() {
+			
+            public List<ArticleEntity> doInHibernate(Session session) throws HibernateException, SQLException {
+                Query query = session.getNamedQuery("ArticleEntity.findAllSortedByDateDesc");
+                query.setFirstResult(firstResult);
+                query.setMaxResults(maxResults);
+                return query.list();
+            }
+            
+        });
 		
 	}
 	

@@ -44,15 +44,30 @@ public class ArticleDaoTest {
 	
 	@Test
 	@DatabaseSetup("/dbunit/ArticleDaoTest.xml")
-	public void findAllSortedByDateDesc(){
+	public void findAllWithPaginationSortedByDateDesc_firstResult_0(){
 		
-		List<ArticleEntity> list = dao.findAllSortedByDateDesc();
-		assertEquals(3, list.size());
+		int firstResult = 0; 
+		int maxResults = 2;
+		
+		List<ArticleEntity> list = dao.findAllWithPaginationSortedByDateDesc(firstResult, maxResults);
+		
+		assertEquals(2, list.size());
 		assertEquals(Long.valueOf(3), list.get(0).getId());
 		assertEquals(Long.valueOf(2), list.get(1).getId());
-		assertEquals(Long.valueOf(1), list.get(2).getId());
 		
-		assertEquals(2, list.get(0).getArticleTagList().size());
+	}
+	
+	@Test
+	@DatabaseSetup("/dbunit/ArticleDaoTest.xml")
+	public void findAllWithPaginationSortedByDateDesc_firstResult_2(){
+		
+		int firstResult = 2; 
+		int maxResults = 2;
+		
+		List<ArticleEntity> list = dao.findAllWithPaginationSortedByDateDesc(firstResult, maxResults);
+		
+		assertEquals(1, list.size());
+		assertEquals(Long.valueOf(1), list.get(0).getId());
 		
 	}
 	

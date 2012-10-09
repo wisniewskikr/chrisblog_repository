@@ -598,7 +598,7 @@ public class ArticleServiceTest {
 				
 		ArticleDao mock = Mockito.mock(ArticleDao.class);
 		Mockito.when(mock.findAll()).thenReturn(articleList);
-		Mockito.when(mock.findAllSortedByDateDesc()).thenReturn(articleList);
+		Mockito.when(mock.findAllWithPaginationSortedByDateDesc(Mockito.anyInt(), Mockito.anyInt())).thenReturn(articleList);
 		Mockito.when(mock.getCountOfAllArticles()).thenReturn(3);
 		Mockito.when(mock.getCountArticlesWithTags(Mockito.anyList())).thenReturn(2);
 		return mock;
