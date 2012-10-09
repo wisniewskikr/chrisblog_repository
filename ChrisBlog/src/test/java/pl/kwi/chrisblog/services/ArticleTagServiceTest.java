@@ -47,17 +47,6 @@ public class ArticleTagServiceTest {
 	}
 	
 	@Test
-	public void getArticleTagByUniqueName_UniqueNameDoesNotFit(){
-		
-		String uniqueName = "tmp";
-		
-		ArticleTagEntity result = service.getArticleTagByUniqueName(uniqueName);
-		
-		Assert.assertNull(result);
-	
-	}
-	
-	@Test
 	public void getArticleTagByUniqueName_UniqueNameNull(){
 		
 		String uniqueName = null;
@@ -78,7 +67,7 @@ public class ArticleTagServiceTest {
 		
 		List<ArticleTagEntity> resultList = service.getArticleTagListByUniqueNameList(uniqueNameList);
 		
-		Assert.assertEquals(Integer.valueOf(3), Integer.valueOf(resultList.size()));
+		Assert.assertEquals(Integer.valueOf(8), Integer.valueOf(resultList.size()));
 		Assert.assertEquals(Long.valueOf(1), resultList.get(0).getId());
 		Assert.assertEquals("Java", resultList.get(0).getName());
 		Assert.assertEquals(Long.valueOf(2), resultList.get(1).getId());
@@ -239,6 +228,7 @@ public class ArticleTagServiceTest {
 		ArticleTagDao mock = Mockito.mock(ArticleTagDao.class);
 		
 		Mockito.when(mock.findAll()).thenReturn(mockArticleTagList());
+		Mockito.when(mock.findByUniqueNameList(Mockito.anyList())).thenReturn(mockArticleTagList());
 		
 		return mock;
 		

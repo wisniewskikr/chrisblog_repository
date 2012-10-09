@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -17,6 +19,11 @@ import pl.kwi.db.abstr.AbstractEntity;
  * 
  * @author Krzysztof Wisniewski
  */
+@NamedQueries(value = { 
+		@NamedQuery(name="ArticleTagEntity.findByUniqueNameList", 
+			query="SELECT t FROM ArticleTagEntity t WHERE t.uniqueName IN (:uniqueNameList)")
+	})
+
 @Entity
 @Table(name="article_tags")
 public class ArticleTagEntity extends AbstractEntity{

@@ -1,6 +1,8 @@
 package pl.kwi.chrisblog.daos;
 
-import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -38,6 +40,33 @@ public class ArticleTagDaoTest {
 		assertEquals(2, list.size());
 		assertEquals(Integer.valueOf(2), list.get(0).getOccurencesCount());
 		assertEquals(Integer.valueOf(0), list.get(1).getOccurencesCount());
+		
+	}
+	
+	@Test
+	@DatabaseSetup("/dbunit/ArticleTagDaoTest.xml")
+	public void findByUniqueNameList(){
+		
+		List<String> uniqueNameList = new ArrayList<String>();
+		uniqueNameList.add("uniqueName1");
+		uniqueNameList.add("uniqueName2");
+		
+		List<ArticleTagEntity> resultList = dao.findByUniqueNameList(uniqueNameList);
+		
+		assertEquals(2, resultList.size());
+		
+	}
+	
+	@Test
+	@DatabaseSetup("/dbunit/ArticleTagDaoTest.xml")
+	public void findByUniqueNameList_noResults(){
+		
+		List<String> uniqueNameList = new ArrayList<String>();
+		uniqueNameList.add("test");
+		
+		List<ArticleTagEntity> resultList = dao.findByUniqueNameList(uniqueNameList);
+		
+		assertTrue(resultList.isEmpty());
 		
 	}
 

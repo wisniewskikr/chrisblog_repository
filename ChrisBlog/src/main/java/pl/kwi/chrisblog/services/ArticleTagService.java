@@ -66,17 +66,7 @@ public class ArticleTagService {
 			return resultList;
 		}
 		
-		List<ArticleTagEntity> articleList = dao.findAll();
-		
-		for (ArticleTagEntity articleTag : articleList) {
-			for (String uniqueName : uniqueNameList) {
-				if(uniqueName.equals(articleTag.getUniqueName())){
-					resultList.add(articleTag);
-				}
-			}
-		}
-		
-		return resultList;
+		return dao.findByUniqueNameList(uniqueNameList);
 	}
 	
 	/**
