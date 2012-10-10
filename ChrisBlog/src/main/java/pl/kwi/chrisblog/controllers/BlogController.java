@@ -1,33 +1,21 @@
 package pl.kwi.chrisblog.controllers;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Locale;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import pl.kwi.chrisblog.commands.BlogCommand;
-import pl.kwi.chrisblog.entities.ArticleEntity;
-import pl.kwi.chrisblog.entities.ArticleTagEntity;
-import pl.kwi.chrisblog.exceptions.ArticleException;
-import pl.kwi.chrisblog.exceptions.PagenationException;
-import pl.kwi.chrisblog.services.ArticleService;
-import pl.kwi.chrisblog.services.ArticleTagService;
 import pl.kwi.chrisblog.services.ExplanationService;
 
 /**
@@ -452,37 +440,6 @@ public class BlogController extends AbstractController{
 		Integer pagesCount = articleService.getPagesCountArticlesWithTag(command.getArticleTag());
 		
 		handlePagenation(command, pageCurrent, pagesCount);
-		
-	}
-	
-	/**
-	 * Method handles common pagenation.
-	 * 
-	 * @param command object BlogCommand with page data
-	 * @param pageCurrent object Integer with number of current page
-	 * @param pagesCount object Integer with count of all pages
-	 * @throws Exception
-	 */
-	protected void handlePagenation(BlogCommand command, Integer pageCurrent, Integer pagesCount) throws Exception {
-		
-		if(pageCurrent == null || pageCurrent == 0){
-			throw new PagenationException("Current page is null or 0");
-		}
-		
-		if(pagesCount == null || pagesCount == 0){
-			throw new PagenationException("Pages count is null or 0");
-		}
-		
-		if(pageCurrent < 0){
-			throw new PagenationException("Current page is less then 0");
-		}
-		
-		if(pageCurrent > pagesCount){
-			throw new PagenationException("Current page in URL is higher than pages count");
-		}
-		
-		command.setPageCurrent(pageCurrent);
-		command.setPagesCount(pagesCount);
 		
 	}
 	

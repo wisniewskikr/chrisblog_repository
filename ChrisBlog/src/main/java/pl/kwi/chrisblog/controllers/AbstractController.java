@@ -10,6 +10,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 
 import pl.kwi.chrisblog.commands.BlogCommand;
+import pl.kwi.chrisblog.exceptions.PagenationException;
 import pl.kwi.chrisblog.services.ArticleService;
 import pl.kwi.chrisblog.services.ArticleTagService;
 
@@ -97,6 +98,37 @@ public abstract class AbstractController {
 		}
 		
 		return title;
+		
+	}
+	
+	/**
+	 * Method handles common pagenation.
+	 * 
+	 * @param command object BlogCommand with page data
+	 * @param pageCurrent object Integer with number of current page
+	 * @param pagesCount object Integer with count of all pages
+	 * @throws Exception
+	 */
+	protected void handlePagenation(BlogCommand command, Integer pageCurrent, Integer pagesCount) throws Exception {
+		
+		if(pageCurrent == null || pageCurrent == 0){
+			throw new PagenationException("Current page is null or 0");
+		}
+		
+		if(pagesCount == null || pagesCount == 0){
+			throw new PagenationException("Pages count is null or 0");
+		}
+		
+		if(pageCurrent < 0){
+			throw new PagenationException("Current page is less then 0");
+		}
+		
+		if(pageCurrent > pagesCount){
+			throw new PagenationException("Current page in URL is higher than pages count");
+		}
+		
+		command.setPageCurrent(pageCurrent);
+		command.setPagesCount(pagesCount);
 		
 	}
 	

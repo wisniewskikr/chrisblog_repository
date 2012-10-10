@@ -28,21 +28,39 @@
 	
 	<div id="secArticleListContent">
 	
-		<table class="secArticleListContentTable">
-		
-			<tr class="secArticleListContentRow">
-				<td class="secArticleListContentColumnPoint">
-					<span class="secArticleListContentPoint"></span>
-				</td>
-				<td class="secArticleListContentColumnCheckbox">
-					<input class="secArticleListContentCheckbox" type="checkbox"/>
-				</td>
-				<td class="secArticleListContentColumnText">
-					<div class="secArticleListContentTitle"><a href="#">Hello World 1</a></div>
-					<div class="secArticleListContentInfo">by Chris 3 days ago</div>
-				</td>
-			</tr>
-			
+		<table class="secArticleListContentTable">			
+			<c:choose>
+				
+						
+				<c:when test="${command.articleList == null || 
+								empty command.articleList}">
+								
+					<tr><td id="secArticleListContentTableNoData">No data</td></tr>
+					
+				</c:when>
+				
+				
+				<c:otherwise>
+					<c:forEach items="${command.articleList}" var="article">
+					
+					<tr class="secArticleListContentRow">
+						<td class="secArticleListContentColumnPoint">
+							<span class="secArticleListContentPoint"></span>
+						</td>
+						<td class="secArticleListContentColumnCheckbox">
+							<input class="secArticleListContentCheckbox" type="checkbox"/>
+						</td>
+						<td class="secArticleListContentColumnText">
+							<div class="secArticleListContentTitle"><a href="#">${article.title}</a></div>
+							<div class="secArticleListContentInfo">by ${article.author} 3 days ago</div>
+						</td>
+					</tr>
+					
+					</c:forEach>
+				</c:otherwise>
+				
+				
+			</c:choose>						
 		</table>	
 
 	</div>

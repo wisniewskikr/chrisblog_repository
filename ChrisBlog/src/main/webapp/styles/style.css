@@ -689,4 +689,11 @@ div#AdTaily_Widget_Container div.Footer {
 	margin-left: 30px;
 }
 
+#secArticleListContentTableNoData{
+	color: #4183C4;
+	font: Helvetica, arial, freesans, clean, sans-serif;
+	font-size: 16px;
+	padding: 10px;
+}
+
 
