@@ -362,6 +362,7 @@ public class ArticleServiceTest {
 		Assert.assertEquals("/demoPath", articleList.get(0).getDemoPath());
 		Assert.assertEquals("/folderExamples/exampleFile", articleList.get(0).getExamplePath());
 		Assert.assertEquals("/folderSources/sourceFile", articleList.get(0).getSourcePath());
+		Assert.assertNotNull(articleList.get(0).getDiffToCurrentDateAsString());
 		
 	}
 	

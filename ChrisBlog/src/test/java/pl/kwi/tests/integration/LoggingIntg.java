@@ -62,7 +62,7 @@ public class LoggingIntg{
         text = driver.findElement(By.id("hello_world_servlets_titleList")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         text = driver.findElement(By.className("textMsg")).getText();
-        Assert.assertEquals("Incorrect username or password.", text);
+        Assert.assertEquals("Incorrect email or password.", text);
         
 	}
 	

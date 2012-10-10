@@ -219,6 +219,7 @@ public class ArticleService {
 			article.setSourcePath("/" + folderSources + "/" + article.getSourceFileName());
 			article.setContent(article.getUniqueName());
 			article.setDescription(article.getUniqueName());
+			article.setDiffToCurrentDateAsString(DateUtils.getDifferenceFromCurrentDateAsText(article.getCreationDate(), loc));
 			
 		}
 		

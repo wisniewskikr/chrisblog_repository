@@ -1,5 +1,9 @@
 package pl.kwi.chrisblog.utils;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
+
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -130,6 +134,114 @@ public class DateUtilsTest {
 		String str = DateUtils.convertCalendarToStringWithMonthAsText(cal, locale);
 		
 		Assert.assertNull(str);
+		
+	}
+	
+	@Test
+	public void getDifferenceFromCurrentDateAsText(){
+		
+		String str = "19991225174553";
+		
+		Calendar cal = DateUtils.convertStringToCalendarYYYYMMDDHHMMSS(str);
+		Locale locale = Locale.ENGLISH;
+		
+		String result = DateUtils.getDifferenceFromCurrentDateAsText(cal, locale);
+		
+		assertNotNull(result);
+		
+	}
+	
+	@Test
+	public void getDifferenceFromCurrentDateAsText_noCalendar(){
+		
+		Calendar cal = null;
+		Locale locale = Locale.ENGLISH;
+		
+		String result = DateUtils.getDifferenceFromCurrentDateAsText(cal, locale);
+		
+		assertNull(result);
+		
+	}
+	
+	@Test
+	public void getDifferenceFromCurrentDateAsText_noLocale(){
+		
+		String str = "19991225174553";
+		
+		Calendar cal = DateUtils.convertStringToCalendarYYYYMMDDHHMMSS(str);
+		Locale locale = null;
+		
+		String result = DateUtils.getDifferenceFromCurrentDateAsText(cal, locale);
+		
+		assertNull(result);
+		
+	}
+	
+	@Test
+	public void daysBetween(){
+		
+		String startStr = "20010101120000";		
+		Calendar startDate = DateUtils.convertStringToCalendarYYYYMMDDHHMMSS(startStr);
+		String endStr = "20010102120000";	
+		Calendar endDate = DateUtils.convertStringToCalendarYYYYMMDDHHMMSS(endStr);
+		
+		long result = DateUtils.daysBetween(startDate, endDate);
+		
+		assertEquals(1L, result);
+		
+	}
+	
+	@Test
+	public void daysBetween_theSameDay(){
+		
+		String startStr = "20010101120000";		
+		Calendar startDate = DateUtils.convertStringToCalendarYYYYMMDDHHMMSS(startStr);
+		String endStr = "20010101130000";	
+		Calendar endDate = DateUtils.convertStringToCalendarYYYYMMDDHHMMSS(endStr);
+		
+		long result = DateUtils.daysBetween(startDate, endDate);
+		
+		assertEquals(0L, result);
+		
+	}
+	
+	@Test
+	public void daysBetween_noStartDate(){
+		
+		Calendar startDate = null;
+		String endStr = "20010102120000";	
+		Calendar endDate = DateUtils.convertStringToCalendarYYYYMMDDHHMMSS(endStr);
+		
+		long result = DateUtils.daysBetween(startDate, endDate);
+		
+		assertEquals(0L, result);
+		
+	}
+	
+	@Test
+	public void daysBetween_noEndDate(){
+		
+		String startStr = "20010101120000";		
+		Calendar startDate = DateUtils.convertStringToCalendarYYYYMMDDHHMMSS(startStr);
+		Calendar endDate = null;
+		
+		long result = DateUtils.daysBetween(startDate, endDate);
+		
+		assertEquals(0L, result);
+		
+	}
+	
+	@Test
+	public void daysBetween_endDateBeforeStart(){
+		
+		String startStr = "20020101120000";		
+		Calendar startDate = DateUtils.convertStringToCalendarYYYYMMDDHHMMSS(startStr);
+		String endStr = "20010101120000";	
+		Calendar endDate = DateUtils.convertStringToCalendarYYYYMMDDHHMMSS(endStr);
+		
+		long result = DateUtils.daysBetween(startDate, endDate);
+		
+		assertEquals(0L, result);
 		
 	}
 

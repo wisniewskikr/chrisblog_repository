@@ -102,5 +102,83 @@ public class DateUtils {
         return result;
 
     }
+    
+    /**
+     * Method gets difference between defined date and current date
+     * as text. For instance: "1 day ago" or "2 days ago".
+     * 
+     * @param cal object Calendar with defined date
+     * @param loc object Locale for internationalization
+     * @return object String with difference
+     */
+    public static String getDifferenceFromCurrentDateAsText(Calendar cal, Locale loc){
+    	
+    	String result = null;
+        
+        if(cal == null){
+        	LOG.error("Can not convert Calendar to String. Calendar is null.");
+        	return result;
+        }
+        
+        if(loc == null){
+        	LOG.error("Can not convert Calendar to String. Locale is null.");
+        	return result;
+        }
+        
+        Calendar currentDate = Calendar.getInstance();
+        Long daysBetween = daysBetween(cal, currentDate);
+        
+        if(daysBetween == 1){
+        	result = daysBetween.toString() + " day ago";
+        }else{
+        	result = daysBetween.toString() + " days ago";
+        }
+        
+        return result;
+    	
+    }
+    
+    /**
+     * Method counts difference between  two dates.
+     * 
+     * @param startDate object Calendar with start date
+     * @param endDate object Calendar with end date
+     * @return long as difference between two dates
+     */
+    public static long daysBetween(Calendar startDate, Calendar endDate) {
+    	
+    	if(startDate == null){
+    		LOG.error("Can not count days between two dates. Start date is null.");
+    		return 0l;
+    	}
+    	
+    	if(endDate == null){
+    		LOG.error("Can not count days between two dates. End date is null.");
+    		return 0l;
+    	}
+    	
+    	if(endDate.before(startDate)){
+    		LOG.error("Can not count days between two dates. End date is before start date.");
+    		return 0l;
+    	}
+    	
+    	// Less then 24 hours
+    	Calendar date = (Calendar) endDate.clone();
+    	date.add(Calendar.DAY_OF_MONTH, -1);
+    	if(date.before(startDate)){
+    		return 0;
+    	}
+    	
+    	  date = (Calendar) startDate.clone();
+    	  long daysBetween = 0;
+    	  while (date.before(endDate)) {
+    	    date.add(Calendar.DAY_OF_MONTH, 1);
+    	    daysBetween++;
+    	  }
+    	  
+    	  return daysBetween;
+    	  
+    }
+    
 
 }

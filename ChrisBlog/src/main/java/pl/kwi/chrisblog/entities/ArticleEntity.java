@@ -63,6 +63,7 @@ public class ArticleEntity extends AbstractEntity{
 	private String examplePath;
 	private String sourcePath;
 	private String creationDateAsString;
+	private String diffToCurrentDateAsString;
 	
 	
 	// ************************************************************************************************************ //
@@ -193,6 +194,14 @@ public class ArticleEntity extends AbstractEntity{
 	}
 	public void setCreationDateAsString(String creationDateAsString) {
 		this.creationDateAsString = creationDateAsString;
+	}
+	
+	@Transient
+	public String getDiffToCurrentDateAsString() {
+		return diffToCurrentDateAsString;
+	}
+	public void setDiffToCurrentDateAsString(String diffToCurrentDateAsString) {
+		this.diffToCurrentDateAsString = diffToCurrentDateAsString;
 	}
 
 	

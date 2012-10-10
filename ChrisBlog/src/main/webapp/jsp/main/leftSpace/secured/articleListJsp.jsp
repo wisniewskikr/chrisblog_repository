@@ -52,7 +52,7 @@
 						</td>
 						<td class="secArticleListContentColumnText">
 							<div class="secArticleListContentTitle"><a href="#">${article.title}</a></div>
-							<div class="secArticleListContentInfo">by ${article.author} 3 days ago</div>
+							<div class="secArticleListContentInfo">by ${article.author} ${article.diffToCurrentDateAsString}</div>
 						</td>
 					</tr>
 					
