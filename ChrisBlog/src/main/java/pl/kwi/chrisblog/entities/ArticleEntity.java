@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -16,6 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import pl.kwi.chrisblog.enums.ArticleStatusEnum;
 import pl.kwi.db.abstr.AbstractEntity;
 
 @NamedQueries(value = { 
@@ -54,6 +57,7 @@ public class ArticleEntity extends AbstractEntity{
 	private String demoName;
 	private String exampleFileName;
 	private String sourceFileName;
+	private ArticleStatusEnum status;
 	private List<ArticleTagEntity> articleTagList = new ArrayList<ArticleTagEntity>();
 		
 	// Transient
@@ -133,6 +137,15 @@ public class ArticleEntity extends AbstractEntity{
 	}
 	public void setSourceFileName(String sourceFileName) {
 		this.sourceFileName = sourceFileName;
+	}	
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="STATUS", length=20, nullable=false)
+	public ArticleStatusEnum getStatus() {
+		return status;
+	}
+	public void setStatus(ArticleStatusEnum status) {
+		this.status = status;
 	}
 	
 	@ManyToMany(cascade=(CascadeType.ALL), fetch=FetchType.EAGER)
