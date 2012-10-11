@@ -22,6 +22,18 @@ public class ArticleDao extends AbstractHibernateTemplateDao<ArticleEntity>{
 	}
 	
 	/**
+	 * Method gets all active articles.
+	 * 
+	 * @return list of all actives articles
+	 */
+	@SuppressWarnings("unchecked")
+	public List<ArticleEntity> findAllActive(){
+		
+		return hibernateTemplate.findByNamedQuery("ArticleEntity.findAllActive");
+		
+	}
+	
+	/**
 	 * Method finds and paginates all articles from db sorted descending by date.
 	 * 
 	 * @param firstResult int with number of first article which should be found in db

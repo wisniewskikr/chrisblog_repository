@@ -375,7 +375,7 @@ public class ArticleServiceTest {
 	private ArticleDao mockArticleDao(List<ArticleEntity> articleList) throws Exception{
 				
 		ArticleDao mock = Mockito.mock(ArticleDao.class);
-		Mockito.when(mock.findAll()).thenReturn(articleList);
+		Mockito.when(mock.findAllActive()).thenReturn(articleList);
 		Mockito.when(mock.findAllSortedByDateDesc(Mockito.anyInt(), Mockito.anyInt())).thenReturn(articleList);
 		Mockito.when(mock.findAllWithTagsSortedByDateDesc(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyList())).thenReturn(articleList);
 		if(articleList != null){

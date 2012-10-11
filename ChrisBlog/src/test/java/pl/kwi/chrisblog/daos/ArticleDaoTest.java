@@ -44,6 +44,15 @@ public class ArticleDaoTest {
 	
 	@Test
 	@DatabaseSetup("/dbunit/ArticleDaoTest.xml")
+	public void findAllActive() {
+		
+		List<ArticleEntity> list = dao.findAllActive();
+		assertEquals(3, list.size());
+		
+	}
+	
+	@Test
+	@DatabaseSetup("/dbunit/ArticleDaoTest.xml")
 	public void findAllSortedByDateDesc_firstResult_0(){
 		
 		int firstResult = 0; 

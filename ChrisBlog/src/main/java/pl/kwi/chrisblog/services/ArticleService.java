@@ -47,7 +47,7 @@ public class ArticleService {
 	 */
 	public List<ArticleEntity> getAllArticleList(Locale loc) throws Exception {
 		
-		List<ArticleEntity> articleList = articleDao.findAll();
+		List<ArticleEntity> articleList = articleDao.findAllActive();
 		
 		return convertArticlesToDisplayableForm(articleList, loc);
 		
