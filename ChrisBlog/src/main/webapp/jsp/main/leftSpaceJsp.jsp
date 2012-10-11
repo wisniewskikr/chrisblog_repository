@@ -33,7 +33,7 @@
 		</c:if>
 		
 		<c:if test="${command.displaySecArticleList}">
-			<%@ include file="leftSpace/secured/articleListJsp.jsp" %>
+			<%@ include file="leftSpace/secured/secArticleListJsp.jsp" %>
 		</c:if>
 		
 		<c:if test="${command.displaySecViewArticle}">
