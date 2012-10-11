@@ -36,5 +36,9 @@
 			<%@ include file="leftSpace/secured/articleListJsp.jsp" %>
 		</c:if>
 		
+		<c:if test="${command.displaySecViewArticle}">
+			<%@ include file="leftSpace/secured/secArticleJsp.jsp" %>
+		</c:if>
+		
 	</div>
 </div>

@@ -51,7 +51,7 @@
 							<input class="secArticleListContentCheckbox" type="checkbox"/>
 						</td>
 						<td class="secArticleListContentColumnText">
-							<div class="secArticleListContentTitle"><a href="#">${article.title}</a></div>
+							<div class="secArticleListContentTitle"><a href="secured/view-article/${article.uniqueName}">${article.title}</a></div>
 							<div class="secArticleListContentInfo">by ${article.author} ${article.diffToCurrentDateAsString}</div>
 						</td>
 						<td class="secArticleListContentColumnStatus">

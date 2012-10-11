@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Locale;
 
 import org.mcavallo.opencloud.Cloud;
-import org.springframework.web.servlet.LocaleResolver;
-
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.entities.ExplanationEntity;
@@ -32,6 +30,7 @@ public class BlogCommand implements Serializable{
 	
 	// Displays secured
 	private boolean displaySecArticleList;
+	private boolean displaySecViewArticle;
 	
 	// Objects with data
 	private List<ArticleEntity> articleList;	
@@ -111,6 +110,13 @@ public class BlogCommand implements Serializable{
 	}
 	public void setDisplaySecArticleList(boolean displaySecArticleList) {
 		this.displaySecArticleList = displaySecArticleList;
+	}
+	
+	public boolean isDisplaySecViewArticle() {
+		return displaySecViewArticle;
+	}
+	public void setDisplaySecViewArticle(boolean displaySecViewArticle) {
+		this.displaySecViewArticle = displaySecViewArticle;
 	}
 	
 	public List<ArticleEntity> getArticleList() {

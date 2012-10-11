@@ -1,5 +1,7 @@
 package pl.kwi.chrisblog.controllers;
 
+import static junit.framework.Assert.assertNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -140,6 +142,32 @@ public class SecuredBlogControllerTest {
 		int pageNumber = 8;
 		
 		controller.displaySecArticleList(command, request, response, pageNumber);
+		
+	}
+	
+	@Test
+	public void displaySecViewArticle() throws Exception {
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		HttpServletResponse response = mockHttpServletResponse();
+		String uniqueName = "uniqueName";
+		
+		ModelAndView modelAndView = controller.displaySecViewArticle(command, request, response, uniqueName);
+		
+		Assert.assertFalse(command.isDisplayAboutMe());
+		Assert.assertTrue(command.isDisplaySecViewArticle());
+		
+		Assert.assertEquals("pathHost", command.getPathHost());
+		Assert.assertEquals("pathContext", command.getPathContext());
+		Assert.assertEquals("Secured View of Article", command.getWindowTitle());
+		Assert.assertNotNull(command.getLocale());
+		Assert.assertNotNull(command.getTagsCloudFooter());
+		Assert.assertNotNull(command.getTagsCloudRightSpace());
+		
+		assertNotNull(command.getArticle());
+				
+		Assert.assertEquals("blogJsp", modelAndView.getViewName());
 		
 	}
 	
