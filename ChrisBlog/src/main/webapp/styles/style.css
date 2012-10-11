@@ -689,11 +689,25 @@ div#AdTaily_Widget_Container div.Footer {
 	margin-left: 30px;
 }
 
+.secArticleListContentColumnStatus{
+	width: 5%;
+	text-align: center;
+}
+
+.secArticleListContentStatusNotActive{
+	margin-right: 60px;
+	content: url('../images/common/cross.png') center no-repeat;
+}
+
+.secArticleListContentStatusActive{
+	margin-right: 60px;
+	content: url('../images/common/tick.png') center no-repeat;
+}
+
 #secArticleListContentTableNoData{
 	color: #4183C4;
 	font: Helvetica, arial, freesans, clean, sans-serif;
 	font-size: 16px;
 	padding: 10px;
 }
-
 

@@ -54,6 +54,14 @@
 							<div class="secArticleListContentTitle"><a href="#">${article.title}</a></div>
 							<div class="secArticleListContentInfo">by ${article.author} ${article.diffToCurrentDateAsString}</div>
 						</td>
+						<td class="secArticleListContentColumnStatus">
+							<c:if test="${article.status == 'ACTIVE'}">
+								<span class="secArticleListContentStatusActive" title="Status active"></span>
+							</c:if>
+							<c:if test="${article.status == 'NOT_ACTIVE'}">
+								<span class="secArticleListContentStatusNotActive" title="Status not active"></span>
+							</c:if>
+						</td>
 					</tr>
 					
 					</c:forEach>
