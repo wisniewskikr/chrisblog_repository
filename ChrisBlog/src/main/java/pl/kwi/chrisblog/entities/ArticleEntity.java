@@ -23,22 +23,24 @@ import pl.kwi.db.abstr.AbstractEntity;
 
 @NamedQueries(value = { 
 		@NamedQuery(name="ArticleEntity.findAllSortedByDateDesc", 
-			query="SELECT a FROM ArticleEntity a ORDER BY a.creationDate DESC"),
+			query="SELECT a FROM ArticleEntity a WHERE a.status = 'ACTIVE' ORDER BY a.creationDate DESC"),
 		@NamedQuery(name="ArticleEntity.findAllWithTagsSortedByDateDesc", 
 			query="SELECT a FROM ArticleEntity AS a " +
 					"JOIN a.articleTagList AS t " +
 					"WHERE t IN (:articleTagList) " +
+					"AND a.status = 'ACTIVE' " +
 					"GROUP BY a.id " +
 					"ORDER BY a.creationDate DESC"
 					),
 		@NamedQuery(name="ArticleEntity.getArticleByUniqueName", 
 			query="SELECT a FROM ArticleEntity a WHERE a.uniqueName = :uniqueName"),
 		@NamedQuery(name="ArticleEntity.getCountOfAllArticles", 		
-			query="SELECT COUNT(a) FROM ArticleEntity a"),
+			query="SELECT COUNT(a) FROM ArticleEntity a WHERE a.status = 'ACTIVE'"),
 		@NamedQuery(name="ArticleEntity.getCountArticlesWithTags", 
 			query="SELECT COUNT(a) FROM ArticleEntity AS a " +
 					"JOIN a.articleTagList AS t " +
 					"WHERE t IN (:articleTagList) " +
+					"AND a.status = 'ACTIVE'" +
 					"GROUP BY t.id")
 	})
 

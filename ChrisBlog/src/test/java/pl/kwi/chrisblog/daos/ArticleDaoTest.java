@@ -38,7 +38,7 @@ public class ArticleDaoTest {
 	public void findAll() {
 		
 		List<ArticleEntity> list = dao.findAll();
-		assertEquals(3, list.size());
+		assertEquals(4, list.size());
 		
 	}
 	
