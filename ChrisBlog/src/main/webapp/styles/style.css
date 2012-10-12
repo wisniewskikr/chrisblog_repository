@@ -583,17 +583,17 @@ div#AdTaily_Widget_Container div.Footer {
 
 
 /* Security */
-#secArticleListHeader{
+#secPageHeader{
 	border-bottom: 1px solid #C9DBEC;
 	margin-top: 50px;
 }
 
-#secArticleListHeader ul{
+#secPageHeader ul{
 	margin-bottom: 0px;
 	margin-left: 0px;
 }
 
-.secArticleListTitle{
+.secPageTitle{
 	display: inline-block;
 	border: 1px solid #C9DBEC;
 	border-bottom-style: none;
@@ -606,71 +606,71 @@ div#AdTaily_Widget_Container div.Footer {
 	font-weight: bold;
 }
 
-#secArticleListActions{
+#secPageActions{
 	border-bottom: 1px solid #C9DBEC;
 	padding: 10px 0 10px 0;
 	text-align: right;
 }
 
-#secArticleListActions ul{
+#secPageActions ul{
 	margin-bottom: 0px;
 	margin-left: 0px;
 }
 
-.secArticleListAction{
+.secPageAction{
 	display: inline-block;
 	margin-left: 10px;
 }
 
-.secArticleListAction a{
+.secPageAction a{
 	color: #4183C4;
 	text-decoration: none;
 	font: Helvetica, arial, freesans, clean, sans-serif;
 	font-size: 16px;
 }
 
-.secArticleListAction a:HOVER{
+.secPageAction a:HOVER{
 	text-decoration: underline;
 }
 
-#secArticleListContent ul{
+#secPageContent ul{
 	margin-bottom: 0px;
 	margin-left: 0px;
 	list-style: none;
 }
 
-.secArticleListContentTable{
+.secPageContentTable{
 	border-collapse:collapse;
 }
 
-.secArticleListContentTable tr td{
+.secPageContentTable tr td{
 	border-bottom: 1px dotted #C9DBEC;
 }
 
-.secArticleListContentTable{
+.secPageContentTable{
 	width: 100%;
 }
 
-.secArticleListContentColumnPoint{
+.secPageContentColumnPoint{
 	width: 5%;
 	text-align: center;
 }
 
-.secArticleListContentPoint{
+.secPageContentPoint{
 	content: url('../images/common/bullet_blue.png') center no-repeat;
 }
 
-.secArticleListContentColumnCheckbox{
+.secPageContentColumnCheckbox{
 	width: 10%;
 	text-align: center;
 }
 
-.secArticleListContentTitle{
+.secPageContentTitle{
 	margin-top: 10px;
 	margin-left: 30px;
 }
 
-.secArticleListContentTitle a{
+.secPageContentTitle a{
 	font-size: 25px;
 	font-weight: bold;
 	color: #4183C4;
@@ -678,36 +678,63 @@ div#AdTaily_Widget_Container div.Footer {
 	font: Helvetica, arial, freesans, clean, sans-serif;
 }
 
-.secArticleListContentTitle a:HOVER{
+.secPageContentTitle a:HOVER{
 	text-decoration: underline;
 }
 
-.secArticleListContentInfo{
+.secPageContentInfo{
 	font-size: 12px;
 	color: #888;
 	margin-bottom: 20px;
 	margin-left: 30px;
 }
 
-.secArticleListContentColumnStatus{
+.secPageContentColumnStatus{
 	width: 5%;
 	text-align: center;
 }
 
-.secArticleListContentStatusNotActive{
+.secPageContentStatusNotActive{
 	margin-right: 60px;
 	content: url('../images/common/cross.png') center no-repeat;
 }
 
-.secArticleListContentStatusActive{
+.secPageContentStatusActive{
 	margin-right: 60px;
 	content: url('../images/common/tick.png') center no-repeat;
 }
 
-#secArticleListContentTableNoData{
+#secPageContentTableNoData{
 	color: #4183C4;
 	font: Helvetica, arial, freesans, clean, sans-serif;
 	font-size: 16px;
 	padding: 10px;
+}
+
+#secPageFields{
+	margin-left: 160px;
+	
+}
+
+.secPageField{
+	margin-top: 20px;
+}
+
+.secPageField label{
+	display: block;
+	font-weight: bold;
+	font-family: "Capriola",sans-serif;
+	padding: 0 0 0 10px;
+	color: #77A6D2;
+}
+
+.secPageField input{
+	width: 400px;	
+	border: 1px solid #CCC;
+	padding: 5px 10px;
+	font-size: 1em;
+	-webkit-border-radius: 4px;
+	color: #888;
+	font-weight: bold;
 }
 

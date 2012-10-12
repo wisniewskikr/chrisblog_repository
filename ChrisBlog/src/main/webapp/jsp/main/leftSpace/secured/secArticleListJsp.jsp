@@ -4,38 +4,38 @@
 <div id="secArticleList">
 
 	
-	<div id="secArticleListHeader">
+	<div id="secPageHeader">
 		<ul>
-			<li class="secArticleListTitle">Articles</li>
+			<li class="secPageTitle">Articles</li>
 		</ul>
 	</div>
 	
 	
-	<div id="secArticleListActions">
+	<div id="secPageActions">
 		<ul>
-			<li class="secArticleListAction">
+			<li class="secPageAction">
 				<a href="#">Create</a>
 			</li>
-			<li class="secArticleListAction">
+			<li class="secPageAction">
 				<a href="#">Edit</a>
 			</li>
-			<li class="secArticleListAction">
+			<li class="secPageAction">
 				<a href="#">Delete</a>
 			</li>
 		</ul>		
 	</div>
 	
 	
-	<div id="secArticleListContent">
+	<div id="secPageContent">
 	
-		<table class="secArticleListContentTable">			
+		<table class="secPageContentTable">			
 			<c:choose>
 				
 						
 				<c:when test="${command.articleList == null || 
 								empty command.articleList}">
 								
-					<tr><td id="secArticleListContentTableNoData">No data</td></tr>
+					<tr><td id="secPageContentTableNoData">No data</td></tr>
 					
 				</c:when>
 				
@@ -43,23 +43,23 @@
 				<c:otherwise>
 					<c:forEach items="${command.articleList}" var="article">
 					
-					<tr class="secArticleListContentRow">
-						<td class="secArticleListContentColumnPoint">
-							<span class="secArticleListContentPoint"></span>
+					<tr class="secPageContentRow">
+						<td class="secPageContentColumnPoint">
+							<span class="secPageContentPoint"></span>
 						</td>
-						<td class="secArticleListContentColumnCheckbox">
-							<input class="secArticleListContentCheckbox" type="checkbox"/>
+						<td class="secPageContentColumnCheckbox">
+							<input class="secPageContentCheckbox" type="checkbox"/>
 						</td>
-						<td class="secArticleListContentColumnText">
-							<div class="secArticleListContentTitle"><a href="secured/view-article/${article.uniqueName}">${article.title}</a></div>
-							<div class="secArticleListContentInfo">by ${article.author} ${article.diffToCurrentDateAsString}</div>
+						<td class="secPageContentColumnText">
+							<div class="secPageContentTitle"><a href="secured/view-article/${article.uniqueName}">${article.title}</a></div>
+							<div class="secPageContentInfo">by ${article.author} ${article.diffToCurrentDateAsString}</div>
 						</td>
-						<td class="secArticleListContentColumnStatus">
+						<td class="secPageContentColumnStatus">
 							<c:if test="${article.status == 'ACTIVE'}">
-								<span class="secArticleListContentStatusActive" title="Status active"></span>
+								<span class="secPageContentStatusActive" title="Status active"></span>
 							</c:if>
 							<c:if test="${article.status == 'NOT_ACTIVE'}">
-								<span class="secArticleListContentStatusNotActive" title="Status not active"></span>
+								<span class="secPageContentStatusNotActive" title="Status not active"></span>
 							</c:if>
 						</td>
 					</tr>
