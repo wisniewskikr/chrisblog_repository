@@ -738,6 +738,11 @@ div#AdTaily_Widget_Container div.Footer {
 	font-weight: bold;
 }
 
+.secPageField input:disabled{
+	background: white;
+	color: #CCC;
+}
+
 .secPageField select{
 	width: 420px;	
 	border: 1px solid #CCC;
@@ -749,5 +754,7 @@ div#AdTaily_Widget_Container div.Footer {
 	background-color: white;
 }
 
-
-
+.secPageField select:disabled{
+	background: white;
+	color: #CCC;
+}

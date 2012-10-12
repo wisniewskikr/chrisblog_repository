@@ -3,6 +3,16 @@
 
 <div id="secArticle">
 
+
+	<c:choose>
+		<c:when test="${command.displaySecViewArticle}">
+			<c:set var="disabled" value="disabled='disabled'"/>
+		</c:when>
+		<c:otherwise>
+			<c:set var="disabled" value=""/>
+		</c:otherwise>
+	</c:choose>
+
 	
 	<div id="secPageHeader">
 		<ul>
@@ -26,28 +36,28 @@
 	<div id="secPageFields">
 	
 		<div class="secPageField">
-			<label>Id</label>
-			<input type="text" value="${command.article.id}"/>
+			<label>Id*</label>
+			<input type="text" value="${command.article.id}" ${disabled}/>
 		</div>
 		
 		<div class="secPageField">
 			<label>Title*</label>
-			<input type="text" value="${command.article.title}"/>
+			<input type="text" value="${command.article.title}" ${disabled}/>
 		</div>
 		
 		<div class="secPageField">
 			<label>Unique name*</label>
-			<input type="text" value="${command.article.uniqueName}"/>
+			<input type="text" value="${command.article.uniqueName}" ${disabled}/>
 		</div>
 		
 		<div class="secPageField">
 			<label>Author*</label>
-			<input type="text" value="${command.article.author}"/>
+			<input type="text" value="${command.article.author}" ${disabled}/>
 		</div>
 		
 		<div class="secPageField">
 			<label>Pages count*</label>
-			<select>
+			<select ${disabled}>
 				<c:forEach begin="1" end="10" step="1" var="x">
 					<c:choose>
 						<c:when test="${command.article.pagesCount == x}">
@@ -64,28 +74,28 @@
 		
 		<div class="secPageField">
 			<label>Creation date*</label>
-			<input type="text" class="datepicker" value="${command.article.creationDateAsString}"/>
+			<input type="text" class="datepicker" value="${command.article.creationDateAsString}" ${disabled}/>
 		</div>
 		
 		<div class="secPageField">
 			<label>Demo name</label>
-			<input type="text" value="${command.article.demoName}"/>
+			<input type="text" value="${command.article.demoName}" ${disabled}/>
 		</div>
 		
 		<div class="secPageField">
 			<label>Example file name</label>
-			<input type="text" value="${command.article.exampleFileName}"/>
+			<input type="text" value="${command.article.exampleFileName}" ${disabled}/>
 		</div>
 		
 		<div class="secPageField">
 			<label>Source file name</label>
-			<input type="text" value="${command.article.sourceFileName}"/>
+			<input type="text" value="${command.article.sourceFileName}" ${disabled}/>
 		</div>
 		
 		<c:set var="articleStatusEnumValues" value="<%=pl.kwi.chrisblog.enums.ArticleStatusEnum.values()%>"/>
 		<div class="secPageField">
 			<label>Article status</label>
-			<select>
+			<select ${disabled}>
 				<c:forEach items="${articleStatusEnumValues}" var="enumValue">
 					<c:choose>
 						<c:when test="${command.article.status == enumValue}">
@@ -102,8 +112,15 @@
 	</div>
 	
 	<p>
-		<a id="apply" href="#" class="button">Apply</a>
-		<a id="cancel" href="secured/article-list" class="button">Cancel</a>
+		<c:choose>
+			<c:when test="${command.displaySecViewArticle}">
+				<a id="back" href="javascript:history.go(-1)" class="button">Back</a>
+			</c:when>
+			<c:otherwise>
+				<a id="apply" href="#" class="button">Apply</a>
+				<a id="cancel" href="secured/article-list" class="button">Cancel</a>
+			</c:otherwise>
+		</c:choose>		
 	</p>
 		
 
