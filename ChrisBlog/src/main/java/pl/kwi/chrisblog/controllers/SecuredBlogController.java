@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import pl.kwi.chrisblog.commands.BlogCommand;
+import pl.kwi.chrisblog.entities.ArticleEntity;
 
 /**
  * Class of controller for secured blog.
@@ -136,6 +137,29 @@ public class SecuredBlogController extends AbstractController{
 		handleCommand(command, request);
 		
 		command.setArticle(articleService.getArticleByUniqueName(uniqueName, command.getLocale()));
+		
+		return new ModelAndView("blogJsp");
+		
+	}
+	
+	/**
+	 * Method handles creating page with article view in secured area.
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param uniqueName object String with unique name of article
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/create-article")
+	public ModelAndView displaySecCreateArticle(@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		command.setDisplaySecCreateArticle(true);		
+		handleCommand(command, request);
+		
+		command.setArticle(new ArticleEntity());
 		
 		return new ModelAndView("blogJsp");
 		

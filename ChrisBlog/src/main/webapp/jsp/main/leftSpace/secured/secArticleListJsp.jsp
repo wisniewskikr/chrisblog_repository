@@ -14,7 +14,7 @@
 	<div id="secPageActions">
 		<ul>
 			<li class="secPageAction">
-				<a href="#">Create</a>
+				<a href="secured/create-article">Create</a>
 			</li>
 			<li class="secPageAction">
 				<a href="#">View</a>

@@ -16,6 +16,13 @@
 	<c:set var="disabledEdit" value="class='disabledLink'"/>
 	<c:set var="disabledDelete" value=""/>
 </c:if>
+<c:if test="${command.displaySecCreateArticle}">
+	<c:set var="disabled" value=""/>
+	<c:set var="disabledCreate" value="class='disabledLink'"/>
+	<c:set var="disabledView" value="class='disabledLink'"/>
+	<c:set var="disabledEdit" value="class='disabledLink'"/>
+	<c:set var="disabledDelete" value="class='disabledLink'"/>
+</c:if>
 
 
 <div id="secArticle">
@@ -31,7 +38,7 @@
 	<div id="secPageActions">
 		<ul>
 			<li class="secPageAction">
-				<a href="#" ${disabledCreate}>Create</a>
+				<a href="secured/create-article" ${disabledCreate}>Create</a>
 			</li>
 			<li class="secPageAction">
 				<a href="secured/view-article/${command.article.uniqueName}" ${disabledView}>View</a>
@@ -48,10 +55,12 @@
 	
 	<div id="secPageFields">
 	
-		<div class="secPageField">
-			<label>Id*</label>
-			<input type="text" value="${command.article.id}" disabled="disabled"/>
-		</div>
+		<c:if test="${not command.displaySecCreateArticle}">
+			<div class="secPageField">
+				<label>Id*</label>
+				<input type="text" value="${command.article.id}" disabled="disabled"/>
+			</div>
+		</c:if>
 		
 		<div class="secPageField">
 			<label>Title*</label>
@@ -125,15 +134,10 @@
 	</div>
 	
 	<p>
-		<c:choose>
-			<c:when test="${command.displaySecViewArticle}">
-				<a id="back" href="javascript:history.go(-1)" class="button">Back</a>
-			</c:when>
-			<c:otherwise>
-				<a id="apply" href="#" class="button">Apply</a>
-				<a id="cancel" href="secured/article-list" class="button">Cancel</a>
-			</c:otherwise>
-		</c:choose>		
+		<c:if test="${not command.displaySecViewArticle}">
+			<a id="apply" href="#" class="button">Apply</a>
+		</c:if>
+		<a id="cancel" href="secured/article-list" class="button">Cancel</a>
 	</p>
 		
 

@@ -97,6 +97,8 @@ public abstract class AbstractController {
 			title = "Secured View of Article";			
 		}else if(command.isDisplaySecEditArticle()){
 			title = "Secured Edit of Article";			
+		}else if(command.isDisplaySecCreateArticle()){
+			title = "Secured Create of Article";			
 		}else{
 			throw new Exception("Can not get title of browser window. Can not find display mode.");
 		}

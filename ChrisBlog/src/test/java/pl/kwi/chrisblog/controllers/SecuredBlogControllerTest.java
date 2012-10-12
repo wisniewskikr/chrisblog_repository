@@ -197,6 +197,32 @@ public class SecuredBlogControllerTest {
 		
 	}
 	
+	@Test
+	public void displaySecCreateArticle() throws Exception {
+		
+		BlogCommand command = new BlogCommand();
+		HttpServletRequest request = mockHttpServletRequest();
+		HttpServletResponse response = mockHttpServletResponse();
+		String uniqueName = "uniqueName";
+		
+		ModelAndView modelAndView = controller.displaySecCreateArticle(command, request, response, uniqueName);
+		
+		Assert.assertFalse(command.isDisplayAboutMe());
+		Assert.assertTrue(command.isDisplaySecCreateArticle());
+		
+		Assert.assertEquals("pathHost", command.getPathHost());
+		Assert.assertEquals("pathContext", command.getPathContext());
+		Assert.assertEquals("Secured Create of Article", command.getWindowTitle());
+		Assert.assertNotNull(command.getLocale());
+		Assert.assertNotNull(command.getTagsCloudFooter());
+		Assert.assertNotNull(command.getTagsCloudRightSpace());
+		
+		assertNotNull(command.getArticle());
+		
+		Assert.assertEquals("blogJsp", modelAndView.getViewName());
+		
+	}
+	
 
 	// ************************************************************************************************************ //
 	// *********************************************** HELP METHODS *********************************************** //
