@@ -52,6 +52,17 @@
  	</script> 
 	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f5338d911231718"></script>
 	
+	<!-- Scripts for datepicker -->
+	<link type="text/css" rel="stylesheet" href="styles/jquery-ui-1.9.0/jquery-ui-1.9.0.custom.css">
+	<script type="text/javascript" src="scripts/jquery-ui-1.9.0.custom.js"></script>
+	<script>
+    $(function() {
+        $( ".datepicker" ).datepicker({
+        	dateFormat: "MM dd, yy"});
+    });
+    </script>
+	
+	
 </head>
 
 

@@ -64,7 +64,7 @@
 		
 		<div class="secPageField">
 			<label>Creation date*</label>
-			<input type="text" value="${command.article.creationDateAsString}"/>
+			<input type="text" class="datepicker" value="${command.article.creationDateAsString}"/>
 		</div>
 		
 		<div class="secPageField">
@@ -102,7 +102,8 @@
 	</div>
 	
 	<p>
-		<a id="back" href="javascript:history.go(-1)" class="button">back</a>
+		<a id="apply" href="#" class="button">Apply</a>
+		<a id="cancel" href="secured/article-list" class="button">Cancel</a>
 	</p>
 		
 
