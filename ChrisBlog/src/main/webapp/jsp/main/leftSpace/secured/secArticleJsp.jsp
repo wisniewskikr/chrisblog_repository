@@ -47,7 +47,20 @@
 		
 		<div class="secPageField">
 			<label>Pages count*</label>
-			<input type="text" value="${command.article.pagesCount}"/>
+			<!-- input type="text" value="${command.article.pagesCount}"/ -->
+			<select>
+				<c:forEach begin="1" end="10" step="1" var="x">
+					<c:choose>
+						<c:when test="${command.article.pagesCount == x}">
+							<option value="${x}" selected="selected">${x}</option>						
+						</c:when>
+						<c:otherwise>
+							<option value="${x}">${x}</option>	
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</select>
+			
 		</div>
 		
 		<div class="secPageField">

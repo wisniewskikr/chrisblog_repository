@@ -738,3 +738,16 @@ div#AdTaily_Widget_Container div.Footer {
 	font-weight: bold;
 }
 
+.secPageField select{
+	width: 420px;	
+	border: 1px solid #CCC;
+	padding: 5px 10px;
+	font-size: 1em;
+	-webkit-border-radius: 4px;
+	font-weight: bold;
+	color: #888;
+	background-color: white;
+}
+
+
+
