@@ -31,6 +31,7 @@ public class BlogCommand implements Serializable{
 	// Displays secured
 	private boolean displaySecArticleList;
 	private boolean displaySecViewArticle;
+	private boolean displaySecEditArticle;
 	
 	// Objects with data
 	private List<ArticleEntity> articleList;	
@@ -117,6 +118,13 @@ public class BlogCommand implements Serializable{
 	}
 	public void setDisplaySecViewArticle(boolean displaySecViewArticle) {
 		this.displaySecViewArticle = displaySecViewArticle;
+	}
+	
+	public boolean isDisplaySecEditArticle() {
+		return displaySecEditArticle;
+	}
+	public void setDisplaySecEditArticle(boolean displaySecEditArticle) {
+		this.displaySecEditArticle = displaySecEditArticle;
 	}
 	
 	public List<ArticleEntity> getArticleList() {

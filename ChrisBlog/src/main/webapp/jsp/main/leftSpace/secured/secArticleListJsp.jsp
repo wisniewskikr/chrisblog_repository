@@ -17,6 +17,9 @@
 				<a href="#">Create</a>
 			</li>
 			<li class="secPageAction">
+				<a href="#">View</a>
+			</li>
+			<li class="secPageAction">
 				<a href="#">Edit</a>
 			</li>
 			<li class="secPageAction">

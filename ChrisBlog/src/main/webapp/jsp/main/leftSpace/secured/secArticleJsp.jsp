@@ -1,17 +1,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 
+
+<c:if test="${command.displaySecViewArticle}">
+	<c:set var="disabled" value="disabled='disabled'"/>
+	<c:set var="disabledCreate" value=""/>
+	<c:set var="disabledView" value="class='disabledLink'"/>
+	<c:set var="disabledEdit" value=""/>
+	<c:set var="disabledDelete" value=""/>
+</c:if>
+<c:if test="${command.displaySecEditArticle}">
+	<c:set var="disabled" value=""/>
+	<c:set var="disabledCreate" value=""/>
+	<c:set var="disabledView" value=""/>
+	<c:set var="disabledEdit" value="class='disabledLink'"/>
+	<c:set var="disabledDelete" value=""/>
+</c:if>
+
+
 <div id="secArticle">
-
-
-	<c:choose>
-		<c:when test="${command.displaySecViewArticle}">
-			<c:set var="disabled" value="disabled='disabled'"/>
-		</c:when>
-		<c:otherwise>
-			<c:set var="disabled" value=""/>
-		</c:otherwise>
-	</c:choose>
 
 	
 	<div id="secPageHeader">
@@ -19,15 +26,21 @@
 			<li class="secPageTitle">Article</li>
 		</ul>
 	</div>
-	
+
 	
 	<div id="secPageActions">
 		<ul>
 			<li class="secPageAction">
-				<a href="#">Edit</a>
+				<a href="#" ${disabledCreate}>Create</a>
 			</li>
 			<li class="secPageAction">
-				<a href="#">Delete</a>
+				<a href="secured/view-article/${command.article.uniqueName}" ${disabledView}>View</a>
+			</li>
+			<li class="secPageAction">
+				<a href="secured/edit-article/${command.article.uniqueName}" ${disabledEdit}>Edit</a>
+			</li>
+			<li class="secPageAction">
+				<a href="#" ${disabledDelete}>Delete</a>
 			</li>
 		</ul>		
 	</div>
@@ -37,7 +50,7 @@
 	
 		<div class="secPageField">
 			<label>Id*</label>
-			<input type="text" value="${command.article.id}" ${disabled}/>
+			<input type="text" value="${command.article.id}" disabled="disabled"/>
 		</div>
 		
 		<div class="secPageField">
