@@ -47,7 +47,6 @@
 		
 		<div class="secPageField">
 			<label>Pages count*</label>
-			<!-- input type="text" value="${command.article.pagesCount}"/ -->
 			<select>
 				<c:forEach begin="1" end="10" step="1" var="x">
 					<c:choose>
@@ -83,9 +82,21 @@
 			<input type="text" value="${command.article.sourceFileName}"/>
 		</div>
 		
+		<c:set var="articleStatusEnumValues" value="<%=pl.kwi.chrisblog.enums.ArticleStatusEnum.values()%>"/>
 		<div class="secPageField">
 			<label>Article status</label>
-			<input type="text" value="${command.article.status}"/>
+			<select>
+				<c:forEach items="${articleStatusEnumValues}" var="enumValue">
+					<c:choose>
+						<c:when test="${command.article.status == enumValue}">
+							<option value="${enumValue}" selected="selected">${enumValue.displayedName}</option>						
+						</c:when>
+						<c:otherwise>
+							<option value="${enumValue}">${enumValue.displayedName}</option>	
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</select>
 		</div>
 		
 	</div>

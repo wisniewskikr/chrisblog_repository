@@ -7,7 +7,24 @@ package pl.kwi.chrisblog.enums;
  */
 public enum ArticleStatusEnum {
 	
-	ACTIVE,
-	NOT_ACTIVE;
+	
+	ACTIVE("Active"),
+	NOT_ACTIVE("Not active");
+	
+	
+	private String displayedName;
+	
+	private ArticleStatusEnum(String displayedName){
+		this.displayedName = displayedName;
+	}
+	
+
+	public String getDisplayedName() {
+		return displayedName;
+	}
+	public void setDisplayedName(String displayedName) {
+		this.displayedName = displayedName;
+	}	
+	
 
 }
