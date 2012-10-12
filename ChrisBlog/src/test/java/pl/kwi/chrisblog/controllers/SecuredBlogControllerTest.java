@@ -203,9 +203,8 @@ public class SecuredBlogControllerTest {
 		BlogCommand command = new BlogCommand();
 		HttpServletRequest request = mockHttpServletRequest();
 		HttpServletResponse response = mockHttpServletResponse();
-		String uniqueName = "uniqueName";
 		
-		ModelAndView modelAndView = controller.displaySecCreateArticle(command, request, response, uniqueName);
+		ModelAndView modelAndView = controller.displaySecCreateArticle(command, request, response);
 		
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplaySecCreateArticle());
