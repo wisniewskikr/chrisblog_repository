@@ -104,6 +104,40 @@ public class DateUtils {
     }
     
     /**
+     * Method converts object String with month as text to object Calendar. 
+     * For instance object String looks like: '26 December, 2011'. 
+     * 
+     * @param cal object String which is converted do object Calendar
+     * @param locale object Locale for month as text
+     * @return object Calendar converted from String
+     */
+    public static Calendar convertStringWithMonthAsTextToCalendar(String date, Locale locale) {
+
+        Calendar result = null;
+        
+        if(date == null){
+        	LOG.error("Can not convert String to Calendar. String is null.");
+        	return result;
+        }
+        
+        if(locale == null){
+        	LOG.error("Can not convert String to Calendar. Locale is null.");
+        	return result;
+        }
+
+        try {
+        	Date d = new SimpleDateFormat("MMMM dd, yyyy", locale).parse(date);
+        	result = Calendar.getInstance();
+        	result.setTime(d);
+        } catch (Exception ex) {
+        	LOG.error("Can not convert Calendar to String", ex);
+        }
+  
+        return result;
+
+    }
+    
+    /**
      * Method gets difference between defined date and current date
      * as text. For instance: "1 day ago" or "2 days ago".
      * 

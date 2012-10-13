@@ -3,6 +3,7 @@ package pl.kwi.chrisblog.daos;
 import static junit.framework.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.Test;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
+import pl.kwi.chrisblog.enums.ArticleStatusEnum;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -223,6 +225,28 @@ public class ArticleDaoTest {
 		
 		int result = dao.getCountArticlesWithTags(articleTagList);
 		assertEquals(3, result);		
+		
+	}
+	
+	@Test
+	public void create(){
+		
+		ArticleEntity article = new ArticleEntity();
+		article.setAuthor("author");
+		article.setContent("content");
+		article.setCreationDate(Calendar.getInstance());
+		article.setDemoName("demo");
+		article.setDescription("description");
+		article.setExampleFileName("example");
+		article.setPagesCount(1);
+		article.setSourceFileName("source");
+		article.setStatus(ArticleStatusEnum.ACTIVE);
+		article.setTitle("title");
+		article.setUniqueName("uniqueName");
+		
+		dao.create(article);
+		
+		assertNotNull(article.getId());
 		
 	}
 

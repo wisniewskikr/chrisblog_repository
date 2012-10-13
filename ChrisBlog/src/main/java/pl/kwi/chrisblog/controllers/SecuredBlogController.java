@@ -1,5 +1,8 @@
 package pl.kwi.chrisblog.controllers;
 
+import java.util.Calendar;
+import java.util.Locale;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,6 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import pl.kwi.chrisblog.commands.BlogCommand;
 import pl.kwi.chrisblog.entities.ArticleEntity;
+import pl.kwi.chrisblog.utils.DateUtils;
 
 /**
  * Class of controller for secured blog.
@@ -180,12 +184,14 @@ public class SecuredBlogController extends AbstractController{
 	public ModelAndView handleSecCreateArticle(@ModelAttribute("command")BlogCommand command,
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
-		command.setDisplaySecCreateArticle(true);		
-		handleCommand(command, request);
+		ArticleEntity article = command.getArticle();
+		Locale loc = localeResolver.resolveLocale(request);
+		Calendar creationDate = DateUtils.convertStringWithMonthAsTextToCalendar(article.getCreationDateAsString(), loc);
 		
-		command.setArticle(new ArticleEntity());
+		article.setCreationDate(creationDate);
+		articleService.create(article);
 		
-		return new ModelAndView("blogJsp");
+		return new ModelAndView(new RedirectView("/secured/article-list" , true, true, true));
 		
 	}
 	

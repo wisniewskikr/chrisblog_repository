@@ -138,6 +138,64 @@ public class DateUtilsTest {
 	}
 	
 	@Test
+	public void convertStringWithMonthAsTextToCalendar(){
+		
+		String date = "December 26, 2011";
+		Locale locale = Locale.ENGLISH;
+		
+		Calendar cal = DateUtils.convertStringWithMonthAsTextToCalendar(date, locale);
+		
+		assertEquals(2011, cal.get(Calendar.YEAR));
+		assertEquals(11, cal.get(Calendar.MONTH));
+		assertEquals(26, cal.get(Calendar.DAY_OF_MONTH));
+		assertEquals(00, cal.get(Calendar.HOUR_OF_DAY));
+		assertEquals(00, cal.get(Calendar.MINUTE));
+		assertEquals(00, cal.get(Calendar.SECOND));
+		
+	}
+	
+	@Test
+	public void convertStringWithMonthAsTextToCalendar_localePL(){
+		
+		String date = "Grudzień 26, 2011";
+		Locale locale = new Locale("pl", "PL");
+		
+		Calendar cal = DateUtils.convertStringWithMonthAsTextToCalendar(date, locale);
+		
+		assertEquals(2011, cal.get(Calendar.YEAR));
+		assertEquals(11, cal.get(Calendar.MONTH));
+		assertEquals(26, cal.get(Calendar.DAY_OF_MONTH));
+		assertEquals(00, cal.get(Calendar.HOUR_OF_DAY));
+		assertEquals(00, cal.get(Calendar.MINUTE));
+		assertEquals(00, cal.get(Calendar.SECOND));
+		
+	}
+	
+	@Test
+	public void convertStringWithMonthAsTextToCalendar_dateNull(){
+		
+		String date = null;
+		Locale locale = Locale.ENGLISH;
+		
+		Calendar cal = DateUtils.convertStringWithMonthAsTextToCalendar(date, locale);
+		
+		assertNull(cal);
+		
+	}
+	
+	@Test
+	public void convertStringWithMonthAsTextToCalendar_localeNull(){
+		
+		String date = "December 26, 2011";
+		Locale locale = null;
+		
+		Calendar cal = DateUtils.convertStringWithMonthAsTextToCalendar(date, locale);
+		
+		assertNull(cal);
+		
+	}
+	
+	@Test
 	public void getDifferenceFromCurrentDateAsText(){
 		
 		String str = "19991225174553";

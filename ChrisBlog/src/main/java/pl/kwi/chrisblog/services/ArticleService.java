@@ -8,6 +8,7 @@ import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import pl.kwi.chrisblog.daos.ArticleDao;
 import pl.kwi.chrisblog.entities.ArticleEntity;
@@ -181,6 +182,20 @@ public class ArticleService {
 		}
 		
 		return result;
+		
+	}
+	
+	/**
+	 * Method creates object ArticleEntity
+	 * 
+	 * @param article object ArticleEntity which is created
+	 * @return object Long with id created article
+	 */
+	@Transactional
+	public Long create(ArticleEntity article){
+		
+		articleDao.create(article);
+		return article.getId();
 		
 	}
 		
