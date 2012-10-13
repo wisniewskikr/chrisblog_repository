@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -143,7 +144,7 @@ public class SecuredBlogController extends AbstractController{
 	}
 	
 	/**
-	 * Method handles creating page with article view in secured area.
+	 * Method displays creating page with article view in secured area.
 	 * 
 	 * @param command object BlogCommand with data from page
 	 * @param request object HttpServletRequest with request from page 
@@ -154,6 +155,29 @@ public class SecuredBlogController extends AbstractController{
 	 */
 	@RequestMapping(value="/create-article")
 	public ModelAndView displaySecCreateArticle(@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		command.setDisplaySecCreateArticle(true);		
+		handleCommand(command, request);
+		
+		command.setArticle(new ArticleEntity());
+		
+		return new ModelAndView("blogJsp");
+		
+	}
+	
+	/**
+	 * Method handles creating page with article view in secured area.
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param uniqueName object String with unique name of article
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/handle-create-article", method=RequestMethod.POST)
+	public ModelAndView handleSecCreateArticle(@ModelAttribute("command")BlogCommand command,
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
 		command.setDisplaySecCreateArticle(true);		
