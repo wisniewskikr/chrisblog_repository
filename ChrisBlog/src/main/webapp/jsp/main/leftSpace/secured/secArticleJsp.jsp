@@ -123,9 +123,7 @@
 			
 			<div class="secPageField">
 				<label>Tags</label>
-				<c:forEach items="${articleTagList}" var="tag">
-					<form:checkbox path="articleTagList" value="${tag.uniqueName}" label="${tag.name}" disabled="${disabledField}"/>
-				</c:forEach>
+				<form:checkboxes path="articleTagList" items="${articleTagList}" itemValue="id" itemLabel="name" disabled="${disabledField}"/>
 			</div>
 			
 		</div>
