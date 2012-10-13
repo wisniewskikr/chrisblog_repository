@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import pl.kwi.chrisblog.commands.BlogCommand;
+import pl.kwi.chrisblog.editors.ArticleTagEditor;
 import pl.kwi.chrisblog.entities.ArticleEntity;
+import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.utils.DateUtils;
 
 /**
@@ -32,6 +36,11 @@ public class SecuredBlogController extends AbstractController{
 	
 	private static final Logger LOG = Logger.getLogger(SecuredBlogController.class);
 
+	
+	@InitBinder
+    protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) {
+		binder.registerCustomEditor(ArticleTagEntity.class, new ArticleTagEditor());
+    }
 	
 	/**
 	 * Method handles page with article list for page one in secured area. 
