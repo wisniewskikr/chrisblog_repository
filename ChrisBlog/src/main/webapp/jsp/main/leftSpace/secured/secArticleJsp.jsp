@@ -82,19 +82,12 @@
 			</div>
 			
 			<div class="secPageField">
-				<label>Pages count*</label>
-				<select ${disabled}>
+				<label>Pages count*</label>				
+				<form:select path="pagesCount" disabled="${disabledField}">
 					<c:forEach begin="1" end="10" step="1" var="x">
-						<c:choose>
-							<c:when test="${command.article.pagesCount == x}">
-								<option value="${x}" selected="selected">${x}</option>						
-							</c:when>
-							<c:otherwise>
-								<option value="${x}">${x}</option>	
-							</c:otherwise>
-						</c:choose>
+						<form:option value="${x}">${x}</form:option>
 					</c:forEach>
-				</select>
+				</form:select>
 				
 			</div>
 			
@@ -121,18 +114,11 @@
 			<c:set var="articleStatusEnumValues" value="<%=pl.kwi.chrisblog.enums.ArticleStatusEnum.values()%>"/>
 			<div class="secPageField">
 				<label>Article status</label>
-				<select ${disabled}>
+				<form:select path="status" disabled="${disabledField}">
 					<c:forEach items="${articleStatusEnumValues}" var="enumValue">
-						<c:choose>
-							<c:when test="${command.article.status == enumValue}">
-								<option value="${enumValue}" selected="selected">${enumValue.displayedName}</option>						
-							</c:when>
-							<c:otherwise>
-								<option value="${enumValue}">${enumValue.displayedName}</option>	
-							</c:otherwise>
-						</c:choose>
+						<form:option value="${enumValue}">${enumValue.displayedName}</form:option>
 					</c:forEach>
-				</select>
+				</form:select>
 			</div>
 			
 		</div>
