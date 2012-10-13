@@ -37,8 +37,8 @@ public class BlogCommand implements Serializable{
 	// Objects with data
 	private List<ArticleEntity> articleList;	
 	private ArticleEntity article;
-	private ExplanationEntity explanation;
 	private ArticleTagEntity articleTag;
+	private ExplanationEntity explanation;
 	
 	// Paths
 	private String pathHost;
@@ -149,19 +149,19 @@ public class BlogCommand implements Serializable{
 		this.article = article;
 	}
 
+	public ArticleTagEntity getArticleTag() {
+		return articleTag;
+	}
+	public void setArticleTag(ArticleTagEntity articleTag) {
+		this.articleTag = articleTag;
+	}	
+	
 	public ExplanationEntity getExplanation() {
 		return explanation;
 	}
 	public void setExplanation(ExplanationEntity explanation) {
 		this.explanation = explanation;
 	}	
-
-	public ArticleTagEntity getArticleTag() {
-		return articleTag;
-	}
-	public void setArticleTag(ArticleTagEntity articleTag) {
-		this.articleTag = articleTag;
-	}
 	
 	public String getPathHost() {
 		return pathHost;

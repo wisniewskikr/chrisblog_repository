@@ -1,6 +1,5 @@
 package pl.kwi.chrisblog.entities;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -62,7 +61,7 @@ public class ArticleEntity extends AbstractEntity{
 	private String exampleFileName;
 	private String sourceFileName;
 	private ArticleStatusEnum status;
-	private List<ArticleTagEntity> articleTagList = new ArrayList<ArticleTagEntity>();
+	private List<ArticleTagEntity> articleTagList;
 		
 	// Transient
 	private String description;

@@ -141,6 +141,17 @@ public class ArticleTagService {
 		
 	}
 	
+	/**
+	 * Method finds all tags from data base.
+	 * 
+	 * @return list of all tags from data base
+	 */
+	public List<ArticleTagEntity> findAll() {
+
+		return dao.findAll();
+
+	}
+	
 	
 	// ************************************************************************************************************ //
 	// *********************************************** GETTERS AND SETTERS **************************************** //

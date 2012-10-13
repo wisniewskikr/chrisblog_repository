@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -110,14 +111,18 @@ public class SecuredBlogController extends AbstractController{
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/view-article/{uniqueName}")
-	public ModelAndView displaySecViewArticle(@ModelAttribute("command")BlogCommand command,
-			HttpServletRequest request, HttpServletResponse response, 
+	public ModelAndView displaySecViewArticle(
+			ModelMap model,
+			@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, 
+			HttpServletResponse response, 
 			@PathVariable String uniqueName) throws Exception{
 		
 		command.setDisplaySecViewArticle(true);		
 		handleCommand(command, request);
 		
 		command.setArticle(articleService.getArticleByUniqueName(uniqueName, command.getLocale()));
+		model.addAttribute("articleTagList", articleTagService.findAll());
 		
 		return new ModelAndView("blogJsp");
 		
@@ -134,14 +139,18 @@ public class SecuredBlogController extends AbstractController{
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/edit-article/{uniqueName}")
-	public ModelAndView displaySecEditArticle(@ModelAttribute("command")BlogCommand command,
-			HttpServletRequest request, HttpServletResponse response, 
+	public ModelAndView displaySecEditArticle(
+			ModelMap model, 
+			@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, 
+			HttpServletResponse response, 
 			@PathVariable String uniqueName) throws Exception{
 		
 		command.setDisplaySecEditArticle(true);		
 		handleCommand(command, request);
 		
 		command.setArticle(articleService.getArticleByUniqueName(uniqueName, command.getLocale()));
+		model.addAttribute("articleTagList", articleTagService.findAll());
 		
 		return new ModelAndView("blogJsp");
 		
@@ -158,13 +167,17 @@ public class SecuredBlogController extends AbstractController{
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/create-article")
-	public ModelAndView displaySecCreateArticle(@ModelAttribute("command")BlogCommand command,
-			HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public ModelAndView displaySecCreateArticle(
+			ModelMap model,
+			@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception{
 		
 		command.setDisplaySecCreateArticle(true);		
 		handleCommand(command, request);
 		
 		command.setArticle(new ArticleEntity());
+		model.addAttribute("articleTagList", articleTagService.findAll());
 		
 		return new ModelAndView("blogJsp");
 		
@@ -185,6 +198,7 @@ public class SecuredBlogController extends AbstractController{
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
 		ArticleEntity article = command.getArticle();
+				
 		Locale loc = localeResolver.resolveLocale(request);
 		Calendar creationDate = DateUtils.convertStringWithMonthAsTextToCalendar(article.getCreationDateAsString(), loc);
 		

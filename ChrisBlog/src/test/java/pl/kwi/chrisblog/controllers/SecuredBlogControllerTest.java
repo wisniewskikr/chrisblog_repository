@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mcavallo.opencloud.Cloud;
 import org.mockito.Mockito;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -148,12 +149,13 @@ public class SecuredBlogControllerTest {
 	@Test
 	public void displaySecViewArticle() throws Exception {
 		
+		ModelMap model = new ModelMap();
 		BlogCommand command = new BlogCommand();
 		HttpServletRequest request = mockHttpServletRequest();
 		HttpServletResponse response = mockHttpServletResponse();
 		String uniqueName = "uniqueName";
 		
-		ModelAndView modelAndView = controller.displaySecViewArticle(command, request, response, uniqueName);
+		ModelAndView modelAndView = controller.displaySecViewArticle(model, command, request, response, uniqueName);
 		
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplaySecViewArticle());
@@ -174,12 +176,13 @@ public class SecuredBlogControllerTest {
 	@Test
 	public void displaySecEditArticle() throws Exception {
 		
+		ModelMap model = new ModelMap();
 		BlogCommand command = new BlogCommand();
 		HttpServletRequest request = mockHttpServletRequest();
 		HttpServletResponse response = mockHttpServletResponse();
 		String uniqueName = "uniqueName";
 		
-		ModelAndView modelAndView = controller.displaySecEditArticle(command, request, response, uniqueName);
+		ModelAndView modelAndView = controller.displaySecEditArticle(model, command, request, response, uniqueName);
 		
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplaySecEditArticle());
@@ -200,11 +203,12 @@ public class SecuredBlogControllerTest {
 	@Test
 	public void displaySecCreateArticle() throws Exception {
 		
+		ModelMap model = new ModelMap();
 		BlogCommand command = new BlogCommand();
 		HttpServletRequest request = mockHttpServletRequest();
 		HttpServletResponse response = mockHttpServletResponse();
 		
-		ModelAndView modelAndView = controller.displaySecCreateArticle(command, request, response);
+		ModelAndView modelAndView = controller.displaySecCreateArticle(model, command, request, response);
 		
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplaySecCreateArticle());
