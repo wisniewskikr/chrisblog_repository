@@ -55,12 +55,12 @@ public class ArticleDaoTest {
 	
 	@Test
 	@DatabaseSetup("/dbunit/ArticleDaoTest.xml")
-	public void findAllSortedByDateDesc_firstResult_0(){
+	public void findAllActiveSortedByDateDesc_firstResult_0(){
 		
 		int firstResult = 0; 
 		int maxResults = 2;
 		
-		List<ArticleEntity> list = dao.findAllSortedByDateDesc(firstResult, maxResults);
+		List<ArticleEntity> list = dao.findAllActiveSortedByDateDesc(firstResult, maxResults);
 		
 		assertEquals(2, list.size());
 		assertEquals(Long.valueOf(3), list.get(0).getId());
@@ -70,12 +70,12 @@ public class ArticleDaoTest {
 	
 	@Test
 	@DatabaseSetup("/dbunit/ArticleDaoTest.xml")
-	public void findAllSortedByDateDesc_firstResult_2(){
+	public void findAllActiveSortedByDateDesc_firstResult_2(){
 		
 		int firstResult = 2; 
 		int maxResults = 2;
 		
-		List<ArticleEntity> list = dao.findAllSortedByDateDesc(firstResult, maxResults);
+		List<ArticleEntity> list = dao.findAllActiveSortedByDateDesc(firstResult, maxResults);
 		
 		assertEquals(1, list.size());
 		assertEquals(Long.valueOf(1), list.get(0).getId());

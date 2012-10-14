@@ -101,7 +101,7 @@ public class SecuredBlogController extends AbstractController{
 		command.setDisplaySecArticleList(true);		
 		handleCommand(command, request);
 		
-		command.setArticleList(articleService.findAllSortedByDateDesc(pageNumber, command.getLocale()));
+		command.setArticleList(articleService.findAllActiveSortedByDateDesc(pageNumber, command.getLocale()));
 		
 		handleSecArticleListPagenation(command, pageNumber);
 		

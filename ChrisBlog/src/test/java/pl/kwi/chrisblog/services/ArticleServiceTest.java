@@ -84,7 +84,7 @@ public class ArticleServiceTest {
 		int pageNumber = 1;
 		Locale loc = Locale.ENGLISH;
 		
-		List<ArticleEntity> articleList = service.findAllSortedByDateDesc(pageNumber, loc);
+		List<ArticleEntity> articleList = service.findAllActiveSortedByDateDesc(pageNumber, loc);
 		
 		Assert.assertEquals(Integer.valueOf(1999), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.YEAR)));
 		Assert.assertEquals(Integer.valueOf(11), Integer.valueOf(articleList.get(0).getCreationDate().get(Calendar.MONTH)));
@@ -107,23 +107,23 @@ public class ArticleServiceTest {
 	}
 	
 	@Test(expected = ArticleException.class)
-	public void findAllSortedByDateDesc_articleListNull() throws Exception{
+	public void findAllActiveSortedByDateDesc_articleListNull() throws Exception{
 		
 		service.setArticleDao(mockArticleDao(null));
 		int pageNumber = 1;
 		Locale loc = Locale.ENGLISH;
 		
-		service.findAllSortedByDateDesc(pageNumber, loc);
+		service.findAllActiveSortedByDateDesc(pageNumber, loc);
 		
 	}
 	
 	@Test(expected = ArticleException.class)
-	public void findAllSortedByDateDesc_localeNull() throws Exception{
+	public void findAllActiveSortedByDateDesc_localeNull() throws Exception{
 		
 		int pageNumber = 1;
 		Locale loc = null;
 		
-		service.findAllSortedByDateDesc(pageNumber, loc);
+		service.findAllActiveSortedByDateDesc(pageNumber, loc);
 		
 	}
 	
@@ -376,7 +376,7 @@ public class ArticleServiceTest {
 				
 		ArticleDao mock = Mockito.mock(ArticleDao.class);
 		Mockito.when(mock.findAllActive()).thenReturn(articleList);
-		Mockito.when(mock.findAllSortedByDateDesc(Mockito.anyInt(), Mockito.anyInt())).thenReturn(articleList);
+		Mockito.when(mock.findAllActiveSortedByDateDesc(Mockito.anyInt(), Mockito.anyInt())).thenReturn(articleList);
 		Mockito.when(mock.findAllWithTagsSortedByDateDesc(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyList())).thenReturn(articleList);
 		if(articleList != null){
 			Mockito.when(mock.getArticleByUniqueName(Mockito.anyString())).thenReturn(articleList.get(0));

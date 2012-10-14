@@ -63,12 +63,12 @@ public class ArticleService {
 	 * @return list of articles connected with specified page number, tag and locale
 	 * @throws Exception
 	 */
-	public List<ArticleEntity> findAllSortedByDateDesc(int pageNumber, Locale loc) throws Exception {
+	public List<ArticleEntity> findAllActiveSortedByDateDesc(int pageNumber, Locale loc) throws Exception {
 		
 		int firstResult = (pageNumber - 1) * countArticlesPerPage;
 		int maxResults = countArticlesPerPage;
 		
-		List<ArticleEntity> articleList = articleDao.findAllSortedByDateDesc(firstResult, maxResults);
+		List<ArticleEntity> articleList = articleDao.findAllActiveSortedByDateDesc(firstResult, maxResults);
 		return convertArticlesToDisplayableForm(articleList, loc);
 		
 	}

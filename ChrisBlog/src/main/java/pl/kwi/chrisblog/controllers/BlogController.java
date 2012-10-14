@@ -92,7 +92,7 @@ public class BlogController extends AbstractController{
 		command.setDisplayArticleList(true);		
 		handleCommand(command, request);
 		
-		command.setArticleList(articleService.findAllSortedByDateDesc(pageNumber, command.getLocale()));
+		command.setArticleList(articleService.findAllActiveSortedByDateDesc(pageNumber, command.getLocale()));
 		
 		handleArticleListPagenation(command, pageNumber);
 		
