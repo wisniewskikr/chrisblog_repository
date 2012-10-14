@@ -23,6 +23,8 @@ import pl.kwi.db.abstr.AbstractEntity;
 @NamedQueries(value = { 
 		@NamedQuery(name="ArticleEntity.findAllActive", 
 				query="SELECT a FROM ArticleEntity a WHERE a.status = 'ACTIVE'"),
+		@NamedQuery(name="ArticleEntity.findAllSortedByDateDesc", 
+				query="SELECT a FROM ArticleEntity a ORDER BY a.creationDate DESC"),
 		@NamedQuery(name="ArticleEntity.findAllActiveSortedByDateDesc", 
 			query="SELECT a FROM ArticleEntity a WHERE a.status = 'ACTIVE' ORDER BY a.creationDate DESC"),
 		@NamedQuery(name="ArticleEntity.findAllWithTagsSortedByDateDesc", 

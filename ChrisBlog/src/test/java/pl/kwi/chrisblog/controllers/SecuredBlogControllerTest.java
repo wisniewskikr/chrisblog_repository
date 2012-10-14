@@ -260,6 +260,7 @@ public class SecuredBlogControllerTest {
 		ArticleService mock = Mockito.mock(ArticleService.class);
 		
 		Mockito.when(mock.getAllArticleList(Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList());
+		Mockito.when(mock.findAllSortedByDateDesc(Mockito.anyInt(), Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList());
 		Mockito.when(mock.findAllActiveSortedByDateDesc(Mockito.anyInt(), Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList());
 		Mockito.when(mock.findAllWithTagsSortedByDateDesc(Mockito.anyInt(), Mockito.any(ArticleTagEntity.class), Mockito.any(Locale.class))).thenReturn(mockCompleteArticleList());
 		Mockito.when(mock.getPagesCountOfAllArticles()).thenReturn(4);

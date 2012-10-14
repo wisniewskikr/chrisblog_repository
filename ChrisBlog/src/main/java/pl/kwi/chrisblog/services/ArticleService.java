@@ -63,6 +63,25 @@ public class ArticleService {
 	 * @return list of articles connected with specified page number, tag and locale
 	 * @throws Exception
 	 */
+	public List<ArticleEntity> findAllSortedByDateDesc(int pageNumber, Locale loc) throws Exception {
+		
+		int firstResult = (pageNumber - 1) * countArticlesPerPage;
+		int maxResults = countArticlesPerPage;
+		
+		List<ArticleEntity> articleList = articleDao.findAllSortedByDateDesc(firstResult, maxResults);
+		return convertArticlesToDisplayableForm(articleList, loc);
+		
+	}
+	
+	/**
+	 * Method gets list of active articles connected with specified page number, tag and locale.
+	 * These articles are sorted by date descending.
+	 * 
+	 * @param pageNumber int with number of page
+	 * @param loc object Locale with international localization
+	 * @return list of articles connected with specified page number, tag and locale
+	 * @throws Exception
+	 */
 	public List<ArticleEntity> findAllActiveSortedByDateDesc(int pageNumber, Locale loc) throws Exception {
 		
 		int firstResult = (pageNumber - 1) * countArticlesPerPage;
