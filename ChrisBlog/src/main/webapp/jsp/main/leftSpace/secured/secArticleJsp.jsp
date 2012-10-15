@@ -9,6 +9,8 @@
 	<c:set var="disabledView" value="class='disabledLink'"/>
 	<c:set var="disabledEdit" value=""/>
 	<c:set var="disabledDelete" value=""/>
+	<c:set var="formMethod" value=""/>
+	<c:set var="formAction" value=""/>
 </c:if>
 <c:if test="${command.displaySecEditArticle}">
 	<c:set var="disabledField" value="false"/>
@@ -16,6 +18,8 @@
 	<c:set var="disabledView" value=""/>
 	<c:set var="disabledEdit" value="class='disabledLink'"/>
 	<c:set var="disabledDelete" value=""/>
+	<c:set var="formMethod" value="POST"/>
+	<c:set var="formAction" value="secured/handle-edit-article"/>
 </c:if>
 <c:if test="${command.displaySecCreateArticle}">
 	<c:set var="disabledField" value="false"/>
@@ -23,6 +27,8 @@
 	<c:set var="disabledView" value="class='disabledLink'"/>
 	<c:set var="disabledEdit" value="class='disabledLink'"/>
 	<c:set var="disabledDelete" value="class='disabledLink'"/>
+	<c:set var="formMethod" value="POST"/>
+	<c:set var="formAction" value="secured/handle-create-article"/>
 </c:if>
 
 
@@ -55,14 +61,14 @@
 	
 	
 	
-	<form:form method="POST" action="secured/handle-create-article" modelAttribute="command.article">
+	<form:form method="${formMethod}" action="${formAction}" modelAttribute="command.article">
 	
 		<div id="secPageFields">
 		
 			<c:if test="${not command.displaySecCreateArticle}">
 				<div class="secPageField">
 					<label>Id*</label>
-					<form:input path="id" disabled="true"/>
+					<form:input path="id" readonly="true"/>
 				</div>
 			</c:if>
 			
@@ -130,6 +136,7 @@
 		
 		<p id="secPageNavigation">
 			<c:if test="${not command.displaySecViewArticle}">
+			
 				<input type="submit" class="button" value="Apply"/>
 			</c:if>
 			<a id="cancel" href="secured/article-list" class="button">Cancel</a>

@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.enums.ArticleStatusEnum;
+import pl.kwi.chrisblog.utils.DateUtils;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -309,6 +310,48 @@ public class ArticleDaoTest {
 		dao.create(article);
 		
 		assertNotNull(article.getId());
+		
+	}
+	
+	@Test
+	@DatabaseSetup("/dbunit/ArticleDaoTest.xml")
+	public void update(){
+		
+		ArticleEntity article = dao.findOne(1L);
+		
+		
+		List<ArticleTagEntity> articleTagList = new ArrayList<ArticleTagEntity>();
+		ArticleTagEntity articleTag;
+		
+		articleTag = new ArticleTagEntity();
+		articleTag.setId(2L);
+		articleTagList.add(articleTag);
+		
+		
+		article.setUniqueName("uniqueName-changed");
+		article.setTitle("title-changed");
+		article.setPagesCount(9);
+		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("20010101120000"));
+		article.setAuthor("author-changed");
+		article.setDemoName("demoName-changed");
+		article.setExampleFileName("exampleFileName-changed");
+		article.setSourceFileName("sourceFileName-changed");
+		article.setStatus(ArticleStatusEnum.NOT_ACTIVE);
+		article.setArticleTagList(articleTagList);
+		
+		dao.update(article);
+		
+		assertEquals("uniqueName-changed", article.getUniqueName());
+		assertEquals("title-changed", article.getTitle());
+		assertEquals(Integer.valueOf(9), article.getPagesCount());
+		assertEquals(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("20010101120000"), article.getCreationDate());
+		assertEquals("author-changed", article.getAuthor());
+		assertEquals("demoName-changed", article.getDemoName());
+		assertEquals("exampleFileName-changed", article.getExampleFileName());
+		assertEquals("sourceFileName-changed", article.getSourceFileName());
+		assertEquals(ArticleStatusEnum.NOT_ACTIVE, article.getStatus());
+		assertEquals(1, article.getArticleTagList().size());
+		assertEquals(Long.valueOf(2), article.getArticleTagList().get(0).getId());
 		
 	}
 

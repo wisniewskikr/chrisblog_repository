@@ -166,6 +166,30 @@ public class SecuredBlogController extends AbstractController{
 	}
 	
 	/**
+	 * Method handles updating page with article view in secured area.
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/handle-edit-article", method=RequestMethod.POST)
+	public ModelAndView handleSecEditArticle(@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		ArticleEntity article = command.getArticle();
+		Locale loc = localeResolver.resolveLocale(request);
+		Calendar creationDate = DateUtils.convertStringWithMonthAsTextToCalendar(article.getCreationDateAsString(), loc);
+		
+		article.setCreationDate(creationDate);
+		articleService.update(article);
+		
+		return new ModelAndView(new RedirectView("/secured/view-article/" + article.getUniqueName() , true, true, true));
+		
+	}
+	
+	/**
 	 * Method displays creating page with article view in secured area.
 	 * 
 	 * @param command object BlogCommand with data from page
@@ -198,7 +222,6 @@ public class SecuredBlogController extends AbstractController{
 	 * @param command object BlogCommand with data from page
 	 * @param request object HttpServletRequest with request from page 
 	 * @param response object HttpServletResponse with response to page
-	 * @param uniqueName object String with unique name of article
 	 * @return object ModelAndView with model and view of page
 	 * @throws Exception
 	 */

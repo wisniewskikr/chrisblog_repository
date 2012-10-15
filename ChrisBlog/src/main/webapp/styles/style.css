@@ -743,6 +743,11 @@ div#AdTaily_Widget_Container div.Footer {
 	color: #CCC;
 }
 
+.secPageField input[readonly="readonly"]{
+	background: white;
+	color: #CCC;
+}
+
 .secPageField select{
 	width: 420px;	
 	border: 1px solid #CCC;

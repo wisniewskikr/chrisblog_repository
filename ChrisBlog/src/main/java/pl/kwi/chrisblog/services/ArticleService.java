@@ -217,6 +217,18 @@ public class ArticleService {
 		return article.getId();
 		
 	}
+	
+	/**
+	 * Method updates object ArticleEntity
+	 * 
+	 * @param article object ArticleEntity which is updated
+	 */
+	@Transactional
+	public void update(ArticleEntity article){
+						
+		articleDao.update(article);
+		
+	}
 		
 	
 	// ************************************************************************************************************ //
