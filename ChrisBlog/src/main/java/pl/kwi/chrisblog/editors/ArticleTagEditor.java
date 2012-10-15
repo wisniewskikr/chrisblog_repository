@@ -15,7 +15,7 @@ public class ArticleTagEditor extends PropertyEditorSupport{
 	public void setAsText(String text) throws IllegalArgumentException {
 		
 		ArticleTagEntity tag = new ArticleTagEntity();
-		tag.setUniqueName(text);
+		tag.setId(Long.valueOf(text));
 		setValue(tag);
 	}
 

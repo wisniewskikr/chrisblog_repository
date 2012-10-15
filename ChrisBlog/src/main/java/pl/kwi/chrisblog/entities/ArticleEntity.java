@@ -3,7 +3,6 @@ package pl.kwi.chrisblog.entities;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -153,7 +152,7 @@ public class ArticleEntity extends AbstractEntity{
 		this.status = status;
 	}
 	
-	@ManyToMany(cascade=(CascadeType.ALL), fetch=FetchType.EAGER)
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(
 			name="join_article_and_tag",
 			joinColumns={@JoinColumn(name="ARTICLE_ID", referencedColumnName="ID")},

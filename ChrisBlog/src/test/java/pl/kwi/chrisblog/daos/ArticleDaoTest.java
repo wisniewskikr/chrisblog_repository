@@ -279,5 +279,37 @@ public class ArticleDaoTest {
 		assertNotNull(article.getId());
 		
 	}
+	
+	@Test
+	@DatabaseSetup("/dbunit/ArticleDaoTest.xml")
+	public void create_withTags(){
+		
+		List<ArticleTagEntity> articleTagList = new ArrayList<ArticleTagEntity>();
+		ArticleTagEntity articleTag;
+		
+		articleTag = new ArticleTagEntity();
+		articleTag.setId(1L);
+		articleTagList.add(articleTag);
+		
+		
+		ArticleEntity article = new ArticleEntity();
+		article.setAuthor("author");
+		article.setContent("content");
+		article.setCreationDate(Calendar.getInstance());
+		article.setDemoName("demo");
+		article.setDescription("description");
+		article.setExampleFileName("example");
+		article.setPagesCount(1);
+		article.setSourceFileName("source");
+		article.setStatus(ArticleStatusEnum.ACTIVE);
+		article.setTitle("title");
+		article.setUniqueName("uniqueName");
+		article.setArticleTagList(articleTagList);
+		
+		dao.create(article);
+		
+		assertNotNull(article.getId());
+		
+	}
 
 }

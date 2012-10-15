@@ -212,14 +212,7 @@ public class ArticleService {
 	 */
 	@Transactional
 	public Long create(ArticleEntity article){
-		
-		List<String> uniqueNameList = new ArrayList<String>();
-		List<ArticleTagEntity> articleTagList = article.getArticleTagList();
-		for (ArticleTagEntity articleTag : articleTagList) {
-			uniqueNameList.add(articleTag.getUniqueName());
-		}
-		article.setArticleTagList(articleTagService.getArticleTagListByUniqueNameList(uniqueNameList));
-		
+						
 		articleDao.create(article);
 		return article.getId();
 		

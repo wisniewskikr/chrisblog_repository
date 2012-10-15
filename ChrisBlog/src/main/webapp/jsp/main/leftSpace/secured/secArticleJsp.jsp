@@ -123,7 +123,7 @@
 			
 			<div id="tags" class="secPageField">
 				<label id="tagsLabel">Tags</label>
-				<form:checkboxes path="articleTagList" items="${articleTagList}" itemValue="uniqueName" itemLabel="name" disabled="${disabledField}" />
+				<form:checkboxes path="articleTagList" items="${articleTagList}" itemValue="id" itemLabel="name" disabled="${disabledField}" />
 			</div>
 			
 		</div>
