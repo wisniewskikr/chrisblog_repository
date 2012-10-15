@@ -30,6 +30,15 @@
 	<c:set var="formMethod" value="POST"/>
 	<c:set var="formAction" value="secured/handle-create-article"/>
 </c:if>
+<c:if test="${command.displaySecDeleteArticle}">
+	<c:set var="disabledField" value="true"/>
+	<c:set var="disabledCreate" value=""/>
+	<c:set var="disabledView" value=""/>
+	<c:set var="disabledEdit" value=""/>
+	<c:set var="disabledDelete" value="class='disabledLink'"/>
+	<c:set var="formMethod" value="DELETE"/>
+	<c:set var="formAction" value="secured/handle-delete-article/${command.article.id}"/>
+</c:if>
 
 
 <div id="secArticle">
@@ -54,7 +63,7 @@
 				<a href="secured/edit-article/${command.article.uniqueName}" ${disabledEdit}>Edit</a>
 			</li>
 			<li class="secPageAction">
-				<a href="#" ${disabledDelete}>Delete</a>
+				<a href="secured/delete-article/${command.article.uniqueName}" ${disabledDelete}>Delete</a>
 			</li>
 		</ul>		
 	</div>
@@ -135,9 +144,14 @@
 		</div>
 		
 		<p id="secPageNavigation">
-			<c:if test="${not command.displaySecViewArticle}">
-			
+			<c:if test="${command.displaySecCreateArticle}">			
 				<input type="submit" class="button" value="Apply"/>
+			</c:if>
+			<c:if test="${command.displaySecEditArticle}">			
+				<input type="submit" class="button" value="Apply"/>
+			</c:if>
+			<c:if test="${command.displaySecDeleteArticle}">			
+				<input type="submit" class="button" value="Delete"/>
 			</c:if>
 			<a id="cancel" href="secured/article-list" class="button">Cancel</a>
 		</p>

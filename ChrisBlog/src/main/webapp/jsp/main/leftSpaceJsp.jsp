@@ -48,5 +48,9 @@
 			<%@ include file="leftSpace/secured/secArticleJsp.jsp" %>
 		</c:if>
 		
+		<c:if test="${command.displaySecDeleteArticle}">
+			<%@ include file="leftSpace/secured/secArticleJsp.jsp" %>
+		</c:if>
+		
 	</div>
 </div>

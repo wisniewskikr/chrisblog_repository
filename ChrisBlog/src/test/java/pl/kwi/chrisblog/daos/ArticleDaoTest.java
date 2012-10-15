@@ -354,5 +354,16 @@ public class ArticleDaoTest {
 		assertEquals(Long.valueOf(2), article.getArticleTagList().get(0).getId());
 		
 	}
+	
+	@Test
+	@DatabaseSetup("/dbunit/ArticleDaoTest.xml")
+	public void delete(){
+		
+		dao.deleteById(1L);
+		
+		List<ArticleEntity> list = dao.findAll();
+		assertEquals(3, list.size());
+		
+	}
 
 }

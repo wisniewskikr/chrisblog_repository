@@ -229,6 +229,18 @@ public class ArticleService {
 		articleDao.update(article);
 		
 	}
+	
+	/**
+	 * Method deletes object ArticleEntity
+	 * 
+	 * @param id object Long with article`s id which is deleted
+	 */
+	@Transactional
+	public void delete(Long id){
+		
+		articleDao.deleteById(id);
+		
+	}
 		
 	
 	// ************************************************************************************************************ //

@@ -33,6 +33,7 @@ public class BlogCommand implements Serializable{
 	private boolean displaySecViewArticle;
 	private boolean displaySecEditArticle;
 	private boolean displaySecCreateArticle;
+	private boolean displaySecDeleteArticle;
 	
 	// Objects with data
 	private List<ArticleEntity> articleList;	
@@ -133,6 +134,13 @@ public class BlogCommand implements Serializable{
 	}
 	public void setDisplaySecCreateArticle(boolean displaySecCreateArticle) {
 		this.displaySecCreateArticle = displaySecCreateArticle;
+	}	
+	
+	public boolean isDisplaySecDeleteArticle() {
+		return displaySecDeleteArticle;
+	}
+	public void setDisplaySecDeleteArticle(boolean displaySecDeleteArticle) {
+		this.displaySecDeleteArticle = displaySecDeleteArticle;
 	}
 	
 	public List<ArticleEntity> getArticleList() {

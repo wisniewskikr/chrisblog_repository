@@ -241,6 +241,57 @@ public class SecuredBlogController extends AbstractController{
 		
 	}
 	
+	/**
+	 * Method handles deleting page with article view in secured area.
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param uniqueName object String with unique name of article
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/delete-article/{uniqueName}")
+	public ModelAndView displaySecDeleteArticle(
+			ModelMap model, 
+			@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, 
+			HttpServletResponse response, 
+			@PathVariable String uniqueName) throws Exception{
+		
+		command.setDisplaySecDeleteArticle(true);		
+		handleCommand(command, request);
+		
+		command.setArticle(articleService.getArticleByUniqueName(uniqueName, command.getLocale()));
+		model.addAttribute("articleTagList", articleTagService.findAll());
+		
+		return new ModelAndView("blogJsp");
+		
+	}
+	
+	/**
+	 * Method handles deleting page with article view in secured area.
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param id object Long with deleted article id
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/handle-delete-article/{id}", method=RequestMethod.POST)
+	public ModelAndView handleSecDeleteArticle(
+			@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, 
+			HttpServletResponse response,
+			@PathVariable Long id) throws Exception{
+				
+		articleService.delete(id);
+		
+		return new ModelAndView(new RedirectView("/secured/article-list" , true, true, true));
+		
+	}
+	
 	
 	// ************************************************************************************************************ //
 	// *********************************************** HELP METHODS *********************************************** //
