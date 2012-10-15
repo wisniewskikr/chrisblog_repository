@@ -121,14 +121,14 @@
 				</form:select>
 			</div>
 			
-			<div class="secPageField">
-				<label>Tags</label>
-				<form:checkboxes path="articleTagList" items="${articleTagList}" itemValue="uniqueName" itemLabel="name" disabled="${disabledField}"/>
+			<div id="tags" class="secPageField">
+				<label id="tagsLabel">Tags</label>
+				<form:checkboxes path="articleTagList" items="${articleTagList}" itemValue="uniqueName" itemLabel="name" disabled="${disabledField}" />
 			</div>
 			
 		</div>
 		
-		<p>
+		<p id="secPageNavigation">
 			<c:if test="${not command.displaySecViewArticle}">
 				<input type="submit" class="button" value="Apply"/>
 			</c:if>

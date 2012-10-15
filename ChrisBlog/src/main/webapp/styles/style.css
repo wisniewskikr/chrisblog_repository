@@ -764,3 +764,28 @@ div#AdTaily_Widget_Container div.Footer {
     cursor: default;
     color: #CCC !important;
 }
+
+#tags input{
+	display: inline;
+	width: 30px;
+}
+
+#tags span{
+	display: inline;
+	width: 170px;
+	float: left;
+	margin-top: 10px;
+}
+
+#tags span label{
+	display: inline;
+}
+
+#tagsLabel{
+	display: block;
+}
+
+#secPageNavigation{
+	clear: left;
+}
+
