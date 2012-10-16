@@ -1,6 +1,7 @@
 package pl.kwi.chrisblog.controllers;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,10 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import pl.kwi.chrisblog.commands.BlogCommand;
-import pl.kwi.chrisblog.editors.ArticleTagEditor;
+import pl.kwi.chrisblog.editors.ArticleTagListEditor;
 import pl.kwi.chrisblog.editors.CreationDateEditor;
 import pl.kwi.chrisblog.entities.ArticleEntity;
-import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.utils.DateUtils;
 
 /**
@@ -42,7 +42,7 @@ public class SecuredBlogController extends AbstractController{
 	
 	@InitBinder
     protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) {
-		binder.registerCustomEditor(ArticleTagEntity.class, new ArticleTagEditor());
+		binder.registerCustomEditor(List.class, "articleTagList", new ArticleTagListEditor(List.class));
 		
 		Locale loc = localeResolver.resolveLocale(request);
 		binder.registerCustomEditor(Calendar.class, new CreationDateEditor(loc));
