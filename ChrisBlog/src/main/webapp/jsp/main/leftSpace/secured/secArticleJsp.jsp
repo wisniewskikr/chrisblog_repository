@@ -11,6 +11,7 @@
 	<c:set var="disabledDelete" value=""/>
 	<c:set var="formMethod" value=""/>
 	<c:set var="formAction" value=""/>
+	<c:set var="readonlyUniqueName" value="true"/>
 </c:if>
 <c:if test="${command.displaySecEditArticle}">
 	<c:set var="disabledField" value="false"/>
@@ -20,6 +21,7 @@
 	<c:set var="disabledDelete" value=""/>
 	<c:set var="formMethod" value="POST"/>
 	<c:set var="formAction" value="secured/handle-edit-article"/>
+	<c:set var="readonlyUniqueName" value="true"/>
 </c:if>
 <c:if test="${command.displaySecCreateArticle}">
 	<c:set var="disabledField" value="false"/>
@@ -29,6 +31,7 @@
 	<c:set var="disabledDelete" value="class='disabledLink'"/>
 	<c:set var="formMethod" value="POST"/>
 	<c:set var="formAction" value="secured/handle-create-article"/>
+	<c:set var="readonlyUniqueName" value="false"/>
 </c:if>
 <c:if test="${command.displaySecDeleteArticle}">
 	<c:set var="disabledField" value="true"/>
@@ -37,7 +40,8 @@
 	<c:set var="disabledEdit" value=""/>
 	<c:set var="disabledDelete" value="class='disabledLink'"/>
 	<c:set var="formMethod" value="DELETE"/>
-	<c:set var="formAction" value="secured/handle-delete-article/${command.article.id}"/>
+	<c:set var="formAction" value="secured/handle-delete-article/${article.id}"/>
+	<c:set var="readonlyUniqueName" value="true"/>
 </c:if>
 
 
@@ -64,13 +68,13 @@
 				<a href="secured/create-article" ${disabledCreate}>Create</a>
 			</li>
 			<li class="secPageAction">
-				<a href="secured/view-article/${command.article.uniqueName}" ${disabledView}>View</a>
+				<a href="secured/view-article/${article.uniqueName}" ${disabledView}>View</a>
 			</li>
 			<li class="secPageAction">
-				<a href="secured/edit-article/${command.article.uniqueName}" ${disabledEdit}>Edit</a>
+				<a href="secured/edit-article/${article.uniqueName}" ${disabledEdit}>Edit</a>
 			</li>
 			<li class="secPageAction">
-				<a href="secured/delete-article/${command.article.uniqueName}" ${disabledDelete}>Delete</a>
+				<a href="secured/delete-article/${article.uniqueName}" ${disabledDelete}>Delete</a>
 			</li>
 		</ul>		
 	</div>
@@ -97,8 +101,9 @@
 			<div class="secPageField">
 				<label>Unique name*</label>
 				<form:errors path="uniqueName" cssClass="error"/>
-				<form:input path="uniqueName" disabled="${disabledField}"/>
+				<form:input path="uniqueName" readonly="${readonlyUniqueName}"/>
 			</div>
+			
 			
 			<div class="secPageField">
 				<label>Author*</label>

@@ -25,7 +25,6 @@ import pl.kwi.chrisblog.commands.BlogCommand;
 import pl.kwi.chrisblog.editors.ArticleTagListEditor;
 import pl.kwi.chrisblog.editors.CreationDateEditor;
 import pl.kwi.chrisblog.entities.ArticleEntity;
-import pl.kwi.chrisblog.utils.DateUtils;
 
 /**
  * Class of controller for secured blog.
@@ -137,7 +136,7 @@ public class SecuredBlogController extends AbstractController{
 		command.setDisplaySecViewArticle(true);		
 		handleCommand(command, request);
 		
-		command.setArticle(articleService.getArticleByUniqueName(uniqueName, command.getLocale()));
+		model.addAttribute("article", articleService.getArticleByUniqueName(uniqueName, command.getLocale()));
 		model.addAttribute("articleTagList", articleTagService.findAll());
 		
 		return new ModelAndView("blogJsp");
@@ -166,7 +165,7 @@ public class SecuredBlogController extends AbstractController{
 		command.setDisplaySecEditArticle(true);		
 		handleCommand(command, request);
 		
-		command.setArticle(articleService.getArticleByUniqueName(uniqueName, command.getLocale()));
+		model.addAttribute("article", articleService.getArticleByUniqueName(uniqueName, command.getLocale()));
 		model.addAttribute("articleTagList", articleTagService.findAll());
 		
 		return new ModelAndView("blogJsp");
@@ -176,7 +175,10 @@ public class SecuredBlogController extends AbstractController{
 	/**
 	 * Method handles updating page with article view in secured area.
 	 * 
+	 * @param model object ModelMap with model
 	 * @param command object BlogCommand with data from page
+	 * @param article object ArticleEntity with article
+	 * @param bindingResult object BindingResult with result from page
 	 * @param request object HttpServletRequest with request from page 
 	 * @param response object HttpServletResponse with response to page
 	 * @return object ModelAndView with model and view of page
@@ -184,18 +186,20 @@ public class SecuredBlogController extends AbstractController{
 	 */
 	@RequestMapping(value="/handle-edit-article", method=RequestMethod.POST)
 	public ModelAndView handleSecEditArticle(
+			ModelMap model, 
 			@ModelAttribute("command")BlogCommand command,
+			@Valid @ModelAttribute("article")ArticleEntity article,
+			BindingResult bindingResult,
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception{
 		
-		ArticleEntity article = command.getArticle();
-		Locale loc = localeResolver.resolveLocale(request);
-		Calendar creationDate = DateUtils.convertStringWithMonthAsTextToCalendar(article.getCreationDateAsString(), loc);
+		if(bindingResult.hasErrors()){
+			return displaySecEditArticle(model, command, request, response, article.getUniqueName());
+		}
 		
-		article.setCreationDate(creationDate);
 		articleService.update(article);
 		
-		return new ModelAndView(new RedirectView("/secured/view-article/" + article.getUniqueName() , true, true, true));
+		return new ModelAndView(new RedirectView("/secured/article-list" , true, true, true));
 		
 	}
 	
@@ -282,7 +286,7 @@ public class SecuredBlogController extends AbstractController{
 		command.setDisplaySecDeleteArticle(true);		
 		handleCommand(command, request);
 		
-		command.setArticle(articleService.getArticleByUniqueName(uniqueName, command.getLocale()));
+		model.addAttribute("article", articleService.getArticleByUniqueName(uniqueName, command.getLocale()));
 		model.addAttribute("articleTagList", articleTagService.findAll());
 		
 		return new ModelAndView("blogJsp");
