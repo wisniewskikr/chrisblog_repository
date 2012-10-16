@@ -5,10 +5,14 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,6 +39,9 @@ public class SecuredBlogController extends AbstractController{
 	
 	
 	private static final Logger LOG = Logger.getLogger(SecuredBlogController.class);
+	
+	@Autowired
+	public Validator validator;
 
 	
 	@InitBinder
@@ -112,6 +119,7 @@ public class SecuredBlogController extends AbstractController{
 	/**
 	 * Method handles page with article view in secured area.
 	 * 
+	 * @param model object ModelMap with model
 	 * @param command object BlogCommand with data from page
 	 * @param request object HttpServletRequest with request from page 
 	 * @param response object HttpServletResponse with response to page
@@ -140,6 +148,7 @@ public class SecuredBlogController extends AbstractController{
 	/**
 	 * Method handles editing page with article view in secured area.
 	 * 
+	 * @param model object ModelMap with model
 	 * @param command object BlogCommand with data from page
 	 * @param request object HttpServletRequest with request from page 
 	 * @param response object HttpServletResponse with response to page
@@ -175,8 +184,10 @@ public class SecuredBlogController extends AbstractController{
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/handle-edit-article", method=RequestMethod.POST)
-	public ModelAndView handleSecEditArticle(@ModelAttribute("command")BlogCommand command,
-			HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public ModelAndView handleSecEditArticle(
+			@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception{
 		
 		ArticleEntity article = command.getArticle();
 		Locale loc = localeResolver.resolveLocale(request);
@@ -192,10 +203,11 @@ public class SecuredBlogController extends AbstractController{
 	/**
 	 * Method displays creating page with article view in secured area.
 	 * 
+	 * @param model object ModelMap with model
 	 * @param command object BlogCommand with data from page
+	 * @param article object ArticleEntity with article
 	 * @param request object HttpServletRequest with request from page 
 	 * @param response object HttpServletResponse with response to page
-	 * @param uniqueName object String with unique name of article
 	 * @return object ModelAndView with model and view of page
 	 * @throws Exception
 	 */
@@ -203,13 +215,13 @@ public class SecuredBlogController extends AbstractController{
 	public ModelAndView displaySecCreateArticle(
 			ModelMap model,
 			@ModelAttribute("command")BlogCommand command,
+			@ModelAttribute("article")ArticleEntity article,
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception{
 		
 		command.setDisplaySecCreateArticle(true);		
 		handleCommand(command, request);
 		
-		command.setArticle(new ArticleEntity());
 		model.addAttribute("articleTagList", articleTagService.findAll());
 		
 		return new ModelAndView("blogJsp");
@@ -219,18 +231,29 @@ public class SecuredBlogController extends AbstractController{
 	/**
 	 * Method handles creating page with article view in secured area.
 	 * 
+	 * @param model object ModelMap with model
 	 * @param command object BlogCommand with data from page
+	 * @param article object ArticleEntity with article
+	 * @param bindingResult object BindingResult with result from page
 	 * @param request object HttpServletRequest with request from page 
 	 * @param response object HttpServletResponse with response to page
 	 * @return object ModelAndView with model and view of page
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/handle-create-article", method=RequestMethod.POST)
-	public ModelAndView handleSecCreateArticle(@ModelAttribute("command")BlogCommand command,
-			HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public ModelAndView handleSecCreateArticle(
+			ModelMap model,
+			@ModelAttribute("command")BlogCommand command,
+			@Valid @ModelAttribute("article")ArticleEntity article,
+			BindingResult bindingResult,
+			HttpServletRequest request, 
+			HttpServletResponse response
+			) throws Exception{
 		
-		ArticleEntity article = command.getArticle();
-				
+		if(bindingResult.hasErrors()){
+			return displaySecCreateArticle(model, command, article, request, response);
+		}
+		
 		Locale loc = localeResolver.resolveLocale(request);
 		Calendar creationDate = DateUtils.convertStringWithMonthAsTextToCalendar(article.getCreationDateAsString(), loc);
 		
@@ -244,6 +267,7 @@ public class SecuredBlogController extends AbstractController{
 	/**
 	 * Method handles deleting page with article view in secured area.
 	 * 
+	 * @param model object ModelMap with model
 	 * @param command object BlogCommand with data from page
 	 * @param request object HttpServletRequest with request from page 
 	 * @param response object HttpServletResponse with response to page
@@ -315,4 +339,14 @@ public class SecuredBlogController extends AbstractController{
 	}
 	
 	
+	// ************************************************************************************************************ //
+	// *********************************************** GETTERS AND SETTERS **************************************** //
+	// ************************************************************************************************************ //
+	
+	
+	public void setValidator(Validator validator) {
+		this.validator = validator;
+	}
+	
+		
 }

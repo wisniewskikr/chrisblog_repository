@@ -42,6 +42,13 @@
 
 
 <div id="secArticle">
+	
+	
+	<spring:hasBindErrors name="command">
+	    <c:forEach items="${errors.fieldErrors}" var="error">
+	      <font color="red"> <spring:message code="${error.defaultMessage}"/> </font><br/>
+	    </c:forEach>
+	</spring:hasBindErrors>
 
 	
 	<div id="secPageHeader">
@@ -70,7 +77,7 @@
 	
 	
 	
-	<form:form method="${formMethod}" action="${formAction}" modelAttribute="command.article">
+	<form:form method="${formMethod}" action="${formAction}" modelAttribute="article">
 	
 		<div id="secPageFields">
 		
@@ -82,22 +89,26 @@
 			</c:if>
 			
 			<div class="secPageField">
-				<label>Title*</label>
+				<label>Title*</label>	
+				<form:errors path="title" cssClass="error"/>			
 				<form:input path="title" disabled="${disabledField}"/>
 			</div>
 			
 			<div class="secPageField">
 				<label>Unique name*</label>
+				<form:errors path="uniqueName" cssClass="error"/>
 				<form:input path="uniqueName" disabled="${disabledField}"/>
 			</div>
 			
 			<div class="secPageField">
 				<label>Author*</label>
+				<form:errors path="author" cssClass="error"/>
 				<form:input path="author" disabled="${disabledField}"/>
 			</div>
 			
 			<div class="secPageField">
-				<label>Pages count*</label>				
+				<label>Pages count*</label>	
+				<form:errors path="pagesCount" cssClass="error"/>
 				<form:select path="pagesCount" disabled="${disabledField}">
 					<c:forEach begin="1" end="10" step="1" var="x">
 						<form:option value="${x}">${x}</form:option>
@@ -108,36 +119,42 @@
 			
 			<div class="secPageField">
 				<label>Creation date*</label>
+				<form:errors path="creationDateAsString" cssClass="error"/>
 				<form:input path="creationDateAsString" cssClass="datepicker" disabled="${disabledField}"/>
 			</div>
 			
 			<div class="secPageField">
 				<label>Demo name</label>
+				<form:errors path="demoName" cssClass="error"/>
 				<form:input path="demoName" disabled="${disabledField}"/>
 			</div>
 			
 			<div class="secPageField">
 				<label>Example file name</label>
+				<form:errors path="exampleFileName" cssClass="error"/>
 				<form:input path="exampleFileName" disabled="${disabledField}"/>
 			</div>
 			
 			<div class="secPageField">
 				<label>Source file name</label>
+				<form:errors path="sourceFileName" cssClass="error"/>
 				<form:input path="sourceFileName" disabled="${disabledField}"/>
 			</div>
 			
 			<c:set var="articleStatusEnumValues" value="<%=pl.kwi.chrisblog.enums.ArticleStatusEnum.values()%>"/>
 			<div class="secPageField">
-				<label>Article status</label>
+				<label>Article status*</label>
+				<form:errors path="status" cssClass="error"/>
 				<form:select path="status" disabled="${disabledField}">
 					<c:forEach items="${articleStatusEnumValues}" var="enumValue">
 						<form:option value="${enumValue}">${enumValue.displayedName}</form:option>
 					</c:forEach>
 				</form:select>
 			</div>
-			
+						
 			<div id="tags" class="secPageField">
-				<label id="tagsLabel">Tags</label>
+				<label>Tags*</label>
+				<form:errors path="articleTagList" cssClass="error errorArticleTagList" element="div"/></br>
 				<form:checkboxes path="articleTagList" items="${articleTagList}" itemValue="id" itemLabel="name" disabled="${disabledField}" />
 			</div>
 			

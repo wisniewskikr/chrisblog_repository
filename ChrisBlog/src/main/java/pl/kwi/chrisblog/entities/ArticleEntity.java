@@ -15,7 +15,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
 import pl.kwi.chrisblog.enums.ArticleStatusEnum;
 import pl.kwi.db.abstr.AbstractEntity;
 
@@ -52,7 +53,7 @@ public class ArticleEntity extends AbstractEntity{
 	
 	
 	private static final long serialVersionUID = 1L;
-	
+		
 	private String uniqueName;
 	private String title;
 	private Integer pagesCount;
@@ -80,6 +81,7 @@ public class ArticleEntity extends AbstractEntity{
 	
 	
 	@Column(name="UNIQUE_NAME", length=100, nullable=false)
+	@NotEmpty
 	public String getUniqueName() {
 		return uniqueName;
 	}
@@ -88,6 +90,7 @@ public class ArticleEntity extends AbstractEntity{
 	}	
 
 	@Column(name="TITLE", length=100, nullable=false)
+	@NotEmpty
 	public String getTitle() {
 		return title;
 	}
@@ -112,6 +115,7 @@ public class ArticleEntity extends AbstractEntity{
 	}
 	
 	@Column(name="AUTHOR", length=50, nullable=false)
+	@NotEmpty
 	public String getAuthor() {
 		return author;
 	}
@@ -158,6 +162,7 @@ public class ArticleEntity extends AbstractEntity{
 			joinColumns={@JoinColumn(name="ARTICLE_ID", referencedColumnName="ID")},
 			inverseJoinColumns={@JoinColumn(name="ARTICLE_TAG_ID", referencedColumnName="ID")}
 			)
+	@NotNull
 	public List<ArticleTagEntity> getArticleTagList() {
 		return articleTagList;
 	}
@@ -206,6 +211,7 @@ public class ArticleEntity extends AbstractEntity{
 	}
 	
 	@Transient
+	@NotEmpty
 	public String getCreationDateAsString() {
 		return creationDateAsString;
 	}

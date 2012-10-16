@@ -205,10 +205,11 @@ public class SecuredBlogControllerTest {
 		
 		ModelMap model = new ModelMap();
 		BlogCommand command = new BlogCommand();
+		ArticleEntity article = new ArticleEntity();
 		HttpServletRequest request = mockHttpServletRequest();
 		HttpServletResponse response = mockHttpServletResponse();
 		
-		ModelAndView modelAndView = controller.displaySecCreateArticle(model, command, request, response);
+		ModelAndView modelAndView = controller.displaySecCreateArticle(model, command, article, request, response);
 		
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplaySecCreateArticle());
@@ -219,8 +220,6 @@ public class SecuredBlogControllerTest {
 		Assert.assertNotNull(command.getLocale());
 		Assert.assertNotNull(command.getTagsCloudFooter());
 		Assert.assertNotNull(command.getTagsCloudRightSpace());
-		
-		assertNotNull(command.getArticle());
 		
 		Assert.assertEquals("blogJsp", modelAndView.getViewName());
 		

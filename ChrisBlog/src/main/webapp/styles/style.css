@@ -721,11 +721,11 @@ div#AdTaily_Widget_Container div.Footer {
 }
 
 .secPageField label{
-	display: block;
 	font-weight: bold;
 	font-family: "Capriola",sans-serif;
 	padding: 0 0 0 10px;
 	color: #77A6D2;
+	display: inline;
 }
 
 .secPageField input{
@@ -736,6 +736,7 @@ div#AdTaily_Widget_Container div.Footer {
 	-webkit-border-radius: 4px;
 	color: #888;
 	font-weight: bold;
+	display: block;
 }
 
 .secPageField input:disabled{
@@ -757,6 +758,7 @@ div#AdTaily_Widget_Container div.Footer {
 	font-weight: bold;
 	color: #888;
 	background-color: white;
+	display: block;
 }
 
 .secPageField select:disabled{
@@ -794,3 +796,13 @@ div#AdTaily_Widget_Container div.Footer {
 	clear: left;
 }
 
+.error{
+	font-weight: bold;
+	font-family: "Capriola",sans-serif;
+	padding: 0 0 0 10px;
+	color: red;
+}
+
+.errorArticleTagList{
+	display: inline;
+}
