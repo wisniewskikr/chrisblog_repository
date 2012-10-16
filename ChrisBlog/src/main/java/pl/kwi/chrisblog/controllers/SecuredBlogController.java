@@ -8,11 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Validator;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,6 +22,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import pl.kwi.chrisblog.commands.BlogCommand;
 import pl.kwi.chrisblog.editors.ArticleTagEditor;
+import pl.kwi.chrisblog.editors.CreationDateEditor;
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.entities.ArticleTagEntity;
 import pl.kwi.chrisblog.utils.DateUtils;
@@ -40,13 +39,13 @@ public class SecuredBlogController extends AbstractController{
 	
 	private static final Logger LOG = Logger.getLogger(SecuredBlogController.class);
 	
-	@Autowired
-	public Validator validator;
-
 	
 	@InitBinder
     protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) {
 		binder.registerCustomEditor(ArticleTagEntity.class, new ArticleTagEditor());
+		
+		Locale loc = localeResolver.resolveLocale(request);
+		binder.registerCustomEditor(Calendar.class, new CreationDateEditor(loc));
     }
 	
 	/**
@@ -222,6 +221,7 @@ public class SecuredBlogController extends AbstractController{
 		command.setDisplaySecCreateArticle(true);		
 		handleCommand(command, request);
 		
+		article.setCreationDate(Calendar.getInstance());
 		model.addAttribute("articleTagList", articleTagService.findAll());
 		
 		return new ModelAndView("blogJsp");
@@ -254,10 +254,6 @@ public class SecuredBlogController extends AbstractController{
 			return displaySecCreateArticle(model, command, article, request, response);
 		}
 		
-		Locale loc = localeResolver.resolveLocale(request);
-		Calendar creationDate = DateUtils.convertStringWithMonthAsTextToCalendar(article.getCreationDateAsString(), loc);
-		
-		article.setCreationDate(creationDate);
 		articleService.create(article);
 		
 		return new ModelAndView(new RedirectView("/secured/article-list" , true, true, true));
@@ -336,16 +332,6 @@ public class SecuredBlogController extends AbstractController{
 		
 		handlePagenation(command, pageCurrent, pagesCount);
 		
-	}
-	
-	
-	// ************************************************************************************************************ //
-	// *********************************************** GETTERS AND SETTERS **************************************** //
-	// ************************************************************************************************************ //
-	
-	
-	public void setValidator(Validator validator) {
-		this.validator = validator;
 	}
 	
 		

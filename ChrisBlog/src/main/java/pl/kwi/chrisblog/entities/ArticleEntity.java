@@ -107,6 +107,7 @@ public class ArticleEntity extends AbstractEntity{
 	}
 	
 	@Column(name="CREATION_DATE", nullable=false)
+	@NotNull
 	public Calendar getCreationDate() {
 		return creationDate;
 	}
@@ -210,8 +211,7 @@ public class ArticleEntity extends AbstractEntity{
 		this.sourcePath = sourcePath;
 	}
 	
-	@Transient
-	@NotEmpty
+	@Transient	
 	public String getCreationDateAsString() {
 		return creationDateAsString;
 	}

@@ -119,8 +119,8 @@
 			
 			<div class="secPageField">
 				<label>Creation date*</label>
-				<form:errors path="creationDateAsString" cssClass="error"/>
-				<form:input path="creationDateAsString" cssClass="datepicker" disabled="${disabledField}"/>
+				<form:errors path="creationDate" cssClass="error"/>
+				<form:input path="creationDate" cssClass="datepicker" disabled="${disabledField}"/>
 			</div>
 			
 			<div class="secPageField">
