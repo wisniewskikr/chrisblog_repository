@@ -101,6 +101,10 @@ public abstract class AbstractController {
 			title = "Secured Create of Article";			
 		}else if(command.isDisplaySecDeleteArticle()){
 			title = "Secured Delete of Article";			
+		}else if(command.isDisplaySecInfo()){
+			title = "Secured Info";			
+		}else if(command.isDisplaySecConfirmation()){
+			title = "Secured Confirmation";			
 		}else{
 			throw new Exception("Can not get title of browser window. Can not find display mode.");
 		}

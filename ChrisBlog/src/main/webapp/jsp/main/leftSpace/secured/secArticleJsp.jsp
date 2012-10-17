@@ -39,8 +39,8 @@
 	<c:set var="disabledView" value=""/>
 	<c:set var="disabledEdit" value=""/>
 	<c:set var="disabledDelete" value="class='disabledLink'"/>
-	<c:set var="formMethod" value="DELETE"/>
-	<c:set var="formAction" value="secured/handle-delete-article/${article.uniqueName}"/>
+	<c:set var="formMethod" value=""/>
+	<c:set var="formAction" value=""/>
 	<c:set var="readonlyUniqueName" value="true"/>
 </c:if>
 
@@ -173,7 +173,7 @@
 				<input type="submit" class="button" value="Apply"/>
 			</c:if>
 			<c:if test="${command.displaySecDeleteArticle}">			
-				<input type="submit" class="button" value="Delete"/>
+				<a id="delete" href="secured/confirmation/delete-article/${article.uniqueName}" class="button">Delete</a>
 			</c:if>
 			<a id="cancel" href="secured/article-list" class="button">Cancel</a>
 		</p>

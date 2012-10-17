@@ -332,6 +332,60 @@ public class SecuredBlogController extends AbstractController{
 		
 	}
 	
+	/**
+	 * Method displays info page in secured area.
+	 * 
+	 * @param model object ModelMap with model
+	 * @param command object BlogCommand with data from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param pageName object String with page name
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/info/{pageName}")
+	public ModelAndView displaySecInfo(
+			ModelMap model, 
+			@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, 
+			HttpServletResponse response, 
+			@PathVariable String pageName) throws Exception{
+		
+		command.setDisplaySecInfo(true);		
+		handleCommand(command, request);
+		
+		return new ModelAndView("blogJsp");
+		
+	}
+	
+	/**
+	 * Method displays confirmation page in secured area.
+	 * 
+	 * @param model object ModelMap with model
+	 * @param command object BlogCommand with data from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param pageName object String with page name
+	 * @param uniqueName object String with unique name of article
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/confirmation/{pageName}/{uniqueName}")
+	public ModelAndView displaySecConfirmation(
+			ModelMap model, 
+			@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, 
+			HttpServletResponse response, 
+			@PathVariable String pageName,
+			@PathVariable String uniqueName) throws Exception{
+		
+		command.setDisplaySecConfirmation(true);		
+		handleCommand(command, request);
+		
+		return new ModelAndView("blogJsp");
+		
+	}
+	
 	
 	// ************************************************************************************************************ //
 	// *********************************************** HELP METHODS *********************************************** //

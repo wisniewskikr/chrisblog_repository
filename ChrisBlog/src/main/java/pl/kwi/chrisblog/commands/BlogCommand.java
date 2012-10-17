@@ -34,6 +34,8 @@ public class BlogCommand implements Serializable{
 	private boolean displaySecEditArticle;
 	private boolean displaySecCreateArticle;
 	private boolean displaySecDeleteArticle;
+	private boolean displaySecInfo;
+	private boolean displaySecConfirmation;
 	
 	// Objects with data
 	private List<ArticleEntity> articleList;	
@@ -141,6 +143,20 @@ public class BlogCommand implements Serializable{
 	}
 	public void setDisplaySecDeleteArticle(boolean displaySecDeleteArticle) {
 		this.displaySecDeleteArticle = displaySecDeleteArticle;
+	}	
+	
+	public boolean isDisplaySecInfo() {
+		return displaySecInfo;
+	}
+	public void setDisplaySecInfo(boolean displaySecInfo) {
+		this.displaySecInfo = displaySecInfo;
+	}
+	
+	public boolean isDisplaySecConfirmation() {
+		return displaySecConfirmation;
+	}
+	public void setDisplaySecConfirmation(boolean displaySecConfirmation) {
+		this.displaySecConfirmation = displaySecConfirmation;
 	}
 	
 	public List<ArticleEntity> getArticleList() {
