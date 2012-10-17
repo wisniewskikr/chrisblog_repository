@@ -1,5 +1,6 @@
 package pl.kwi.chrisblog.controllers;
 
+import java.text.MessageFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -112,6 +114,51 @@ public class SecuredBlogController extends AbstractController{
 		handleSecArticleListPagenation(command, pageNumber);
 		
 		return new ModelAndView("blogJsp");
+		
+	}
+	
+	/**
+	 * Method handles list of article. It concentrates mainly on validation.
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param bindingResult object BindingResult with result from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param pageName object String with page name
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/handle-article-list/{pageName}", method=RequestMethod.POST)
+	protected ModelAndView handleSecArticleList(
+			@ModelAttribute("command")BlogCommand command,
+			BindingResult bindingResult,
+			HttpServletRequest request, 
+			HttpServletResponse response,
+			@PathVariable String pageName) throws Exception{
+		
+		String selectedRows = command.getSelectedRows();
+				
+		if(StringUtils.isBlank(selectedRows)){
+			bindingResult.rejectValue("selectedRows", "error.table.nothing.selected");
+			return displaySecArticleList(command, request, response, 1);
+		}
+		
+		String[] selectedRowsTab = selectedRows.split(",");		
+		if(selectedRowsTab.length > 1){
+			bindingResult.rejectValue("selectedRows", "error.table.to.many.selected");
+			return displaySecArticleList(command, request, response, 1);
+		}
+		
+		String uniqueName = selectedRowsTab[0];
+		if("view-article".equals(pageName)){
+			return new ModelAndView(new RedirectView("/secured/view-article/" + uniqueName, true, true, true));
+		}else if("edit-article".equals(pageName)){
+			return new ModelAndView(new RedirectView("/secured/edit-article/" + uniqueName, true, true, true));
+		}else if("delete-article".equals(pageName)){
+			return new ModelAndView(new RedirectView("/secured/delete-article/" + uniqueName, true, true, true));
+		}else{
+			throw new SecArticleException(MessageFormat.format("Action with name {0} is not sopported", pageName));
+		}
 		
 	}
 	

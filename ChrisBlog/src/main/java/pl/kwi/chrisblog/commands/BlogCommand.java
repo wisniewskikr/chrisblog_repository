@@ -67,6 +67,8 @@ public class BlogCommand implements Serializable{
 	private List<String> okMsgs = new ArrayList<String>();
 	private List<String> warnMsgs = new ArrayList<String>();
 	
+	private String selectedRows;
+	
 
 	public boolean isDisplayArticleList() {
 		return displayArticleList;
@@ -269,7 +271,13 @@ public class BlogCommand implements Serializable{
 	}
 	public void setWarnMsgs(List<String> warnMsgs) {
 		this.warnMsgs = warnMsgs;
-	}		
+	}
 	
+	public String getSelectedRows() {
+		return selectedRows;
+	}
+	public void setSelectedRows(String selectedRows) {
+		this.selectedRows = selectedRows;
+	}	
 	
 }
