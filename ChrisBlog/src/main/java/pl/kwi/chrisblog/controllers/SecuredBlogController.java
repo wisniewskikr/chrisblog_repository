@@ -319,7 +319,7 @@ public class SecuredBlogController extends AbstractController{
 	 * @return object ModelAndView with model and view of page
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/handle-delete-article/{uniqueName}", method=RequestMethod.POST)
+	@RequestMapping(value="/handle-delete-article/{uniqueName}", method=RequestMethod.GET)
 	public ModelAndView handleSecDeleteArticle(
 			@ModelAttribute("command")BlogCommand command,
 			HttpServletRequest request, 
@@ -381,6 +381,13 @@ public class SecuredBlogController extends AbstractController{
 		
 		command.setDisplaySecConfirmation(true);		
 		handleCommand(command, request);
+		
+		if("delete-article".equals(pageName)){
+			model.addAttribute("confirmDeleteArticle", true);
+			model.addAttribute("title", messageSource.getMessage("confirmation.title", null, command.getLocale()));
+			model.addAttribute("content", messageSource.getMessage("confirmation.content.delete.article", null, command.getLocale()));
+			model.addAttribute("uniqueName", uniqueName);
+		}
 		
 		return new ModelAndView("blogJsp");
 		
