@@ -115,6 +115,74 @@ public class SecuredBlogController extends AbstractController{
 	}
 	
 	/**
+	 * Method displays creating page with article view in secured area.
+	 * 
+	 * @param model object ModelMap with model
+	 * @param command object BlogCommand with data from page	 
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param article object ArticleEntity with article
+	 * @param isValidation boolean indicates if this is callback with validation errors.
+	 * If yes then existing article should be used
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/create-article")
+	public ModelAndView displaySecCreateArticle(
+			ModelMap model,
+			@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, 
+			HttpServletResponse response,
+			ArticleEntity article,
+			boolean isValidation) throws Exception{
+		
+		command.setDisplaySecCreateArticle(true);		
+		handleCommand(command, request);
+		
+		if(!isValidation){
+			article.setCreationDate(Calendar.getInstance());
+		}
+		
+		model.addAttribute("article", article);
+		model.addAttribute("articleTagList", articleTagService.findAll());
+		
+		return new ModelAndView("blogJsp");
+		
+	}
+	
+	/**
+	 * Method handles creating page with article view in secured area.
+	 * 
+	 * @param model object ModelMap with model
+	 * @param command object BlogCommand with data from page
+	 * @param article object ArticleEntity with article
+	 * @param bindingResult object BindingResult with result from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/handle-create-article", method=RequestMethod.POST)
+	public ModelAndView handleSecCreateArticle(
+			ModelMap model,
+			@ModelAttribute("command")BlogCommand command,
+			@Valid @ModelAttribute("article")ArticleEntity article,
+			BindingResult bindingResult,
+			HttpServletRequest request, 
+			HttpServletResponse response
+			) throws Exception{
+		
+		if(bindingResult.hasErrors()){
+			return displaySecCreateArticle(model, command, request, response, article, true);
+		}
+		
+		articleService.create(article);
+		
+		return new ModelAndView(new RedirectView("/secured/article-list" , true, true, true));
+		
+	}
+	
+	/**
 	 * Method handles page with article view in secured area.
 	 * 
 	 * @param model object ModelMap with model
@@ -151,6 +219,9 @@ public class SecuredBlogController extends AbstractController{
 	 * @param request object HttpServletRequest with request from page 
 	 * @param response object HttpServletResponse with response to page
 	 * @param uniqueName object String with unique name of article
+	 * @param article object ArticleEntity with article
+	 * @param isValidation boolean indicates if this is callback with validation errors.
+	 * If yes then existing article should be used
 	 * @return object ModelAndView with model and view of page
 	 * @throws Exception
 	 */
@@ -160,12 +231,18 @@ public class SecuredBlogController extends AbstractController{
 			@ModelAttribute("command")BlogCommand command,
 			HttpServletRequest request, 
 			HttpServletResponse response, 
-			@PathVariable String uniqueName) throws Exception{
+			@PathVariable String uniqueName,
+			ArticleEntity article,
+			boolean isValidation) throws Exception{
 		
 		command.setDisplaySecEditArticle(true);		
 		handleCommand(command, request);
 		
-		model.addAttribute("article", articleService.getArticleByUniqueName(uniqueName, command.getLocale()));
+		if(!isValidation){
+			article = articleService.getArticleByUniqueName(uniqueName, command.getLocale());
+		}
+		
+		model.addAttribute("article", article);
 		model.addAttribute("articleTagList", articleTagService.findAll());
 		
 		return new ModelAndView("blogJsp");
@@ -194,71 +271,10 @@ public class SecuredBlogController extends AbstractController{
 			HttpServletResponse response) throws Exception{
 		
 		if(bindingResult.hasErrors()){
-			return displaySecEditArticle(model, command, request, response, article.getUniqueName());
+			return displaySecEditArticle(model, command, request, response, article.getUniqueName(), article, true);
 		}
 		
 		articleService.update(article);
-		
-		return new ModelAndView(new RedirectView("/secured/article-list" , true, true, true));
-		
-	}
-	
-	/**
-	 * Method displays creating page with article view in secured area.
-	 * 
-	 * @param model object ModelMap with model
-	 * @param command object BlogCommand with data from page
-	 * @param article object ArticleEntity with article
-	 * @param request object HttpServletRequest with request from page 
-	 * @param response object HttpServletResponse with response to page
-	 * @return object ModelAndView with model and view of page
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/create-article")
-	public ModelAndView displaySecCreateArticle(
-			ModelMap model,
-			@ModelAttribute("command")BlogCommand command,
-			@ModelAttribute("article")ArticleEntity article,
-			HttpServletRequest request, 
-			HttpServletResponse response) throws Exception{
-		
-		command.setDisplaySecCreateArticle(true);		
-		handleCommand(command, request);
-		
-		article.setCreationDate(Calendar.getInstance());
-		model.addAttribute("articleTagList", articleTagService.findAll());
-		
-		return new ModelAndView("blogJsp");
-		
-	}
-	
-	/**
-	 * Method handles creating page with article view in secured area.
-	 * 
-	 * @param model object ModelMap with model
-	 * @param command object BlogCommand with data from page
-	 * @param article object ArticleEntity with article
-	 * @param bindingResult object BindingResult with result from page
-	 * @param request object HttpServletRequest with request from page 
-	 * @param response object HttpServletResponse with response to page
-	 * @return object ModelAndView with model and view of page
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/handle-create-article", method=RequestMethod.POST)
-	public ModelAndView handleSecCreateArticle(
-			ModelMap model,
-			@ModelAttribute("command")BlogCommand command,
-			@Valid @ModelAttribute("article")ArticleEntity article,
-			BindingResult bindingResult,
-			HttpServletRequest request, 
-			HttpServletResponse response
-			) throws Exception{
-		
-		if(bindingResult.hasErrors()){
-			return displaySecCreateArticle(model, command, article, request, response);
-		}
-		
-		articleService.create(article);
 		
 		return new ModelAndView(new RedirectView("/secured/article-list" , true, true, true));
 		

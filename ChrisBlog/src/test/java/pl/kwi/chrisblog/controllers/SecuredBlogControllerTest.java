@@ -167,7 +167,8 @@ public class SecuredBlogControllerTest {
 		Assert.assertNotNull(command.getTagsCloudFooter());
 		Assert.assertNotNull(command.getTagsCloudRightSpace());
 		
-		assertNotNull(command.getArticle());
+		assertNotNull(model.get("article"));
+		assertNotNull(model.get("articleTagList"));
 				
 		Assert.assertEquals("blogJsp", modelAndView.getViewName());
 		
@@ -181,8 +182,10 @@ public class SecuredBlogControllerTest {
 		HttpServletRequest request = mockHttpServletRequest();
 		HttpServletResponse response = mockHttpServletResponse();
 		String uniqueName = "uniqueName";
+		ArticleEntity article = null;
+		boolean isValidation = false;
 		
-		ModelAndView modelAndView = controller.displaySecEditArticle(model, command, request, response, uniqueName);
+		ModelAndView modelAndView = controller.displaySecEditArticle(model, command, request, response, uniqueName, article, isValidation);
 		
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplaySecEditArticle());
@@ -194,7 +197,8 @@ public class SecuredBlogControllerTest {
 		Assert.assertNotNull(command.getTagsCloudFooter());
 		Assert.assertNotNull(command.getTagsCloudRightSpace());
 		
-		assertNotNull(command.getArticle());
+		assertNotNull(model.get("article"));
+		assertNotNull(model.get("articleTagList"));
 				
 		Assert.assertEquals("blogJsp", modelAndView.getViewName());
 		
@@ -205,11 +209,12 @@ public class SecuredBlogControllerTest {
 		
 		ModelMap model = new ModelMap();
 		BlogCommand command = new BlogCommand();
-		ArticleEntity article = new ArticleEntity();
 		HttpServletRequest request = mockHttpServletRequest();
 		HttpServletResponse response = mockHttpServletResponse();
+		ArticleEntity article = new ArticleEntity();
+		boolean isValidation = false;
 		
-		ModelAndView modelAndView = controller.displaySecCreateArticle(model, command, article, request, response);
+		ModelAndView modelAndView = controller.displaySecCreateArticle(model, command, request, response, article, isValidation);
 		
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplaySecCreateArticle());
@@ -220,6 +225,9 @@ public class SecuredBlogControllerTest {
 		Assert.assertNotNull(command.getLocale());
 		Assert.assertNotNull(command.getTagsCloudFooter());
 		Assert.assertNotNull(command.getTagsCloudRightSpace());
+		
+		assertNotNull(model.get("article"));
+		assertNotNull(model.get("articleTagList"));
 		
 		Assert.assertEquals("blogJsp", modelAndView.getViewName());
 		
