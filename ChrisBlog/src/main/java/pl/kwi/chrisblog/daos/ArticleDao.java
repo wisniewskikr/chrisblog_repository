@@ -148,5 +148,17 @@ public class ArticleDao extends AbstractHibernateTemplateDao<ArticleEntity>{
 		return articlesCount.intValue();
 		
 	}
+	
+	/**
+	 * Method deletes article with unique name.
+	 * 
+	 * @param uniqueName object String with unique name of deleted article
+	 */
+	public void deleteByUniqueName(String uniqueName){
+		
+		ArticleEntity article = getArticleByUniqueName(uniqueName);
+		delete(article);
+		
+	}
 
 }

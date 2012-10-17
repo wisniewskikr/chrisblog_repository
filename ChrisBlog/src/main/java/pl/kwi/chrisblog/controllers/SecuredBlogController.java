@@ -315,18 +315,18 @@ public class SecuredBlogController extends AbstractController{
 	 * @param command object BlogCommand with data from page
 	 * @param request object HttpServletRequest with request from page 
 	 * @param response object HttpServletResponse with response to page
-	 * @param id object Long with deleted article id
+	 * @param uniqueName object String with unique name of article
 	 * @return object ModelAndView with model and view of page
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/handle-delete-article/{id}", method=RequestMethod.POST)
+	@RequestMapping(value="/handle-delete-article/{uniqueName}", method=RequestMethod.POST)
 	public ModelAndView handleSecDeleteArticle(
 			@ModelAttribute("command")BlogCommand command,
 			HttpServletRequest request, 
 			HttpServletResponse response,
-			@PathVariable Long id) throws Exception{
+			@PathVariable String uniqueName) throws Exception{
 				
-		articleService.delete(id);
+		articleService.deleteByUniqueName(uniqueName);
 		
 		return new ModelAndView(new RedirectView("/secured/article-list" , true, true, true));
 		

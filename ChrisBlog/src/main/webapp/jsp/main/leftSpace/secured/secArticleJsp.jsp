@@ -40,7 +40,7 @@
 	<c:set var="disabledEdit" value=""/>
 	<c:set var="disabledDelete" value="class='disabledLink'"/>
 	<c:set var="formMethod" value="DELETE"/>
-	<c:set var="formAction" value="secured/handle-delete-article/${article.id}"/>
+	<c:set var="formAction" value="secured/handle-delete-article/${article.uniqueName}"/>
 	<c:set var="readonlyUniqueName" value="true"/>
 </c:if>
 

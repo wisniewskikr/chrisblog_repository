@@ -241,6 +241,18 @@ public class ArticleService {
 		articleDao.deleteById(id);
 		
 	}
+	
+	/**
+	 * Method deletes object ArticleEntity with specified unique name
+	 * 
+	 * @param uniqueName object String with article`s unique name which is deleted
+	 */
+	@Transactional
+	public void deleteByUniqueName(String uniqueName){
+		
+		articleDao.deleteByUniqueName(uniqueName);
+		
+	}
 		
 	
 	// ************************************************************************************************************ //

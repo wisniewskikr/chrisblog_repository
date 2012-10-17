@@ -368,9 +368,20 @@ public class ArticleDaoTest {
 	
 	@Test
 	@DatabaseSetup("/dbunit/ArticleDaoTest.xml")
-	public void delete(){
+	public void deleteById(){
 		
 		dao.deleteById(1L);
+		
+		List<ArticleEntity> list = dao.findAll();
+		assertEquals(3, list.size());
+		
+	}
+	
+	@Test
+	@DatabaseSetup("/dbunit/ArticleDaoTest.xml")
+	public void deleteByUniqueName(){
+		
+		dao.deleteByUniqueName("uniqueName1");
 		
 		List<ArticleEntity> list = dao.findAll();
 		assertEquals(3, list.size());
