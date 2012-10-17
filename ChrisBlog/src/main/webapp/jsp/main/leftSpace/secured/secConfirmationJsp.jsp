@@ -10,7 +10,7 @@
 	
 	<p id="confirmationButtons">
 		<c:if test="${confirmDeleteArticle}">
-			<a id="ok" href="secured/handle-delete-article/${uniqueName}" class="button">Ok</a>
+			<a id="delete" href="secured/handle-delete-article/${uniqueName}" class="button">Delete</a>
 			<a id="cancel" href="secured/delete-article/${uniqueName}" class="button">Cancel</a>
 		</c:if>
 	</p>

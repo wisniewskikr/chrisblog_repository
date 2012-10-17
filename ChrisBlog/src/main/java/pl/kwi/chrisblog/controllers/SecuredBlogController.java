@@ -25,6 +25,7 @@ import pl.kwi.chrisblog.commands.BlogCommand;
 import pl.kwi.chrisblog.editors.ArticleTagListEditor;
 import pl.kwi.chrisblog.editors.CreationDateEditor;
 import pl.kwi.chrisblog.entities.ArticleEntity;
+import pl.kwi.chrisblog.exceptions.SecArticleException;
 
 /**
  * Class of controller for secured blog.
@@ -178,7 +179,7 @@ public class SecuredBlogController extends AbstractController{
 		
 		articleService.create(article);
 		
-		return new ModelAndView(new RedirectView("/secured/article-list" , true, true, true));
+		return new ModelAndView(new RedirectView("/secured/info/create-article" , true, true, true));
 		
 	}
 	
@@ -276,7 +277,7 @@ public class SecuredBlogController extends AbstractController{
 		
 		articleService.update(article);
 		
-		return new ModelAndView(new RedirectView("/secured/article-list" , true, true, true));
+		return new ModelAndView(new RedirectView("/secured/info/edit-article" , true, true, true));
 		
 	}
 	
@@ -353,6 +354,18 @@ public class SecuredBlogController extends AbstractController{
 		
 		command.setDisplaySecInfo(true);		
 		handleCommand(command, request);
+		
+		if("create-article".equals(pageName)){
+			model.addAttribute("infoCreateArticle", true);
+			model.addAttribute("title", messageSource.getMessage("info.title", null, command.getLocale()));
+			model.addAttribute("content", messageSource.getMessage("info.content.create.article", null, command.getLocale()));
+		}else if("edit-article".equals(pageName)){
+			model.addAttribute("infoEditArticle", true);
+			model.addAttribute("title", messageSource.getMessage("info.title", null, command.getLocale()));
+			model.addAttribute("content", messageSource.getMessage("info.content.edit.article", null, command.getLocale()));
+		}else{
+			throw new SecArticleException("There is no info for action: " + pageName);
+		}
 		
 		return new ModelAndView("blogJsp");
 		
