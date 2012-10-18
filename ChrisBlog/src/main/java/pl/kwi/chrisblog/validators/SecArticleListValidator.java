@@ -115,7 +115,13 @@ public class SecArticleListValidator {
 		
 		if(StringUtils.isBlank(selectedRows)){
 			bindingResult.reject("error.table.nothing.selected");
-			isValid = false;
+			return false;
+		}
+		
+		String[] selectedRowsTab = selectedRows.split(",");		
+		if(selectedRowsTab.length > 1){
+			bindingResult.reject("error.table.to.many.selected");
+			return false;
 		}
 		
 		return isValid;
