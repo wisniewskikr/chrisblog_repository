@@ -160,6 +160,44 @@ public class SecuredBlogController extends AbstractController{
 	}
 	
 	/**
+	 * Method displays article list with info in secured area.
+	 * 
+	 * @param model object ModelMap with model
+	 * @param command object BlogCommand with data from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param pageName object String with page name
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/article-list-with-info/{pageName}")
+	protected ModelAndView displaySecArticleListWithInfo(
+			ModelMap model,
+			@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, 
+			HttpServletResponse response, 
+			@PathVariable String pageName) throws Exception{
+		
+		Locale loc = localeResolver.resolveLocale(request);
+		
+		if("create-article".equals(pageName)){
+			model.addAttribute("displayOkMessage", true);
+			model.addAttribute("contentOkMessage", messageSource.getMessage("ok.create.article", null, loc));
+		}else if("edit-article".equals(pageName)){
+			model.addAttribute("displayOkMessage", true);
+			model.addAttribute("contentOkMessage", messageSource.getMessage("ok.edit.article", null, loc));
+		}else if("delete-article".equals(pageName)){
+			model.addAttribute("displayOkMessage", true);
+			model.addAttribute("contentOkMessage", messageSource.getMessage("ok.delete.article", null, loc));
+		}else{
+			throw new SecArticleException(MessageFormat.format("Action with name {0} is not sopported", pageName));
+		}
+		
+		return displaySecArticleList(command, request, response, 1);
+		
+	}
+	
+	/**
 	 * Method displays creating page with article view in secured area.
 	 * 
 	 * @param model object ModelMap with model
@@ -223,7 +261,7 @@ public class SecuredBlogController extends AbstractController{
 		
 		articleService.create(article);
 		
-		return new ModelAndView(new RedirectView("/secured/info/create-article" , true, true, true));
+		return new ModelAndView(new RedirectView("/secured/article-list-with-info/create-article" , true, true, true));
 		
 	}
 	
@@ -321,7 +359,7 @@ public class SecuredBlogController extends AbstractController{
 		
 		articleService.update(article);
 		
-		return new ModelAndView(new RedirectView("/secured/info/edit-article" , true, true, true));
+		return new ModelAndView(new RedirectView("/secured/article-list-with-info/edit-article" , true, true, true));
 		
 	}
 	
@@ -373,45 +411,7 @@ public class SecuredBlogController extends AbstractController{
 				
 		articleService.deleteByUniqueName(uniqueName);
 		
-		return new ModelAndView(new RedirectView("/secured/article-list" , true, true, true));
-		
-	}
-	
-	/**
-	 * Method displays info page in secured area.
-	 * 
-	 * @param model object ModelMap with model
-	 * @param command object BlogCommand with data from page
-	 * @param request object HttpServletRequest with request from page 
-	 * @param response object HttpServletResponse with response to page
-	 * @param pageName object String with page name
-	 * @return object ModelAndView with model and view of page
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/info/{pageName}")
-	public ModelAndView displaySecInfo(
-			ModelMap model, 
-			@ModelAttribute("command")BlogCommand command,
-			HttpServletRequest request, 
-			HttpServletResponse response, 
-			@PathVariable String pageName) throws Exception{
-		
-		command.setDisplaySecInfo(true);		
-		handleCommand(command, request);
-		
-		if("create-article".equals(pageName)){
-			model.addAttribute("infoCreateArticle", true);
-			model.addAttribute("title", messageSource.getMessage("info.title", null, command.getLocale()));
-			model.addAttribute("content", messageSource.getMessage("info.content.create.article", null, command.getLocale()));
-		}else if("edit-article".equals(pageName)){
-			model.addAttribute("infoEditArticle", true);
-			model.addAttribute("title", messageSource.getMessage("info.title", null, command.getLocale()));
-			model.addAttribute("content", messageSource.getMessage("info.content.edit.article", null, command.getLocale()));
-		}else{
-			throw new SecArticleException("There is no info for action: " + pageName);
-		}
-		
-		return new ModelAndView("blogJsp");
+		return new ModelAndView(new RedirectView("/secured/article-list-with-info/delete-article" , true, true, true));
 		
 	}
 	

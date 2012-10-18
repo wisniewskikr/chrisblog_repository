@@ -807,6 +807,10 @@ div#AdTaily_Widget_Container div.Footer {
 	display: inline;
 }
 
+.msgArea{
+	min-height: 60px;
+}
+
 #errorSecArticleList{
 	border:2px solid #E77D7B;
 	padding: 20px 5px 20px 70px;
@@ -822,6 +826,17 @@ div#AdTaily_Widget_Container div.Footer {
 	border-radius: 1.5em;   	
 }
 
-.msgArea{
-	min-height: 60px;
+#okSecArticleList{
+	border:2px solid #8CD76B;
+	padding: 20px 5px 20px 70px;
+	background: #E7FFD6 url('../images/common/msg_ok.png') center no-repeat;
+   	background-position: 30px 50%;
+   	color:#69A150;
+	font-size:1.0em;
+   	font-family:Verdana;
+ 	font-weight:bold; 
+	display: block;
+	margin-left: 150px;   	
+	margin-right: 150px;
+	border-radius: 1.5em;   	
 }

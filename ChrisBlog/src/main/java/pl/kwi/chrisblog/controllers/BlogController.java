@@ -363,7 +363,7 @@ public class BlogController extends AbstractController{
 	public ModelAndView loginFailed(@ModelAttribute("command")BlogCommand command,
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
-		command.getErrorMsgs().add(messageSource.getMessage("error_credentials", null, localeResolver.resolveLocale(request)));
+		command.getErrorMsgs().add(messageSource.getMessage("error.credentials", null, localeResolver.resolveLocale(request)));
 		
 		return displayArticleList(command, request, response, 1);
 		
@@ -383,7 +383,7 @@ public class BlogController extends AbstractController{
 	public ModelAndView securedResource(@ModelAttribute("command")BlogCommand command,
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
-		command.getInfoMsgs().add(messageSource.getMessage("info_resource_secured", null, localeResolver.resolveLocale(request)));
+		command.getInfoMsgs().add(messageSource.getMessage("info.resource.secured", null, localeResolver.resolveLocale(request)));
 				
 		return displayArticleList(command, request, response, 1);
 		

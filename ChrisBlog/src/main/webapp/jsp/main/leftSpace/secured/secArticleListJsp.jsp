@@ -20,6 +20,9 @@
 		<form:hidden path="selectedRows" />				
 		<div class="msgArea">
 			<form:errors id="errorSecArticleList"/>
+			<c:if test="${displayOkMessage}">
+				<span id="okSecArticleList">${contentOkMessage}</span>
+			</c:if>
 		</div>
 		
 		
