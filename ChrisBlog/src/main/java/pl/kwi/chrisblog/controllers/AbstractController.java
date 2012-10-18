@@ -13,6 +13,19 @@ import pl.kwi.chrisblog.commands.BlogCommand;
 import pl.kwi.chrisblog.exceptions.PagenationException;
 import pl.kwi.chrisblog.services.ArticleService;
 import pl.kwi.chrisblog.services.ArticleTagService;
+import pl.kwi.chrisblog.visitors.impl.AboutMePage;
+import pl.kwi.chrisblog.visitors.impl.ArticleListPage;
+import pl.kwi.chrisblog.visitors.impl.ArticleListWithTagPage;
+import pl.kwi.chrisblog.visitors.impl.ArticlePage;
+import pl.kwi.chrisblog.visitors.impl.ExceptionPage;
+import pl.kwi.chrisblog.visitors.impl.ExplanationPage;
+import pl.kwi.chrisblog.visitors.impl.PageTitleVisitor;
+import pl.kwi.chrisblog.visitors.impl.SecArticleListPage;
+import pl.kwi.chrisblog.visitors.impl.SecConfirmationPage;
+import pl.kwi.chrisblog.visitors.impl.SecCreateArticlePage;
+import pl.kwi.chrisblog.visitors.impl.SecDeleteArticlePage;
+import pl.kwi.chrisblog.visitors.impl.SecEditArticlePage;
+import pl.kwi.chrisblog.visitors.impl.SecViewArticlePage;
 
 /**
  * Abstract class for all controllers.
@@ -78,31 +91,44 @@ public abstract class AbstractController {
 		}
 		
 		String title = null;
+		PageTitleVisitor v = new PageTitleVisitor();
 		
 		if(command.isDisplayArticleList()) {
-			title = "List of Articles";
+			v.visit(new ArticleListPage());
+			title = v.getPageTitle();
 		}else if(command.isDisplayArticle()){
-			title = "Article";			
+			v.visit(new ArticlePage());
+			title = v.getPageTitle();			
 		}else if(command.isDisplayArticleListWithTag()){
-			title = "List of Articles marked by Tag";			
+			v.visit(new ArticleListWithTagPage());
+			title = v.getPageTitle();			
 		}else if(command.isDisplayExplanation()){
-			title = "Explanation";			
+			v.visit(new ExplanationPage());
+			title = v.getPageTitle();			
 		}else if(command.isDisplayAboutMe()){
-			title = "About Me";			
+			v.visit(new AboutMePage());
+			title = v.getPageTitle();		
 		}else if(command.isDisplayException()){
-			title = "Exception";			
+			v.visit(new ExceptionPage());
+			title = v.getPageTitle();			
 		}else if(command.isDisplaySecArticleList()){
-			title = "Secured List of Articles";			
+			v.visit(new SecArticleListPage());
+			title = v.getPageTitle();		
 		}else if(command.isDisplaySecViewArticle()){
-			title = "Secured View of Article";			
+			v.visit(new SecViewArticlePage());
+			title = v.getPageTitle();		
 		}else if(command.isDisplaySecEditArticle()){
-			title = "Secured Edit of Article";			
+			v.visit(new SecEditArticlePage());
+			title = v.getPageTitle();			
 		}else if(command.isDisplaySecCreateArticle()){
-			title = "Secured Create of Article";			
+			v.visit(new SecCreateArticlePage());
+			title = v.getPageTitle();			
 		}else if(command.isDisplaySecDeleteArticle()){
-			title = "Secured Delete of Article";			
+			v.visit(new SecDeleteArticlePage());
+			title = v.getPageTitle();			
 		}else if(command.isDisplaySecConfirmation()){
-			title = "Secured Confirmation";			
+			v.visit(new SecConfirmationPage());
+			title = v.getPageTitle();		
 		}else{
 			throw new Exception("Can not get title of browser window. Can not find display mode.");
 		}
