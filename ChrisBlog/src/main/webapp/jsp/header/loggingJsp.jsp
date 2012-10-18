@@ -45,8 +45,8 @@
 			</div>
 			
 			<div class="headerSection">
-				<label for="userRole">Your role is:</label>						
-				<div id="userRole" class="logText"><sec:authentication property="principal.authorities"/></div>
+				<label>Your have an access to:</label>						
+				<div class="logText"><a id="secResources" href="secured/article-list">secured resources</a></div>
 			</div>
 			
 			<div id="actionSection">				
