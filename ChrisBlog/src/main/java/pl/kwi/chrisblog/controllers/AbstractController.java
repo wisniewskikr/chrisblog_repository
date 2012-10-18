@@ -90,50 +90,37 @@ public abstract class AbstractController {
 			throw new Exception("Can not get title of browser window. Object BlogCommand is null.");
 		}
 		
-		String title = null;
 		PageTitleVisitor v = new PageTitleVisitor();
 		
 		if(command.isDisplayArticleList()) {
-			v.visit(new ArticleListPage());
-			title = v.getPageTitle();
+			new ArticleListPage().accept(v);
 		}else if(command.isDisplayArticle()){
-			v.visit(new ArticlePage());
-			title = v.getPageTitle();			
+			new ArticlePage().accept(v);			
 		}else if(command.isDisplayArticleListWithTag()){
-			v.visit(new ArticleListWithTagPage());
-			title = v.getPageTitle();			
+			new ArticleListWithTagPage().accept(v);			
 		}else if(command.isDisplayExplanation()){
-			v.visit(new ExplanationPage());
-			title = v.getPageTitle();			
+			new ExplanationPage().accept(v);			
 		}else if(command.isDisplayAboutMe()){
-			v.visit(new AboutMePage());
-			title = v.getPageTitle();		
+			new AboutMePage().accept(v);		
 		}else if(command.isDisplayException()){
-			v.visit(new ExceptionPage());
-			title = v.getPageTitle();			
+			new ExceptionPage().accept(v);			
 		}else if(command.isDisplaySecArticleList()){
-			v.visit(new SecArticleListPage());
-			title = v.getPageTitle();		
+			new SecArticleListPage().accept(v);		
 		}else if(command.isDisplaySecViewArticle()){
-			v.visit(new SecViewArticlePage());
-			title = v.getPageTitle();		
+			new SecViewArticlePage().accept(v);		
 		}else if(command.isDisplaySecEditArticle()){
-			v.visit(new SecEditArticlePage());
-			title = v.getPageTitle();			
+			new SecEditArticlePage().accept(v);			
 		}else if(command.isDisplaySecCreateArticle()){
-			v.visit(new SecCreateArticlePage());
-			title = v.getPageTitle();			
+			new SecCreateArticlePage().accept(v);			
 		}else if(command.isDisplaySecDeleteArticle()){
-			v.visit(new SecDeleteArticlePage());
-			title = v.getPageTitle();			
+			new SecDeleteArticlePage().accept(v);			
 		}else if(command.isDisplaySecConfirmation()){
-			v.visit(new SecConfirmationPage());
-			title = v.getPageTitle();		
+			new SecConfirmationPage().accept(v);		
 		}else{
 			throw new Exception("Can not get title of browser window. Can not find display mode.");
 		}
 		
-		return title;
+		return v.getPageTitle();
 		
 	}
 	
