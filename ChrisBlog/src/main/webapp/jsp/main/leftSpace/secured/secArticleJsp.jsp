@@ -46,13 +46,9 @@
 
 
 <div id="secArticle">
-	
-	
-	<spring:hasBindErrors name="command">
-	    <c:forEach items="${errors.fieldErrors}" var="error">
-	      <font color="red"> <spring:message code="${error.defaultMessage}"/> </font><br/>
-	    </c:forEach>
-	</spring:hasBindErrors>
+
+
+	<div class="msgArea"></div>
 
 	
 	<div id="secPageHeader">

@@ -17,12 +17,15 @@
 
 	
 	<form:form modelAttribute="command">
-		<form:hidden path="selectedRows" />
-		<form:errors path="*" />
-	
+		<form:hidden path="selectedRows" />				
+		<div class="msgArea">
+			<form:errors id="errorSecArticleList"/>
+		</div>
+		
+		
 		<div id="secPageHeader">
 			<ul>
-				<li class="secPageTitle">Articles</li>
+				<li class="secPageTitle">Article List</li>
 			</ul>
 		</div>
 		

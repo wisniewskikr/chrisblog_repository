@@ -585,7 +585,7 @@ div#AdTaily_Widget_Container div.Footer {
 /* Security */
 #secPageHeader{
 	border-bottom: 1px solid #C9DBEC;
-	margin-top: 50px;
+	margin-top: 20px;
 }
 
 #secPageHeader ul{
@@ -805,4 +805,23 @@ div#AdTaily_Widget_Container div.Footer {
 
 .errorArticleTagList{
 	display: inline;
+}
+
+#errorSecArticleList{
+	border:2px solid #E77D7B;
+	padding: 20px 5px 20px 70px;
+	background: #FFE7E7 url('../images/common/msg_error.png') center no-repeat;
+   	background-position: 30px 50%;
+   	color:#AD5E5C; 
+	font-size:1.0em;
+   	font-family:Verdana;
+ 	font-weight:bold; 
+	display: block;
+	margin-left: 150px;   	
+	margin-right: 150px;
+	border-radius: 1.5em;   	
+}
+
+.msgArea{
+	min-height: 60px;
 }

@@ -139,13 +139,13 @@ public class SecuredBlogController extends AbstractController{
 		String selectedRows = command.getSelectedRows();
 				
 		if(StringUtils.isBlank(selectedRows)){
-			bindingResult.rejectValue("selectedRows", "error.table.nothing.selected");
+			bindingResult.reject("error.table.nothing.selected");
 			return displaySecArticleList(command, request, response, 1);
 		}
 		
 		String[] selectedRowsTab = selectedRows.split(",");		
 		if(selectedRowsTab.length > 1){
-			bindingResult.rejectValue("selectedRows", "error.table.to.many.selected");
+			bindingResult.reject("error.table.to.many.selected");
 			return displaySecArticleList(command, request, response, 1);
 		}
 		
