@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -28,6 +28,7 @@ import pl.kwi.chrisblog.editors.ArticleTagListEditor;
 import pl.kwi.chrisblog.editors.CreationDateEditor;
 import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.exceptions.SecArticleException;
+import pl.kwi.chrisblog.validators.SecArticleListValidator;
 
 /**
  * Class of controller for secured blog.
@@ -40,6 +41,9 @@ public class SecuredBlogController extends AbstractController{
 	
 	
 	private static final Logger LOG = Logger.getLogger(SecuredBlogController.class);
+	
+	@Autowired
+	private SecArticleListValidator secArticleListValidator;
 	
 	
 	@InitBinder
@@ -136,19 +140,12 @@ public class SecuredBlogController extends AbstractController{
 			HttpServletResponse response,
 			@PathVariable String pageName) throws Exception{
 		
-		String selectedRows = command.getSelectedRows();
-				
-		if(StringUtils.isBlank(selectedRows)){
-			bindingResult.reject("error.table.nothing.selected");
+		boolean isValid = secArticleListValidator.validate(command, bindingResult, pageName);
+		if(!isValid){
 			return displaySecArticleList(command, request, response, 1);
 		}
 		
-		String[] selectedRowsTab = selectedRows.split(",");		
-		if(selectedRowsTab.length > 1){
-			bindingResult.reject("error.table.to.many.selected");
-			return displaySecArticleList(command, request, response, 1);
-		}
-		
+		String[] selectedRowsTab = command.getSelectedRows().split(",");
 		String uniqueName = selectedRowsTab[0];
 		if("view-article".equals(pageName)){
 			return new ModelAndView(new RedirectView("/secured/view-article/" + uniqueName, true, true, true));
@@ -473,6 +470,17 @@ public class SecuredBlogController extends AbstractController{
 		
 		handlePagenation(command, pageCurrent, pagesCount);
 		
+	}
+	
+	
+	// ************************************************************************************************************ //
+	// *********************************************** GETTERS AND SETTERS **************************************** //
+	// ************************************************************************************************************ //
+	
+	
+	public void setSecArticleListValidator(
+			SecArticleListValidator secArticleListValidator) {
+		this.secArticleListValidator = secArticleListValidator;
 	}
 	
 		
