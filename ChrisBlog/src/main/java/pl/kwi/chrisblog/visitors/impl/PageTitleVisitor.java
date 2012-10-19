@@ -33,6 +33,8 @@ public class PageTitleVisitor implements IVisitor {
 			new SecEditArticlePage().accept(this);			
 		}else if(command.isDisplaySecCreateArticle()){
 			new SecCreateArticlePage().accept(this);			
+		}else if(command.isDisplaySecCreateArticleDescr()){
+			new SecCreateArticleDescrPage().accept(this);			
 		}else if(command.isDisplaySecDeleteArticle()){
 			new SecDeleteArticlePage().accept(this);			
 		}else if(command.isDisplaySecConfirmation()){
@@ -115,6 +117,13 @@ public class PageTitleVisitor implements IVisitor {
 	 * @see pl.kwi.chrisblog.visitors.intf.Visitor#visit(pl.kwi.chrisblog.visitors.impl.ArticleListWithTagPage)
 	 */
 	public void visit(SecCreateArticlePage p) {
+		pageTitle = p.TITLE;		
+	}
+	
+	/* (non-Javadoc)
+	 * @see pl.kwi.chrisblog.visitors.intf.Visitor#visit(pl.kwi.chrisblog.visitors.impl.ArticleListWithTagPage)
+	 */
+	public void visit(SecCreateArticleDescrPage p) {
 		pageTitle = p.TITLE;		
 	}
 	

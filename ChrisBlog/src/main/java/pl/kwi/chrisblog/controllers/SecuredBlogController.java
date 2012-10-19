@@ -266,6 +266,32 @@ public class SecuredBlogController extends AbstractController{
 	}
 	
 	/**
+	 * Method displays creating page with article description in secured area.
+	 * 
+	 * @param model object ModelMap with model
+	 * @param command object BlogCommand with data from page	 
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param uniqueName object String with unique name of article
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/create-article-description/{uniqueName}")
+	public ModelAndView displaySecCreateArticleDescription(
+			ModelMap model,
+			@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, 
+			HttpServletResponse response,
+			@PathVariable String uniqueName) throws Exception{
+		
+		command.setDisplaySecCreateArticleDescr(true);		
+		handleCommand(command, request);
+		
+		return new ModelAndView("blogJsp");
+		
+	}
+	
+	/**
 	 * Method handles page with article view in secured area.
 	 * 
 	 * @param model object ModelMap with model
