@@ -13,19 +13,7 @@ import pl.kwi.chrisblog.commands.BlogCommand;
 import pl.kwi.chrisblog.exceptions.PagenationException;
 import pl.kwi.chrisblog.services.ArticleService;
 import pl.kwi.chrisblog.services.ArticleTagService;
-import pl.kwi.chrisblog.visitors.impl.AboutMePage;
-import pl.kwi.chrisblog.visitors.impl.ArticleListPage;
-import pl.kwi.chrisblog.visitors.impl.ArticleListWithTagPage;
-import pl.kwi.chrisblog.visitors.impl.ArticlePage;
-import pl.kwi.chrisblog.visitors.impl.ExceptionPage;
-import pl.kwi.chrisblog.visitors.impl.ExplanationPage;
 import pl.kwi.chrisblog.visitors.impl.PageTitleVisitor;
-import pl.kwi.chrisblog.visitors.impl.SecArticleListPage;
-import pl.kwi.chrisblog.visitors.impl.SecConfirmationPage;
-import pl.kwi.chrisblog.visitors.impl.SecCreateArticlePage;
-import pl.kwi.chrisblog.visitors.impl.SecDeleteArticlePage;
-import pl.kwi.chrisblog.visitors.impl.SecEditArticlePage;
-import pl.kwi.chrisblog.visitors.impl.SecViewArticlePage;
 
 /**
  * Abstract class for all controllers.
@@ -90,36 +78,7 @@ public abstract class AbstractController {
 			throw new Exception("Can not get title of browser window. Object BlogCommand is null.");
 		}
 		
-		PageTitleVisitor v = new PageTitleVisitor();
-		
-		if(command.isDisplayArticleList()) {
-			new ArticleListPage().accept(v);
-		}else if(command.isDisplayArticle()){
-			new ArticlePage().accept(v);			
-		}else if(command.isDisplayArticleListWithTag()){
-			new ArticleListWithTagPage().accept(v);			
-		}else if(command.isDisplayExplanation()){
-			new ExplanationPage().accept(v);			
-		}else if(command.isDisplayAboutMe()){
-			new AboutMePage().accept(v);		
-		}else if(command.isDisplayException()){
-			new ExceptionPage().accept(v);			
-		}else if(command.isDisplaySecArticleList()){
-			new SecArticleListPage().accept(v);		
-		}else if(command.isDisplaySecViewArticle()){
-			new SecViewArticlePage().accept(v);		
-		}else if(command.isDisplaySecEditArticle()){
-			new SecEditArticlePage().accept(v);			
-		}else if(command.isDisplaySecCreateArticle()){
-			new SecCreateArticlePage().accept(v);			
-		}else if(command.isDisplaySecDeleteArticle()){
-			new SecDeleteArticlePage().accept(v);			
-		}else if(command.isDisplaySecConfirmation()){
-			new SecConfirmationPage().accept(v);		
-		}else{
-			throw new Exception("Can not get title of browser window. Can not find display mode.");
-		}
-		
+		PageTitleVisitor v = new PageTitleVisitor(command);
 		return v.getPageTitle();
 		
 	}

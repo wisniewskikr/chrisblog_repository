@@ -1,5 +1,6 @@
 package pl.kwi.chrisblog.visitors.impl;
 
+import pl.kwi.chrisblog.commands.BlogCommand;
 import pl.kwi.chrisblog.visitors.intf.IVisitor;
 
 /**
@@ -8,6 +9,39 @@ import pl.kwi.chrisblog.visitors.intf.IVisitor;
  * @author Krzysztof Wisniewski
  */
 public class PageTitleVisitor implements IVisitor {
+	
+	
+	public PageTitleVisitor(BlogCommand command) throws Exception{
+		
+		if(command.isDisplayArticleList()) {
+			new ArticleListPage().accept(this);
+		}else if(command.isDisplayArticle()){
+			new ArticlePage().accept(this);			
+		}else if(command.isDisplayArticleListWithTag()){
+			new ArticleListWithTagPage().accept(this);			
+		}else if(command.isDisplayExplanation()){
+			new ExplanationPage().accept(this);			
+		}else if(command.isDisplayAboutMe()){
+			new AboutMePage().accept(this);		
+		}else if(command.isDisplayException()){
+			new ExceptionPage().accept(this);			
+		}else if(command.isDisplaySecArticleList()){
+			new SecArticleListPage().accept(this);		
+		}else if(command.isDisplaySecViewArticle()){
+			new SecViewArticlePage().accept(this);		
+		}else if(command.isDisplaySecEditArticle()){
+			new SecEditArticlePage().accept(this);			
+		}else if(command.isDisplaySecCreateArticle()){
+			new SecCreateArticlePage().accept(this);			
+		}else if(command.isDisplaySecDeleteArticle()){
+			new SecDeleteArticlePage().accept(this);			
+		}else if(command.isDisplaySecConfirmation()){
+			new SecConfirmationPage().accept(this);		
+		}else{
+			throw new Exception("Can not get title of browser window. Can not find display mode.");
+		}
+		
+	}
 	
 	
 	private String pageTitle;

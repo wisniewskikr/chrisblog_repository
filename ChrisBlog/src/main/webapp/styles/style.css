@@ -829,7 +829,7 @@ div#AdTaily_Widget_Container div.Footer {
 #errorSecArticleList{
 	border:2px solid #E77D7B;
 	padding: 20px 5px 20px 70px;
-	background: #FFE7E7 url('../images/common/msg_error.png') center no-repeat;
+	background: white url('../images/common/msg_error.png') center no-repeat;
    	background-position: 30px 50%;
    	color:#AD5E5C; 
 	font-size:1.0em;
@@ -844,7 +844,7 @@ div#AdTaily_Widget_Container div.Footer {
 #okSecArticleList{
 	border:2px solid #8CD76B;
 	padding: 20px 5px 20px 70px;
-	background: #E7FFD6 url('../images/common/msg_ok.png') center no-repeat;
+	background: white url('../images/common/msg_ok.png') center no-repeat;
    	background-position: 30px 50%;
    	color:#69A150;
 	font-size:1.0em;
