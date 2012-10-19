@@ -1,9 +1,11 @@
 package pl.kwi.chrisblog.services;
 
+import java.io.FileOutputStream;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,6 +39,9 @@ public class ArticleService {
 	
 	@Autowired
 	private ArticleDao articleDao;
+	
+	@Autowired
+	private ServletContext servletContext;
 
 	
 	/**
@@ -253,6 +258,50 @@ public class ArticleService {
 		articleDao.deleteByUniqueName(uniqueName);
 		
 	}
+	
+	/**
+	 * Method creates description file basing on article unique name.
+	 * 
+	 * @param uniqueName object String with article unique name
+	 * @throws Exception
+	 */
+	public void createDescriptionFile(String uniqueName) throws Exception{
+		
+		String separator = System.getProperties().getProperty("file.separator");
+		String realPath = servletContext.getRealPath("/");
+		String filename = uniqueName + ".jsp";
+		String path = realPath + separator + "jsp" + separator + "articles_description" + separator + filename;
+		
+		String firstLine = "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">";
+		
+		FileOutputStream fos = new FileOutputStream(path);
+		byte[] bytes = firstLine.getBytes();
+		fos.write(bytes);
+		fos.close();
+		
+	}
+	
+	/**
+	 * Method creates content file basing on article unique name.
+	 * 
+	 * @param uniqueName object String with article unique name
+	 * @throws Exception
+	 */
+	public void createContentFile(String uniqueName) throws Exception{
+		
+		String separator = System.getProperties().getProperty("file.separator");
+		String realPath = servletContext.getRealPath("/");
+		String filename = uniqueName + ".jsp";
+		String path = realPath + separator + "jsp" + separator + "articles_content" + separator + filename;
+		
+		String firstLine = "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">";
+		
+		FileOutputStream fos = new FileOutputStream(path);
+		byte[] bytes = firstLine.getBytes();
+		fos.write(bytes);
+		fos.close();
+		
+	}
 		
 	
 	// ************************************************************************************************************ //
@@ -322,6 +371,10 @@ public class ArticleService {
 	public void setArticleDao(ArticleDao articleDao) {
 		this.articleDao = articleDao;
 	}
+
+	public void setServletContext(ServletContext servletContext) {
+		this.servletContext = servletContext;
+	}
 	
-	
+		
 }

@@ -260,6 +260,8 @@ public class SecuredBlogController extends AbstractController{
 		}
 		
 		articleService.create(article);
+		articleService.createDescriptionFile(article.getUniqueName());
+		articleService.createContentFile(article.getUniqueName());
 		
 		return new ModelAndView(new RedirectView("/secured/article-list-with-info/create-article" , true, true, true));
 		
