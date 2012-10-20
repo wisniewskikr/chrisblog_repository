@@ -34,6 +34,7 @@ public class BlogCommand implements Serializable{
 	private boolean displaySecEditArticle;
 	private boolean displaySecCreateArticle;
 	private boolean displaySecCreateArticleDescr;
+	private boolean displaySecCreateArticleContent;
 	private boolean displaySecDeleteArticle;
 	private boolean displaySecConfirmation;
 	
@@ -145,6 +146,14 @@ public class BlogCommand implements Serializable{
 	}
 	public void setDisplaySecCreateArticleDescr(boolean displaySecCreateArticleDescr) {
 		this.displaySecCreateArticleDescr = displaySecCreateArticleDescr;
+	}	
+	
+	public boolean isDisplaySecCreateArticleContent() {
+		return displaySecCreateArticleContent;
+	}
+	public void setDisplaySecCreateArticleContent(
+			boolean displaySecCreateArticleContent) {
+		this.displaySecCreateArticleContent = displaySecCreateArticleContent;
 	}
 	
 	public boolean isDisplaySecDeleteArticle() {

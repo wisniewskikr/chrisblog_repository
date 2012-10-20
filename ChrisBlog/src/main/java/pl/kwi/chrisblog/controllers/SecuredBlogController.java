@@ -262,8 +262,7 @@ public class SecuredBlogController extends AbstractController{
 		articleService.create(article);
 		articleService.createDescriptionFile(article.getUniqueName());
 		articleService.createContentFile(article.getUniqueName());
-		
-//		return new ModelAndView(new RedirectView("/secured/article-list-with-info/create-article" , true, true, true));
+	
 		return new ModelAndView(new RedirectView("/secured/create-article-description/" + article.getUniqueName() , true, true, true));
 		
 	}
@@ -322,7 +321,65 @@ public class SecuredBlogController extends AbstractController{
 				
 		articleService.writeDescriptionFile(article.getUniqueName(), article.getDescription());
 		
-		return new ModelAndView(new RedirectView("/secured/article-list" , true, true, true));
+		return new ModelAndView(new RedirectView("/secured/create-article-content/" + article.getUniqueName() , true, true, true));
+		
+	}
+	
+	/**
+	 * Method displays creating page with article content in secured area.
+	 * 
+	 * @param model object ModelMap with model
+	 * @param command object BlogCommand with data from page	 
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param uniqueName object String with unique name of article
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/create-article-content/{uniqueName}")
+	public ModelAndView displaySecCreateArticleContent(
+			ModelMap model,
+			@ModelAttribute("command")BlogCommand command,			
+			HttpServletRequest request, 
+			HttpServletResponse response,
+			@PathVariable String uniqueName) throws Exception{
+		
+		command.setDisplaySecCreateArticleContent(true);		
+		handleCommand(command, request);
+		
+		ArticleEntity article = articleService.getArticleByUniqueName(uniqueName, command.getLocale());
+		article.setContent(articleService.readContentFile(article.getUniqueName()));
+		
+		model.addAttribute("article", article);
+		
+		return new ModelAndView("blogJsp");
+		
+	}
+	
+	/**
+	 * Method handles creating page with article content in secured area.
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param article object ArticleEntity with article	 
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param uniqueName object String with unique name of article
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/handle-create-article-content", method=RequestMethod.POST)
+	public ModelAndView handleSecCreateArticleContent(
+			@ModelAttribute("command")BlogCommand command,
+			@ModelAttribute("article")ArticleEntity article,
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception{
+		
+		command.setDisplaySecCreateArticleContent(true);		
+		handleCommand(command, request);
+				
+		articleService.writeContentFile(article.getUniqueName(), article.getContent());
+		
+		return new ModelAndView(new RedirectView("/secured/article-list-with-info/create-article" , true, true, true));
 		
 	}
 	

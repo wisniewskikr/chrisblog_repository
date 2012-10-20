@@ -4,14 +4,14 @@
 
 
 
-<c:if test="${command.displaySecCreateArticleDescr}">
+<c:if test="${command.displaySecCreateArticleContent}">
 	<c:set var="disabledField" value="false"/>
 	<c:set var="disabledCreate" value="class='disabledLink'"/>
 	<c:set var="disabledView" value="class='disabledLink'"/>
 	<c:set var="disabledEdit" value="class='disabledLink'"/>
 	<c:set var="disabledDelete" value="class='disabledLink'"/>
 	<c:set var="formMethod" value="POST"/>
-	<c:set var="formAction" value="secured/handle-create-article-description"/>
+	<c:set var="formAction" value="secured/handle-create-article-content"/>
 	<c:set var="readonlyUniqueName" value="false"/>
 </c:if>
 
@@ -25,7 +25,7 @@
 	
 	<div id="secPageHeader">
 		<ul>
-			<li class="secPageTitle">Article Description</li>
+			<li class="secPageTitle">Article Content</li>
 		</ul>
 	</div>
 
@@ -56,17 +56,17 @@
 		<div class="secPageTextarea">	
 		
 			<div class="secPageField">
-				<label>Description</label>	
-				<form:errors path="description" cssClass="error"/>			
-				<form:textarea path="description" disabled="${disabledField}"/>
+				<label>Content</label>	
+				<form:errors path="content" cssClass="error"/>			
+				<form:textarea path="content" disabled="${disabledField}"/>
 			</div>
 		
 		</div>			
 			
 		
 		<p id="secPageNavigation">
-			<c:if test="${command.displaySecCreateArticleDescr}">			
-				<input type="submit" class="button" value="Next »"/>
+			<c:if test="${command.displaySecCreateArticleContent}">			
+				<input type="submit" class="button" value="Create"/>
 			</c:if>			
 			<a id="cancel" href="secured/article-list" class="button">Cancel</a>
 		</p>

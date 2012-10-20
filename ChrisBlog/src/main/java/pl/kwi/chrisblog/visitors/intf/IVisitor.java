@@ -8,6 +8,7 @@ import pl.kwi.chrisblog.visitors.impl.ExceptionPage;
 import pl.kwi.chrisblog.visitors.impl.ExplanationPage;
 import pl.kwi.chrisblog.visitors.impl.SecArticleListPage;
 import pl.kwi.chrisblog.visitors.impl.SecConfirmationPage;
+import pl.kwi.chrisblog.visitors.impl.SecCreateArticleContentPage;
 import pl.kwi.chrisblog.visitors.impl.SecCreateArticleDescrPage;
 import pl.kwi.chrisblog.visitors.impl.SecCreateArticlePage;
 import pl.kwi.chrisblog.visitors.impl.SecDeleteArticlePage;
@@ -97,6 +98,13 @@ public interface IVisitor {
 	 * @param p object SecCreateArticleDescrPage which is visited
 	 */
 	public void visit(SecCreateArticleDescrPage p);
+	
+	/**
+	 * Method visits object SecCreateArticleContentPage
+	 * 
+	 * @param p object SecCreateArticleContentPage which is visited
+	 */
+	public void visit(SecCreateArticleContentPage p);
 	
 	/**
 	 * Method visits object SecDeleteArticlePage

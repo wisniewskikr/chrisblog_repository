@@ -310,23 +310,8 @@ public class ArticleService {
 	 */
 	public String readDescriptionFile(String uniqueName) throws Exception{
 		
-		String path = getPathDescription(uniqueName);
-		
-		StringBuffer sb = new StringBuffer();
-		
-		String sCurrentLine;
- 
-		BufferedReader br = new BufferedReader(new FileReader(path)); 
-		while ((sCurrentLine = br.readLine()) != null) {
-			sb.append(sCurrentLine);
-			sb.append("\n");
-		}
-			
-		if (br != null){
-			br.close();
-		}
-		
-		return sb.toString();
+		String path = getPathDescription(uniqueName);		
+		return readFile(path);
 		
 	}
 	
@@ -339,11 +324,36 @@ public class ArticleService {
 	 */
 	public void writeDescriptionFile(String uniqueName, String description) throws Exception{
 		
-		String path = getPathDescription(uniqueName);
+		String path = getPathDescription(uniqueName);		
+		writeFile(path, description);
 		
-		BufferedWriter out = new BufferedWriter(new FileWriter(path));
-	    out.write(description);
-	    out.close();
+	}
+	
+	/**
+	 * Method reads content of article from file specified by article unique name.
+	 * 
+	 * @param uniqueName object String with article unique name
+	 * @return object String with content of article 
+	 * @throws Exception
+	 */
+	public String readContentFile(String uniqueName) throws Exception{
+		
+		String path = getPathContent(uniqueName);		
+		return readFile(path);
+		
+	}
+	
+	/**
+	 * Method writes content of article to file specified by article unique name.
+	 * 
+	 * @param uniqueName object String with article unique name
+	 * @param content object String with content
+	 * @throws Exception
+	 */
+	public void writeContentFile(String uniqueName, String content) throws Exception{
+		
+		String path = getPathContent(uniqueName);		
+		writeFile(path, content);
 		
 	}
 		
@@ -427,6 +437,48 @@ public class ArticleService {
 		String realPath = servletContext.getRealPath("/");
 		String filename = uniqueName + ".jsp";
 		return realPath + separator + "jsp" + separator + folderName + separator + filename;
+		
+	}
+	
+	/**
+	 * Method reads file specified by path.
+	 * 
+	 * @param path object String with file path
+	 * @return object String with content of file
+	 * @throws Exception
+	 */
+	public String readFile(String path) throws Exception{
+		
+		StringBuffer sb = new StringBuffer();
+		
+		String sCurrentLine;
+ 
+		BufferedReader br = new BufferedReader(new FileReader(path)); 
+		while ((sCurrentLine = br.readLine()) != null) {
+			sb.append(sCurrentLine);
+			sb.append("\n");
+		}
+			
+		if (br != null){
+			br.close();
+		}
+		
+		return sb.toString();
+		
+	}
+	
+	/**
+	 * Method writes file specified by path.
+	 * 
+	 * @param path object String with file path
+	 * @param text object String with file text
+	 * @throws Exception
+	 */
+	public void writeFile(String path, String text) throws Exception{
+		
+		BufferedWriter out = new BufferedWriter(new FileWriter(path));
+	    out.write(text);
+	    out.close();
 		
 	}
 	
