@@ -2,6 +2,7 @@ package pl.kwi.chrisblog.services;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -356,6 +357,30 @@ public class ArticleService {
 		writeFile(path, content);
 		
 	}
+	
+	/**
+	 * Method deletes file with article description
+	 * 
+	 * @param uniqueName object String with article unique name
+	 */
+	public void deleteDescriptionFile(String uniqueName){
+		
+		String path = getPathDescription(uniqueName);
+		deleteFile(path);
+		
+	}
+	
+	/**
+	 * Method deletes file with article content
+	 * 
+	 * @param uniqueName object String with article unique name
+	 */
+	public void deleteContentFile(String uniqueName){
+		
+		String path = getPathContent(uniqueName);
+		deleteFile(path);
+		
+	}
 		
 	
 	// ************************************************************************************************************ //
@@ -447,7 +472,7 @@ public class ArticleService {
 	 * @return object String with content of file
 	 * @throws Exception
 	 */
-	public String readFile(String path) throws Exception{
+	protected String readFile(String path) throws Exception{
 		
 		StringBuffer sb = new StringBuffer();
 		
@@ -474,11 +499,23 @@ public class ArticleService {
 	 * @param text object String with file text
 	 * @throws Exception
 	 */
-	public void writeFile(String path, String text) throws Exception{
+	protected void writeFile(String path, String text) throws Exception{
 		
 		BufferedWriter out = new BufferedWriter(new FileWriter(path));
 	    out.write(text);
 	    out.close();
+		
+	}
+	
+	/**
+	 * Method deletes file specified by path.
+	 * 
+	 * @param path object String with file path
+	 */
+	protected void deleteFile(String path){
+		
+		File file = new File(path);
+		file.delete();
 		
 	}
 	
