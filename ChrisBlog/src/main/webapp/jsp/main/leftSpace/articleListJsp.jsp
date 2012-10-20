@@ -35,7 +35,7 @@
 							</ul>
 							
 							<p>
-								<jsp:include page="articles_description/${article.description}.jsp"/>
+								<jsp:include page="articles_description/${article.descriptionPath}.jsp"/>
 							</p>
 								
 							<p>

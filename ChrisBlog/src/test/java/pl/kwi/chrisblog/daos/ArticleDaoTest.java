@@ -271,10 +271,10 @@ public class ArticleDaoTest {
 		
 		ArticleEntity article = new ArticleEntity();
 		article.setAuthor("author");
-		article.setContent("content");
+		article.setContentPath("content");
 		article.setCreationDate(Calendar.getInstance());
 		article.setDemoName("demo");
-		article.setDescription("description");
+		article.setDescriptionPath("description");
 		article.setExampleFileName("example");
 		article.setPagesCount(1);
 		article.setSourceFileName("source");
@@ -304,10 +304,10 @@ public class ArticleDaoTest {
 		
 		ArticleEntity article = new ArticleEntity();
 		article.setAuthor("author");
-		article.setContent("content");
+		article.setContentPath("content");
 		article.setCreationDate(Calendar.getInstance());
 		article.setDemoName("demo");
-		article.setDescription("description");
+		article.setDescriptionPath("description");
 		article.setExampleFileName("example");
 		article.setPagesCount(1);
 		article.setSourceFileName("source");

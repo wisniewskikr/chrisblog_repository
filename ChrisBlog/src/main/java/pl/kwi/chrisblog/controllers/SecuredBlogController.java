@@ -263,7 +263,8 @@ public class SecuredBlogController extends AbstractController{
 		articleService.createDescriptionFile(article.getUniqueName());
 		articleService.createContentFile(article.getUniqueName());
 		
-		return new ModelAndView(new RedirectView("/secured/article-list-with-info/create-article" , true, true, true));
+//		return new ModelAndView(new RedirectView("/secured/article-list-with-info/create-article" , true, true, true));
+		return new ModelAndView(new RedirectView("/secured/create-article-description/" + article.getUniqueName() , true, true, true));
 		
 	}
 	
@@ -281,7 +282,7 @@ public class SecuredBlogController extends AbstractController{
 	@RequestMapping(value="/create-article-description/{uniqueName}")
 	public ModelAndView displaySecCreateArticleDescription(
 			ModelMap model,
-			@ModelAttribute("command")BlogCommand command,
+			@ModelAttribute("command")BlogCommand command,			
 			HttpServletRequest request, 
 			HttpServletResponse response,
 			@PathVariable String uniqueName) throws Exception{
@@ -289,7 +290,39 @@ public class SecuredBlogController extends AbstractController{
 		command.setDisplaySecCreateArticleDescr(true);		
 		handleCommand(command, request);
 		
+		ArticleEntity article = articleService.getArticleByUniqueName(uniqueName, command.getLocale());
+		article.setDescription(articleService.readDescriptionFile(article.getUniqueName()));
+		
+		model.addAttribute("article", article);
+		
 		return new ModelAndView("blogJsp");
+		
+	}
+	
+	/**
+	 * Method handles creating page with article description in secured area.
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param article object ArticleEntity with article	 
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param uniqueName object String with unique name of article
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/handle-create-article-description", method=RequestMethod.POST)
+	public ModelAndView handleSecCreateArticleDescription(
+			@ModelAttribute("command")BlogCommand command,
+			@ModelAttribute("article")ArticleEntity article,
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception{
+		
+		command.setDisplaySecCreateArticleDescr(true);		
+		handleCommand(command, request);
+				
+		articleService.writeDescriptionFile(article.getUniqueName(), article.getDescription());
+		
+		return new ModelAndView(new RedirectView("/secured/article-list" , true, true, true));
 		
 	}
 	

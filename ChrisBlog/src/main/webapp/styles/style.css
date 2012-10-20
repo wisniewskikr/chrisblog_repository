@@ -781,6 +781,19 @@ div#AdTaily_Widget_Container div.Footer {
 	color: #CCC;
 }
 
+.secPageTextarea{
+	margin-left: 20px;
+}
+
+.secPageField textarea{
+	display: block;
+	width: 690px;
+	height: 400px;
+	border: 1px solid #CCC;
+	-webkit-border-radius: 4px;
+	
+}
+
 .disabledLink{
 	pointer-events: none;
     cursor: default;
@@ -809,6 +822,7 @@ div#AdTaily_Widget_Container div.Footer {
 
 #secPageNavigation{
 	clear: left;
+	margin-top: 20px;
 }
 
 .error{

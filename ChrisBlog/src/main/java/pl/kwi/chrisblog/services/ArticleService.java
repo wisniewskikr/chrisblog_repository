@@ -1,6 +1,10 @@
 package pl.kwi.chrisblog.services;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -267,10 +271,7 @@ public class ArticleService {
 	 */
 	public void createDescriptionFile(String uniqueName) throws Exception{
 		
-		String separator = System.getProperties().getProperty("file.separator");
-		String realPath = servletContext.getRealPath("/");
-		String filename = uniqueName + ".jsp";
-		String path = realPath + separator + "jsp" + separator + "articles_description" + separator + filename;
+		String path = getPathDescription(uniqueName);
 		
 		String firstLine = "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">";
 		
@@ -289,10 +290,7 @@ public class ArticleService {
 	 */
 	public void createContentFile(String uniqueName) throws Exception{
 		
-		String separator = System.getProperties().getProperty("file.separator");
-		String realPath = servletContext.getRealPath("/");
-		String filename = uniqueName + ".jsp";
-		String path = realPath + separator + "jsp" + separator + "articles_content" + separator + filename;
+		String path = getPathContent(uniqueName);
 		
 		String firstLine = "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">";
 		
@@ -300,6 +298,52 @@ public class ArticleService {
 		byte[] bytes = firstLine.getBytes();
 		fos.write(bytes);
 		fos.close();
+		
+	}
+	
+	/**
+	 * Method reads description of article from file specified by article unique name.
+	 * 
+	 * @param uniqueName object String with article unique name
+	 * @return object String with content of article description
+	 * @throws Exception
+	 */
+	public String readDescriptionFile(String uniqueName) throws Exception{
+		
+		String path = getPathDescription(uniqueName);
+		
+		StringBuffer sb = new StringBuffer();
+		
+		String sCurrentLine;
+ 
+		BufferedReader br = new BufferedReader(new FileReader(path)); 
+		while ((sCurrentLine = br.readLine()) != null) {
+			sb.append(sCurrentLine);
+			sb.append("\n");
+		}
+			
+		if (br != null){
+			br.close();
+		}
+		
+		return sb.toString();
+		
+	}
+	
+	/**
+	 * Method writes description of article to file specified by article unique name.
+	 * 
+	 * @param uniqueName object String with article unique name
+	 * @param description object String with description
+	 * @throws Exception
+	 */
+	public void writeDescriptionFile(String uniqueName, String description) throws Exception{
+		
+		String path = getPathDescription(uniqueName);
+		
+		BufferedWriter out = new BufferedWriter(new FileWriter(path));
+	    out.write(description);
+	    out.close();
 		
 	}
 		
@@ -336,13 +380,53 @@ public class ArticleService {
 			article.setDemoPath("/" + article.getDemoName());
 			article.setExamplePath("/" + folderExamples + "/" + article.getExampleFileName());
 			article.setSourcePath("/" + folderSources + "/" + article.getSourceFileName());
-			article.setContent(article.getUniqueName());
-			article.setDescription(article.getUniqueName());
+			article.setContentPath(article.getUniqueName());
+			article.setDescriptionPath(article.getUniqueName());
 			article.setDiffToCurrentDateAsString(DateUtils.getDifferenceFromCurrentDateAsText(article.getCreationDate(), loc));
 			
 		}
 		
 		return articleList;
+		
+	}
+	
+	/**
+	 * Method gets path file of article`s description specified by unique name.
+	 * 
+	 * @param uniqueName object String with article unique name
+	 * @return object Stirng with path of description
+	 */
+	protected String getPathDescription(String uniqueName){
+		
+		return getPath(uniqueName, "articles_description");
+		
+	}
+	
+	/**
+	 * Method gets path file of article`s content specified by unique name.
+	 * 
+	 * @param uniqueName object String with article unique name
+	 * @return object Stirng with path of content
+	 */
+	protected String getPathContent(String uniqueName){
+		
+		return getPath(uniqueName, "articles_content");
+		
+	}
+	
+	/**
+	 * Method gets path specified by article unique name and folder name.
+	 * 
+	 * @param uniqueName object String with article unique name
+	 * @param folderName object String with folder name
+	 * @return object String with path
+	 */
+	protected String getPath(String uniqueName, String folderName){
+		
+		String separator = System.getProperties().getProperty("file.separator");
+		String realPath = servletContext.getRealPath("/");
+		String filename = uniqueName + ".jsp";
+		return realPath + separator + "jsp" + separator + folderName + separator + filename;
 		
 	}
 	

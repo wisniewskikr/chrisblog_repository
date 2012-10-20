@@ -777,8 +777,8 @@ public class BlogControllerTest {
 		article.setId(1L);
 		article.setUniqueName("unique_name_1");
 		article.setTitle("Title 1");
-		article.setDescription("Description 1");
-		article.setContent("Path/path1");
+		article.setDescriptionPath("Description 1");
+		article.setContentPath("Path/path1");
 		article.setPagesCount(3);		
 		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("19991225174553"));
 		article.setCreationDateAsString("December 25, 1999");
@@ -811,8 +811,8 @@ public class BlogControllerTest {
 		article.setId(2L);
 		article.setUniqueName("unique_name_2");
 		article.setTitle("Title 2");
-		article.setDescription("Description 2");
-		article.setContent("Path/path1");
+		article.setDescriptionPath("Description 2");
+		article.setContentPath("Path/path1");
 		article.setPagesCount(3);		
 		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("19991225174553"));
 		article.setCreationDateAsString("December 25, 1999");

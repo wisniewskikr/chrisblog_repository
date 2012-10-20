@@ -20,10 +20,10 @@
 	
 	<c:choose>			
 		<c:when test="${command.article.pagesCount == 1}">
-			<jsp:include page="articles_content/${command.article.content}.jsp"/>
+			<jsp:include page="articles_content/${command.article.contentPath}.jsp"/>
 		</c:when>
 		<c:otherwise>
-			<jsp:include page="articles_content/${command.article.content}_${command.pageCurrent}.jsp"/>
+			<jsp:include page="articles_content/${command.article.contentPath}_${command.pageCurrent}.jsp"/>
 		</c:otherwise>
 	</c:choose>
 	

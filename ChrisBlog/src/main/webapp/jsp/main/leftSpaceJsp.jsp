@@ -49,7 +49,7 @@
 		</c:if>
 		
 		<c:if test="${command.displaySecCreateArticleDescr}">
-			<%@ include file="leftSpace/secured/secArticleTextareaJsp.jsp" %>
+			<%@ include file="leftSpace/secured/secArticleDescriptionJsp.jsp" %>
 		</c:if>
 		
 		<c:if test="${command.displaySecDeleteArticle}">

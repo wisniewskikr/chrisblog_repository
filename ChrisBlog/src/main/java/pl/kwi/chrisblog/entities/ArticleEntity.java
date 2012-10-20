@@ -66,13 +66,15 @@ public class ArticleEntity extends AbstractEntity{
 	private List<ArticleTagEntity> articleTagList;
 		
 	// Transient
-	private String description;
-	private String content;
+	private String descriptionPath;
+	private String contentPath;
 	private String demoPath;
 	private String examplePath;
 	private String sourcePath;
 	private String creationDateAsString;
 	private String diffToCurrentDateAsString;
+	private String description;
+	private String content;
 	
 	
 	// ************************************************************************************************************ //
@@ -172,19 +174,19 @@ public class ArticleEntity extends AbstractEntity{
 	}
 	
 	@Transient
-	public String getDescription() {
-		return description;
+	public String getDescriptionPath() {
+		return descriptionPath;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescriptionPath(String descriptionPath) {
+		this.descriptionPath = descriptionPath;
 	}
 	
 	@Transient
-	public String getContent() {
-		return content;
+	public String getContentPath() {
+		return contentPath;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setContentPath(String contentPath) {
+		this.contentPath = contentPath;
 	}
 	
 	@Transient
@@ -226,6 +228,22 @@ public class ArticleEntity extends AbstractEntity{
 	public void setDiffToCurrentDateAsString(String diffToCurrentDateAsString) {
 		this.diffToCurrentDateAsString = diffToCurrentDateAsString;
 	}
+	
+	@Transient
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	@Transient
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}	
 
 	
 }
