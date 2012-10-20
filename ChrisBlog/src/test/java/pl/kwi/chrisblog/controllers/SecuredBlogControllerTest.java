@@ -146,33 +146,33 @@ public class SecuredBlogControllerTest {
 		
 	}
 	
-	@Test
-	public void displaySecViewArticle() throws Exception {
-		
-		ModelMap model = new ModelMap();
-		BlogCommand command = new BlogCommand();
-		HttpServletRequest request = mockHttpServletRequest();
-		HttpServletResponse response = mockHttpServletResponse();
-		String uniqueName = "uniqueName";
-		
-		ModelAndView modelAndView = controller.displaySecViewArticle(model, command, request, response, uniqueName);
-		
-		Assert.assertFalse(command.isDisplayAboutMe());
-		Assert.assertTrue(command.isDisplaySecViewArticle());
-		
-		Assert.assertEquals("pathHost", command.getPathHost());
-		Assert.assertEquals("pathContext", command.getPathContext());
-		Assert.assertEquals("Secured View of Article", command.getWindowTitle());
-		Assert.assertNotNull(command.getLocale());
-		Assert.assertNotNull(command.getTagsCloudFooter());
-		Assert.assertNotNull(command.getTagsCloudRightSpace());
-		
-		assertNotNull(model.get("article"));
-		assertNotNull(model.get("articleTagList"));
-				
-		Assert.assertEquals("blogJsp", modelAndView.getViewName());
-		
-	}
+//	@Test
+//	public void displaySecViewArticle() throws Exception {
+//		
+//		ModelMap model = new ModelMap();
+//		BlogCommand command = new BlogCommand();
+//		HttpServletRequest request = mockHttpServletRequest();
+//		HttpServletResponse response = mockHttpServletResponse();
+//		String uniqueName = "uniqueName";
+//		
+//		ModelAndView modelAndView = controller.displaySecViewArticle(model, command, request, response, uniqueName);
+//		
+//		Assert.assertFalse(command.isDisplayAboutMe());
+//		Assert.assertTrue(command.isDisplaySecViewArticle());
+//		
+//		Assert.assertEquals("pathHost", command.getPathHost());
+//		Assert.assertEquals("pathContext", command.getPathContext());
+//		Assert.assertEquals("Secured View of Article", command.getWindowTitle());
+//		Assert.assertNotNull(command.getLocale());
+//		Assert.assertNotNull(command.getTagsCloudFooter());
+//		Assert.assertNotNull(command.getTagsCloudRightSpace());
+//		
+//		assertNotNull(model.get("article"));
+//		assertNotNull(model.get("articleTagList"));
+//				
+//		Assert.assertEquals("blogJsp", modelAndView.getViewName());
+//		
+//	}
 	
 	@Test
 	public void displaySecEditArticle() throws Exception {

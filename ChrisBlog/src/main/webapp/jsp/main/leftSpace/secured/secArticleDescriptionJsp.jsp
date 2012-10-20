@@ -14,6 +14,16 @@
 	<c:set var="formAction" value="secured/handle-create-article-description"/>
 	<c:set var="readonlyUniqueName" value="false"/>
 </c:if>
+<c:if test="${command.displaySecViewArticleDescr}">
+	<c:set var="disabledField" value="true"/>
+	<c:set var="disabledCreate" value=""/>
+	<c:set var="disabledView" value="class='disabledLink'"/>
+	<c:set var="disabledEdit" value=""/>
+	<c:set var="disabledDelete" value=""/>
+	<c:set var="formMethod" value=""/>
+	<c:set var="formAction" value=""/>
+	<c:set var="readonlyUniqueName" value="true"/>
+</c:if>
 
 
 
@@ -69,6 +79,11 @@
 				<a href="javascript:send('secured/handle-create-article-description-back-button', 'article');" class="button">« Back</a>
 				<a href="javascript:send('secured/handle-create-article-description', 'article');" class="button">Next »</a>
 				<a id="cancel" href="secured/handle-create-article-cancel/${article.uniqueName}" class="button">Cancel</a>
+			</c:if>			
+			<c:if test="${command.displaySecViewArticleDescr}">			
+				<a href="javascript:send('secured/handle-view-article-description-back-button', 'article');" class="button">« Back</a>
+				<a href="javascript:send('secured/handle-view-article-description', 'article');" class="button">Next »</a>
+				<a id="cancel" href="secured/article-list" class="button">Cancel</a>
 			</c:if>			
 		</p>
 		

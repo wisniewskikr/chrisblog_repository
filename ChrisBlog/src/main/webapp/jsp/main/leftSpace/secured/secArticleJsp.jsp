@@ -188,6 +188,10 @@
 					</c:otherwise>
 				</c:choose>
 			</c:if>
+			<c:if test="${command.displaySecViewArticle}">			
+				<a id="next" href="javascript:send('secured/handle-view-article', 'article');" class="button">Next »</a>
+				<a id="cancel" href="secured/article-list" class="button">Cancel</a>
+			</c:if>
 			<c:if test="${command.displaySecEditArticle}">			
 				<input type="submit" class="button" value="Apply"/>
 				<a id="cancel" href="secured/article-list" class="button">Cancel</a>

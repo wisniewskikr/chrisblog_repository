@@ -23,7 +23,7 @@ import pl.kwi.chrisblog.editors.ArticleTagListEditor;
 import pl.kwi.chrisblog.editors.CreationDateEditor;
 
 /**
- * Class of controller for article creation in secured area.
+ * Class of controller for article delete in secured area.
  * 
  * @author Krzysztof Wisniewski
  */

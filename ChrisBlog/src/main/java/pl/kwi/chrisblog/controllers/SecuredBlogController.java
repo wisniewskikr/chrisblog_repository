@@ -195,36 +195,7 @@ public class SecuredBlogController extends AbstractController{
 		
 		return displaySecArticleList(command, request, response, 1);
 		
-	}
-	
-	/**
-	 * Method handles page with article view in secured area.
-	 * 
-	 * @param model object ModelMap with model
-	 * @param command object BlogCommand with data from page
-	 * @param request object HttpServletRequest with request from page 
-	 * @param response object HttpServletResponse with response to page
-	 * @param uniqueName object String with unique name of article
-	 * @return object ModelAndView with model and view of page
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/view-article/{uniqueName}")
-	public ModelAndView displaySecViewArticle(
-			ModelMap model,
-			@ModelAttribute("command")BlogCommand command,
-			HttpServletRequest request, 
-			HttpServletResponse response, 
-			@PathVariable String uniqueName) throws Exception{
-		
-		command.setDisplaySecViewArticle(true);		
-		handleCommand(command, request);
-		
-		model.addAttribute("article", articleService.getArticleByUniqueName(uniqueName, command.getLocale()));
-		model.addAttribute("articleTagList", articleTagService.findAll());
-		
-		return new ModelAndView("blogJsp");
-		
-	}
+	}	
 	
 	/**
 	 * Method handles editing page with article view in secured area.

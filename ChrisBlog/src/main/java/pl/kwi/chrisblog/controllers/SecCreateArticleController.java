@@ -234,9 +234,6 @@ public class SecCreateArticleController extends AbstractController{
 			@ModelAttribute("article")ArticleEntity article,
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception{
-		
-		command.setDisplaySecCreateArticleDescr(true);		
-		handleCommand(command, request);
 				
 		articleService.writeDescriptionFile(article.getUniqueName(), article.getDescription());
 		
@@ -261,9 +258,6 @@ public class SecCreateArticleController extends AbstractController{
 			@ModelAttribute("article")ArticleEntity article,
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception{
-		
-		command.setDisplaySecCreateArticleDescr(true);		
-		handleCommand(command, request);
 				
 		articleService.writeDescriptionFile(article.getUniqueName(), article.getDescription());
 		
