@@ -52,6 +52,14 @@
 			<%@ include file="leftSpace/secured/secArticleJsp.jsp" %>
 		</c:if>
 		
+		<c:if test="${command.displaySecEditArticleDescr}">
+			<%@ include file="leftSpace/secured/secArticleDescriptionJsp.jsp" %>
+		</c:if>
+		
+		<c:if test="${command.displaySecEditArticleContent}">
+			<%@ include file="leftSpace/secured/secArticleContentJsp.jsp" %>
+		</c:if>
+		
 		<c:if test="${command.displaySecCreateArticle}">
 			<%@ include file="leftSpace/secured/secArticleJsp.jsp" %>
 		</c:if>

@@ -193,7 +193,7 @@
 				<a id="cancel" href="secured/article-list" class="button">Cancel</a>
 			</c:if>
 			<c:if test="${command.displaySecEditArticle}">			
-				<input type="submit" class="button" value="Apply"/>
+				<a id="next" href="javascript:send('secured/handle-edit-article', 'article');" class="button">Next »</a>
 				<a id="cancel" href="secured/article-list" class="button">Cancel</a>
 			</c:if>
 			<c:if test="${command.displaySecDeleteArticle}">			

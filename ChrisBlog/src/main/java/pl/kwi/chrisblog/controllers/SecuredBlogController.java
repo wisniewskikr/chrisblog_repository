@@ -7,8 +7,6 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +24,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import pl.kwi.chrisblog.commands.BlogCommand;
 import pl.kwi.chrisblog.editors.ArticleTagListEditor;
 import pl.kwi.chrisblog.editors.CreationDateEditor;
-import pl.kwi.chrisblog.entities.ArticleEntity;
 import pl.kwi.chrisblog.exceptions.SecArticleException;
 import pl.kwi.chrisblog.validators.SecArticleListValidator;
 
@@ -195,76 +192,7 @@ public class SecuredBlogController extends AbstractController{
 		
 		return displaySecArticleList(command, request, response, 1);
 		
-	}	
-	
-	/**
-	 * Method handles editing page with article view in secured area.
-	 * 
-	 * @param model object ModelMap with model
-	 * @param command object BlogCommand with data from page
-	 * @param request object HttpServletRequest with request from page 
-	 * @param response object HttpServletResponse with response to page
-	 * @param uniqueName object String with unique name of article
-	 * @param article object ArticleEntity with article
-	 * @param isValidation boolean indicates if this is callback with validation errors.
-	 * If yes then existing article should be used
-	 * @return object ModelAndView with model and view of page
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/edit-article/{uniqueName}")
-	public ModelAndView displaySecEditArticle(
-			ModelMap model, 
-			@ModelAttribute("command")BlogCommand command,
-			HttpServletRequest request, 
-			HttpServletResponse response, 
-			@PathVariable String uniqueName,
-			ArticleEntity article,
-			boolean isValidation) throws Exception{
-		
-		command.setDisplaySecEditArticle(true);		
-		handleCommand(command, request);
-		
-		if(!isValidation){
-			article = articleService.getArticleByUniqueName(uniqueName, command.getLocale());
-		}
-		
-		model.addAttribute("article", article);
-		model.addAttribute("articleTagList", articleTagService.findAll());
-		
-		return new ModelAndView("blogJsp");
-		
-	}
-	
-	/**
-	 * Method handles updating page with article view in secured area.
-	 * 
-	 * @param model object ModelMap with model
-	 * @param command object BlogCommand with data from page
-	 * @param article object ArticleEntity with article
-	 * @param bindingResult object BindingResult with result from page
-	 * @param request object HttpServletRequest with request from page 
-	 * @param response object HttpServletResponse with response to page
-	 * @return object ModelAndView with model and view of page
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/handle-edit-article", method=RequestMethod.POST)
-	public ModelAndView handleSecEditArticle(
-			ModelMap model, 
-			@ModelAttribute("command")BlogCommand command,
-			@Valid @ModelAttribute("article")ArticleEntity article,
-			BindingResult bindingResult,
-			HttpServletRequest request, 
-			HttpServletResponse response) throws Exception{
-		
-		if(bindingResult.hasErrors()){
-			return displaySecEditArticle(model, command, request, response, article.getUniqueName(), article, true);
-		}
-		
-		articleService.update(article);
-		
-		return new ModelAndView(new RedirectView("/secured/article-list-with-info/edit-article" , true, true, true));
-		
-	}
+	}		
 	
 	/**
 	 * Method displays confirmation page in secured area.

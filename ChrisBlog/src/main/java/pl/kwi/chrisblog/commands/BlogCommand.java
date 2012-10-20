@@ -34,6 +34,8 @@ public class BlogCommand implements Serializable{
 	private boolean displaySecViewArticleDescr;
 	private boolean displaySecViewArticleContent;
 	private boolean displaySecEditArticle;
+	private boolean displaySecEditArticleDescr;
+	private boolean displaySecEditArticleContent;
 	private boolean displaySecCreateArticle;
 	private boolean displaySecCreateArticleDescr;
 	private boolean displaySecCreateArticleContent;
@@ -148,6 +150,20 @@ public class BlogCommand implements Serializable{
 	public void setDisplaySecEditArticle(boolean displaySecEditArticle) {
 		this.displaySecEditArticle = displaySecEditArticle;
 	}	
+	
+	public boolean isDisplaySecEditArticleDescr() {
+		return displaySecEditArticleDescr;
+	}
+	public void setDisplaySecEditArticleDescr(boolean displaySecEditArticleDescr) {
+		this.displaySecEditArticleDescr = displaySecEditArticleDescr;
+	}
+	
+	public boolean isDisplaySecEditArticleContent() {
+		return displaySecEditArticleContent;
+	}
+	public void setDisplaySecEditArticleContent(boolean displaySecEditArticleContent) {
+		this.displaySecEditArticleContent = displaySecEditArticleContent;
+	}
 	
 	public boolean isDisplaySecCreateArticle() {
 		return displaySecCreateArticle;

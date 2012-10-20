@@ -1,7 +1,5 @@
 package pl.kwi.chrisblog.controllers;
 
-import static junit.framework.Assert.assertNotNull;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -15,7 +13,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mcavallo.opencloud.Cloud;
 import org.mockito.Mockito;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -174,35 +171,35 @@ public class SecuredBlogControllerTest {
 //		
 //	}
 	
-	@Test
-	public void displaySecEditArticle() throws Exception {
-		
-		ModelMap model = new ModelMap();
-		BlogCommand command = new BlogCommand();
-		HttpServletRequest request = mockHttpServletRequest();
-		HttpServletResponse response = mockHttpServletResponse();
-		String uniqueName = "uniqueName";
-		ArticleEntity article = null;
-		boolean isValidation = false;
-		
-		ModelAndView modelAndView = controller.displaySecEditArticle(model, command, request, response, uniqueName, article, isValidation);
-		
-		Assert.assertFalse(command.isDisplayAboutMe());
-		Assert.assertTrue(command.isDisplaySecEditArticle());
-		
-		Assert.assertEquals("pathHost", command.getPathHost());
-		Assert.assertEquals("pathContext", command.getPathContext());
-		Assert.assertEquals("Secured Edit of Article", command.getWindowTitle());
-		Assert.assertNotNull(command.getLocale());
-		Assert.assertNotNull(command.getTagsCloudFooter());
-		Assert.assertNotNull(command.getTagsCloudRightSpace());
-		
-		assertNotNull(model.get("article"));
-		assertNotNull(model.get("articleTagList"));
-				
-		Assert.assertEquals("blogJsp", modelAndView.getViewName());
-		
-	}
+//	@Test
+//	public void displaySecEditArticle() throws Exception {
+//		
+//		ModelMap model = new ModelMap();
+//		BlogCommand command = new BlogCommand();
+//		HttpServletRequest request = mockHttpServletRequest();
+//		HttpServletResponse response = mockHttpServletResponse();
+//		String uniqueName = "uniqueName";
+//		ArticleEntity article = null;
+//		boolean isValidation = false;
+//		
+//		ModelAndView modelAndView = controller.displaySecEditArticle(model, command, request, response, uniqueName, article, isValidation);
+//		
+//		Assert.assertFalse(command.isDisplayAboutMe());
+//		Assert.assertTrue(command.isDisplaySecEditArticle());
+//		
+//		Assert.assertEquals("pathHost", command.getPathHost());
+//		Assert.assertEquals("pathContext", command.getPathContext());
+//		Assert.assertEquals("Secured Edit of Article", command.getWindowTitle());
+//		Assert.assertNotNull(command.getLocale());
+//		Assert.assertNotNull(command.getTagsCloudFooter());
+//		Assert.assertNotNull(command.getTagsCloudRightSpace());
+//		
+//		assertNotNull(model.get("article"));
+//		assertNotNull(model.get("articleTagList"));
+//				
+//		Assert.assertEquals("blogJsp", modelAndView.getViewName());
+//		
+//	}
 	
 //	@Test
 //	public void displaySecCreateArticle() throws Exception {

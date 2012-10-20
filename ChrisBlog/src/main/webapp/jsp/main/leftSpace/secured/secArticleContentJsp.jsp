@@ -24,6 +24,16 @@
 	<c:set var="formAction" value=""/>
 	<c:set var="readonlyUniqueName" value="true"/>
 </c:if>
+<c:if test="${command.displaySecEditArticleContent}">
+	<c:set var="disabledField" value="false"/>
+	<c:set var="disabledCreate" value=""/>
+	<c:set var="disabledView" value=""/>
+	<c:set var="disabledEdit" value="class='disabledLink'"/>
+	<c:set var="disabledDelete" value=""/>
+	<c:set var="formMethod" value=""/>
+	<c:set var="formAction" value=""/>
+	<c:set var="readonlyUniqueName" value="true"/>
+</c:if>
 
 
 
@@ -82,6 +92,11 @@
 			</c:if>			
 			<c:if test="${command.displaySecViewArticleContent}">
 				<a href="javascript:send('secured/handle-view-article-content-back-button', 'article');" class="button">« Back</a>
+				<a id="cancel" href="secured/article-list" class="button">Cancel</a>
+			</c:if>	
+			<c:if test="${command.displaySecEditArticleContent}">
+				<a href="javascript:send('secured/handle-edit-article-content-back-button', 'article');" class="button">« Back</a>
+				<a href="javascript:send('secured/handle-edit-article-content', 'article');" class="button">Apply</a>			
 				<a id="cancel" href="secured/article-list" class="button">Cancel</a>
 			</c:if>			
 		</p>

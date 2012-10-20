@@ -12,6 +12,8 @@ import pl.kwi.chrisblog.visitors.impl.SecCreateArticleContentPage;
 import pl.kwi.chrisblog.visitors.impl.SecCreateArticleDescrPage;
 import pl.kwi.chrisblog.visitors.impl.SecCreateArticlePage;
 import pl.kwi.chrisblog.visitors.impl.SecDeleteArticlePage;
+import pl.kwi.chrisblog.visitors.impl.SecEditArticleContentPage;
+import pl.kwi.chrisblog.visitors.impl.SecEditArticleDescrPage;
 import pl.kwi.chrisblog.visitors.impl.SecEditArticlePage;
 import pl.kwi.chrisblog.visitors.impl.SecViewArticleContentPage;
 import pl.kwi.chrisblog.visitors.impl.SecViewArticleDescrPage;
@@ -100,6 +102,20 @@ public interface IVisitor {
 	 * @param p object SecEditArticlePage which is visited
 	 */
 	public void visit(SecEditArticlePage p);
+	
+	/**
+	 * Method visits object SecEditArticleDescrPage
+	 * 
+	 * @param p object SecEditArticleDescrPage which is visited
+	 */
+	public void visit(SecEditArticleDescrPage p);
+	
+	/**
+	 * Method visits object SecEditArticleContentPage
+	 * 
+	 * @param p object SecEditArticleContentPage which is visited
+	 */
+	public void visit(SecEditArticleContentPage p);
 	
 	/**
 	 * Method visits object SecCreateArticlePage
