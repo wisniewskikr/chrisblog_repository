@@ -232,7 +232,32 @@ public class SecCreateArticleController extends AbstractController{
 		
 		return new ModelAndView(new RedirectView("/secured/article-list-with-info/create-article" , true, true, true));
 		
-	}	
+	}
+	
+	/**
+	 * Method handles button cancel connected with creating page with article view in secured area.
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param uniqueName object String with unique name of article
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/handle-create-article-cancel/{uniqueName}", method=RequestMethod.GET)
+	public ModelAndView handleSecCreateArticleCancel(
+			@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, 
+			HttpServletResponse response,
+			@PathVariable String uniqueName) throws Exception{
+				
+		articleService.deleteByUniqueName(uniqueName);
+		articleService.deleteDescriptionFile(uniqueName);
+		articleService.deleteContentFile(uniqueName);
+		
+		return new ModelAndView(new RedirectView("/secured/article-list" , true, true, true));
+		
+	}
 	
 		
 }

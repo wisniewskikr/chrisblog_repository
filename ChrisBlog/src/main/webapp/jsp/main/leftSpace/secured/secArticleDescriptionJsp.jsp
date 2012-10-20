@@ -67,8 +67,8 @@
 		<p id="secPageNavigation">
 			<c:if test="${command.displaySecCreateArticleDescr}">			
 				<input type="submit" class="button" value="Next »"/>
+				<a id="cancel" href="secured/handle-create-article-cancel/${article.uniqueName}" class="button">Cancel</a>
 			</c:if>			
-			<a id="cancel" href="secured/article-list" class="button">Cancel</a>
 		</p>
 		
 	</form:form>
