@@ -31,7 +31,15 @@
 	<c:set var="disabledDelete" value="class='disabledLink'"/>
 	<c:set var="formMethod" value="POST"/>
 	<c:set var="formAction" value="secured/handle-create-article"/>
-	<c:set var="readonlyUniqueName" value="false"/>
+	<c:choose>
+		<c:when test="${backButtonPressed}">
+			<c:set var="readonlyUniqueName" value="true"/>
+		</c:when>
+		<c:otherwise>
+			<c:set var="readonlyUniqueName" value="false"/>
+		</c:otherwise>
+	</c:choose>
+	
 </c:if>
 <c:if test="${command.displaySecDeleteArticle}">
 	<c:set var="disabledField" value="true"/>
@@ -81,12 +89,17 @@
 	
 		<div id="secPageFields">
 		
-			<c:if test="${not command.displaySecCreateArticle}">
-				<div class="secPageField">
-					<label>Id*</label>
-					<form:input path="id" readonly="true"/>
-				</div>
-			</c:if>
+			<c:choose>
+				<c:when test="${command.displaySecCreateArticle}">
+					<form:hidden path="id"/>
+				</c:when>
+				<c:otherwise>
+					<div class="secPageField">
+						<label>Id*</label>
+						<form:input path="id" readonly="true"/>
+					</div>
+				</c:otherwise>
+			</c:choose>
 			
 			<div class="secPageField">
 				<label>Title*</label>	
@@ -163,16 +176,26 @@
 		
 		
 		<p id="secPageNavigation">
-			<c:if test="${command.displaySecCreateArticle}">			
-				<input type="submit" class="button" value="Next »"/>
+			<c:if test="${command.displaySecCreateArticle}">					
+				<c:choose>
+					<c:when test="${backButtonPressed}">
+						<a id="next" href="javascript:send('secured/handle-create-article-back-button', 'article');" class="button">Next »</a>
+						<a id="cancel" href="secured/handle-create-article-cancel/${article.uniqueName}" class="button">Cancel</a>
+					</c:when>
+					<c:otherwise>					
+						<a id="next" href="javascript:send('secured/handle-create-article', 'article');" class="button">Next »</a>
+						<a id="cancel" href="secured/article-list" class="button">Cancel</a>
+					</c:otherwise>
+				</c:choose>
 			</c:if>
 			<c:if test="${command.displaySecEditArticle}">			
 				<input type="submit" class="button" value="Apply"/>
+				<a id="cancel" href="secured/article-list" class="button">Cancel</a>
 			</c:if>
 			<c:if test="${command.displaySecDeleteArticle}">			
 				<a id="delete" href="secured/confirmation/delete-article/${article.uniqueName}" class="button">Delete</a>
-			</c:if>	
-			<a id="cancel" href="secured/article-list" class="button">Cancel</a>
+				<a id="cancel" href="secured/article-list" class="button">Cancel</a>
+			</c:if>				
 		</p>
 		
 		

@@ -39,13 +39,13 @@
 					<a href="secured/create-article">Create</a>
 				</li>
 				<li class="secPageAction">
-					<a href="javascript:send('secured/handle-article-list/view-article');">View</a>
+					<a href="javascript:send('secured/handle-article-list/view-article', 'command');">View</a>
 				</li>
 				<li class="secPageAction">
-					<a href="javascript:send('secured/handle-article-list/edit-article');">Edit</a>
+					<a href="javascript:send('secured/handle-article-list/edit-article', 'command');">Edit</a>
 				</li>
 				<li class="secPageAction">
-					<a href="javascript:send('secured/handle-article-list/delete-article');">Delete</a>
+					<a href="javascript:send('secured/handle-article-list/delete-article', 'command');">Delete</a>
 				</li>
 			</ul>		
 		</div>

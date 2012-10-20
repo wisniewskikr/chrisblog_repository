@@ -11,10 +11,11 @@ function overflowAuto(obj){
  * Function sends form with specified action.
  * 
  * @param action object String with action
+ * @param modelAttribute String with model attribute
  */
-function send(action){	
-	$('#command').attr('action', action);
-	$('#command').submit();	
+function send(action, modelAttribute){	
+	$('#' + modelAttribute).attr('action', action);
+	$('#' + modelAttribute).submit();	
 }
 
 /**

@@ -118,6 +118,74 @@ public class SecCreateArticleController extends AbstractController{
 		
 	}
 	
+	
+	/**
+	 * Method displays page of creating article after back from description page.
+	 * 
+	 * @param model object ModelMap with model
+	 * @param command object BlogCommand with data from page	 
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/create-article-back-button/{uniqueName}")
+	public ModelAndView displaySecCreateArticleBackButton(
+			ModelMap model,
+			@ModelAttribute("command")BlogCommand command,
+			HttpServletRequest request, 
+			HttpServletResponse response,
+			@PathVariable String uniqueName,
+			ArticleEntity article,
+			boolean isValidation) throws Exception{
+		
+		command.setDisplaySecCreateArticle(true);		
+		handleCommand(command, request);
+		
+		if(!isValidation){
+			model.addAttribute("article", articleService.getArticleByUniqueName(uniqueName, command.getLocale()));
+		}else{
+			model.addAttribute("article", article);
+		}
+		model.addAttribute("articleTagList", articleTagService.findAll());
+		model.addAttribute("backButtonPressed", true);
+		
+		return new ModelAndView("blogJsp");
+		
+	}
+	
+	/**
+	 * Method handles creating page with article view in secured area after back from description.
+	 * 
+	 * @param model object ModelMap with model
+	 * @param command object BlogCommand with data from page
+	 * @param article object ArticleEntity with article
+	 * @param bindingResult object BindingResult with result from page
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/handle-create-article-back-button", method=RequestMethod.POST)
+	public ModelAndView handleSecCreateArticleBackButton(
+			ModelMap model,
+			@ModelAttribute("command")BlogCommand command,
+			@Valid @ModelAttribute("article")ArticleEntity article,
+			BindingResult bindingResult,
+			HttpServletRequest request, 
+			HttpServletResponse response
+			) throws Exception{
+		
+		if(bindingResult.hasErrors()){
+			return displaySecCreateArticleBackButton(model, command, request, response, article.getUniqueName(), article, true);
+		}
+		
+		articleService.update(article);
+	
+		return new ModelAndView(new RedirectView("/secured/create-article-description/" + article.getUniqueName() , true, true, true));
+		
+	}
+	
 	/**
 	 * Method displays creating page with article description in secured area.
 	 * 
@@ -173,6 +241,33 @@ public class SecCreateArticleController extends AbstractController{
 		articleService.writeDescriptionFile(article.getUniqueName(), article.getDescription());
 		
 		return new ModelAndView(new RedirectView("/secured/create-article-content/" + article.getUniqueName() , true, true, true));
+		
+	}
+	
+	/**
+	 * Method handles creating page with article description in secured area after pressing back button.
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param article object ArticleEntity with article	 
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param uniqueName object String with unique name of article
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/handle-create-article-description-back-button", method=RequestMethod.POST)
+	public ModelAndView handleSecCreateArticleDescriptionBackButton(
+			@ModelAttribute("command")BlogCommand command,
+			@ModelAttribute("article")ArticleEntity article,
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception{
+		
+		command.setDisplaySecCreateArticleDescr(true);		
+		handleCommand(command, request);
+				
+		articleService.writeDescriptionFile(article.getUniqueName(), article.getDescription());
+		
+		return new ModelAndView(new RedirectView("/secured/create-article-back-button/" + article.getUniqueName() , true, true, true));
 		
 	}
 	
