@@ -204,34 +204,34 @@ public class SecuredBlogControllerTest {
 		
 	}
 	
-	@Test
-	public void displaySecCreateArticle() throws Exception {
-		
-		ModelMap model = new ModelMap();
-		BlogCommand command = new BlogCommand();
-		HttpServletRequest request = mockHttpServletRequest();
-		HttpServletResponse response = mockHttpServletResponse();
-		ArticleEntity article = new ArticleEntity();
-		boolean isValidation = false;
-		
-		ModelAndView modelAndView = controller.displaySecCreateArticle(model, command, request, response, article, isValidation);
-		
-		Assert.assertFalse(command.isDisplayAboutMe());
-		Assert.assertTrue(command.isDisplaySecCreateArticle());
-		
-		Assert.assertEquals("pathHost", command.getPathHost());
-		Assert.assertEquals("pathContext", command.getPathContext());
-		Assert.assertEquals("Secured Create of Article", command.getWindowTitle());
-		Assert.assertNotNull(command.getLocale());
-		Assert.assertNotNull(command.getTagsCloudFooter());
-		Assert.assertNotNull(command.getTagsCloudRightSpace());
-		
-		assertNotNull(model.get("article"));
-		assertNotNull(model.get("articleTagList"));
-		
-		Assert.assertEquals("blogJsp", modelAndView.getViewName());
-		
-	}
+//	@Test
+//	public void displaySecCreateArticle() throws Exception {
+//		
+//		ModelMap model = new ModelMap();
+//		BlogCommand command = new BlogCommand();
+//		HttpServletRequest request = mockHttpServletRequest();
+//		HttpServletResponse response = mockHttpServletResponse();
+//		ArticleEntity article = new ArticleEntity();
+//		boolean isValidation = false;
+//		
+//		ModelAndView modelAndView = controller.displaySecCreateArticle(model, command, request, response, article, isValidation);
+//		
+//		Assert.assertFalse(command.isDisplayAboutMe());
+//		Assert.assertTrue(command.isDisplaySecCreateArticle());
+//		
+//		Assert.assertEquals("pathHost", command.getPathHost());
+//		Assert.assertEquals("pathContext", command.getPathContext());
+//		Assert.assertEquals("Secured Create of Article", command.getWindowTitle());
+//		Assert.assertNotNull(command.getLocale());
+//		Assert.assertNotNull(command.getTagsCloudFooter());
+//		Assert.assertNotNull(command.getTagsCloudRightSpace());
+//		
+//		assertNotNull(model.get("article"));
+//		assertNotNull(model.get("articleTagList"));
+//		
+//		Assert.assertEquals("blogJsp", modelAndView.getViewName());
+//		
+//	}
 	
 
 	// ************************************************************************************************************ //
