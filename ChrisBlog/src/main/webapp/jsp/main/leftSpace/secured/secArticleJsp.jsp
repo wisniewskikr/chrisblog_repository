@@ -161,18 +161,21 @@
 			
 		</div>
 		
+		
 		<p id="secPageNavigation">
 			<c:if test="${command.displaySecCreateArticle}">			
-				<input type="submit" class="button" value="Apply"/>
+				<input type="submit" class="button" value="Next »"/>
 			</c:if>
 			<c:if test="${command.displaySecEditArticle}">			
 				<input type="submit" class="button" value="Apply"/>
 			</c:if>
 			<c:if test="${command.displaySecDeleteArticle}">			
 				<a id="delete" href="secured/confirmation/delete-article/${article.uniqueName}" class="button">Delete</a>
-			</c:if>
+			</c:if>	
 			<a id="cancel" href="secured/article-list" class="button">Cancel</a>
 		</p>
+		
+		
 		
 	</form:form>
 	
