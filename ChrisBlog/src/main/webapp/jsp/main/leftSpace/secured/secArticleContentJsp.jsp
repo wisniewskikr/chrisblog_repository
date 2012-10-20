@@ -65,8 +65,9 @@
 			
 		
 		<p id="secPageNavigation">
-			<c:if test="${command.displaySecCreateArticleContent}">			
-				<input type="submit" class="button" value="Create"/>
+			<c:if test="${command.displaySecCreateArticleContent}">
+				<a href="javascript:send('secured/handle-create-article-content-back-button', 'article');" class="button">« Back</a>
+				<a href="javascript:send('secured/handle-create-article-content', 'article');" class="button">Create</a>			
 				<a id="cancel" href="secured/handle-create-article-cancel/${article.uniqueName}" class="button">Cancel</a>
 			</c:if>			
 		</p>

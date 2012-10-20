@@ -330,6 +330,34 @@ public class SecCreateArticleController extends AbstractController{
 	}
 	
 	/**
+	 * Method handles creating page with article content in secured area 
+	 * after back button pressing.
+	 * 
+	 * @param command object BlogCommand with data from page
+	 * @param article object ArticleEntity with article	 
+	 * @param request object HttpServletRequest with request from page 
+	 * @param response object HttpServletResponse with response to page
+	 * @param uniqueName object String with unique name of article
+	 * @return object ModelAndView with model and view of page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/handle-create-article-content-back-button", method=RequestMethod.POST)
+	public ModelAndView handleSecCreateArticleContentBackButton(
+			@ModelAttribute("command")BlogCommand command,
+			@ModelAttribute("article")ArticleEntity article,
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception{
+		
+		command.setDisplaySecCreateArticleContent(true);		
+		handleCommand(command, request);
+		
+		articleService.writeContentFile(article.getUniqueName(), article.getContent());
+		
+		return new ModelAndView(new RedirectView("/secured/create-article-description/" + article.getUniqueName(), true, true, true));
+		
+	}
+	
+	/**
 	 * Method handles button cancel connected with creating page with article view in secured area.
 	 * 
 	 * @param command object BlogCommand with data from page
