@@ -45,7 +45,7 @@ public class AboutMeIntg {
         Assert.assertEquals("Chris`s Blog", header);        
         title = driver.getTitle();
         Assert.assertEquals("Chris`s Blog - List of Articles", title);
-        text = driver.findElement(By.id("hello_world_servlets_titleList")).getText();
+        text = driver.findElement(By.id("hello-world-servlets_titleList")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         // actions
         driver.findElement(By.id("aboutMeLink")).click();
@@ -71,7 +71,7 @@ public class AboutMeIntg {
         Assert.assertEquals("Chris`s Blog", header);        
         title = driver.getTitle();
         Assert.assertEquals("Chris`s Blog - List of Articles", title);
-        text = driver.findElement(By.id("hello_world_servlets_titleList")).getText();
+        text = driver.findElement(By.id("hello-world-servlets_titleList")).getText();
         Assert.assertEquals("Hello World Servlets", text);
        
         

@@ -44,7 +44,7 @@ public class LoggingIntg{
         Assert.assertEquals("Chris`s Blog", header);        
         title = driver.getTitle();
         Assert.assertEquals("Chris`s Blog - List of Articles", title);
-        text = driver.findElement(By.id("hello_world_servlets_titleList")).getText();
+        text = driver.findElement(By.id("hello-world-servlets_titleList")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         // actions
         driver.findElement(By.id("login")).sendKeys("tmp");
@@ -59,7 +59,7 @@ public class LoggingIntg{
         Assert.assertEquals("Chris`s Blog", header);        
         title = driver.getTitle();
         Assert.assertEquals("Chris`s Blog - List of Articles", title);
-        text = driver.findElement(By.id("hello_world_servlets_titleList")).getText();
+        text = driver.findElement(By.id("hello-world-servlets_titleList")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         text = driver.findElement(By.className("textMsg")).getText();
         Assert.assertEquals("Incorrect email or password.", text);

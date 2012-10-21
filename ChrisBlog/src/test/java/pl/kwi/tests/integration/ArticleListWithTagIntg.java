@@ -46,7 +46,7 @@ public class ArticleListWithTagIntg {
         Assert.assertEquals("Chris`s Blog", header);        
         title = driver.getTitle();
         Assert.assertEquals("Chris`s Blog - List of Articles", title);
-        text = driver.findElement(By.id("hello_world_servlets_titleList")).getText();
+        text = driver.findElement(By.id("hello-world-servlets_titleList")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         url = driver.getCurrentUrl();
         Assert.assertEquals(pathHost + pathContext, url);
@@ -61,7 +61,7 @@ public class ArticleListWithTagIntg {
         Assert.assertEquals("Chris`s Blog", header);        
         title = driver.getTitle();
         Assert.assertEquals("Chris`s Blog - List of Articles marked by Tag", title);
-        text = driver.findElement(By.id("hello_world_servlets_titleList")).getText();
+        text = driver.findElement(By.id("hello-world-servlets_titleList")).getText();
         Assert.assertEquals("Hello World Servlets", text);
         url = driver.getCurrentUrl();
         Assert.assertEquals(pathHost + pathContext + "tag/css", url);
