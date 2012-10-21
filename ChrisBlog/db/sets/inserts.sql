@@ -18,6 +18,11 @@ VALUES (2, 'build-war-with-maven', 'Build war file with Maven', 1, '2012-10-01 1
 
 GO
 
+INSERT INTO articles (ID, UNIQUE_NAME, TITLE, PAGES_COUNT, CREATION_DATE, AUTHOR, STATUS)
+VALUES (3, 'deploy-application-on-tomcat-7', 'Deploy application on Tomcat 7', 1, '2012-10-02 12:00:00', 'Chris', 'ACTIVE');
+
+GO
+
 INSERT INTO article_tags (ID, UNIQUE_NAME, NAME)
 VALUES (1, 'java', 'Java');
 
@@ -105,5 +110,15 @@ GO
 
 INSERT INTO join_article_and_tag (ARTICLE_ID, ARTICLE_TAG_ID)
 VALUES (2, 7);
+
+GO
+
+INSERT INTO join_article_and_tag (ARTICLE_ID, ARTICLE_TAG_ID)
+VALUES (3, 1);
+
+GO
+
+INSERT INTO join_article_and_tag (ARTICLE_ID, ARTICLE_TAG_ID)
+VALUES (3, 8);
 
 GO
