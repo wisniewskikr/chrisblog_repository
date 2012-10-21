@@ -9,7 +9,7 @@ VALUES (1, 1, 'ROLE_USER');
 GO
 
 INSERT INTO articles (ID, UNIQUE_NAME, TITLE, PAGES_COUNT, CREATION_DATE, AUTHOR, DEMO_NAME, EXAMPLE_FILE_NAME, SOURCE_FILE_NAME, STATUS)
-VALUES (1, 'hello_world_servlets', 'Hello World Servlets', 4, '2012-01-04 12:00:00', 'Chris', 'HelloWorldServlets', 'HelloWorldServlets.war', 'HelloWorldServlets.zip', 'ACTIVE');
+VALUES (1, 'hello-world-servlets', 'Hello World Servlets', 1, '2012-01-04 12:00:00', 'Chris', 'HelloWorldServlets', 'HelloWorldServlets.war', 'HelloWorldServlets.zip', 'ACTIVE');
 
 GO
 
