@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Locale;
 import javax.servlet.ServletContext;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -411,13 +412,20 @@ public class ArticleService {
 		for (ArticleEntity article : articleList) {
 			
 			String creationDateAsString = DateUtils.convertCalendarToStringWithMonthAsText(article.getCreationDate(), loc);
-			article.setCreationDateAsString(creationDateAsString);
-			article.setDemoPath("/" + article.getDemoName());
-			article.setExamplePath("/" + folderExamples + "/" + article.getExampleFileName());
-			article.setSourcePath("/" + folderSources + "/" + article.getSourceFileName());
+			article.setCreationDateAsString(creationDateAsString);			
 			article.setContentPath(article.getUniqueName());
 			article.setDescriptionPath(article.getUniqueName());
 			article.setDiffToCurrentDateAsString(DateUtils.getDifferenceFromCurrentDateAsText(article.getCreationDate(), loc));
+			
+			if(StringUtils.isNotBlank(article.getDemoName())){
+				article.setDemoPath("/" + article.getDemoName());
+			}
+			if(StringUtils.isNotBlank(article.getExampleFileName())){
+				article.setExamplePath("/" + folderExamples + "/" + article.getExampleFileName());
+			}
+			if(StringUtils.isNotBlank(article.getSourceFileName())){
+				article.setSourcePath("/" + folderSources + "/" + article.getSourceFileName());
+			}			
 			
 		}
 		

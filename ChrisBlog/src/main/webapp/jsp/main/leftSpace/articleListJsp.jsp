@@ -29,8 +29,10 @@
 							
 							<ul class="meta">
 								<li><span class="metaDate" title="Creation date">${article.creationDateAsString}</span></li>
-								<li><a href="${article.demoPath}" class="metaDemo" target="_blank" title="Demo">View Demo</a></li>
 								<li><span class="metaAuthor" title="Article`s author">${article.author}</span></li>
+								<c:if test="${not empty article.demoPath}">
+									<li><a href="${article.demoPath}" class="metaDemo" target="_blank" title="Demo">View Demo</a></li>
+								</c:if>	
 								<li><span class="metaPagesCount" title="Pages count">${article.pagesCount}</span></li>
 							</ul>
 							
