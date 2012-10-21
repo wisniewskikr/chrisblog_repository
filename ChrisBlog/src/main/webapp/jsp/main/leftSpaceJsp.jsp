@@ -12,7 +12,7 @@
 		
 		<c:if test="${command.displayArticle}">
 			<%@ include file="leftSpace/articleJsp.jsp" %>
-			<%@ include file="leftSpace/paginationArticleJsp.jsp" %>
+			<%@ include file="leftSpace/navigationArticleJsp.jsp" %>
 		</c:if>
 		
 		<c:if test="${command.displayArticleListWithTag}">

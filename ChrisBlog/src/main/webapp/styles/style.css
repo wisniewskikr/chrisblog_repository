@@ -336,6 +336,10 @@ span.metaPagesCount {
 	font-size: 30px;
 }
 
+.navigationButtons{
+	margin-top: 60px;
+}
+
 #rightSpace{
 	float: left;
 	width: 420px;

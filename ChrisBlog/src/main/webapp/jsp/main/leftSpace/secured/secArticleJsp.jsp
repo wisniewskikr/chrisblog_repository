@@ -121,17 +121,6 @@
 			</div>
 			
 			<div class="secPageField">
-				<label>Pages count*</label>	
-				<form:errors path="pagesCount" cssClass="error"/>
-				<form:select path="pagesCount" disabled="${disabledField}">
-					<c:forEach begin="1" end="10" step="1" var="x">
-						<form:option value="${x}">${x}</form:option>
-					</c:forEach>
-				</form:select>
-				
-			</div>
-			
-			<div class="secPageField">
 				<label>Creation date*</label>
 				<form:errors path="creationDate" cssClass="error"/>
 				<form:input path="creationDate" cssClass="datepicker" disabled="${disabledField}"/>

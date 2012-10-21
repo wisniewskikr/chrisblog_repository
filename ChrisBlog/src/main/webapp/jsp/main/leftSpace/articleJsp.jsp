@@ -7,7 +7,6 @@
 	
 	<h1>
 		<span id="articleTitle">${command.article.title}</span> 
-		<span id="articlePages" class="articlePages">(${command.pageCurrent} of ${command.pagesCount})</span>
 	</h1>
 	
 	<div class="addthis_toolbox addthis_default_style">
@@ -18,13 +17,6 @@
 	</div>	
 	
 	
-	<c:choose>			
-		<c:when test="${command.article.pagesCount == 1}">
-			<jsp:include page="articles_content/${command.article.contentPath}.jsp"/>
-		</c:when>
-		<c:otherwise>
-			<jsp:include page="articles_content/${command.article.contentPath}_${command.pageCurrent}.jsp"/>
-		</c:otherwise>
-	</c:choose>
+	<jsp:include page="articles_content/${command.article.contentPath}.jsp"/>
 	
 </div>
