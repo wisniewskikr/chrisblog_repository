@@ -5,7 +5,7 @@
 
 
 
-<h2>Introduction</h2>
+<h2>Our goal</h2>
 
 <p>
 	The main goal of this tutorial is explaining - step by step - how to create a
@@ -120,10 +120,6 @@
 		<li>Step 7. Create a file 'index.jsp'</li>
 		<li>Step 8. Create a file 'style.css'</li>
 		<li>Step 9. Create a file 'script.js'</li>
-		<li>Step 10. Build the application</li>
-		<li>Step 11. Deploy the application</li>
-		<li>Step 12. Run the application</li>
-		<li>Step 13. Test the example application</li>
 	</ul>
 </p>
 
@@ -589,7 +585,7 @@
 
 
 
-<h2>Test example application</h2>
+<h2>Check our goal</h2>
 
 <p>	
 	To test deployed example application 
