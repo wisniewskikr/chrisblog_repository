@@ -25,7 +25,7 @@
 					<c:if test="true">				
 						<li>
 					
-							<h2><a id="${article.uniqueName}_titleList" href="article/page/1/${article.uniqueName}">${article.title}</a></h2>
+							<h2><a id="${article.uniqueName}_titleList" href="article/${article.uniqueName}">${article.title}</a></h2>
 							
 							<ul class="meta">
 								<li><span class="metaDate" title="Creation date">${article.creationDateAsString}</span></li>
