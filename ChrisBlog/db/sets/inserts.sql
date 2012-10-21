@@ -8,18 +8,18 @@ VALUES (1, 1, 'ROLE_USER');
 
 GO
 
-INSERT INTO articles (ID, UNIQUE_NAME, TITLE, PAGES_COUNT, CREATION_DATE, AUTHOR, DEMO_NAME, EXAMPLE_FILE_NAME, SOURCE_FILE_NAME, STATUS)
-VALUES (1, 'hello-world-servlets', 'Hello World Servlets', 1, '2012-01-04 12:00:00', 'Chris', 'HelloWorldServlets', 'HelloWorldServlets.war', 'HelloWorldServlets.zip', 'ACTIVE');
+INSERT INTO articles (ID, UNIQUE_NAME, TITLE, CREATION_DATE, AUTHOR, DEMO_NAME, EXAMPLE_FILE_NAME, SOURCE_FILE_NAME, STATUS)
+VALUES (1, 'hello-world-servlets', 'Hello World Servlets', '2012-01-04 12:00:00', 'Chris', 'HelloWorldServlets', 'HelloWorldServlets.war', 'HelloWorldServlets.zip', 'ACTIVE');
 
 GO
 
-INSERT INTO articles (ID, UNIQUE_NAME, TITLE, PAGES_COUNT, CREATION_DATE, AUTHOR, STATUS)
-VALUES (2, 'build-war-with-maven', 'Build war file with Maven', 1, '2012-10-01 12:00:00', 'Chris', 'ACTIVE');
+INSERT INTO articles (ID, UNIQUE_NAME, TITLE, CREATION_DATE, AUTHOR, STATUS)
+VALUES (2, 'build-war-with-maven', 'Build war file with Maven', '2012-10-01 12:00:00', 'Chris', 'ACTIVE');
 
 GO
 
-INSERT INTO articles (ID, UNIQUE_NAME, TITLE, PAGES_COUNT, CREATION_DATE, AUTHOR, STATUS)
-VALUES (3, 'deploy-run-application-on-tomcat-7', 'Deploy and run application on Tomcat 7', 1, '2012-10-02 12:00:00', 'Chris', 'ACTIVE');
+INSERT INTO articles (ID, UNIQUE_NAME, TITLE, CREATION_DATE, AUTHOR, STATUS)
+VALUES (3, 'deploy-run-application-on-tomcat-7', 'Deploy and run application on Tomcat 7', '2012-10-02 12:00:00', 'Chris', 'ACTIVE');
 
 GO
 

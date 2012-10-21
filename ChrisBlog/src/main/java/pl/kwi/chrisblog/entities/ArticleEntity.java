@@ -56,7 +56,6 @@ public class ArticleEntity extends AbstractEntity{
 		
 	private String uniqueName;
 	private String title;
-	private Integer pagesCount;
 	private Calendar creationDate;
 	private String author;
 	private String demoName;
@@ -98,14 +97,6 @@ public class ArticleEntity extends AbstractEntity{
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}
-	
-	@Column(name="PAGES_COUNT", nullable=false)
-	public Integer getPagesCount() {
-		return pagesCount;
-	}
-	public void setPagesCount(Integer pagesCount) {
-		this.pagesCount = pagesCount;
 	}
 	
 	@Column(name="CREATION_DATE", nullable=false)

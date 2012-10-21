@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
 
-	<articles ID="1" UNIQUE_NAME="uniqueName1" TITLE="title1" PAGES_COUNT="1" CREATION_DATE="2001-01-01 12:00:00" AUTHOR="author1" DEMO_NAME="demoName1" EXAMPLE_FILE_NAME="exampleFileName1" SOURCE_FILE_NAME="sourceFilename1" STATUS="ACTIVE"/>
-	<articles ID="2" UNIQUE_NAME="uniqueName2" TITLE="title2" PAGES_COUNT="2" CREATION_DATE="2002-02-02 12:00:00" AUTHOR="author2" DEMO_NAME="demoName2" EXAMPLE_FILE_NAME="exampleFileName2" SOURCE_FILE_NAME="sourceFilename2" STATUS="ACTIVE"/>
-	<articles ID="3" UNIQUE_NAME="uniqueName3" TITLE="title3" PAGES_COUNT="3" CREATION_DATE="2003-03-03 12:00:00" AUTHOR="author3" DEMO_NAME="demoName3" EXAMPLE_FILE_NAME="exampleFileName3" SOURCE_FILE_NAME="sourceFilename3" STATUS="ACTIVE"/>
-	<articles ID="4" UNIQUE_NAME="uniqueName4" TITLE="title4" PAGES_COUNT="4" CREATION_DATE="2004-04-04 12:00:00" AUTHOR="author4" DEMO_NAME="demoName4" EXAMPLE_FILE_NAME="exampleFileName4" SOURCE_FILE_NAME="sourceFilename4" STATUS="NOT_ACTIVE"/>
+	<articles ID="1" UNIQUE_NAME="uniqueName1" TITLE="title1" CREATION_DATE="2001-01-01 12:00:00" AUTHOR="author1" DEMO_NAME="demoName1" EXAMPLE_FILE_NAME="exampleFileName1" SOURCE_FILE_NAME="sourceFilename1" STATUS="ACTIVE"/>
+	<articles ID="2" UNIQUE_NAME="uniqueName2" TITLE="title2" CREATION_DATE="2002-02-02 12:00:00" AUTHOR="author2" DEMO_NAME="demoName2" EXAMPLE_FILE_NAME="exampleFileName2" SOURCE_FILE_NAME="sourceFilename2" STATUS="ACTIVE"/>
+	<articles ID="3" UNIQUE_NAME="uniqueName3" TITLE="title3" CREATION_DATE="2003-03-03 12:00:00" AUTHOR="author3" DEMO_NAME="demoName3" EXAMPLE_FILE_NAME="exampleFileName3" SOURCE_FILE_NAME="sourceFilename3" STATUS="ACTIVE"/>
+	<articles ID="4" UNIQUE_NAME="uniqueName4" TITLE="title4" CREATION_DATE="2004-04-04 12:00:00" AUTHOR="author4" DEMO_NAME="demoName4" EXAMPLE_FILE_NAME="exampleFileName4" SOURCE_FILE_NAME="sourceFilename4" STATUS="NOT_ACTIVE"/>
 		
 	<article_tags ID="1" UNIQUE_NAME="uniqueName1" name="name1"/>
 	<article_tags ID="2" UNIQUE_NAME="uniqueName2" name="name2"/>

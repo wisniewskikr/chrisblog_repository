@@ -149,75 +149,6 @@ public class BlogControllerTest {
 		
 	}
 	
-	@Test
-	public void displayArticlePageOne() throws Exception {
-		
-		BlogCommand command = new BlogCommand();
-		HttpServletRequest request = mockHttpServletRequest();
-		HttpServletResponse response = mockHttpServletResponse();
-		String uniqueName = "uniqueName";
-		
-		ModelAndView modelAndView = controller.displayArticlePageOne(command, request, response, uniqueName);
-		
-		Assert.assertFalse(command.isDisplayAboutMe());
-		Assert.assertTrue(command.isDisplayArticle());
-		
-		Assert.assertEquals("pathHost", command.getPathHost());
-		Assert.assertEquals("pathContext", command.getPathContext());
-		Assert.assertNotNull(command.getLocale());
-		Assert.assertNotNull(command.getTagsCloudFooter());
-		Assert.assertNotNull(command.getTagsCloudRightSpace());
-		
-		Assert.assertEquals("unique_name_1", command.getArticle().getUniqueName());
-		
-		Assert.assertEquals(Integer.valueOf(1), command.getPageCurrent());
-		Assert.assertEquals(Integer.valueOf(3), command.getPagesCount());
-		
-		Assert.assertEquals("blogJsp", modelAndView.getViewName());
-		
-	}
-	
-	@Test
-	public void displayArticlePageNotOne() throws Exception {
-		
-		BlogCommand command = new BlogCommand();
-		HttpServletRequest request = mockHttpServletRequest();
-		HttpServletResponse response = mockHttpServletResponse();
-		int pageNumber = 2;
-		String uniqueName = "uniqueName";
-		
-		ModelAndView modelAndView = controller.displayArticlePageNotOne(command, request, response, pageNumber, uniqueName);
-		
-		Assert.assertFalse(command.isDisplayAboutMe());
-		Assert.assertTrue(command.isDisplayArticle());
-		
-		Assert.assertEquals("pathHost", command.getPathHost());
-		Assert.assertEquals("pathContext", command.getPathContext());
-		Assert.assertNotNull(command.getLocale());
-		Assert.assertNotNull(command.getTagsCloudFooter());
-		Assert.assertNotNull(command.getTagsCloudRightSpace());
-		
-		Assert.assertEquals("unique_name_1", command.getArticle().getUniqueName());
-		
-		Assert.assertEquals(Integer.valueOf(2), command.getPageCurrent());
-		Assert.assertEquals(Integer.valueOf(3), command.getPagesCount());
-		
-		Assert.assertEquals("blogJsp", modelAndView.getViewName());
-		
-	}
-	
-	@Test(expected = PagenationException.class)
-	public void displayArticlePageNot_withException() throws Exception {
-		
-		BlogCommand command = new BlogCommand();
-		HttpServletRequest request = mockHttpServletRequest();
-		HttpServletResponse response = mockHttpServletResponse();
-		int pageNumber = 8;
-		String uniqueName = "uniqueName";
-		
-		controller.displayArticlePageNotOne(command, request, response, pageNumber, uniqueName);
-		
-	}
 	
 	@Test
 	public void displayArticle() throws Exception {
@@ -225,10 +156,9 @@ public class BlogControllerTest {
 		BlogCommand command = new BlogCommand();
 		HttpServletRequest request = mockHttpServletRequest();
 		HttpServletResponse response = mockHttpServletResponse();
-		int pageNumber = 1;
 		String uniqueName = "uniqueName";
 		
-		ModelAndView modelAndView = controller.displayArticle(command, request, response, pageNumber, uniqueName);
+		ModelAndView modelAndView = controller.displayArticle(command, request, response, uniqueName);
 		
 		Assert.assertFalse(command.isDisplayAboutMe());
 		Assert.assertTrue(command.isDisplayArticle());
@@ -241,23 +171,7 @@ public class BlogControllerTest {
 		
 		Assert.assertEquals("unique_name_1", command.getArticle().getUniqueName());
 		
-		Assert.assertEquals(Integer.valueOf(1), command.getPageCurrent());
-		Assert.assertEquals(Integer.valueOf(3), command.getPagesCount());
-		
 		Assert.assertEquals("blogJsp", modelAndView.getViewName());
-		
-	}
-	
-	@Test(expected = PagenationException.class)
-	public void displayArticle_withException() throws Exception {
-		
-		BlogCommand command = new BlogCommand();
-		HttpServletRequest request = mockHttpServletRequest();
-		HttpServletResponse response = mockHttpServletResponse();
-		int pageNumber = 8;
-		String uniqueName = "uniqueName";
-		
-		controller.displayArticle(command, request, response, pageNumber, uniqueName);
 		
 	}
 	
@@ -601,37 +515,6 @@ public class BlogControllerTest {
 	}
 	
 	@Test
-	public void handleArticlePagenation() throws Exception {
-		
-		ArticleEntity article = new ArticleEntity();
-		article.setPagesCount(4);
-		
-		BlogCommand command = new BlogCommand();
-		command.setArticle(article);
-		int pageNumber = 1;
-		
-		controller.handleArticlePagenation(command, pageNumber);
-		
-		Assert.assertEquals(Integer.valueOf(1), command.getPageCurrent());
-		Assert.assertEquals(Integer.valueOf(4), command.getPagesCount());
-		
-	}
-	
-	@Test(expected = PagenationException.class)
-	public void handleArticlePagenation_withException() throws Exception{
-		
-		ArticleEntity article = new ArticleEntity();
-		article.setPagesCount(4);
-		
-		BlogCommand command = new BlogCommand();
-		command.setArticle(article);
-		int pageNumber = 8;
-		
-		controller.handleArticlePagenation(command, pageNumber);
-		
-	}
-	
-	@Test
 	public void handleArticleListWithTagPagenation() throws Exception {
 		
 		BlogCommand command = new BlogCommand();
@@ -779,7 +662,6 @@ public class BlogControllerTest {
 		article.setTitle("Title 1");
 		article.setDescriptionPath("Description 1");
 		article.setContentPath("Path/path1");
-		article.setPagesCount(3);		
 		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("19991225174553"));
 		article.setCreationDateAsString("December 25, 1999");
 		article.setAuthor("Author1");
@@ -813,7 +695,6 @@ public class BlogControllerTest {
 		article.setTitle("Title 2");
 		article.setDescriptionPath("Description 2");
 		article.setContentPath("Path/path1");
-		article.setPagesCount(3);		
 		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("19991225174553"));
 		article.setCreationDateAsString("December 25, 1999");
 		article.setAuthor("Author2");

@@ -101,74 +101,24 @@ public class BlogController extends AbstractController{
 	}
 	
 	/**
-	 * Method handles page with single article. By page one 
-	 * should be no page number in url.
-	 * 
-	 * @param command object BlogCommand with data from page
-	 * @param request object HttpServletRequest with request from page 
-	 * @param response object HttpServletResponse with response to page
-	 * @param pageNumber int with current page number
-	 * @param uniqueName object String with unique name of article
-	 * @return object ModelAndView with model and view of page
-	 * @throws Exception
-	 */
-	@RequestMapping("/article/{uniqueName}")
-	public ModelAndView displayArticlePageOne(@ModelAttribute("command")BlogCommand command,
-			HttpServletRequest request, HttpServletResponse response,
-			@PathVariable String uniqueName) throws Exception{
-		
-		return displayArticle(command, request, response, 1, uniqueName);
-		
-	}
-	
-	/**
-	 * Method handles page with single article. 
-	 * By pages other then one should be page number in url.
-	 * 
-	 * @param command object BlogCommand with data from page
-	 * @param request object HttpServletRequest with request from page 
-	 * @param response object HttpServletResponse with response to page
-	 * @param pageNumber int with current page number
-	 * @param uniqueName object String with unique name of article
-	 * @return object ModelAndView with model and view of page
-	 * @throws Exception
-	 */
-	@RequestMapping("/article/page/{pageNumber}/{uniqueName}")
-	public ModelAndView displayArticlePageNotOne(@ModelAttribute("command")BlogCommand command,
-			HttpServletRequest request, HttpServletResponse response,
-			@PathVariable int pageNumber, 
-			@PathVariable String uniqueName) throws Exception{
-		
-		if(pageNumber == 1){
-			return new ModelAndView(new RedirectView("/article/" + uniqueName , true, true, true));
-		}else{
-			return displayArticle(command, request, response, pageNumber, uniqueName);
-		}
-		
-	}
-	
-	/**
 	 * Method handles page with single article.
 	 * 
 	 * @param command object BlogCommand with data from page
 	 * @param request object HttpServletRequest with request from page 
 	 * @param response object HttpServletResponse with response to page
-	 * @param pageNumber int with current page number
 	 * @param uniqueName object String with unique name of article
 	 * @return object ModelAndView with model and view of page
 	 * @throws Exception
 	 */
+	@RequestMapping("/article/{uniqueName}")
 	protected ModelAndView displayArticle(@ModelAttribute("command")BlogCommand command,
 			HttpServletRequest request, HttpServletResponse response,
-			@PathVariable int pageNumber, 
 			@PathVariable String uniqueName) throws Exception{
 		
 		command.setDisplayArticle(true);
 		handleCommand(command, request);
 		
 		command.setArticle(articleService.getArticleByUniqueName(uniqueName, command.getLocale()));
-				
-		handleArticlePagenation(command, pageNumber);
 		
 		return new ModelAndView("blogJsp");
 		
@@ -406,22 +356,6 @@ public class BlogController extends AbstractController{
 		
 		Integer pageCurrent = pageNumber;
 		Integer pagesCount = articleService.getPagesCountOfAllArticles();
-		
-		handlePagenation(command, pageCurrent, pagesCount);
-		
-	}
-	
-	/**
-	 * Method handles pagenation for article.
-	 * 
-	 * @param command object BlogCommand with page data
-	 * @param pageNumber int with number of current page
-	 * @throws Exception
-	 */
-	protected void handleArticlePagenation(BlogCommand command, int pageNumber) throws Exception {
-		
-		Integer pageCurrent = pageNumber;
-		Integer pagesCount = command.getArticle().getPagesCount();
 		
 		handlePagenation(command, pageCurrent, pagesCount);
 		

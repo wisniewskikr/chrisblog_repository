@@ -276,7 +276,6 @@ public class ArticleDaoTest {
 		article.setDemoName("demo");
 		article.setDescriptionPath("description");
 		article.setExampleFileName("example");
-		article.setPagesCount(1);
 		article.setSourceFileName("source");
 		article.setStatus(ArticleStatusEnum.ACTIVE);
 		article.setTitle("title");
@@ -309,7 +308,6 @@ public class ArticleDaoTest {
 		article.setDemoName("demo");
 		article.setDescriptionPath("description");
 		article.setExampleFileName("example");
-		article.setPagesCount(1);
 		article.setSourceFileName("source");
 		article.setStatus(ArticleStatusEnum.ACTIVE);
 		article.setTitle("title");
@@ -340,7 +338,6 @@ public class ArticleDaoTest {
 		
 		article.setUniqueName("uniqueName-changed");
 		article.setTitle("title-changed");
-		article.setPagesCount(9);
 		article.setCreationDate(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("20010101120000"));
 		article.setAuthor("author-changed");
 		article.setDemoName("demoName-changed");
@@ -354,7 +351,6 @@ public class ArticleDaoTest {
 		
 		assertEquals("uniqueName-changed", article.getUniqueName());
 		assertEquals("title-changed", article.getTitle());
-		assertEquals(Integer.valueOf(9), article.getPagesCount());
 		assertEquals(DateUtils.convertStringToCalendarYYYYMMDDHHMMSS("20010101120000"), article.getCreationDate());
 		assertEquals("author-changed", article.getAuthor());
 		assertEquals("demoName-changed", article.getDemoName());

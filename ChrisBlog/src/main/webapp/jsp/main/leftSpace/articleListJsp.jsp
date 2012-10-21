@@ -40,7 +40,7 @@
 							</p>
 								
 							<p>
-								<a id="${article.uniqueName}_readMore" class="button" href="article/page/1/${article.uniqueName}">Read more</a>
+								<a id="${article.uniqueName}_readMore" class="button" href="article/${article.uniqueName}">Read more</a>
 							</p>
 							
 						</li>					
