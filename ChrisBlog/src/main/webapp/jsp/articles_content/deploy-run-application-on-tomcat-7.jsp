@@ -5,7 +5,7 @@
 	<a href='explanation/web_application' target='_blank' class='dialogLink'>web application</a> (.war)
 	on 
 	<a href="explanation/application_server" class='dialogLink' target='_blank'>application server</a> 
-	Apache Tomcat in version 7 (in both Windows and Linux environment).
+	<b>Apache Tomcat</b> in version <b>7</b> (in both Windows and Linux environment).
 </p>
 
 
@@ -32,7 +32,7 @@
 			this example application was tested on web browser Google Chrome in version <i>8.0.552</i>;
 		</li>
 		<li>
-			<b>Web application (.war)</b>: we assume that we have properly build 
+			<b>Web application (.war)</b>: we assume that we have properly built 
 			<a href="explanation/war_file" class='dialogLink' target='_blank'>War file</a> 
 			with web application resources. In this tutorial we will use example application packed to 
 			the war file called <i>hello.war</i>. You can download this file here:  
@@ -72,7 +72,7 @@
 	The way of deploying 
 	<a href="explanation/war_file" class='dialogLink' target='_blank' 
 		>War file</a>
-	 in different for every application server - you should check documentation. 
+	 is different for every application server - you should check documentation. 
 </p>
 
 <p>
@@ -114,12 +114,12 @@
 </p>
 
 <div class="img">
-	<img src="images/articles/helloWorldServlets_pic6.png"/>
-	<div>Url of web application HelloWorldServlets</div>
+	<img src="images/articles/deploy-run-application-on-tomcat-7/application_hello.png"/>
+	<div>Deployed application</div>
 </div>
 
 <p>
-	You can test <b>working example application</b> here: 
+	You can test <b>working application</b> here: 
 	<a href="${command.article.demoPath}" class="button" target="_blank">demo</a>
 </p>
 
