@@ -141,8 +141,9 @@ h1 a, h2 a {
 	text-shadow: 0 1px 1px rgba(255, 255, 255, 1);
 	margin-left: 120px;
 	position: absolute;
-	top: 5px;
+	top: 1px;
 	text-transform: lowercase;
+	font-family: Georgia, Times, serif;
 }
 
 #headerSearchArea {
