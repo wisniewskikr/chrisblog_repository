@@ -85,19 +85,25 @@
 			
 		
 		<p id="secPageNavigation">
-			<c:if test="${command.displaySecCreateArticleDescr}">			
-				<a href="javascript:send('secured/handle-create-article-description-back-button', 'article');" class="button">« Back</a>
-				<a href="javascript:send('secured/handle-create-article-description', 'article');" class="button">Next »</a>
+			<c:if test="${command.displaySecCreateArticleDescr}">
+				<span class="back_next_buttons">			
+					<a href="javascript:send('secured/handle-create-article-description-back-button', 'article');" class="button">« Back</a>
+					<a href="javascript:send('secured/handle-create-article-description', 'article');" class="button">Next »</a>
+				</span>	
 				<a id="cancel" href="secured/handle-create-article-cancel/${article.uniqueName}" class="button">Cancel</a>
 			</c:if>			
-			<c:if test="${command.displaySecViewArticleDescr}">			
-				<a href="javascript:send('secured/handle-view-article-description-back-button', 'article');" class="button">« Back</a>
-				<a href="javascript:send('secured/handle-view-article-description', 'article');" class="button">Next »</a>
+			<c:if test="${command.displaySecViewArticleDescr}">	
+				<span class="back_next_buttons">		
+					<a href="javascript:send('secured/handle-view-article-description-back-button', 'article');" class="button">« Back</a>
+					<a href="javascript:send('secured/handle-view-article-description', 'article');" class="button">Next »</a>
+				</span>	
 				<a id="cancel" href="secured/article-list" class="button">Cancel</a>
 			</c:if>			
 			<c:if test="${command.displaySecEditArticleDescr}">			
-				<a href="javascript:send('secured/handle-edit-article-description-back-button', 'article');" class="button">« Back</a>
-				<a href="javascript:send('secured/handle-edit-article-description', 'article');" class="button">Next »</a>
+				<span class="back_next_buttons">
+					<a href="javascript:send('secured/handle-edit-article-description-back-button', 'article');" class="button">« Back</a>
+					<a href="javascript:send('secured/handle-edit-article-description', 'article');" class="button">Next »</a>
+				</span>	
 				<a id="cancel" href="secured/article-list" class="button">Cancel</a>
 			</c:if>			
 		</p>

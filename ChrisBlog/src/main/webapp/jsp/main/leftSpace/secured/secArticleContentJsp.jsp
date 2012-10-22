@@ -86,16 +86,22 @@
 		
 		<p id="secPageNavigation">
 			<c:if test="${command.displaySecCreateArticleContent}">
-				<a href="javascript:send('secured/handle-create-article-content-back-button', 'article');" class="button">« Back</a>
+				<span class="back_next_buttons">
+					<a href="javascript:send('secured/handle-create-article-content-back-button', 'article');" class="button">« Back</a>
+				</span>	
 				<a href="javascript:send('secured/handle-create-article-content', 'article');" class="button">Create</a>			
 				<a id="cancel" href="secured/handle-create-article-cancel/${article.uniqueName}" class="button">Cancel</a>
 			</c:if>			
 			<c:if test="${command.displaySecViewArticleContent}">
-				<a href="javascript:send('secured/handle-view-article-content-back-button', 'article');" class="button">« Back</a>
+				<span class="back_next_buttons">
+					<a href="javascript:send('secured/handle-view-article-content-back-button', 'article');" class="button">« Back</a>
+				</span>
 				<a id="cancel" href="secured/article-list" class="button">Cancel</a>
 			</c:if>	
 			<c:if test="${command.displaySecEditArticleContent}">
-				<a href="javascript:send('secured/handle-edit-article-content-back-button', 'article');" class="button">« Back</a>
+				<span class="back_next_buttons">
+					<a href="javascript:send('secured/handle-edit-article-content-back-button', 'article');" class="button">« Back</a>
+				</span>	
 				<a href="javascript:send('secured/handle-edit-article-content', 'article');" class="button">Apply</a>			
 				<a id="cancel" href="secured/article-list" class="button">Cancel</a>
 			</c:if>			
