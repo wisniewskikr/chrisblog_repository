@@ -50,7 +50,8 @@
 			</div>		
 			<div id="rightTags">
 				<ul>
-					<c:forEach items="${command.tagsCloudRightSpace.tags()}" var="tag">
+					<c:set var="comparator" value="<%=new org.mcavallo.opencloud.Tag.ScoreComparatorDesc()%>"/>
+					<c:forEach items="${command.tagsCloudRightSpace.tags(comparator)}" var="tag">
 						<a href="${tag.link}" class="rightTagsCloud" style="font-size: ${tag.weight}px;">${tag.name}</a> 
 					</c:forEach>					
 				</ul>
