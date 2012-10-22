@@ -18,8 +18,8 @@ VALUES (2, 'build-war-with-maven-windows', 'Build war file with Maven (Windows)'
 
 GO
 
-INSERT INTO articles (ID, UNIQUE_NAME, TITLE, CREATION_DATE, AUTHOR, STATUS)
-VALUES (3, 'deploy-run-application-on-tomcat-7', 'Deploy and run application on Tomcat 7', '2012-10-02 12:00:00', 'Chris', 'ACTIVE');
+INSERT INTO articles (ID, UNIQUE_NAME, TITLE, CREATION_DATE, AUTHOR, STATUS, DEMO_NAME, EXAMPLE_FILE_NAME)
+VALUES (3, 'deploy-run-application-on-tomcat-7', 'Deploy and run application on Tomcat 7', '2012-10-02 12:00:00', 'Chris', 'ACTIVE', 'hello', 'hello.war');
 
 GO
 
