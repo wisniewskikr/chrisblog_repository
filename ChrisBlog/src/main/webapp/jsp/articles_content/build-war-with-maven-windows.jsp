@@ -101,7 +101,7 @@ of our project.</p>
 
 <h2>Check our goal</h2>
 
-<p>In the location <i>C:\MavenProject/target</i> we should see now 
+<p>In the location <i>C:\MavenProject\target</i> we should see now 
 <a href="explanation/war_file" class='dialogLink' target='_blank'>War file</a> 
 with resources of our Maven`s project. The name of 
 <a href="explanation/war_file" class='dialogLink' target='_blank'>War file</a>
