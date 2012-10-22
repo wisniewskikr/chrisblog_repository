@@ -45,7 +45,7 @@
 
 
 
-<h2>Environment</h2>
+<h2>Environment and preconditions</h2>
 
 <p>
 	This example application was created and tested in the following environment:

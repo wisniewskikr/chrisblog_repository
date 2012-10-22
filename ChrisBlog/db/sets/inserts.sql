@@ -14,7 +14,7 @@ VALUES (1, 'hello-world-servlets', 'Hello World Servlets', '2012-01-04 12:00:00'
 GO
 
 INSERT INTO articles (ID, UNIQUE_NAME, TITLE, CREATION_DATE, AUTHOR, STATUS)
-VALUES (2, 'build-war-with-maven', 'Build war file with Maven', '2012-10-01 12:00:00', 'Chris', 'ACTIVE');
+VALUES (2, 'build-war-with-maven-windows', 'Build war file with Maven (Windows)', '2012-10-22 12:00:00', 'Chris', 'ACTIVE');
 
 GO
 
@@ -60,6 +60,11 @@ GO
 
 INSERT INTO article_tags (ID, UNIQUE_NAME, NAME)
 VALUES (8, 'tomcat', 'Tomcat');
+
+GO
+
+INSERT INTO article_tags (ID, UNIQUE_NAME, NAME)
+VALUES (9, 'windows', 'Windows');
 
 GO
 
@@ -110,6 +115,11 @@ GO
 
 INSERT INTO join_article_and_tag (ARTICLE_ID, ARTICLE_TAG_ID)
 VALUES (2, 7);
+
+GO
+
+INSERT INTO join_article_and_tag (ARTICLE_ID, ARTICLE_TAG_ID)
+VALUES (2, 9);
 
 GO
 
