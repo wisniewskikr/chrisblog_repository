@@ -425,6 +425,8 @@ span.metaPagesCount {
 .rightTagsCloud{
 	color: #888;
 	margin-right: 5px;
+	white-space:nowrap;
+	text-transform:capitalize;
 }
 
 #footer {
