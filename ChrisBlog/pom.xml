@@ -141,6 +141,12 @@
 				<server.username>chrisb</server.username>
 				<server.password>4BikDMn3</server.password>
 				<server.path>/</server.path>
+				
+				<!-- Data base -->
+				<db.url>jdbc:mysql://localhost:3306/chrisb_blog</db.url>
+				<db.driver>com.mysql.jdbc.Driver</db.driver>
+				<db.username>chrisb_admin</db.username>
+				<db.password>P@ssw0rd</db.password>
 			</properties>			
 		</profile>
 		
