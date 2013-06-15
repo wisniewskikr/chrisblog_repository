@@ -167,16 +167,16 @@ public class ArticleService {
 	public Integer getPagesCountOfAllArticles() throws Exception {
 		
 		int articlesCount = articleDao.getCountOfAllArticles();
-		
-		if(articlesCount == 0){
-			throw new ArticleException("Count of all articles strored in db is 0.");
-		}
-		
+				
 		int result = articlesCount / countArticlesPerPage;
 		int rest = articlesCount % countArticlesPerPage;
 		
 		if(rest != 0){
 			result++;
+		}
+		
+		if(result == 0) {
+			result = 1;
 		}
 		
 		return result;

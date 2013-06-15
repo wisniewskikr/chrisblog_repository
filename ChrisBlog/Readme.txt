@@ -29,7 +29,13 @@ STEPS CHRIS`S BLOG DEPLOYMENT
 - update profiles in pom.xml
 
 
-5. Build project
+5. Create dababases
+By default you have to create in MySql two databases:
+- chrisblog_db
+- chrisblog_db_test
+
+
+6. Build project
 Build project using maven profiles:
 
 - with server location:

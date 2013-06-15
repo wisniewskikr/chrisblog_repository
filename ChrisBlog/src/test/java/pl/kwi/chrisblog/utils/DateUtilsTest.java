@@ -157,13 +157,13 @@ public class DateUtilsTest {
 	@Test
 	public void convertStringWithMonthAsTextToCalendar_localePL(){
 		
-		String date = "Grudzień 26, 2011";
+		String date = "Marzec 26, 2011";
 		Locale locale = new Locale("pl", "PL");
 		
 		Calendar cal = DateUtils.convertStringWithMonthAsTextToCalendar(date, locale);
 		
 		assertEquals(2011, cal.get(Calendar.YEAR));
-		assertEquals(11, cal.get(Calendar.MONTH));
+		assertEquals(02, cal.get(Calendar.MONTH));
 		assertEquals(26, cal.get(Calendar.DAY_OF_MONTH));
 		assertEquals(00, cal.get(Calendar.HOUR_OF_DAY));
 		assertEquals(00, cal.get(Calendar.MINUTE));
