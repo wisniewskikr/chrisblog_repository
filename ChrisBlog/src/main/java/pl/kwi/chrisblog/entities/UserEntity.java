@@ -24,7 +24,7 @@ public class UserEntity extends AbstractEntity{
 		this.name = name;
 	}
 	
-	@Column(name="password", length=45, nullable=false)
+	@Column(name="password", length=100, nullable=false)
 	public String getPassword() {
 		return password;
 	}

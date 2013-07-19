@@ -63,5 +63,19 @@ public class UserDaoTest{
 		assertFalse(user.getEnabled());
 		
 	}
+	
+	@Test
+	@DatabaseSetup("/dbunit/UserDaoTest.xml")
+	public void create() {
+		
+		UserEntity user = new UserEntity();
+		user.setName("admin4");
+		user.setPassword("password4");
+		user.setEnabled(true);
+		dao.create(user);
+		
+		assertEquals(4, dao.findAll().size());
+		
+	}
 
 }

@@ -18,36 +18,6 @@
 		<spring.version>3.0.4.RELEASE</spring.version>		
 	</properties>
 
-
-	<build>		
-	
-		<finalName>${project.artifactId}</finalName>
-				
-    	<resources>		
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
-		<testResources>
-			<testResource>
-				<directory>src/test/resources</directory>
-				<filtering>true</filtering>
-			</testResource>
-		</testResources>
-				
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
-				</configuration>
-			</plugin>
-		</plugins>
-		
-	</build>
 	
 	
 	<profiles>
@@ -68,7 +38,7 @@
 				<folder.sources>chrisblog_sources</folder.sources>
 				
 				<!-- Server data -->
-				<server.url>http://localhost:8080/manager/html</server.url>
+				<server.url>http://localhost:8080/manager/text</server.url>
 				<server.username>admin</server.username>
 				<server.password>admin</server.password>
 				<server.path>/${project.artifactId}</server.path>
@@ -101,7 +71,7 @@
 				<folder.sources>chrisblog_sources</folder.sources>
 				
 				<!-- Server data -->
-				<server.url>http://chris-blog.org/manager/html</server.url>
+				<server.url>http://chris-blog.org/manager/text</server.url>
 				<server.username>chrisb</server.username>
 				<server.password>4BikDMn3</server.password>
 				<server.path>/${project.artifactId}</server.path>
@@ -137,7 +107,7 @@
 				<folder.sources>chrisblog_sources</folder.sources>
 				
 				<!-- Server data -->
-				<server.url>http://chris-blog.org/manager/html</server.url>
+				<server.url>http://chris-blog.org/manager/text</server.url>
 				<server.username>chrisb</server.username>
 				<server.password>4BikDMn3</server.password>
 				<server.path>/</server.path>
@@ -240,7 +210,7 @@
 		
 		<!-- Deploy: deploying application on the server -->
 		<profile>
-			<id>deploy</id>			
+			<id>deploy</id>						
 			<build>
 				<plugins>
 					<!-- Skip unit tests -->
@@ -405,6 +375,39 @@
 		</profile>				
 				
 	</profiles>
+	
+	
+	
+	<build>		
+	
+		<finalName>${project.artifactId}</finalName>
+				
+    	<resources>		
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
+				
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+		</plugins>
+		
+	</build>	
+
 
 
 	<dependencies>	
