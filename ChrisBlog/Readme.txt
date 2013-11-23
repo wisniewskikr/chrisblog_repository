@@ -9,6 +9,7 @@ For this project is used database MySql. Configuration steps:
 1. Create database
 You have to crate database in MySql for this project. By default it is:
 - database name			: chrisblog_db
+- test database name	: chrisblog_db_test
 
 
 2. Update pom.xml file
@@ -17,7 +18,7 @@ You have to do it in profile "loc". By default it is:
 - db.url				: jdbc:mysql://localhost:3306/chrisblog_db
 - db.driver				: com.mysql.jdbc.Driver
 - db.username			: root
-- db.password			: P@ssw0rd 
+- db.password			: admin
 
 
 

@@ -47,13 +47,13 @@
 				<db.url>jdbc:mysql://localhost:3306/chrisblog_db</db.url>
 				<db.driver>com.mysql.jdbc.Driver</db.driver>
 				<db.username>root</db.username>
-				<db.password>P@ssw0rd</db.password>
+				<db.password>admin</db.password>
 				
 				<!-- Test data base -->
 				<test.db.url>jdbc:mysql://localhost:3306/chrisblog_db_test</test.db.url>
 				<test.db.driver>com.mysql.jdbc.Driver</test.db.driver>
 				<test.db.username>root</test.db.username>
-				<test.db.password>P@ssw0rd</test.db.password>
+				<test.db.password>admin</test.db.password>
 			</properties>				
 		</profile>
 		
@@ -83,13 +83,13 @@
 				<db.url>jdbc:mysql://localhost:3306/chrisb_blog_jenkins</db.url>
 				<db.driver>com.mysql.jdbc.Driver</db.driver>
 				<db.username>chrisb_admin</db.username>
-				<db.password>P@ssw0rd</db.password>
+				<db.password>admin</db.password>
 				
 				<!-- Test data base -->
 				<test.db.url>jdbc:mysql://localhost:3306/chrisb_blog_jenkins_test</test.db.url>
 				<test.db.driver>com.mysql.jdbc.Driver</test.db.driver>
 				<test.db.username>chrisb_admin</test.db.username>
-				<test.db.password>P@ssw0rd</test.db.password>
+				<test.db.password>admin</test.db.password>
 			</properties>		
 		</profile>
 		
@@ -116,7 +116,7 @@
 				<db.url>jdbc:mysql://localhost:3306/chrisb_blog</db.url>
 				<db.driver>com.mysql.jdbc.Driver</db.driver>
 				<db.username>chrisb_admin</db.username>
-				<db.password>P@ssw0rd</db.password>
+				<db.password>admin</db.password>
 			</properties>			
 		</profile>
 		
